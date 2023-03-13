@@ -18,37 +18,4 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-# To compile and publish the library, you need to enter the following commands:
-# python setup.py sdist
-# twine upload dist/*
-
-from setuptools import setup
-
-with open("README.md", "r", encoding='utf-8') as readme_file:
-    readme = readme_file.read()
-
-setup(
-    name="qt_colored_logger",
-    version="0.0.1",
-
-    author="Kalynovsky 'Nakama3942' Valentin",
-    author_email="nakama3942@gmail.com",
-
-    description="Powerful functional logger with support for qt programming",
-    long_description=readme,
-    long_description_content_type="text/markdown",
-
-    url="https://github.com/Nakama3942/qt_colored_logger",
-
-    license="Apache License, Version 2.0, see LICENSE file",
-
-    packages=['qt_colored_logger'],
-    classifiers=[
-        "Development Status :: 1 - Planning",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: Apache Software License",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3.11",
-        "Topic :: System :: Logging",
-    ]
-)
+pass

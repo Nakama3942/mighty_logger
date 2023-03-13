@@ -58,9 +58,9 @@ limitations under the License.
 	- def translate_docs()
 	- def start_global_translate() -> bool
 - Combined all functionality into a single class - DoxDocsTranslator
--->
----
 
+---
+-->
 ## v0.0.1 (18.09.2022)
 
 #### Release

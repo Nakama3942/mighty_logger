@@ -18,6 +18,9 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
+# The idea is taken here:
+# https://github.com/Nakama3942/WiretappingScanner/commit/da5e0e71681b9e1462d5bba5438fc8b1fde8142e
+
 import datetime, platform, os
 
 ColorPickerQ = {
@@ -74,55 +77,74 @@ class LoggerQ:
 	def messageEnabled(self, enabled: bool):
 		self.message = enabled
 
-	def DEBUG(self, status_message_text: str = "", message_text: str = "") -> str:
+	def DEBUG(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
 		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
 		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
 		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
 		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
 		log += f"<span style='color: {ColorPickerQ['GREY']};'>@DEBUG -</span>\t" if self.status_type else ""
 		log += f"<span style='color: {ColorPickerQ['DARKGREY']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
 		return log
 
-	def INFO(self, status_message_text: str = "", message_text: str = "") -> str:
+	def INFO(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
 		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
 		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
 		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
 		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
 		log += f"<span style='color: {ColorPickerQ['CYAN']};'>@INFO -</span>\t" if self.status_type else ""
 		log += f"<span style='color: {ColorPickerQ['DARKCYAN']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
 		return log
 
-	def WARNING(self, status_message_text: str = "", message_text: str = "") -> str:
+	def WARNING(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
 		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
 		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
 		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
 		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
 		log += f"<span style='color: {ColorPickerQ['YELLOW']};'>@WARNING -</span>\t" if self.status_type else ""
 		log += f"<span style='color: {ColorPickerQ['DARKYELLOW']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
 		return log
 
-	def ERROR(self, status_message_text: str = "", message_text: str = "") -> str:
+	def ERROR(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
 		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
 		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
 		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
 		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
 		log += f"<span style='color: {ColorPickerQ['RED']};'>!ERROR -</span>\t" if self.status_type else ""
 		log += f"<span style='color: {ColorPickerQ['DARKRED']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
 		return log
 
-	def CRITICAL(self, status_message_text: str = "", message_text: str = "") -> str:
-		log = f"<b>"
+	def CRITICAL(self, status_message_text: str = "", message_text: str = "", bold: bool = True, italic: bool = False) -> str:
+		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
 		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
 		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
 		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
 		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
 		log += f"<span style='color: {ColorPickerQ['RED']};'>!!!@CRITICAL -</span>\t" if self.status_type else ""
 		log += f"<span style='color: {ColorPickerQ['DARKRED']};'>{message_text}</span>" if self.message else ""
-		log += f"</b>"
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
 		return log
 
 

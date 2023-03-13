@@ -1,12 +1,11 @@
-<!--
 [![template](https://img.shields.io/badge/Repository-template-darkred)](https://github.com/Nakama3942/template_rep)
-[![GitHub license](https://img.shields.io/github/license/Nakama3942/Dox-docs_Translator?color=gold&style=flat-square)](https://github.com/Nakama3942/Dox-docs_Translator/blob/main/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/Nakama3942/qt_colored_logger?color=gold&style=flat-square)](https://github.com/Nakama3942/qt_colored_logger/blob/master/LICENSE)
 
-[![CHANGELOG](https://img.shields.io/badge/here-CHANGELOG-yellow)](https://github.com/Nakama3942/Dox-docs_Translator/blob/main/CHANGELOG.md)
-[![CONTRIBUTING](https://img.shields.io/badge/here-CONTRIBUTING-indigo)](https://github.com/Nakama3942/Dox-docs_Translator/blob/main/CONTRIBUTING.md)
-[![CODE_OF_CONDUCT](https://img.shields.io/badge/here-CODE_OF_CONDUCT-darkgreen)](https://github.com/Nakama3942/Dox-docs_Translator/blob/main/CODE_OF_CONDUCT.md)
-[![PULL_REQUEST_TEMPLATE](https://img.shields.io/badge/here-PULL_REQUEST_TEMPLATE-orange)](https://github.com/Nakama3942/Dox-docs_Translator/blob/main/.github/PULL_REQUEST_TEMPLATE.md)
--->
+[![CHANGELOG](https://img.shields.io/badge/here-CHANGELOG-yellow)](https://github.com/Nakama3942/qt_colored_logger/blob/master/CHANGELOG.md)
+[![CONTRIBUTING](https://img.shields.io/badge/here-CONTRIBUTING-indigo)](https://github.com/Nakama3942/qt_colored_logger/blob/master/CONTRIBUTING.md)
+[![CODE_OF_CONDUCT](https://img.shields.io/badge/here-CODE_OF_CONDUCT-darkgreen)](https://github.com/Nakama3942/qt_colored_logger/blob/master/CODE_OF_CONDUCT.md)
+[![PULL_REQUEST_TEMPLATE](https://img.shields.io/badge/here-PULL_REQUEST_TEMPLATE-orange)](https://github.com/Nakama3942/qt_colored_logger/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
+
 <!--
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
@@ -27,19 +26,31 @@ limitations under the License.
 ## Content
 - [Qt_Сolored-logger](#qt_colored-logger)
     - [Content](#content)
+    - [Preamble](#preamble)
     - [Overview](#overview)
     - [LICENSE](#license)
     - [Usage](#usage)
     - [Troubleshooting](#troubleshooting)
     - [Authors](#authors)
 
-## Overview
-<!--For popular programming languages such as C++, C, C#, Java, Python, etc., Doxygen is used to compile the documentation - software that generates documentation from comments of the established style in the project raws. For the generation of multilingual documentation, storing documentation comments in raw is bad, since in this case it is possible to write documentation in only one language. To solve this problem, Doxygen supports files with the .dox extension. That is, documenting comments can be exported from the code to a .dox file and several copies of it can be made with different translations. Since writing a translation takes a lot of time and it is easier to turn to Google translator - I decided to write this script.
+## Preamble
+I often came across the opinion that it is better to use not standard output to the console, but full-fledged logging... However, the standard libraries do not provide exactly what I need... Therefore, I decided to make my own library! Which will implement the functionality I need.
 
-The script opens the documentation file, reads it, breaks it into separate parts and translates the documentation part by part.-->
+## Overview
+The library implements the formation of a beautifully formatted colored text, similar to a log, which has all the necessary information:
+- Logging time
+- Name of device and profile that logged
+- Log status
+- Description of the log status
+- Log type
+- Log message
+
+Any information to the output can be turned off (according to the standard, everything is included). It is also possible to change the output settings during the logging process. It is possible to change colors (class ~~PickerModifier and~~ PickerModifierQ).
+
+*!!!ATTEMPTION!!! At the moment, logging is implemented only in the form of HTML code for QTextBrowser for PyQt, since quite often I need to output the log not to the console, but to the program and save it to a file, including saving colors. Therefore, in this version, output to the console is not implemented, but only in QTextBrowser, however, in the next versions, a lot of functionality will be implemented for easy and convenient logging!*
 
 ## LICENSE
-<!--The full text of the license can be found at the following [link](https://github.com/Nakama3942/Dox-docs_Translator/blob/main/LICENSE).
+The full text of the license can be found at the following [link](https://github.com/Nakama3942/qt_colored_logger/blob/master/LICENSE).
 
 > Copyright © 2022 Kalynovsky Valentin. All rights reserved.
 > 
@@ -52,9 +63,10 @@ The script opens the documentation file, reads it, breaks it into separate parts
 > Unless required by applicable law or agreed to in writing, software
 > distributed under the License is distributed on an "AS IS" BASIS,
 > WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-> See the License for the specific language governing permissions and-->
+> See the License for the specific language governing permissions and
 
 ## Usage
+- Empty
 <!--To install the library, you need to execute the command:
 ```sh
 pip install dox-docs-translator
@@ -94,7 +106,7 @@ if __name__ == '__main__':
 <i><b>Artifacts may appear after translation. This happens during translation, and therefore the errors are not related to this library. After the translation, you should view the received file and correct the artifacts yourself.</b></i>-->
 
 ## Troubleshooting
-<!--All algorithms have been tested by me, but if you have problems using the library, the code does not work, have suggestions for optimization or advice to improve the style of the code and the name - I invite you [here](https://github.com/Nakama3942/Dox-docs_Translator/blob/main/CONTRIBUTING.md) and [here](https://github.com/Nakama3942/Dox-docs_Translator/blob/main/CODE_OF_CONDUCT.md).-->
+All functionality of the library has been tested by me, but if you have problems using it, the code does not work, have suggestions for optimization or advice for improving the style of the code and the name - I invite you [here](https://github.com/Nakama3942/qt_colored_logger/blob/master/CONTRIBUTING.md) and [here](https://github.com/Nakama3942/qt_colored_logger/blob/master/CODE_OF_CONDUCT.md).
 
 ## Authors
 <table align="center" style="border-width: 10; border-style: ridge">
