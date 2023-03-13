@@ -61,7 +61,7 @@ limitations under the License.
 
 ---
 -->
-## v0.0.1 (18.09.2022)
+## v0.0.1 (13.03.2023)
 
 #### Release
 The library implements the formation of a beautifully formatted colored text, similar to a log, which has all the necessary information:
