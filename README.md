@@ -24,7 +24,7 @@ limitations under the License.
 
 # Qt_Сolored-logger
 ## Content
-- [Qt_Сolored-logger](#qt_colored-logger)
+- [Qt_Сolored-logger](#qtсolored-logger)
     - [Content](#content)
     - [Preamble](#preamble)
     - [Overview](#overview)
@@ -35,6 +35,8 @@ limitations under the License.
 
 ## Preamble
 I often came across the opinion that it is better to use not standard output to the console, but full-fledged logging... However, the standard libraries do not provide exactly what I need... Therefore, I decided to make my own library! Which will implement the functionality I need.
+
+- [Content](#content)
 
 ## Overview
 The library implements the formation of a beautifully formatted colored text, similar to a log, which has all the necessary information:
@@ -48,6 +50,8 @@ The library implements the formation of a beautifully formatted colored text, si
 Any information to the output can be turned off (according to the standard, everything is included). It is also possible to change the output settings during the logging process. It is possible to change colors (class ~~PickerModifier and~~ PickerModifierQ).
 
 *!!!ATTEMPTION!!! At the moment, logging is implemented only in the form of HTML code for QTextBrowser for PyQt, since quite often I need to output the log not to the console, but to the program and save it to a file, including saving colors. Therefore, in this version, output to the console is not implemented, but only in QTextBrowser, however, in the next versions, a lot of functionality will be implemented for easy and convenient logging!*
+
+- [Content](#content)
 
 ## LICENSE
 The full text of the license can be found at the following [link](https://github.com/Nakama3942/qt_colored_logger/blob/master/LICENSE).
@@ -65,8 +69,11 @@ The full text of the license can be found at the following [link](https://github
 > WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 > See the License for the specific language governing permissions and
 
+- [Content](#content)
+
 ## Usage
 - Empty
+- [Content](#content)
 <!--To install the library, you need to execute the command:
 ```sh
 pip install dox-docs-translator
@@ -107,6 +114,8 @@ if __name__ == '__main__':
 
 ## Troubleshooting
 All functionality of the library has been tested by me, but if you have problems using it, the code does not work, have suggestions for optimization or advice for improving the style of the code and the name - I invite you [here](https://github.com/Nakama3942/qt_colored_logger/blob/master/CONTRIBUTING.md) and [here](https://github.com/Nakama3942/qt_colored_logger/blob/master/CODE_OF_CONDUCT.md).
+
+- [Content](#content)
 
 ## Authors
 <table align="center" style="border-width: 10; border-style: ridge">

@@ -64,4 +64,14 @@ limitations under the License.
 ## v0.0.1 (18.09.2022)
 
 #### Release
-- Implemented a simple color table with 7 color shades, a class for changing these colors (class PickerModifierQ) and a class for generating log lines (LoggerQ).
+The library implements the formation of a beautifully formatted colored text, similar to a log, which has all the necessary information:
+- Logging time
+- Name of device and profile that logged
+- Log status
+- Description of the log status
+- Log type
+- Log message
+
+Any information to the output can be turned off (according to the standard, everything is included). It is also possible to change the output settings during the logging process. It is possible to change colors (class PickerModifierQ).
+
+*!!!ATTEMPTION!!! At the moment, logging is implemented only in the form of HTML code for QTextBrowser for PyQt, since quite often I need to output the log not to the console, but to the program and save it to a file, including saving colors. Therefore, in this version, output to the console is not implemented, but only in QTextBrowser, however, in the next versions, a lot of functionality will be implemented for easy and convenient logging!*

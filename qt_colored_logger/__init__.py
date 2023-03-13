@@ -18,7 +18,7 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from .qt_colored_logger import LoggerQ
+from .qt_colored_logger import LoggerQ, PickerModifierQ
 
 __authot__ = "Kalynovsky 'Nakama3942' Valentin"
 __version__ = "0.0.1"
