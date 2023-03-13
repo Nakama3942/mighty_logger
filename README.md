@@ -8,7 +8,7 @@
 [![PULL_REQUEST_TEMPLATE](https://img.shields.io/badge/here-PULL_REQUEST_TEMPLATE-orange)](https://github.com/Nakama3942/Dox-docs_Translator/blob/main/.github/PULL_REQUEST_TEMPLATE.md)
 -->
 <!--
-Copyright © 2022 Kalynovsky Valentin. All rights reserved.
+Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Qt_colored-logger
+# Qt_Сolored-logger
 ## Content
-- [Qt_colored-logger](#qtcolored-logger)
+- [Qt_Сolored-logger](#qt_colored-logger)
     - [Content](#content)
     - [Overview](#overview)
     - [LICENSE](#license)

@@ -1,7 +1,7 @@
-# #########################   Dox-docs_Translator   ########################## #
+# ##########################   Qt_Сolored-logger   ########################### #
 # ---------------------------------------------------------------------------- #
 #                                                                              #
-# Copyright © 2022 Kalynovsky Valentin. All rights reserved.                   #
+# Copyright © 2023 Kalynovsky Valentin. All rights reserved.                   #
 #                                                                              #
 # Licensed under the Apache License, Version 2.0 (the "License");              #
 # you may not use this file except in compliance with the License.             #
@@ -38,9 +38,9 @@ setup(
     long_description=readme,
     long_description_content_type="text/markdown",
 
-    # url="https://github.com/Nakama3942/dox_docs_translator",
+    url="https://github.com/Nakama3942/qt_colored_logger",
 
-    # license="Apache License, Version 2.0, see LICENSE file",
+    license="Apache License, Version 2.0, see LICENSE file",
 
     # packages=['dox_docs_translator'],
     # install_requires=['googletrans==4.0.0-rc1'],
