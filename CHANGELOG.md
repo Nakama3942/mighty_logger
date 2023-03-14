@@ -34,6 +34,16 @@ limitations under the License.
 
 ---
 -->
+## v0.0.3 (14.03.2023)
+
+#### Bug Fixes:
+- Fixed some typos
+
+#### Enhancements:
+- Added some links to PyPi
+
+---
+
 ## v0.0.2 (14.03.2023)
 
 #### Enhancements:
@@ -48,7 +58,7 @@ limitations under the License.
 	- SUCCESS();
 	- FAIL();
 	- START_PROCESS(); *stub - not implemented*
-    - STOP_PROCESS(); *stub - not implemented*
+	- STOP_PROCESS(); *stub - not implemented*
 
 ---
 
