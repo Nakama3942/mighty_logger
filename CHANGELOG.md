@@ -33,34 +33,25 @@ limitations under the License.
 - [# XXX](https : / / github . com / XXX) DESCRIPTION
 
 ---
-
-## v0.1.0 (24.09.2022)
-
-#### Documenting:
-- Documented new functionality
-- Updated the README.md
+-->
+## v0.0.2 (14.03.2023)
 
 #### Enhancements:
-- Rewritten functionality:
-	- def get_doc()
-	- def optimize_origin_doc()
-	- def optimize_translated_doc()
-	- def split_doc()
-	- def join_docs()
-	- def translate_docs(translatable_docs: str) -> str
-- Renamed:
-	- optimize_origin_doc() on optimize_doc()
-	- optimize_translated_doc() on restoration_doc()
-	- translate_docs() on translate_doc_segment()
-- Implemented new functionality:
-	- def tagging()
-	- def untagging()
-	- def translate_docs()
-	- def start_global_translate() -> bool
-- Combined all functionality into a single class - DoxDocsTranslator
+- Added new colors:
+    - OCEANBLUE;
+    - DARKOCEANBLUE;
+- Changed color names:
+    - CYAN -> BLUE;
+    - DARKCYAN -> DARKBLUE;
+- Added an ID to each logger class; 
+- Added new methods to the Logger class:
+	- SUCCESS();
+	- FAIL();
+	- START_PROCESS(); *stub - not implemented*
+    - STOP_PROCESS(); *stub - not implemented*
 
 ---
--->
+
 ## v0.0.1 (13.03.2023)
 
 #### Release
