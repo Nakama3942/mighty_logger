@@ -102,8 +102,8 @@ class LoggerQ:
 		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
 		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
 		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: {ColorPickerQ['OKEANBLUE']};'>@INFO -</span>\t" if self.status_type else ""
-		log += f"<span style='color: {ColorPickerQ['DARKOKEANBLUE']};'>{message_text}</span>" if self.message else ""
+		log += f"<span style='color: {ColorPickerQ['OCEANBLUE']};'>@INFO -</span>\t" if self.status_type else ""
+		log += f"<span style='color: {ColorPickerQ['DARKOCEANBLUE']};'>{message_text}</span>" if self.message else ""
 		log += f"</i>" if italic else ""
 		log += f"</b>" if bold else ""
 		return log

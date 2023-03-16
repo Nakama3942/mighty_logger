@@ -34,6 +34,13 @@ limitations under the License.
 
 ---
 -->
+## v0.0.4 (16.03.2023)
+
+#### Bug Fixes:
+- An error in the LoggerQ.INFO() method that accessed an unregistered color (a typo in the name of the color: instead of OCEANBLUE and DARKOCEANBLUE - OKEANBLUE and DARKOKEANBLUE, respectively). Do not use v0.0.2 and v0.0.3!
+
+---
+
 ## v0.0.3 (14.03.2023)
 
 #### Bug Fixes:

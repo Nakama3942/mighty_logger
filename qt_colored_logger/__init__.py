@@ -21,5 +21,5 @@
 from .qt_colored_logger import LoggerQ, PickerModifierQ
 
 __authot__ = "Kalynovsky 'Nakama3942' Valentin"
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __email__ = "nakama3942@gmail.com"

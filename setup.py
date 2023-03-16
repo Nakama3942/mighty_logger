@@ -29,7 +29,7 @@ with open("README.md", "r", encoding='utf-8') as readme_file:
 
 setup(
     name="qt_colored_logger",
-    version="0.0.3",
+    version="0.0.4",
 
     author="Kalynovsky 'Nakama3942' Valentin",
     author_email="nakama3942@gmail.com",
@@ -52,8 +52,6 @@ setup(
         "Topic :: System :: Logging",
     ],
     project_urls={
-        'GitHub': 'https://github.com/Nakama3942/qt_colored_logger',
         'Releases': 'https://github.com/Nakama3942/qt_colored_logger/releases',
-        'Changelog': 'https://github.com/Nakama3942/qt_colored_logger/blob/master/CHANGELOG.md',
     },
 )
