@@ -34,6 +34,13 @@ limitations under the License.
 
 ---
 -->
+## v0.0.6 (17.03.2023)
+
+#### Bug Fixes:
+- I renamed the color VIOLET to BLUEVIOLET, and in the code I still refer to VIOLET. Fixed this bug
+
+---
+
 ## v0.0.5 (17.03.2023)
 
 #### Documenting:
