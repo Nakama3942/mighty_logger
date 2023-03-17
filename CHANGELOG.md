@@ -34,6 +34,49 @@ limitations under the License.
 
 ---
 -->
+## v0.0.5 (17.03.2023)
+
+#### Documenting:
+- The LoggerQ class is fully documented
+
+#### Enhancements:
+- Added new types of log output:
+    1. DEBUG_PERFORMANCE
+    2. PERFORMANCE
+    3. EVENT
+    4. AUDIT
+    5. METRICS
+    6. USER
+    7. MESSAGE
+    8. NOTICE
+- Added new colors:
+    1.  FIREBRICK *replaced RED*
+    2.  MEDIUMSPRINGGREEN
+    3.  SPRINGGREEN
+    4.  MEDIUMSEAGREEN
+    5.  SEAGREEN
+    6.  FORESTGREEN *not used yet*
+    7.  YELLOWGREEN
+    8.  OLIVEDRAB
+    9.  OLIVE
+    10. DARKOLIVEGREEN
+    11. AQUAMARINE *replaced BLUE*
+    12. TURQUOISE *replaced DARKBLUE*
+    13. SKYBLUE *replaced OCEANBLUE*
+    14. LIGHTSKYBLUE *replaced DARKOCEANBLUE*
+    15. BLUE *Adopted its color according to the X11 standards table*
+    16. MEDIUMBLUE
+    17. DARKBLUE *Adopted its color according to the X11 standards table*
+    18. NAVY
+    19. BLUEVIOLET *replaced VIOLET*
+    20. DARKVIOLET *Adopted its color according to the X11 standards table*
+    21. GAINSBORO
+    22. LIGHTGREY
+    23. SILVER
+    24. DIMGREY
+
+---
+
 ## v0.0.4 (16.03.2023)
 
 #### Bug Fixes:

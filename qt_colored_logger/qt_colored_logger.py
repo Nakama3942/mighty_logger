@@ -24,22 +24,39 @@
 import datetime, platform, os, random
 
 ColorPickerQ = {
-	'RED': '#dc0000',
+	'FIREBRICK': '#b22222',
 	'DARKRED': '#8b0000',
 	'ORANGE': '#ffa500',
 	'DARKORANGE': '#ff8c00',
 	'YELLOW': '#ffff00',
 	'DARKYELLOW': '#ffcc00',
+	'MEDIUMSPRINGGREEN': '#00fa9a',
+	'SPRINGGREEN': '#00ff7f',
+	'MEDIUMSEAGREEN': '#3cb371',
+	'SEAGREEN': '#2e8b57',
+	'FORESTGREEN': '#228b22',  # -
 	'GREEN': '#008000',
 	'DARKGREEN': '#006400',
-	'BLUE': '#00ffff',
-	'DARKBLUE': '#008b8b',
-	'OCEANBLUE': '#0000dd',
-	'DARKOCEANBLUE': '#00009b',
-	'VIOLET': '#9400d3',
-	'DARKVIOLET': '#800080',
-	'GREY': '#a9a9a9',
-	'DARKGREY': '#808080',
+	'YELLOWGREEN': '#9acd32',
+	'OLIVEDRAB': '#6b8e23',
+	'OLIVE': '#808000',
+	'DARKOLIVEGREEN': '#556b2f',
+	'AQUAMARINE': '#7fffd4',
+	'TURQUOISE': '#40e0d0',
+	'SKYBLUE': '#87ceeb',
+	'LIGHTSKYBLUE': '#87cefa',
+	'BLUE': '#0000ff',
+	'MEDIUMBLUE': '#0000cd',
+	'DARKBLUE': '#00008b',
+	'NAVY': '#000080',
+	'BLUEVIOLET': '#8a2be2',
+	'DARKVIOLET': '#9400d3',
+	'GAINSBORO': '#dcdcdc',
+	'LIGHTGREY': '#d3d3d3',
+	'SILVER': '#c0c0c0',
+	'DARKGREY': '#a9a9a9',
+	'GREY': '#808080',
+	'DIMGREY': '#696969',
 }
 
 class PickerModifierQ:
@@ -53,7 +70,54 @@ class PickerModifierQ:
 		ColorPickerQ[color_name] = f'#{hex(red)}{hex(green)}{hex(blue)}'
 
 class LoggerQ:
-	def __init__(self, time=True, name=True, status=True, status_message=True, status_type=True, message=True):
+	"""
+	The LoggerQ class is a class that implements the functionality
+	of logging the work of software in different directions.
+	It has a color output of information, settings for the operation of the log.
+	Implements the output of the following information:
+	1) Record creation time;
+	2) Recording device;
+	3) Record status;
+	4) Recording status message;
+	5) Record type;
+	6) Write message.
+	Implements the output of the following types of records:
+	1)  `DEBUG`
+	2)  `DEBUG_PERFORMANCE`
+	3)  `PERFORMANCE`
+	4)  `EVENT`
+	5)  `AUDIT`
+	6)  `METRICS`
+	7)  `USER`
+	8)  `MESSAGE`
+	9)  `INFO`
+	10) `NOTICE`
+	11) `WARNING`
+	12) `ERROR`
+	13) `CRITICAL`
+	14) `PROGRESS`
+	15) `SUCCESS`
+	16) `FAIL`
+	"""
+	def __init__(
+			self,
+			time: bool = True,
+			name: bool = True,
+			status: bool = True,
+			status_message: bool = True,
+			status_type: bool = True,
+			message: bool = True
+	):
+		"""
+		Initializes and configures the log.
+
+		:param time: setting the time output
+		:param name: setting the name output
+		:param status: setting the status output
+		:param status_message: setting the status message output
+		:param status_type: setting the log type output
+		:param message: setting the log message output
+		"""
 		self.time = time
 		self.name = name
 		self.status = status
@@ -63,24 +127,64 @@ class LoggerQ:
 		self.ID = random.randint(1000000, 9999999)
 
 	def timeEnabled(self, enabled: bool):
+		"""
+		Sets the output of the date-time at the time the log is written.
+
+		:param enabled: Output state
+		"""
 		self.time = enabled
 
 	def nameEnabled(self, enabled: bool):
+		"""
+		Sets the output of the computer-user at the time the log is written.
+
+		:param enabled: Output state
+		"""
 		self.name = enabled
 
 	def statusEnabled(self, enabled: bool):
+		"""
+		Sets the output of the status at the time the log is written.
+
+		:param enabled: Output state
+		"""
 		self.status = enabled
 
 	def status_messageEnabled(self, enabled: bool):
+		"""
+		Sets the output of the status message at the time the log is written.
+
+		:param enabled: Output state
+		"""
 		self.status_message = enabled
 
 	def status_typeEnabled(self, enabled: bool):
+		"""
+		Sets the output of the log type at the time the log is written.
+
+		:param enabled: Output state
+		"""
 		self.status_type = enabled
 
 	def messageEnabled(self, enabled: bool):
+		"""
+		Sets the output of the log message at the time the log is written.
+
+		:param enabled: Output state
+		"""
 		self.message = enabled
 
 	def DEBUG(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Debugging information logging:
+		Can be used to record any information while debugging an application.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
 		log = ""
 		log += f"<b>" if bold else ""
 		log += f"<i>" if italic else ""
@@ -89,12 +193,23 @@ class LoggerQ:
 		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
 		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
 		log += f"<span style='color: {ColorPickerQ['GREY']};'>@DEBUG -</span>\t" if self.status_type else ""
-		log += f"<span style='color: {ColorPickerQ['DARKGREY']};'>{message_text}</span>" if self.message else ""
+		log += f"<span style='color: {ColorPickerQ['DIMGREY']};'>{message_text}</span>" if self.message else ""
 		log += f"</i>" if italic else ""
 		log += f"</b>" if bold else ""
 		return log
 
-	def INFO(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def DEBUG_PERFORMANCE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Performance debugging information logging:
+		Can be used to record the execution time of operations or other
+		performance information whilethe application is being debugged.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
 		log = ""
 		log += f"<b>" if bold else ""
 		log += f"<i>" if italic else ""
@@ -102,13 +217,219 @@ class LoggerQ:
 		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
 		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
 		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: {ColorPickerQ['OCEANBLUE']};'>@INFO -</span>\t" if self.status_type else ""
-		log += f"<span style='color: {ColorPickerQ['DARKOCEANBLUE']};'>{message_text}</span>" if self.message else ""
+		log += f"<span style='color: {ColorPickerQ['SILVER']};'>@DEBUG PERFORMANCE -</span>\t" if self.status_type else ""
+		log += f"<span style='color: {ColorPickerQ['DARKGREY']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
+		return log
+
+	def PERFORMANCE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Performance information logging:
+		Can be used to record the execution time of operations or
+		other application performance information.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
+		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
+		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
+		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
+		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
+		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
+		log += f"<span style='color: {ColorPickerQ['GAINSBORO']};'>@PERFORMANCE -</span>\t" if self.status_type else ""
+		log += f"<span style='color: {ColorPickerQ['LIGHTGREY']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
+		return log
+
+	def EVENT(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Event information logging:
+		Can be used to track specific events in the application,
+		such as button presses ormouse cursor movements.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
+		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
+		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
+		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
+		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
+		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
+		log += f"<span style='color: {ColorPickerQ['MEDIUMSEAGREEN']};'>@EVENT -</span>\t" if self.status_type else ""
+		log += f"<span style='color: {ColorPickerQ['SEAGREEN']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
+		return log
+
+	def AUDIT(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Audit information logging:
+		Can be used to track changes in the system, such as creating or
+		deleting users, as well as changes in security settings.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
+		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
+		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
+		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
+		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
+		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
+		log += f"<span style='color: {ColorPickerQ['YELLOWGREEN']};'>@AUDIT -</span>\t" if self.status_type else ""
+		log += f"<span style='color: {ColorPickerQ['OLIVEDRAB']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
+		return log
+
+	def METRICS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Metrics information logging:
+		Can be used to log metrics to track application performance and identify issues.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
+		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
+		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
+		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
+		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
+		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
+		log += f"<span style='color: {ColorPickerQ['OLIVE']};'>@METRICS -</span>\t" if self.status_type else ""
+		log += f"<span style='color: {ColorPickerQ['DARKOLIVEGREEN']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
+		return log
+
+	def USER(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		User information logging:
+		Can be used to add custom logs to store additional information
+		that may be useful for diagnosing problems.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
+		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
+		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
+		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
+		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
+		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
+		log += f"<span style='color: {ColorPickerQ['MEDIUMSPRINGGREEN']};'>@USER -</span>\t" if self.status_type else ""
+		log += f"<span style='color: {ColorPickerQ['SPRINGGREEN']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
+		return log
+
+	def MESSAGE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Message information logging:
+		Can be used for the usual output of ordinary messages about the program's operation.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
+		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
+		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
+		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
+		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
+		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
+		log += f"<span style='color: {ColorPickerQ['BLUE']};'>@MESSAGE -</span>\t" if self.status_type else ""
+		log += f"<span style='color: {ColorPickerQ['MEDIUMBLUE']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
+		return log
+
+	def INFO(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Default information logging:
+		Can be used to display messages with specific content about the operation of the program.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
+		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
+		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
+		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
+		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
+		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
+		log += f"<span style='color: {ColorPickerQ['AQUAMARINE']};'>@INFO -</span>\t" if self.status_type else ""
+		log += f"<span style='color: {ColorPickerQ['TURQUOISE']};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
+		return log
+
+	def NOTICE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Notice information logging:
+		Can be used to flag important events that might be missed with a normal logging level.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
+		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
+		log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
+		log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
+		log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
+		log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
+		log += f"<span style='color: {ColorPickerQ['DARKBLUE']};'>@NOTICE -</span>\t" if self.status_type else ""
+		log += f"<span style='color: {ColorPickerQ['NAVY']};'>{message_text}</span>" if self.message else ""
 		log += f"</i>" if italic else ""
 		log += f"</b>" if bold else ""
 		return log
 
 	def WARNING(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Warning information logging:
+		Can be used to display warnings that the program may work with unpredictable results.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
 		log = ""
 		log += f"<b>" if bold else ""
 		log += f"<i>" if italic else ""
@@ -123,6 +444,16 @@ class LoggerQ:
 		return log
 
 	def ERROR(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Error information logging:
+		Used to display errors and crashes in the program.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
 		log = ""
 		log += f"<b>" if bold else ""
 		log += f"<i>" if italic else ""
@@ -137,6 +468,16 @@ class LoggerQ:
 		return log
 
 	def CRITICAL(self, status_message_text: str = "", message_text: str = "", bold: bool = True, italic: bool = False) -> str:
+		"""
+		Critical error information logging:
+		Used to display critical and unpredictable program failures.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
 		log = ""
 		log += f"<b>" if bold else ""
 		log += f"<i>" if italic else ""
@@ -150,7 +491,55 @@ class LoggerQ:
 		log += f"</b>" if bold else ""
 		return log
 
+	def START_PROCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Stub.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
+		# log = ""
+		# log += f"<b>" if bold else ""
+		# log += f"<i>" if italic else ""
+		# log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
+		# log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
+		# log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
+		# log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
+		# log += f"<span style='color: {ColorPickerQ['SKYBLUE']};'>@PROGRESS -</span>\t" if self.status_type else ""
+		# log += f"<span style='color: {ColorPickerQ['LIGHTSKYBLUE']};'>{message_text}</span>" if self.message else ""
+		# log += f"</i>" if italic else ""
+		# log += f"</b>" if bold else ""
+		# return log
+		pass
+		# Должен выполняться в потоке
+
+	def STOP_PROCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+		"""
+		Stub.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
+		pass
+		# Сделать переход в SUCCESS или FAIL
+
 	def SUCCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = True) -> str:
+		"""
+		Success information logging:
+		Used to display a message about the success of the process.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
 		log = ""
 		log += f"<b>" if bold else ""
 		log += f"<i>" if italic else ""
@@ -165,6 +554,16 @@ class LoggerQ:
 		return log
 
 	def FAIL(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = True) -> str:
+		"""
+		Fail information logging:
+		Used to display a message about the failed execution of the process.
+
+		:param status_message_text: log status message
+		:param message_text: log message
+		:param bold: Display log in bold font?
+		:param italic: Display log in italic font?
+		:return: the generated log string
+		"""
 		log = ""
 		log += f"<b>" if bold else ""
 		log += f"<i>" if italic else ""
@@ -177,26 +576,6 @@ class LoggerQ:
 		log += f"</i>" if italic else ""
 		log += f"</b>" if bold else ""
 		return log
-
-	def START_PROCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
-		# log = ""
-		# log += f"<b>" if bold else ""
-		# log += f"<i>" if italic else ""
-		# log += f"<span style='color: {ColorPickerQ['VIOLET']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		# log += f"<span style='color: {ColorPickerQ['DARKVIOLET']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		# log += f"<span style='color: {ColorPickerQ['ORANGE']};'>#STATUS:</span>\t" if self.status else ""
-		# log += f"<span style='color: {ColorPickerQ['DARKORANGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		# log += f"<span style='color: {ColorPickerQ['BLUE']};'>@PROGRESS -</span>\t" if self.status_type else ""
-		# log += f"<span style='color: {ColorPickerQ['DARKBLUE']};'>{message_text}</span>" if self.message else ""
-		# log += f"</i>" if italic else ""
-		# log += f"</b>" if bold else ""
-		# return log
-		pass
-		# Должен выполняться в потоке
-
-	def STOP_PROCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
-		pass
-		# Сделать переход в SUCCESS
 
 
 # if __name__ == '__main__':
