@@ -34,6 +34,13 @@ limitations under the License.
 
 ---
 -->
+## v0.0.7 (17.03.2023)
+
+#### Bug Fixes:
+- I renamed the color RED to FIREBRICK, and in the code I still refer to RED. Fixed this bug
+
+---
+
 ## v0.0.6 (17.03.2023)
 
 #### Bug Fixes:
