@@ -18,11 +18,9 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from .color_picker import HtmlColor
-from .exceptions import ColorException
-# from .colored_logger import *
-from .html_colored_logger import LoggerQ, HtmlColorSetInitQ
+class ColorException(BaseException):
+	def __init__(self, message):
+		self.message = message
 
-__authot__ = "Kalynovsky 'Nakama3942' Valentin"
-__version__ = "0.0.7"
-__email__ = "nakama3942@gmail.com"
+	def __str__(self):
+		return self.message
