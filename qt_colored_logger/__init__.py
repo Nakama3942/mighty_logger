@@ -18,10 +18,10 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from .color_picker import HtmlColor
+from .color_picker import HexColor, DecColor, CodColor
 from .exceptions import ColorException
-# from .colored_logger import *
-from .html_colored_logger import LoggerQ, HtmlColorSetInitQ
+from .colored_logger import HtmlColorSetInit, Logger
+from .html_colored_logger import HtmlColorSetInitQ, LoggerQ
 
 __authot__ = "Kalynovsky 'Nakama3942' Valentin"
 __version__ = "0.0.7"
