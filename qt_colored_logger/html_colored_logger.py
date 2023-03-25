@@ -131,6 +131,7 @@ class LoggerQ:
 	The LoggerQ class is a class that implements the functionality
 	of logging the work of software in different directions.
 	It has a color output of information, settings for the operation of the log.
+	Only one class object can be created!!!
 	Implements the output of the following information:
 	1) Record creation time;
 	2) Recording device;
@@ -156,6 +157,13 @@ class LoggerQ:
 	15) `SUCCESS`
 	16) `FAIL`
 	"""
+	_instance = None
+
+	def __new__(cls):
+		if cls._instance is None:
+			cls._instance = super().__new__(cls)
+		return cls._instance
+
 	def __init__(
 			self,
 			time: bool = True,
@@ -167,6 +175,7 @@ class LoggerQ:
 	):
 		"""
 		Initializes and configures the log.
+		Only one class object can be created!!!
 
 		:param time: setting the time output
 		:param name: setting the name output
@@ -657,5 +666,5 @@ if __name__ == "__main__":
 	print(log.FAIL("31", "32"))
 
 	print(len(HtmlColorSet))
-	mod.setColor("3", 100, 200, 255)
+	mod.setColor("TIME", 100, 200, 255)
 	print(len(HtmlColorSet))
