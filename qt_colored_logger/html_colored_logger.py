@@ -47,12 +47,12 @@ class HtmlColorSetInitQ:
 		HtmlColorSet['USER'] = HexColor('MEDIUMORCHID')
 		HtmlColorSet['STATUS'] = HexColor('ORANGE')
 		HtmlColorSet['STATUS_MESSAGE'] = HexColor('DARKORANGE')
-		HtmlColorSet['TYPE_DEBUG'] = HexColor('DIMGRAY')
-		HtmlColorSet['DEBUG_MESSAGE'] = HexColor('DARKGRAY')
-		HtmlColorSet['TYPE_DEBUG_PERFORMANCE'] = HexColor('SILVER')
-		HtmlColorSet['DEBUG_PERFORMANCE_MESSAGE'] = HexColor('GRAY')
-		HtmlColorSet['TYPE_PERFORMANCE'] = HexColor('GAINSBORO')
-		HtmlColorSet['PERFORMANCE_MESSAGE'] = HexColor('LIGHTGRAY')
+		HtmlColorSet['TYPE_DEBUG'] = HexColor('BURLYWOOD')
+		HtmlColorSet['DEBUG_MESSAGE'] = HexColor('TAN')
+		HtmlColorSet['TYPE_DEBUG_PERFORMANCE'] = HexColor('NAVAJOWHITE')
+		HtmlColorSet['DEBUG_PERFORMANCE_MESSAGE'] = HexColor('WHEAT')
+		HtmlColorSet['TYPE_PERFORMANCE'] = HexColor('BLANCHEDALMOND')
+		HtmlColorSet['PERFORMANCE_MESSAGE'] = HexColor('BISQUE')
 		HtmlColorSet['TYPE_EVENT'] = HexColor('MEDIUMSEAGREEN')
 		HtmlColorSet['EVENT_MESSAGE'] = HexColor('SEAGREEN')
 		HtmlColorSet['TYPE_AUDIT'] = HexColor('YELLOWGREEN')
@@ -159,7 +159,7 @@ class LoggerQ:
 	"""
 	_instance = None
 
-	def __new__(cls):
+	def __new__(cls, *args, **kwargs):
 		if cls._instance is None:
 			cls._instance = super().__new__(cls)
 		return cls._instance
@@ -184,6 +184,7 @@ class LoggerQ:
 		:param status_type: setting the log type output
 		:param message: setting the log message output
 		"""
+		super().__init__()
 		self.time = time
 		self.name = name
 		self.status = status
@@ -647,7 +648,7 @@ class LoggerQ:
 # Test
 if __name__ == "__main__":
 	mod = HtmlColorSetInitQ()
-	log = LoggerQ()
+	log = LoggerQ(status_message=False)
 	print(log.DEBUG("1", "2"))
 	print(log.DEBUG_PERFORMANCE("3", "4"))
 	print(log.PERFORMANCE("5", "6"))
