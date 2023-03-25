@@ -1,4 +1,4 @@
-# ##########################   Qt_Сolored-logger   ########################### #
+# ##########################   Qt_Colored-logger   ########################### #
 # ---------------------------------------------------------------------------- #
 #                                                                              #
 # Copyright © 2023 Kalynovsky Valentin. All rights reserved.                   #
@@ -581,7 +581,7 @@ class LoggerQ:
 		# log += f"</b>" if bold else ""
 		# return log
 		pass
-		# Должен выполняться в потоке
+		# Must run on a thread
 
 	def STOP_PROCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -594,7 +594,7 @@ class LoggerQ:
 		:return: the generated log string
 		"""
 		pass
-		# Сделать переход в SUCCESS или FAIL
+		# Make transition to SUCCESS or FAIL
 
 	def SUCCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = True) -> str:
 		"""
@@ -648,23 +648,23 @@ class LoggerQ:
 # Test
 if __name__ == "__main__":
 	mod = HtmlColorSetInitQ()
-	log = LoggerQ(status_message=False)
-	print(log.DEBUG("1", "2"))
-	print(log.DEBUG_PERFORMANCE("3", "4"))
-	print(log.PERFORMANCE("5", "6"))
-	print(log.EVENT("7", "8"))
-	print(log.AUDIT("9", "10"))
-	print(log.METRICS("11", "12"))
-	print(log.USER("13", "14"))
-	print(log.MESSAGE("15", "16"))
-	print(log.INFO("17", "18"))
-	print(log.NOTICE("19", "20"))
-	print(log.WARNING("21", "22"))
-	print(log.ERROR("23", "24"))
-	print(log.CRITICAL("25", "26"))
-	# print(log.START_PROCESS("27", "28"))
-	print(log.SUCCESS("29", "30"))
-	print(log.FAIL("31", "32"))
+	logger = LoggerQ(status_message=False)
+	print(logger.DEBUG("1", "2"))
+	print(logger.DEBUG_PERFORMANCE("3", "4"))
+	print(logger.PERFORMANCE("5", "6"))
+	print(logger.EVENT("7", "8"))
+	print(logger.AUDIT("9", "10"))
+	print(logger.METRICS("11", "12"))
+	print(logger.USER("13", "14"))
+	print(logger.MESSAGE("15", "16"))
+	print(logger.INFO("17", "18"))
+	print(logger.NOTICE("19", "20"))
+	print(logger.WARNING("21", "22"))
+	print(logger.ERROR("23", "24"))
+	print(logger.CRITICAL("25", "26"))
+	# print(logger.START_PROCESS("27", "28"))
+	print(logger.SUCCESS("29", "30"))
+	print(logger.FAIL("31", "32"))
 
 	print(len(HtmlColorSet))
 	mod.setColor("TIME", 100, 200, 255)
