@@ -34,35 +34,95 @@ limitations under the License.
 
 ---
 -->
+## v0.0.8 (25.03.2023)
+
+#### Bug Fixes:
+- Found and fixed several minor bugs.
+
+#### Documenting:
+- The HtmlColorSetInitQ class is fully documented;
+- Slightly fixed CHANGELOG.
+
+#### Enhancements:
+- The color system has been completely redesigned (i.e. the system for working with colors);
+- Added ALL X11 table colors [from this page](https://en.wikipedia.org/wiki/Web_colors);
+- Added functions for getting color values in different formats by their names;
+- Added ColorException;
+- Started work with console logger (*not yet available*);
+- PickerModifierQ class renamed to HtmlColorSetInitQ;
+- Now only one object of the HtmlColorSetInitQ class can be created;
+- Now only one object of the LoggerQ class can be created;
+- The color table of the LoggerQ logger has been changed - now the table does not store color names, but abstract names:
+    - TIME;
+    - USER;
+    - STATUS;
+    - STATUS_MESSAGE;
+    - TYPE_DEBUG;
+    - DEBUG_MESSAGE;
+    - TYPE_DEBUG_PERFORMANCE;
+    - DEBUG_PERFORMANCE_MESSAGE;
+    - TYPE_PERFORMANCE;
+    - PERFORMANCE_MESSAGE;
+    - TYPE_EVENT;
+    - EVENT_MESSAGE;
+    - TYPE_AUDIT;
+    - AUDIT_MESSAGE;
+    - TYPE_METRICS;
+    - METRICS_MESSAGE;
+    - TYPE_USER;
+    - USER_MESSAGE;
+    - TYPE_MESSAGE;
+    - MESSAGE_MESSAGE;
+    - TYPE_INFO;
+    - INFO_MESSAGE;
+    - TYPE_NOTICE;
+    - NOTICE_MESSAGE;
+    - TYPE_WARNING;
+    - WARNING_MESSAGE;
+    - TYPE_ERROR;
+    - ERROR_MESSAGE;
+    - TYPE_CRITICAL;
+    - CRITICAL_MESSAGE;
+    - TYPE_PROGRESS;
+    - PROGRESS_MESSAGE;
+    - TYPE_SUCCESS;
+    - SUCCESS_MESSAGE;
+    - TYPE_FAIL;
+    - FAIL_MESSAGE.
+- Now, initially this table is not initialized and the logger will not be able to work. First you need to initialize the table by creating an object of the HtmlColorSetInitQ class, which also provides methods for changing this very logger color table;
+- Implemented library functionality tests for early detection of minor bugs.
+
+---
+
 ## v0.0.7 (17.03.2023)
 
 #### Bug Fixes:
-- I renamed the color RED to FIREBRICK, and in the code I still refer to RED. Fixed this bug
+- I renamed the color RED to FIREBRICK, and in the code I still refer to RED. Fixed this bug.
 
 ---
 
-## v0.0.6 (17.03.2023)
+## <span style='color: #ff3333;'>v0.0.6 (17.03.2023)</span>
 
 #### Bug Fixes:
-- I renamed the color VIOLET to BLUEVIOLET, and in the code I still refer to VIOLET. Fixed this bug
+- I renamed the color VIOLET to BLUEVIOLET, and in the code I still refer to VIOLET. Fixed this bug.
 
 ---
 
-## v0.0.5 (17.03.2023)
+## <span style='color: #ff3333;'>v0.0.5 (17.03.2023)</span>
 
 #### Documenting:
-- The LoggerQ class is fully documented
+- The LoggerQ class is fully documented.
 
 #### Enhancements:
 - Added new types of log output:
-    1. DEBUG_PERFORMANCE
-    2. PERFORMANCE
-    3. EVENT
-    4. AUDIT
-    5. METRICS
-    6. USER
-    7. MESSAGE
-    8. NOTICE
+    1. DEBUG_PERFORMANCE;
+    2. PERFORMANCE;
+    3. EVENT;
+    4. AUDIT;
+    5. METRICS;
+    6. USER;
+    7. MESSAGE;
+    8. NOTICE.
 - Added new colors:
     1.  FIREBRICK *replaced RED*
     2.  MEDIUMSPRINGGREEN
@@ -98,31 +158,31 @@ limitations under the License.
 
 ---
 
-## v0.0.3 (14.03.2023)
+## <span style='color: #ff3333;'>v0.0.3 (14.03.2023)</span>
 
 #### Bug Fixes:
-- Fixed some typos
+- Fixed some typos.
 
 #### Enhancements:
-- Added some links to PyPi
+- Added some links to PyPi.
 
 ---
 
-## v0.0.2 (14.03.2023)
+## <span style='color: #ff3333;'>v0.0.2 (14.03.2023)</span>
 
 #### Enhancements:
 - Added new colors:
     - OCEANBLUE;
-    - DARKOCEANBLUE;
+    - DARKOCEANBLUE.
 - Changed color names:
     - CYAN -> BLUE;
-    - DARKCYAN -> DARKBLUE;
+    - DARKCYAN -> DARKBLUE.
 - Added an ID to each logger class; 
 - Added new methods to the Logger class:
 	- SUCCESS();
 	- FAIL();
 	- START_PROCESS(); *stub - not implemented*
-	- STOP_PROCESS(); *stub - not implemented*
+	- STOP_PROCESS(). *stub - not implemented*
 
 ---
 
@@ -130,12 +190,12 @@ limitations under the License.
 
 #### Release
 The library implements the formation of a beautifully formatted colored text, similar to a log, which has all the necessary information:
-- Logging time
-- Name of device and profile that logged
-- Log status
-- Description of the log status
-- Log type
-- Log message
+- Logging time;
+- Name of device and profile that logged;
+- Log status;
+- Description of the log status;
+- Log type;
+- Log message.
 
 Any information to the output can be turned off (according to the standard, everything is included). It is also possible to change the output settings during the logging process. It is possible to change colors (class PickerModifierQ).
 
