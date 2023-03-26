@@ -19,7 +19,8 @@
 # ############################################################################ #
 
 ColorPicker = {
-	# https://en.wikipedia.org/wiki/Web_colors
+	# Color table
+	# Original: https://en.wikipedia.org/wiki/Web_colors
 	# Red
 	'MAROON': ['800000', [128, 0, 0], '\033[38;2;128;0;0m'],
 	'DARKRED': ['8b0000', [139, 0, 0], '\033[38;2;139;0;0m'],
@@ -174,6 +175,12 @@ ColorPicker = {
 }
 
 def HexColor(color_name: str) -> str:
+	"""
+	Returns a hexadecimal color value.
+
+	:param color_name: Color name
+	:return: Hexadecimal color value
+	"""
 	from qt_colored_logger import ColorException
 	if color_name in ColorPicker:
 		return ColorPicker[color_name][0]
@@ -181,6 +188,12 @@ def HexColor(color_name: str) -> str:
 		raise ColorException("This color is not in the dictionary")
 
 def DecColor(color_name: str) -> [int, int, int]:
+	"""
+	Returns a decimal color value.
+
+	:param color_name: Color name
+	:return: Decimal color value
+	"""
 	from qt_colored_logger import ColorException
 	if color_name in ColorPicker:
 		return ColorPicker[color_name][1]
@@ -188,6 +201,12 @@ def DecColor(color_name: str) -> [int, int, int]:
 		raise ColorException("This color is not in the dictionary")
 
 def CodColor(color_name: str) -> str:
+	"""
+	Returns an ANSI color value.
+
+	:param color_name: Color name
+	:return: ANSI color value
+	"""
 	from qt_colored_logger import ColorException
 	if color_name in ColorPicker:
 		return ColorPicker[color_name][2]
