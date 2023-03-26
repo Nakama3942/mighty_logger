@@ -122,7 +122,7 @@ class HtmlColorSetInitQ:
 		"""
 		from qt_colored_logger import ColorException
 		if color_name in HtmlColorSet:
-			HtmlColorSet[color_name] = f'#{hex(red)}{hex(green)}{hex(blue)}'
+			HtmlColorSet[color_name] = f'{"{:02x}".format(red)}{"{:02x}".format(green)}{"{:02x}".format(blue)}'
 		else:
 			raise ColorException("This color is not in the dictionary")
 
@@ -666,6 +666,15 @@ if __name__ == "__main__":
 	print(logger.SUCCESS("29", "30"))
 	print(logger.FAIL("31", "32"))
 
-	print(len(HtmlColorSet))
-	mod.setColor("TIME", 100, 200, 255)
-	print(len(HtmlColorSet))
+	# print(len(HtmlColorSet))
+	# mod.setColor("TIME", 100, 200, 255)
+	# print(len(HtmlColorSet))
+
+	print(logger.DEBUG(message_text="Debug data"))
+	print(logger.DEBUG(message_text="Debug data", bold=True))
+	print(logger.DEBUG(message_text="Debug data", italic=True))
+	print(logger.DEBUG(message_text="Debug data", bold=True, italic=True))
+
+	print(logger.NOTICE(message_text="Debug data"))
+	mod.setColor("NOTICE_MESSAGE", 127, 255, 0)
+	print(logger.NOTICE(message_text="Debug data"))
