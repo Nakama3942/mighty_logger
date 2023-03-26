@@ -34,6 +34,22 @@ limitations under the License.
 
 ---
 -->
+## v0.1.0 (26.03.2023)
+
+#### Bug Fixes:
+- Fixed a bug that occurs when passing arguments to the LoggerQ constructor;
+- Fixed a bug due to which the color value was not correctly saved in the journal's color table when changing the color manually.
+
+#### Documenting:
+- Completed documentation of the library;
+- Wrote the actual README.md (which corresponds to the current version).
+
+#### Enhancements:
+- Slightly redefined colors in the logger;
+- Changed the order of colors in the color table.
+
+---
+
 ## v0.0.8 (25.03.2023)
 
 #### Bug Fixes:

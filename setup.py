@@ -29,7 +29,7 @@ with open("README.md", "r", encoding='utf-8') as readme_file:
 
 setup(
     name="qt_colored_logger",
-    version="0.0.8",
+    version="0.1.0",
 
     author="Kalynovsky 'Nakama3942' Valentin",
     author_email="nakama3942@gmail.com",
@@ -44,7 +44,7 @@ setup(
 
     packages=['qt_colored_logger'],
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
