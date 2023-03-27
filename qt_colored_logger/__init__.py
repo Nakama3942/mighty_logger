@@ -18,6 +18,7 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
+from .ansi_format import AnsiFormat
 from .color_picker import HexColor, DecColor, CodColor
 from .exceptions import ColorException
 from .colored_logger import HtmlColorSetInit, Logger
