@@ -137,11 +137,11 @@ AnsiFormat = {
 			'white': '\033[107m',
 		},
 		'set': {
-			'foreground': '\033[38$m',
-			'background': '\033[48$m',
-			'bright foreground': '\033[98$m',
-			'bright background': '\033[108$m',
-			'underline': '\033[58$m',
+			'foreground': '\033[38;2;$m',
+			'background': '\033[48;2;$m',
+			'bright foreground': '\033[98;2;$m',
+			'bright background': '\033[108;2;$m',
+			'underline': '\033[58;2;$m',
 		},
 		'default': {
 			'foreground': '\033[39m',
@@ -166,10 +166,10 @@ AnsiFormat = {
 	N - const - NUMBER = 2;\n
 	R - value red, G - value green, B - value blue;\n
 	syntax = '\033[38;N;R;G;Bm', for example, white = '\033[38;2;255;255;255m';\n
-	therefore, '\033[38;-m' is ANSI format and '-2;255;255;255-' is color code.\n
+	therefore, '\033[38;2;-m' is ANSI format and '-255;255;255-' is color code.\n
 	To save this command, the color in the dictionary has been encoded with the $ symbol and to\n
 	use it you need to return the color instead of the symbol, which is why you need to use replace():\n
-	print(f"{AnsiFormat['color']['set']['background'].replace('$', ';2;255;165;0')}Test string")
+	print(f"{AnsiFormat['color']['set']['background'].replace('$', '255;165;0')}Test string")
 	"""
 
 if __name__ == "__main__":
@@ -178,5 +178,5 @@ if __name__ == "__main__":
 	print(f"{AnsiFormat['invert']['off']}Test string")
 	print(f"{AnsiFormat['font']['3th alternative']}Test string")
 	print(f"{AnsiFormat['color']['foreground']['green']}Test string")
-	print(f"{AnsiFormat['color']['set']['background'].replace('$', ';2;255;165;0')}Test string")
+	print(f"{AnsiFormat['color']['set']['background'].replace('$', '255;165;0')}Test string")
 	print(f"{AnsiFormat['reset']['on']}Test string")
