@@ -21,7 +21,7 @@
 from .ansi_format import AnsiFormat
 from .color_picker import DecColor, HexColor, AnsiForegroundColor
 from .exceptions import ColorException
-from .colored_logger import HtmlColorSetInit, Logger
+from .colored_logger import AnsiColorSetInit, Logger
 from .html_colored_logger import HtmlColorSetInitQ, LoggerQ
 
 __authot__ = "Kalynovsky 'Nakama3942' Valentin"
