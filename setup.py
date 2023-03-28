@@ -42,7 +42,12 @@ setup(
 
     license="Apache License, Version 2.0, see LICENSE file",
 
-    packages=['qt_colored_logger'],
+    packages=[
+        'qt_colored_logger',
+        'qt_colored_logger.src',
+        'qt_colored_logger.basic',
+        'qt_colored_logger.basic.patterns'
+    ],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",

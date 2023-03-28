@@ -172,6 +172,9 @@ AnsiFormat = {
 	print(f"{AnsiFormat['color']['set']['background'].replace('$', '255;165;0')}Test string")
 	"""
 
+def GetAnsi() -> dict:
+	return AnsiFormat
+
 if __name__ == "__main__":
 	print(f"{AnsiFormat['italic']['fraktur']}Test string")
 	print(f"{AnsiFormat['blink']['slow']}Test string")

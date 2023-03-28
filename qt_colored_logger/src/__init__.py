@@ -18,5 +18,5 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from .ansi_format import AnsiFormat
+from .ansi_format import GetAnsi
 from .color_picker import DecColor, HexColor, AnsiForegroundColor

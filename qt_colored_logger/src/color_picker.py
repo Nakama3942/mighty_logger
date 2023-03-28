@@ -18,8 +18,7 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from qt_colored_logger.src import AnsiFormat
-from qt_colored_logger.basic import ColorException
+from qt_colored_logger.src import GetAnsi
 
 ColorPicker = {
 	# Color table
@@ -187,6 +186,7 @@ def DecColor(color_name: str) -> [int, int, int]:
 	if color_name in ColorPicker:
 		return ColorPicker[color_name]
 	else:
+		from qt_colored_logger.basic import ColorException
 		raise ColorException("This color is not in the dictionary")
 
 def HexColor(color_name: str) -> str:
@@ -205,7 +205,7 @@ def AnsiForegroundColor(color_name: str) -> str:
 	:param color_name: Color name
 	:return: ANSI color value
 	"""
-	return AnsiFormat['color']['set']['foreground'].replace('$', '{};{};{}'.format(*DecColor(color_name)))
+	return GetAnsi()['color']['set']['foreground'].replace('$', '{};{};{}'.format(*DecColor(color_name)))
 
 # Test
 if __name__ == "__main__":

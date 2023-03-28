@@ -18,9 +18,9 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from qt_colored_logger.src import AnsiForegroundColor
-from qt_colored_logger.basic import BasicLogger
 from qt_colored_logger.basic.patterns import Singleton
+from qt_colored_logger.basic import BasicLogger
+from qt_colored_logger.src import AnsiForegroundColor, GetAnsi
 
 AnsiColorSet: dict = {}
 
@@ -88,10 +88,10 @@ class AnsiColorSetInit(Singleton):
 		:param logger_color_name: Color name in logger color table
 		:param table_color_value: Color value in logger color table
 		"""
-		from qt_colored_logger import ColorException
 		if logger_color_name in AnsiColorSet:
 			AnsiColorSet[logger_color_name] = AnsiForegroundColor(table_color_value)
 		else:
+			from qt_colored_logger.basic import ColorException
 			raise ColorException("This color is not in the dictionary")
 
 class Logger(Singleton, BasicLogger):
