@@ -18,13 +18,4 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-def singleton(cls):
-	class Singleton(cls):
-		_instance = None
-
-		def __new__(cls, *args, **kwargs):
-			if cls._instance is None:
-				cls._instance = super().__new__(cls)
-			return cls._instance
-
-	return Singleton
+from .singleton import Singleton

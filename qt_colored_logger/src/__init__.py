@@ -18,9 +18,5 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from .colored_logger import AnsiColorSetInit, Logger
-from .html_colored_logger import HtmlColorSetInitQ, LoggerQ
-
-__authot__ = "Kalynovsky 'Nakama3942' Valentin"
-__version__ = "0.1.0"
-__email__ = "nakama3942@gmail.com"
+from .ansi_format import AnsiFormat
+from .color_picker import DecColor, HexColor, AnsiForegroundColor

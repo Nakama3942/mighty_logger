@@ -18,6 +18,9 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
+from qt_colored_logger.src import AnsiFormat
+from qt_colored_logger.basic import ColorException
+
 ColorPicker = {
 	# Color table
 	# Original: https://en.wikipedia.org/wiki/Web_colors
@@ -181,7 +184,6 @@ def DecColor(color_name: str) -> [int, int, int]:
 	:param color_name: Color name
 	:return: Decimal color value
 	"""
-	from qt_colored_logger import ColorException
 	if color_name in ColorPicker:
 		return ColorPicker[color_name]
 	else:
@@ -194,11 +196,7 @@ def HexColor(color_name: str) -> str:
 	:param color_name: Color name
 	:return: Hexadecimal color value
 	"""
-	from qt_colored_logger import ColorException
-	if color_name in ColorPicker:
-		return '{:02x}{:02x}{:02x}'.format(*DecColor(color_name))
-	else:
-		raise ColorException("This color is not in the dictionary")
+	return '{:02x}{:02x}{:02x}'.format(*DecColor(color_name))
 
 def AnsiForegroundColor(color_name: str) -> str:
 	"""
@@ -207,11 +205,7 @@ def AnsiForegroundColor(color_name: str) -> str:
 	:param color_name: Color name
 	:return: ANSI color value
 	"""
-	from qt_colored_logger import AnsiFormat, ColorException
-	if color_name in ColorPicker:
-		return AnsiFormat['color']['set']['foreground'].replace('$', '{};{};{}'.format(*DecColor(color_name)))
-	else:
-		raise ColorException("This color is not in the dictionary")
+	return AnsiFormat['color']['set']['foreground'].replace('$', '{};{};{}'.format(*DecColor(color_name)))
 
 # Test
 if __name__ == "__main__":

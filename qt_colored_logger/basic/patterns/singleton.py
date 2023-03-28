@@ -18,9 +18,10 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from .colored_logger import AnsiColorSetInit, Logger
-from .html_colored_logger import HtmlColorSetInitQ, LoggerQ
+class Singleton:
+	_instance = None
 
-__authot__ = "Kalynovsky 'Nakama3942' Valentin"
-__version__ = "0.1.0"
-__email__ = "nakama3942@gmail.com"
+	def __new__(cls, *args, **kwargs):
+		if cls._instance is None:
+			cls._instance = super().__new__(cls)
+		return cls._instance
