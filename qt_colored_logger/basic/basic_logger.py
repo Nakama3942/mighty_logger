@@ -18,7 +18,9 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-import random
+import datetime, platform, os, random
+
+from qt_colored_logger.src import AnsiFormat
 
 class BasicLogger:
 	def __init__(
@@ -95,3 +97,24 @@ class BasicLogger:
 		:param enabled: Output state
 		"""
 		self.message = enabled
+
+	def _assemble_entry(
+			self,
+			colors: list,
+			status_message_text: str,
+			message_type: str,
+			message_text: str,
+			bold: bool,
+			italic: bool
+	):
+		log = ""
+		log += f"{AnsiFormat['bold']['on']}" if bold else ""
+		log += f"{AnsiFormat['italic']['on']}" if italic else ""
+		log += f"{colors[0]}*{datetime.datetime.now()}\t" if self.time else ""
+		log += f"{colors[1]}${platform.node()}^{os.getlogin()}\t" if self.name else ""
+		log += f"{colors[2]}#STATUS: " if self.status else ""
+		log += f"{colors[3]}{status_message_text}\t" if self.status_message else ""
+		log += f"{colors[4]}{message_type} - " if self.status_type else ""
+		log += f"{colors[5]}{message_text}" if self.message else ""
+		log += f"{AnsiFormat['reset']['on']}"
+		return log

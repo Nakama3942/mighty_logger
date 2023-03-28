@@ -18,14 +18,13 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-import datetime, platform, os, random
-from qt_colored_logger import AnsiFormat, AnsiForegroundColor
-from singleton import singleton
+from qt_colored_logger.src import AnsiForegroundColor
+from qt_colored_logger.basic import BasicLogger
+from qt_colored_logger.basic.patterns import Singleton
 
 AnsiColorSet: dict = {}
 
-@singleton
-class AnsiColorSetInit:
+class AnsiColorSetInit(Singleton):
 	"""
 	Initializes a color table and provides functionality to modify this table.
 	Only one class object can be created!!!
@@ -95,8 +94,7 @@ class AnsiColorSetInit:
 		else:
 			raise ColorException("This color is not in the dictionary")
 
-@singleton
-class Logger:
+class Logger(Singleton, BasicLogger):
 	"""
 	The LoggerQ class is a class that implements the functionality
 	of logging the work of software in different directions.
@@ -128,82 +126,7 @@ class Logger:
 	16) `FAIL`
 	"""
 
-	def __init__(
-			self,
-			time: bool = True,
-			name: bool = True,
-			status: bool = True,
-			status_message: bool = True,
-			status_type: bool = True,
-			message: bool = True
-	):
-		"""
-		Initializes and configures the log.
-
-		:param time: setting the time output
-		:param name: setting the name output
-		:param status: setting the status output
-		:param status_message: setting the status message output
-		:param status_type: setting the log type output
-		:param message: setting the log message output
-		"""
-		self.time = time
-		self.name = name
-		self.status = status
-		self.status_message = status_message
-		self.status_type = status_type
-		self.message = message
-		self.ID = random.randint(1000000, 9999999)
-
-	def timeEnabled(self, enabled: bool):
-		"""
-		Sets the output of the date-time at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.time = enabled
-
-	def nameEnabled(self, enabled: bool):
-		"""
-		Sets the output of the computer-user at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.name = enabled
-
-	def statusEnabled(self, enabled: bool):
-		"""
-		Sets the output of the status at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.status = enabled
-
-	def status_messageEnabled(self, enabled: bool):
-		"""
-		Sets the output of the status message at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.status_message = enabled
-
-	def status_typeEnabled(self, enabled: bool):
-		"""
-		Sets the output of the log type at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.status_type = enabled
-
-	def messageEnabled(self, enabled: bool):
-		"""
-		Sets the output of the log message at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.message = enabled
-
-	def DEBUG(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def DEBUG(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Debugging information logging:
 		Can be used to record any information while debugging an application.
@@ -214,19 +137,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_DEBUG']}@DEBUG - " if self.status_type else ""
-		log += f"{AnsiColorSet['DEBUG_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_DEBUG'],
+				AnsiColorSet['DEBUG_MESSAGE']
+			], status_message_text, "@DEBUG", message_text, bold, italic
+		)
 
-	def DEBUG_PERFORMANCE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def DEBUG_PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Performance debugging information logging:
 		Can be used to record the execution time of operations or other
@@ -238,19 +160,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_DEBUG_PERFORMANCE']}@DEBUG PERFORMANCE - " if self.status_type else ""
-		log += f"{AnsiColorSet['DEBUG_PERFORMANCE_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_DEBUG_PERFORMANCE'],
+				AnsiColorSet['DEBUG_PERFORMANCE_MESSAGE']
+			], status_message_text, "@DEBUG PERFORMANCE", message_text, bold, italic
+		)
 
-	def PERFORMANCE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Performance information logging:
 		Can be used to record the execution time of operations or
@@ -262,19 +183,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_PERFORMANCE']}@PERFORMANCE - " if self.status_type else ""
-		log += f"{AnsiColorSet['PERFORMANCE_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_PERFORMANCE'],
+				AnsiColorSet['PERFORMANCE_MESSAGE']
+			], status_message_text, "@PERFORMANCE", message_text, bold, italic
+		)
 
-	def EVENT(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def EVENT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Event information logging:
 		Can be used to track specific events in the application,
@@ -286,19 +206,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_EVENT']}@EVENT - " if self.status_type else ""
-		log += f"{AnsiColorSet['EVENT_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_EVENT'],
+				AnsiColorSet['EVENT_MESSAGE']
+			], status_message_text, "@EVENT", message_text, bold, italic
+		)
 
-	def AUDIT(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def AUDIT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Audit information logging:
 		Can be used to track changes in the system, such as creating or
@@ -310,19 +229,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_AUDIT']}@AUDIT - " if self.status_type else ""
-		log += f"{AnsiColorSet['AUDIT_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_AUDIT'],
+				AnsiColorSet['AUDIT_MESSAGE']
+			], status_message_text, "@AUDIT", message_text, bold, italic
+		)
 
-	def METRICS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def METRICS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Metrics information logging:
 		Can be used to log metrics to track application performance and identify issues.
@@ -333,19 +251,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_METRICS']}@METRICS - " if self.status_type else ""
-		log += f"{AnsiColorSet['METRICS_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_METRICS'],
+				AnsiColorSet['METRICS_MESSAGE']
+			], status_message_text, "@METRICS", message_text, bold, italic
+		)
 
-	def USER(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def USER(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		User information logging:
 		Can be used to add custom logs to store additional information
@@ -357,19 +274,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_USER']}@USER - " if self.status_type else ""
-		log += f"{AnsiColorSet['USER_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_USER'],
+				AnsiColorSet['USER_MESSAGE']
+			], status_message_text, "@USER", message_text, bold, italic
+		)
 
-	def MESSAGE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def MESSAGE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
@@ -380,19 +296,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_MESSAGE']}@MESSAGE - " if self.status_type else ""
-		log += f"{AnsiColorSet['MESSAGE_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_MESSAGE'],
+				AnsiColorSet['MESSAGE_MESSAGE']
+			], status_message_text, "@MESSAGE", message_text, bold, italic
+		)
 
-	def INFO(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def INFO(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Default information logging:
 		Can be used to display messages with specific content about the operation of the program.
@@ -403,19 +318,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_INFO']}@INFO - " if self.status_type else ""
-		log += f"{AnsiColorSet['INFO_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_INFO'],
+				AnsiColorSet['INFO_MESSAGE']
+			], status_message_text, "@INFO", message_text, bold, italic
+		)
 
-	def NOTICE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def NOTICE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
@@ -426,19 +340,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_NOTICE']}@NOTICE - " if self.status_type else ""
-		log += f"{AnsiColorSet['NOTICE_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_NOTICE'],
+				AnsiColorSet['NOTICE_MESSAGE']
+			], status_message_text, "@NOTICE", message_text, bold, italic
+		)
 
-	def WARNING(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def WARNING(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Warning information logging:
 		Can be used to display warnings that the program may work with unpredictable results.
@@ -449,19 +362,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_WARNING']}@WARNING - " if self.status_type else ""
-		log += f"{AnsiColorSet['WARNING_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_WARNING'],
+				AnsiColorSet['WARNING_MESSAGE']
+			], status_message_text, "@WARNING", message_text, bold, italic
+		)
 
-	def ERROR(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def ERROR(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Error information logging:
 		Used to display errors and crashes in the program.
@@ -472,19 +384,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_ERROR']}!ERROR - " if self.status_type else ""
-		log += f"{AnsiColorSet['ERROR_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_ERROR'],
+				AnsiColorSet['ERROR_MESSAGE']
+			], status_message_text, "!ERROR", message_text, bold, italic
+		)
 
-	def CRITICAL(self, status_message_text: str = "", message_text: str = "", bold: bool = True, italic: bool = False) -> str:
+	def CRITICAL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False) -> str:
 		"""
 		Critical error information logging:
 		Used to display critical and unpredictable program failures.
@@ -495,19 +406,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_CRITICAL']}!!!@CRITICAL - " if self.status_type else ""
-		log += f"{AnsiColorSet['CRITICAL_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_CRITICAL'],
+				AnsiColorSet['CRITICAL_MESSAGE']
+			], status_message_text, "!!!@CRITICAL", message_text, bold, italic
+		)
 
-	def START_PROCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def START_PROCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Stub.
 
@@ -531,7 +441,7 @@ class Logger:
 		pass
 		# Must run on a thread
 
-	def STOP_PROCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def STOP_PROCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Stub.
 
@@ -544,7 +454,7 @@ class Logger:
 		pass
 		# Make transition to SUCCESS or FAIL
 
-	def SUCCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = True) -> str:
+	def SUCCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True) -> str:
 		"""
 		Success information logging:
 		Used to display a message about the success of the process.
@@ -555,19 +465,18 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_SUCCESS']}@SUCCESS - " if self.status_type else ""
-		log += f"{AnsiColorSet['SUCCESS_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_SUCCESS'],
+				AnsiColorSet['SUCCESS_MESSAGE']
+			], status_message_text, "@SUCCESS", message_text, bold, italic
+		)
 
-	def FAIL(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = True) -> str:
+	def FAIL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True) -> str:
 		"""
 		Fail information logging:
 		Used to display a message about the failed execution of the process.
@@ -578,17 +487,16 @@ class Logger:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"{AnsiFormat['bold']['on']}" if bold else ""
-		log += f"{AnsiFormat['italic']['on']}" if italic else ""
-		log += f"{AnsiColorSet['TIME']}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{AnsiColorSet['USER']}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{AnsiColorSet['STATUS']}#STATUS: " if self.status else ""
-		log += f"{AnsiColorSet['STATUS_MESSAGE']}{status_message_text}\t" if self.status_message else ""
-		log += f"{AnsiColorSet['TYPE_FAIL']}@FAIL - " if self.status_type else ""
-		log += f"{AnsiColorSet['FAIL_MESSAGE']}{message_text}" if self.message else ""
-		log += f"{AnsiFormat['reset']['on']}"
-		return log
+		return self._assemble_entry(
+			[
+				AnsiColorSet['TIME'],
+				AnsiColorSet['USER'],
+				AnsiColorSet['STATUS'],
+				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['TYPE_FAIL'],
+				AnsiColorSet['FAIL_MESSAGE']
+			], status_message_text, "@FAIL", message_text, bold, italic
+		)
 
 
 # Test
@@ -611,3 +519,6 @@ if __name__ == "__main__":
 	# print(logger.START_PROCESS("27", "28"))
 	print(logger.SUCCESS("29", "30"))
 	print(logger.FAIL("31", "32"))
+
+	logger.timeEnabled(False)
+	print(logger.DEBUG("1", "2"))
