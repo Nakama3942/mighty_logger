@@ -22,20 +22,16 @@
 # https://github.com/Nakama3942/WiretappingScanner/commit/da5e0e71681b9e1462d5bba5438fc8b1fde8142e
 
 import datetime, platform, os, random
+from singleton import singleton
 
 HtmlColorSet: dict = {}
 
+@singleton
 class HtmlColorSetInitQ:
 	"""
 	Initializes a color table and provides functionality to modify this table.
 	Only one class object can be created!!!
 	"""
-	_instance = None
-
-	def __new__(cls):
-		if cls._instance is None:
-			cls._instance = super().__new__(cls)
-		return cls._instance
 
 	def __init__(self):
 		"""
@@ -126,6 +122,7 @@ class HtmlColorSetInitQ:
 		else:
 			raise ColorException("This color is not in the dictionary")
 
+@singleton
 class LoggerQ:
 	"""
 	The LoggerQ class is a class that implements the functionality
@@ -157,12 +154,6 @@ class LoggerQ:
 	15) `SUCCESS`
 	16) `FAIL`
 	"""
-	_instance = None
-
-	def __new__(cls, *args, **kwargs):
-		if cls._instance is None:
-			cls._instance = super().__new__(cls)
-		return cls._instance
 
 	def __init__(
 			self,
@@ -184,7 +175,6 @@ class LoggerQ:
 		:param status_type: setting the log type output
 		:param message: setting the log message output
 		"""
-		super().__init__()
 		self.time = time
 		self.name = name
 		self.status = status
@@ -666,15 +656,22 @@ if __name__ == "__main__":
 	print(logger.SUCCESS("29", "30"))
 	print(logger.FAIL("31", "32"))
 
-	# print(len(HtmlColorSet))
-	# mod.setColor("TIME", 100, 200, 255)
-	# print(len(HtmlColorSet))
+	# logger2 = LoggerQ()
+	# print(logger.ID)
+	# print(logger2.ID)
+	# logger.ID = 10
+	# print(logger.ID)
+	# print(logger2.ID)
 
-	print(logger.DEBUG(message_text="Debug data"))
-	print(logger.DEBUG(message_text="Debug data", bold=True))
-	print(logger.DEBUG(message_text="Debug data", italic=True))
-	print(logger.DEBUG(message_text="Debug data", bold=True, italic=True))
+	print(len(HtmlColorSet))
+	mod.setColor("TIME", 100, 200, 255)
+	print(len(HtmlColorSet))
 
-	print(logger.NOTICE(message_text="Debug data"))
-	mod.setColor("NOTICE_MESSAGE", 127, 255, 0)
-	print(logger.NOTICE(message_text="Debug data"))
+	# print(logger.DEBUG(message_text="Debug data"))
+	# print(logger.DEBUG(message_text="Debug data", bold=True))
+	# print(logger.DEBUG(message_text="Debug data", italic=True))
+	# print(logger.DEBUG(message_text="Debug data", bold=True, italic=True))
+	#
+	# print(logger.NOTICE(message_text="Debug data"))
+	# mod.setColor("NOTICE_MESSAGE", 127, 255, 0)
+	# print(logger.NOTICE(message_text="Debug data"))
