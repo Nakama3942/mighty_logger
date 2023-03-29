@@ -152,27 +152,29 @@ AnsiFormat = {
 		},
 	},
 }
-"""
-	Example:\n
-	print(f"{AnsiFormat['reset']['on']}Test string")\n
-	print(f"{AnsiFormat['italic']['fraktur']}Test string")\n
-	print(f"{AnsiFormat['blink']['slow']}Test string")\n
-	print(f"{AnsiFormat['invert']['off']}Test string")\n
-	print(f"{AnsiFormat['font']['3th alternative']}Test string")\n
-	print(f"{AnsiFormat['color']['foreground']['green']}Test string")\n
-	\n
-	How to work AnsiFormat['color']['set']:\n
-	ANSI standard - command '38', '48', '58', '98', '108'; he argument - 'N;R;G;B';\n
-	N - const - NUMBER = 2;\n
-	R - value red, G - value green, B - value blue;\n
-	syntax = '\033[38;N;R;G;Bm', for example, white = '\033[38;2;255;255;255m';\n
-	therefore, '\033[38;2;-m' is ANSI format and '-255;255;255-' is color code.\n
-	To save this command, the color in the dictionary has been encoded with the $ symbol and to\n
-	use it you need to return the color instead of the symbol, which is why you need to use replace():\n
-	print(f"{AnsiFormat['color']['set']['background'].replace('$', '255;165;0')}Test string")
-	"""
 
 def GetAnsi() -> dict:
+	"""
+	Returns a complete dictionary of all ANSI escape codes.\n
+	An example of working with ANSI escape codes:\n
+	print(f"{GetAnsi()['reset']['on']}Test string")\n
+	print(f"{GetAnsi()['italic']['fraktur']}Test string")\n
+	print(f"{GetAnsi()['blink']['slow']}Test string")\n
+	print(f"{GetAnsi()['invert']['off']}Test string")\n
+	print(f"{GetAnsi()['font']['3th alternative']}Test string")\n
+	print(f"{GetAnsi()['color']['foreground']['green']}Test string")\n
+	How to work with GetAnsi()['color']['set']:\n
+	ANSI standard - command '38', '48', '58', '98', '108'; he argument - 'N;R;G;B';\n
+	N - const - NUMBER = 2;\n
+	R - red value, G - green value, B - blue value;\n
+	syntax = '\033[38;N;R;G;Bm', for example, white = '\033[38;2;255;255;255m';\n
+	therefore, '\033[38;2;-m' is ANSI format and '-255;255;255-' is color code.\n
+	To save this command, the color in the dictionary has been encoded with the $ symbol and to
+	use it you need to return the color instead of the $ symbol, which is why you need to use replace():\n
+	print(f"{GetAnsi()['color']['set']['background'].replace('$', '255;255;255')}Test string")
+
+	:return: ANSI escape codes
+	"""
 	return AnsiFormat
 
 if __name__ == "__main__":

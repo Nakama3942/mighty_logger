@@ -20,7 +20,8 @@
 
 from qt_colored_logger.basic.patterns import Singleton
 from qt_colored_logger.basic import BasicLogger
-from qt_colored_logger.src import GetDefaultColorScheme, AnsiForegroundColor
+from qt_colored_logger.basic import ColorException
+from qt_colored_logger.src import GetDefaultColorScheme, AnsiForegroundColor, Dec2Ansi
 
 AnsiColorSet: dict = {}
 
@@ -73,9 +74,9 @@ class AnsiColorSetInit(Singleton):
 		AnsiColorSet['FAIL_MESSAGE'] = AnsiForegroundColor(GetDefaultColorScheme()[27])
 
 	@staticmethod
-	def setColor(logger_color_name: str, table_color_value: str):
+	def setColor(logger_color_name: str, color_value: list[int, int, int]):
 		"""
-		A method that sets the hexadecimal color code in the color table of the logger.
+		A method that sets the ANSI escape code color code in the color table of the logger.
 		May throw a ColorException if the given color is not in the table.
 		The logger color table stores the following keys:
 		`TIME, USER, STATUS, STATUS_MESSAGE, TYPE_DEBUG, DEBUG_MESSAGE, TYPE_DEBUG_PERFORMANCE,
@@ -86,12 +87,11 @@ class AnsiColorSetInit(Singleton):
 		TYPE_PROGRESS, PROGRESS_MESSAGE, TYPE_SUCCESS, SUCCESS_MESSAGE, TYPE_FAIL, FAIL_MESSAGE.`
 
 		:param logger_color_name: Color name in logger color table
-		:param table_color_value: Color value in logger color table
+		:param color_value: Color value in RGB
 		"""
 		if logger_color_name in AnsiColorSet:
-			AnsiColorSet[logger_color_name] = AnsiForegroundColor(table_color_value)
+			AnsiColorSet[logger_color_name] = Dec2Ansi(color_value)
 		else:
-			from qt_colored_logger.basic import ColorException
 			raise ColorException("This color is not in the dictionary")
 
 class Logger(Singleton, BasicLogger):
@@ -131,8 +131,8 @@ class Logger(Singleton, BasicLogger):
 		Debugging information logging:
 		Can be used to record any information while debugging an application.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -154,8 +154,8 @@ class Logger(Singleton, BasicLogger):
 		Can be used to record the execution time of operations or other
 		performance information while the application is being debugged.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -177,8 +177,8 @@ class Logger(Singleton, BasicLogger):
 		Can be used to record the execution time of operations or
 		other application performance information.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -200,8 +200,8 @@ class Logger(Singleton, BasicLogger):
 		Can be used to track specific events in the application,
 		such as button presses or mouse cursor movements.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -223,8 +223,8 @@ class Logger(Singleton, BasicLogger):
 		Can be used to track changes in the system, such as creating or
 		deleting users, as well as changes in security settings.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -245,8 +245,8 @@ class Logger(Singleton, BasicLogger):
 		Metrics information logging:
 		Can be used to log metrics to track application performance and identify issues.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -268,8 +268,8 @@ class Logger(Singleton, BasicLogger):
 		Can be used to add custom logs to store additional information
 		that may be useful for diagnosing problems.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -290,8 +290,8 @@ class Logger(Singleton, BasicLogger):
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -312,8 +312,8 @@ class Logger(Singleton, BasicLogger):
 		Default information logging:
 		Can be used to display messages with specific content about the operation of the program.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -334,8 +334,8 @@ class Logger(Singleton, BasicLogger):
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -356,8 +356,8 @@ class Logger(Singleton, BasicLogger):
 		Warning information logging:
 		Can be used to display warnings that the program may work with unpredictable results.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -378,8 +378,8 @@ class Logger(Singleton, BasicLogger):
 		Error information logging:
 		Used to display errors and crashes in the program.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -400,8 +400,8 @@ class Logger(Singleton, BasicLogger):
 		Critical error information logging:
 		Used to display critical and unpredictable program failures.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -421,8 +421,8 @@ class Logger(Singleton, BasicLogger):
 		"""
 		Stub.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -445,8 +445,8 @@ class Logger(Singleton, BasicLogger):
 		"""
 		Stub.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -459,8 +459,8 @@ class Logger(Singleton, BasicLogger):
 		Success information logging:
 		Used to display a message about the success of the process.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -481,8 +481,8 @@ class Logger(Singleton, BasicLogger):
 		Fail information logging:
 		Used to display a message about the failed execution of the process.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string

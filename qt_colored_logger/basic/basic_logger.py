@@ -35,12 +35,12 @@ class BasicLogger:
 		"""
 		Initializes and configures the log.
 
-		:param time: setting the time output
-		:param name: setting the name output
-		:param status: setting the status output
-		:param status_message: setting the status message output
-		:param status_type: setting the log type output
-		:param message: setting the log message output
+		:param time: Setting the time output
+		:param name: Setting the name output
+		:param status: Setting the status output
+		:param status_message: Setting the status message output
+		:param status_type: Setting the log type output
+		:param message: Setting the log message output
 		"""
 		self.time = time
 		self.name = name
@@ -100,13 +100,25 @@ class BasicLogger:
 
 	def _assemble_entry(
 			self,
-			colors: list,
+			colors: list[str, str, str, str, str, str],
 			status_message_text: str,
 			message_type: str,
 			message_text: str,
 			bold: bool,
 			italic: bool
 	):
+		"""
+		A method that assemble an entry into a string and returns it.
+		Forms a console string.
+
+		:param colors: 6 colors that the method uses to assemble the string
+		:param status_message_text: Status message
+		:param message_type: Entry type
+		:param message_text: Entry message
+		:param bold: Format the entry in bold
+		:param italic: Format the entry in italic
+		:return: the formed entry string
+		"""
 		log = ""
 		log += f"{GetAnsi()['bold']['on']}" if bold else ""
 		log += f"{GetAnsi()['italic']['on']}" if italic else ""
@@ -121,13 +133,25 @@ class BasicLogger:
 
 	def _assemble_html_entry(
 			self,
-			colors: list,
+			colors: list[str, str, str, str, str, str],
 			status_message_text: str,
 			message_type: str,
 			message_text: str,
 			bold: bool,
 			italic: bool
 	):
+		"""
+		A method that assemble an entry into a string and returns it.
+		Forms an HTML string.
+
+		:param colors: 6 colors that the method uses to assemble the string
+		:param status_message_text: Status message
+		:param message_type: Entry type
+		:param message_text: Entry message
+		:param bold: Format the entry in bold
+		:param italic: Format the entry in italic
+		:return: the formed entry string
+		"""
 		log = ""
 		log += f"<b>" if bold else ""
 		log += f"<i>" if italic else ""

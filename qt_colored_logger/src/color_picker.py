@@ -213,9 +213,14 @@ DefaultColorScheme = [
 ]
 
 def GetDefaultColorScheme() -> list:
+	"""
+	Returns a list of default logger color schemes.
+
+	:return: DefaultColorScheme list
+	"""
 	return DefaultColorScheme
 
-def DecColor(color_name: str) -> [int, int, int]:
+def DecColor(color_name: str) -> list[int, int, int]:
 	"""
 	Returns a decimal color value.
 
@@ -246,14 +251,32 @@ def AnsiForegroundColor(color_name: str) -> str:
 	"""
 	return GetAnsi()['color']['set']['foreground'].replace('$', '{};{};{}'.format(*DecColor(color_name)))
 
-def Dec2Hex(dec_colors: [int, int, int]) -> str:
+def Dec2Hex(dec_colors: list[int, int, int]) -> str:
+	"""
+	Converts a decimal color value to a hexadecimal.
+
+	:param dec_colors: Decimal color value
+	:return: Hexadecimal color value
+	"""
 	return '{:02x}{:02x}{:02x}'.format(*dec_colors)
 
-def Dec2Ansi(dec_colors: [int, int, int]) -> str:
+def Dec2Ansi(dec_colors: list[int, int, int]) -> str:
+	"""
+	Converts a decimal color value to an ANSI escape code.
+
+	:param dec_colors: Decimal color value
+	:return: ANSI escape code color value
+	"""
 	return GetAnsi()['color']['set']['foreground']\
 		.replace('$', '{};{};{}'.format(*dec_colors))
 
-def Hex2Dec(hex_color: str) -> [int, int, int]:
+def Hex2Dec(hex_color: str) -> list[int, int, int]:
+	"""
+	Converts a hexadecimal color value to a decimal.
+
+	:param hex_color: Hexadecimal color value
+	:return: Decimal color value
+	"""
 	return [
 		int(hex_color[:2], base=16),
 		int(hex_color[2:4], base=16),
@@ -261,6 +284,12 @@ def Hex2Dec(hex_color: str) -> [int, int, int]:
 	]
 
 def Hex2Ansi(hex_color: str) -> str:
+	"""
+	Converts a hexadecimal color value to an ANSI escape code.
+
+	:param hex_color: Hexadecimal color value
+	:return: ANSI escape code color value
+	"""
 	return GetAnsi()['color']['set']['foreground']\
 		.replace('$', '{};{};{}'.format(
 		int(hex_color[:2], base=16),
@@ -268,7 +297,13 @@ def Hex2Ansi(hex_color: str) -> str:
 		int(hex_color[4:], base=16)
 	))
 
-def Ansi2Dec(ansi_color: str) -> [int, int, int]:
+def Ansi2Dec(ansi_color: str) -> list[int, int, int]:
+	"""
+	Converts an ANSI escape code color value to a decimal.
+
+	:param ansi_color: ANSI escape code color value
+	:return: Decimal color value
+	"""
 	return [
 		int(ansi_color.split(';')[2]),
 		int(ansi_color.split(';')[3]),
@@ -276,6 +311,12 @@ def Ansi2Dec(ansi_color: str) -> [int, int, int]:
 	]
 
 def Ansi2Hex(ansi_color: str) -> str:
+	"""
+	Converts an ANSI escape code color value to a hexadecimal.
+
+	:param ansi_color: ANSI escape code color value
+	:return: Hexadecimal color value
+	"""
 	return '{:02x}{:02x}{:02x}'.format(
 		int(ansi_color.split(';')[2]),
 		int(ansi_color.split(';')[3]),

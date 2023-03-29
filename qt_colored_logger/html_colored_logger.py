@@ -90,7 +90,7 @@ class HtmlColorSetInitQ(Singleton):
 		TYPE_PROGRESS, PROGRESS_MESSAGE, TYPE_SUCCESS, SUCCESS_MESSAGE, TYPE_FAIL, FAIL_MESSAGE.`
 
 		:param color_name: Color name in logger color table
-		:param hex_color_value: Color value in logger color table
+		:param hex_color_value: Hexadecimal color value in logger color table
 		"""
 		if color_name in HtmlColorSet:
 			HtmlColorSet[color_name] = hex_color_value
@@ -111,7 +111,7 @@ class HtmlColorSetInitQ(Singleton):
 		TYPE_PROGRESS, PROGRESS_MESSAGE, TYPE_SUCCESS, SUCCESS_MESSAGE, TYPE_FAIL, FAIL_MESSAGE.`
 
 		:param color_name: Color name in logger color table
-		:param color_value: Red color value in logger color table
+		:param color_value: Color value in RGB
 		"""
 		if color_name in HtmlColorSet:
 			HtmlColorSet[color_name] = Dec2Hex(color_value)
@@ -130,7 +130,7 @@ class LoggerQ(Singleton, BasicLogger):
 	3) Record status;
 	4) Recording status message;
 	5) Record type;
-	6) Write message.
+	6) Recording message.
 	Implements the output of the following types of records:
 	1)  `DEBUG`
 	2)  `DEBUG_PERFORMANCE`
@@ -150,13 +150,13 @@ class LoggerQ(Singleton, BasicLogger):
 	16) `FAIL`
 	"""
 
-	def DEBUG(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def DEBUG(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Debugging information logging:
 		Can be used to record any information while debugging an application.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -172,14 +172,14 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@DEBUG", message_text, bold, italic
 		)
 
-	def DEBUG_PERFORMANCE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def DEBUG_PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Performance debugging information logging:
 		Can be used to record the execution time of operations or other
 		performance information while the application is being debugged.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -195,14 +195,14 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@DEBUG PERFORMANCE", message_text, bold, italic
 		)
 
-	def PERFORMANCE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Performance information logging:
 		Can be used to record the execution time of operations or
 		other application performance information.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -218,14 +218,14 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@PERFORMANCE", message_text, bold, italic
 		)
 
-	def EVENT(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def EVENT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Event information logging:
 		Can be used to track specific events in the application,
 		such as button presses or mouse cursor movements.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -241,14 +241,14 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@EVENT", message_text, bold, italic
 		)
 
-	def AUDIT(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def AUDIT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Audit information logging:
 		Can be used to track changes in the system, such as creating or
 		deleting users, as well as changes in security settings.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -264,13 +264,13 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@AUDIT", message_text, bold, italic
 		)
 
-	def METRICS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def METRICS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Metrics information logging:
 		Can be used to log metrics to track application performance and identify issues.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -286,14 +286,14 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@METRICS", message_text, bold, italic
 		)
 
-	def USER(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def USER(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		User information logging:
 		Can be used to add custom logs to store additional information
 		that may be useful for diagnosing problems.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -309,13 +309,13 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@USER", message_text, bold, italic
 		)
 
-	def MESSAGE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def MESSAGE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -331,13 +331,13 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@MESSAGE", message_text, bold, italic
 		)
 
-	def INFO(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def INFO(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Default information logging:
 		Can be used to display messages with specific content about the operation of the program.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -353,13 +353,13 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@INFO", message_text, bold, italic
 		)
 
-	def NOTICE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def NOTICE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -375,13 +375,13 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@NOTICE", message_text, bold, italic
 		)
 
-	def WARNING(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def WARNING(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Warning information logging:
 		Can be used to display warnings that the program may work with unpredictable results.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -397,13 +397,13 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@WARNING", message_text, bold, italic
 		)
 
-	def ERROR(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def ERROR(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Error information logging:
 		Used to display errors and crashes in the program.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -419,13 +419,13 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "!ERROR", message_text, bold, italic
 		)
 
-	def CRITICAL(self, status_message_text: str = "", message_text: str = "", bold: bool = True, italic: bool = False) -> str:
+	def CRITICAL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False) -> str:
 		"""
 		Critical error information logging:
 		Used to display critical and unpredictable program failures.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -441,12 +441,12 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "!!!@CRITICAL", message_text, bold, italic
 		)
 
-	def START_PROCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def START_PROCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Stub.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -466,12 +466,12 @@ class LoggerQ(Singleton, BasicLogger):
 		pass
 		# Must run on a thread
 
-	def STOP_PROCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
+	def STOP_PROCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Stub.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -479,13 +479,13 @@ class LoggerQ(Singleton, BasicLogger):
 		pass
 		# Make transition to SUCCESS or FAIL
 
-	def SUCCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = True) -> str:
+	def SUCCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True) -> str:
 		"""
 		Success information logging:
 		Used to display a message about the success of the process.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
@@ -501,13 +501,13 @@ class LoggerQ(Singleton, BasicLogger):
 			], status_message_text, "@SUCCESS", message_text, bold, italic
 		)
 
-	def FAIL(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = True) -> str:
+	def FAIL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True) -> str:
 		"""
 		Fail information logging:
 		Used to display a message about the failed execution of the process.
 
-		:param status_message_text: log status message
-		:param message_text: log message
+		:param status_message_text: Log status message
+		:param message_text: Log message
 		:param bold: Display log in bold font?
 		:param italic: Display log in italic font?
 		:return: the generated log string
