@@ -19,4 +19,13 @@
 # ############################################################################ #
 
 from .ansi_format import GetAnsi
-from .color_picker import GetDefaultColorScheme, DecColor, HexColor, AnsiForegroundColor
+from .color_picker import GetDefaultColorScheme,\
+	DecColor,\
+	HexColor,\
+	AnsiForegroundColor,\
+	Dec2Hex,\
+	Dec2Ansi,\
+	Hex2Dec,\
+	Hex2Ansi,\
+	Ansi2Dec,\
+	Ansi2Hex

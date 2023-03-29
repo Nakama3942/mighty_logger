@@ -246,8 +246,51 @@ def AnsiForegroundColor(color_name: str) -> str:
 	"""
 	return GetAnsi()['color']['set']['foreground'].replace('$', '{};{};{}'.format(*DecColor(color_name)))
 
+def Dec2Hex(dec_colors: [int, int, int]) -> str:
+	return '{:02x}{:02x}{:02x}'.format(*dec_colors)
+
+def Dec2Ansi(dec_colors: [int, int, int]) -> str:
+	return GetAnsi()['color']['set']['foreground']\
+		.replace('$', '{};{};{}'.format(*dec_colors))
+
+def Hex2Dec(hex_color: str) -> [int, int, int]:
+	return [
+		int(hex_color[:2], base=16),
+		int(hex_color[2:4], base=16),
+		int(hex_color[4:], base=16)
+	]
+
+def Hex2Ansi(hex_color: str) -> str:
+	return GetAnsi()['color']['set']['foreground']\
+		.replace('$', '{};{};{}'.format(
+		int(hex_color[:2], base=16),
+		int(hex_color[2:4], base=16),
+		int(hex_color[4:], base=16)
+	))
+
+def Ansi2Dec(ansi_color: str) -> [int, int, int]:
+	return [
+		int(ansi_color.split(';')[2]),
+		int(ansi_color.split(';')[3]),
+		int(ansi_color.split(';')[4][:-1])
+	]
+
+def Ansi2Hex(ansi_color: str) -> str:
+	return '{:02x}{:02x}{:02x}'.format(
+		int(ansi_color.split(';')[2]),
+		int(ansi_color.split(';')[3]),
+		int(ansi_color.split(';')[4][:-1])
+	)
+
 # Test
 if __name__ == "__main__":
 	print(DecColor('GREEN'))
 	print(HexColor('GREEN'))
 	print(f"{AnsiForegroundColor('GREEN')}Test string")
+
+	print(Dec2Hex([100, 200, 255]))
+	print(Dec2Ansi([100, 200, 255]).replace('\033', '3'))
+	print(Hex2Dec('7080ea'))
+	print(Hex2Ansi('7080ea').replace('\033', '3'))
+	print(Ansi2Dec('\033[38;2;15;19;250m'))
+	print(Ansi2Hex('\033[38;2;15;19;250m'))
