@@ -176,6 +176,45 @@ ColorPicker = {
 	'GAINSBORO': [220, 220, 220],
 }
 
+DefaultColorScheme = [
+	'ORCHID',
+	'MEDIUMORCHID',
+	'ORANGE',
+	'DARKORANGE',
+	'BURLYWOOD',
+	'TAN',
+	'NAVAJOWHITE',
+	'WHEAT',
+	'BLANCHEDALMOND',
+	'BISQUE',
+	'MEDIUMSEAGREEN',
+	'SEAGREEN',
+	'YELLOWGREEN',
+	'OLIVEDRAB',
+	'OLIVE',
+	'DARKOLIVEGREEN',
+	'PALEGREEN',
+	'LIGHTGREEN',
+	'LIGHTSTEELBLUE',
+	'POWDERBLUE',
+	'PALETURQUOISE',
+	'LIGHTBLUE',
+	'DEEPSKYBLUE',
+	'DODGERBLUE',
+	'YELLOW',
+	'DARKYELLOW',
+	'FIREBRICK',
+	'DARKRED',
+	'MAROON',
+	'SKYBLUE',
+	'LIGHTSKYBLUE',
+	'GREEN',
+	'DARKGREEN',
+]
+
+def GetDefaultColorScheme() -> list:
+	return DefaultColorScheme
+
 def DecColor(color_name: str) -> [int, int, int]:
 	"""
 	Returns a decimal color value.
