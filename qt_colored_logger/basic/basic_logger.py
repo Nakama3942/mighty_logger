@@ -118,3 +118,25 @@ class BasicLogger:
 		log += f"{colors[5]}{message_text}" if self.message else ""
 		log += f"{GetAnsi()['reset']['on']}"
 		return log
+
+	def _assemble_html_entry(
+			self,
+			colors: list,
+			status_message_text: str,
+			message_type: str,
+			message_text: str,
+			bold: bool,
+			italic: bool
+	):
+		log = ""
+		log += f"<b>" if bold else ""
+		log += f"<i>" if italic else ""
+		log += f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
+		log += f"<span style='color: #{colors[1]};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
+		log += f"<span style='color: #{colors[2]};'>#STATUS:</span> " if self.status else ""
+		log += f"<span style='color: #{colors[3]};'>{status_message_text}</span>\t" if self.status_message else ""
+		log += f"<span style='color: #{colors[4]};'>{message_type} - </span> " if self.status_type else ""
+		log += f"<span style='color: #{colors[5]};'>{message_text}</span>" if self.message else ""
+		log += f"</i>" if italic else ""
+		log += f"</b>" if bold else ""
+		return log

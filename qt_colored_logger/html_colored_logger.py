@@ -21,13 +21,14 @@
 # The idea is taken here:
 # https://github.com/Nakama3942/WiretappingScanner/commit/da5e0e71681b9e1462d5bba5438fc8b1fde8142e
 
-import datetime, platform, os, random
-from singleton import singleton
+from qt_colored_logger.basic.patterns import Singleton
+from qt_colored_logger.basic import BasicLogger
+from qt_colored_logger.basic import ColorException
+from qt_colored_logger.src import GetDefaultColorScheme, HexColor, Dec2Hex
 
 HtmlColorSet: dict = {}
 
-@singleton
-class HtmlColorSetInitQ:
+class HtmlColorSetInitQ(Singleton):
 	"""
 	Initializes a color table and provides functionality to modify this table.
 	Only one class object can be created!!!
@@ -38,43 +39,42 @@ class HtmlColorSetInitQ:
 		Initializes the color table.
 		Only one class object can be created!!!
 		"""
-		from qt_colored_logger import HexColor
-		HtmlColorSet['TIME'] = HexColor('ORCHID')
-		HtmlColorSet['USER'] = HexColor('MEDIUMORCHID')
-		HtmlColorSet['STATUS'] = HexColor('ORANGE')
-		HtmlColorSet['STATUS_MESSAGE'] = HexColor('DARKORANGE')
-		HtmlColorSet['TYPE_DEBUG'] = HexColor('BURLYWOOD')
-		HtmlColorSet['DEBUG_MESSAGE'] = HexColor('TAN')
-		HtmlColorSet['TYPE_DEBUG_PERFORMANCE'] = HexColor('NAVAJOWHITE')
-		HtmlColorSet['DEBUG_PERFORMANCE_MESSAGE'] = HexColor('WHEAT')
-		HtmlColorSet['TYPE_PERFORMANCE'] = HexColor('BLANCHEDALMOND')
-		HtmlColorSet['PERFORMANCE_MESSAGE'] = HexColor('BISQUE')
-		HtmlColorSet['TYPE_EVENT'] = HexColor('MEDIUMSEAGREEN')
-		HtmlColorSet['EVENT_MESSAGE'] = HexColor('SEAGREEN')
-		HtmlColorSet['TYPE_AUDIT'] = HexColor('YELLOWGREEN')
-		HtmlColorSet['AUDIT_MESSAGE'] = HexColor('OLIVEDRAB')
-		HtmlColorSet['TYPE_METRICS'] = HexColor('OLIVE')
-		HtmlColorSet['METRICS_MESSAGE'] = HexColor('DARKOLIVEGREEN')
-		HtmlColorSet['TYPE_USER'] = HexColor('PALEGREEN')
-		HtmlColorSet['USER_MESSAGE'] = HexColor('LIGHTGREEN')
-		HtmlColorSet['TYPE_MESSAGE'] = HexColor('LIGHTSTEELBLUE')
-		HtmlColorSet['MESSAGE_MESSAGE'] = HexColor('POWDERBLUE')
-		HtmlColorSet['TYPE_INFO'] = HexColor('PALETURQUOISE')
-		HtmlColorSet['INFO_MESSAGE'] = HexColor('LIGHTBLUE')
-		HtmlColorSet['TYPE_NOTICE'] = HexColor('DEEPSKYBLUE')
-		HtmlColorSet['NOTICE_MESSAGE'] = HexColor('DODGERBLUE')
-		HtmlColorSet['TYPE_WARNING'] = HexColor('YELLOW')
-		HtmlColorSet['WARNING_MESSAGE'] = HexColor('DARKYELLOW')
-		HtmlColorSet['TYPE_ERROR'] = HexColor('FIREBRICK')
-		HtmlColorSet['ERROR_MESSAGE'] = HexColor('DARKRED')
-		HtmlColorSet['TYPE_CRITICAL'] = HexColor('DARKRED')
-		HtmlColorSet['CRITICAL_MESSAGE'] = HexColor('MAROON')
-		HtmlColorSet['TYPE_PROGRESS'] = HexColor('SKYBLUE')
-		HtmlColorSet['PROGRESS_MESSAGE'] = HexColor('LIGHTSKYBLUE')
-		HtmlColorSet['TYPE_SUCCESS'] = HexColor('GREEN')
-		HtmlColorSet['SUCCESS_MESSAGE'] = HexColor('DARKGREEN')
-		HtmlColorSet['TYPE_FAIL'] = HexColor('FIREBRICK')
-		HtmlColorSet['FAIL_MESSAGE'] = HexColor('DARKRED')
+		HtmlColorSet['TIME'] = HexColor(GetDefaultColorScheme()[0])
+		HtmlColorSet['USER'] = HexColor(GetDefaultColorScheme()[1])
+		HtmlColorSet['STATUS'] = HexColor(GetDefaultColorScheme()[2])
+		HtmlColorSet['STATUS_MESSAGE'] = HexColor(GetDefaultColorScheme()[3])
+		HtmlColorSet['TYPE_DEBUG'] = HexColor(GetDefaultColorScheme()[4])
+		HtmlColorSet['DEBUG_MESSAGE'] = HexColor(GetDefaultColorScheme()[5])
+		HtmlColorSet['TYPE_DEBUG_PERFORMANCE'] = HexColor(GetDefaultColorScheme()[6])
+		HtmlColorSet['DEBUG_PERFORMANCE_MESSAGE'] = HexColor(GetDefaultColorScheme()[7])
+		HtmlColorSet['TYPE_PERFORMANCE'] = HexColor(GetDefaultColorScheme()[8])
+		HtmlColorSet['PERFORMANCE_MESSAGE'] = HexColor(GetDefaultColorScheme()[9])
+		HtmlColorSet['TYPE_EVENT'] = HexColor(GetDefaultColorScheme()[10])
+		HtmlColorSet['EVENT_MESSAGE'] = HexColor(GetDefaultColorScheme()[11])
+		HtmlColorSet['TYPE_AUDIT'] = HexColor(GetDefaultColorScheme()[12])
+		HtmlColorSet['AUDIT_MESSAGE'] = HexColor(GetDefaultColorScheme()[13])
+		HtmlColorSet['TYPE_METRICS'] = HexColor(GetDefaultColorScheme()[14])
+		HtmlColorSet['METRICS_MESSAGE'] = HexColor(GetDefaultColorScheme()[15])
+		HtmlColorSet['TYPE_USER'] = HexColor(GetDefaultColorScheme()[16])
+		HtmlColorSet['USER_MESSAGE'] = HexColor(GetDefaultColorScheme()[17])
+		HtmlColorSet['TYPE_MESSAGE'] = HexColor(GetDefaultColorScheme()[18])
+		HtmlColorSet['MESSAGE_MESSAGE'] = HexColor(GetDefaultColorScheme()[19])
+		HtmlColorSet['TYPE_INFO'] = HexColor(GetDefaultColorScheme()[20])
+		HtmlColorSet['INFO_MESSAGE'] = HexColor(GetDefaultColorScheme()[21])
+		HtmlColorSet['TYPE_NOTICE'] = HexColor(GetDefaultColorScheme()[22])
+		HtmlColorSet['NOTICE_MESSAGE'] = HexColor(GetDefaultColorScheme()[23])
+		HtmlColorSet['TYPE_WARNING'] = HexColor(GetDefaultColorScheme()[24])
+		HtmlColorSet['WARNING_MESSAGE'] = HexColor(GetDefaultColorScheme()[25])
+		HtmlColorSet['TYPE_ERROR'] = HexColor(GetDefaultColorScheme()[26])
+		HtmlColorSet['ERROR_MESSAGE'] = HexColor(GetDefaultColorScheme()[27])
+		HtmlColorSet['TYPE_CRITICAL'] = HexColor(GetDefaultColorScheme()[27])
+		HtmlColorSet['CRITICAL_MESSAGE'] = HexColor(GetDefaultColorScheme()[28])
+		HtmlColorSet['TYPE_PROGRESS'] = HexColor(GetDefaultColorScheme()[29])
+		HtmlColorSet['PROGRESS_MESSAGE'] = HexColor(GetDefaultColorScheme()[30])
+		HtmlColorSet['TYPE_SUCCESS'] = HexColor(GetDefaultColorScheme()[31])
+		HtmlColorSet['SUCCESS_MESSAGE'] = HexColor(GetDefaultColorScheme()[32])
+		HtmlColorSet['TYPE_FAIL'] = HexColor(GetDefaultColorScheme()[26])
+		HtmlColorSet['FAIL_MESSAGE'] = HexColor(GetDefaultColorScheme()[27])
 
 	@staticmethod
 	def setHexColor(color_name: str, hex_color_value: str):
@@ -92,14 +92,13 @@ class HtmlColorSetInitQ:
 		:param color_name: Color name in logger color table
 		:param hex_color_value: Color value in logger color table
 		"""
-		from qt_colored_logger import ColorException
 		if color_name in HtmlColorSet:
 			HtmlColorSet[color_name] = hex_color_value
 		else:
 			raise ColorException("This color is not in the dictionary")
 
 	@staticmethod
-	def setColor(color_name: str, red: int, green: int, blue: int):
+	def setColor(color_name: str, color_value: [int, int, int]):
 		"""A method that converts the digital values of red, green, and blue
 		in a color to a hexadecimal color code and sets it to the logger's color table.
 		May throw a ColorException if the given color is not in the table.
@@ -112,18 +111,14 @@ class HtmlColorSetInitQ:
 		TYPE_PROGRESS, PROGRESS_MESSAGE, TYPE_SUCCESS, SUCCESS_MESSAGE, TYPE_FAIL, FAIL_MESSAGE.`
 
 		:param color_name: Color name in logger color table
-		:param red: Red color value in logger color table
-		:param green: Green color value in logger color table
-		:param blue: Blue color value in logger color table
+		:param color_value: Red color value in logger color table
 		"""
-		from qt_colored_logger import ColorException
 		if color_name in HtmlColorSet:
-			HtmlColorSet[color_name] = f'{"{:02x}".format(red)}{"{:02x}".format(green)}{"{:02x}".format(blue)}'
+			HtmlColorSet[color_name] = Dec2Hex(color_value)
 		else:
 			raise ColorException("This color is not in the dictionary")
 
-@singleton
-class LoggerQ:
+class LoggerQ(Singleton, BasicLogger):
 	"""
 	The LoggerQ class is a class that implements the functionality
 	of logging the work of software in different directions.
@@ -155,82 +150,6 @@ class LoggerQ:
 	16) `FAIL`
 	"""
 
-	def __init__(
-			self,
-			time: bool = True,
-			name: bool = True,
-			status: bool = True,
-			status_message: bool = True,
-			status_type: bool = True,
-			message: bool = True
-	):
-		"""
-		Initializes and configures the log.
-		Only one class object can be created!!!
-
-		:param time: setting the time output
-		:param name: setting the name output
-		:param status: setting the status output
-		:param status_message: setting the status message output
-		:param status_type: setting the log type output
-		:param message: setting the log message output
-		"""
-		self.time = time
-		self.name = name
-		self.status = status
-		self.status_message = status_message
-		self.status_type = status_type
-		self.message = message
-		self.ID = random.randint(1000000, 9999999)
-
-	def timeEnabled(self, enabled: bool):
-		"""
-		Sets the output of the date-time at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.time = enabled
-
-	def nameEnabled(self, enabled: bool):
-		"""
-		Sets the output of the computer-user at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.name = enabled
-
-	def statusEnabled(self, enabled: bool):
-		"""
-		Sets the output of the status at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.status = enabled
-
-	def status_messageEnabled(self, enabled: bool):
-		"""
-		Sets the output of the status message at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.status_message = enabled
-
-	def status_typeEnabled(self, enabled: bool):
-		"""
-		Sets the output of the log type at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.status_type = enabled
-
-	def messageEnabled(self, enabled: bool):
-		"""
-		Sets the output of the log message at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.message = enabled
-
 	def DEBUG(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
 		Debugging information logging:
@@ -242,18 +161,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_DEBUG']};'>@DEBUG -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['DEBUG_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_DEBUG'],
+				HtmlColorSet['DEBUG_MESSAGE']
+			], status_message_text, "@DEBUG", message_text, bold, italic
+		)
 
 	def DEBUG_PERFORMANCE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -267,18 +184,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_DEBUG_PERFORMANCE']};'>@DEBUG PERFORMANCE -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['DEBUG_PERFORMANCE_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_DEBUG_PERFORMANCE'],
+				HtmlColorSet['DEBUG_PERFORMANCE_MESSAGE']
+			], status_message_text, "@DEBUG PERFORMANCE", message_text, bold, italic
+		)
 
 	def PERFORMANCE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -292,18 +207,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_PERFORMANCE']};'>@PERFORMANCE -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['PERFORMANCE_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_PERFORMANCE'],
+				HtmlColorSet['PERFORMANCE_MESSAGE']
+			], status_message_text, "@PERFORMANCE", message_text, bold, italic
+		)
 
 	def EVENT(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -317,18 +230,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_EVENT']};'>@EVENT -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['EVENT_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_EVENT'],
+				HtmlColorSet['EVENT_MESSAGE']
+			], status_message_text, "@EVENT", message_text, bold, italic
+		)
 
 	def AUDIT(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -342,18 +253,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_AUDIT']};'>@AUDIT -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['AUDIT_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_AUDIT'],
+				HtmlColorSet['AUDIT_MESSAGE']
+			], status_message_text, "@AUDIT", message_text, bold, italic
+		)
 
 	def METRICS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -366,18 +275,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_METRICS']};'>@METRICS -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['METRICS_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_METRICS'],
+				HtmlColorSet['METRICS_MESSAGE']
+			], status_message_text, "@METRICS", message_text, bold, italic
+		)
 
 	def USER(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -391,18 +298,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_USER']};'>@USER -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['USER_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_USER'],
+				HtmlColorSet['USER_MESSAGE']
+			], status_message_text, "@USER", message_text, bold, italic
+		)
 
 	def MESSAGE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -415,18 +320,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_MESSAGE']};'>@MESSAGE -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['MESSAGE_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_MESSAGE'],
+				HtmlColorSet['MESSAGE_MESSAGE']
+			], status_message_text, "@MESSAGE", message_text, bold, italic
+		)
 
 	def INFO(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -439,18 +342,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_INFO']};'>@INFO -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['INFO_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_INFO'],
+				HtmlColorSet['INFO_MESSAGE']
+			], status_message_text, "@INFO", message_text, bold, italic
+		)
 
 	def NOTICE(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -463,18 +364,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_NOTICE']};'>@NOTICE -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['NOTICE_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_NOTICE'],
+				HtmlColorSet['NOTICE_MESSAGE']
+			], status_message_text, "@NOTICE", message_text, bold, italic
+		)
 
 	def WARNING(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -487,18 +386,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_WARNING']};'>@WARNING -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['WARNING_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_WARNING'],
+				HtmlColorSet['WARNING_MESSAGE']
+			], status_message_text, "@WARNING", message_text, bold, italic
+		)
 
 	def ERROR(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -511,18 +408,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_ERROR']};'>!ERROR -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['ERROR_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_ERROR'],
+				HtmlColorSet['ERROR_MESSAGE']
+			], status_message_text, "!ERROR", message_text, bold, italic
+		)
 
 	def CRITICAL(self, status_message_text: str = "", message_text: str = "", bold: bool = True, italic: bool = False) -> str:
 		"""
@@ -535,18 +430,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_CRITICAL']};'>!!!@CRITICAL -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['CRITICAL_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_CRITICAL'],
+				HtmlColorSet['CRITICAL_MESSAGE']
+			], status_message_text, "!!!@CRITICAL", message_text, bold, italic
+		)
 
 	def START_PROCESS(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = False) -> str:
 		"""
@@ -597,18 +490,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_SUCCESS']};'>@SUCCESS -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['SUCCESS_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_SUCCESS'],
+				HtmlColorSet['SUCCESS_MESSAGE']
+			], status_message_text, "@SUCCESS", message_text, bold, italic
+		)
 
 	def FAIL(self, status_message_text: str = "", message_text: str = "", bold: bool = False, italic: bool = True) -> str:
 		"""
@@ -621,18 +512,16 @@ class LoggerQ:
 		:param italic: Display log in italic font?
 		:return: the generated log string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{HtmlColorSet['TIME']};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{HtmlColorSet['USER']};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS']};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{HtmlColorSet['STATUS_MESSAGE']};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{HtmlColorSet['TYPE_FAIL']};'>@FAIL -</span> " if self.status_type else ""
-		log += f"<span style='color: #{HtmlColorSet['FAIL_MESSAGE']};'>{message_text}</span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return self._assemble_html_entry(
+			[
+				HtmlColorSet['TIME'],
+				HtmlColorSet['USER'],
+				HtmlColorSet['STATUS'],
+				HtmlColorSet['STATUS_MESSAGE'],
+				HtmlColorSet['TYPE_FAIL'],
+				HtmlColorSet['FAIL_MESSAGE']
+			], status_message_text, "@FAIL", message_text, bold, italic
+		)
 
 
 # Test
@@ -664,7 +553,7 @@ if __name__ == "__main__":
 	# print(logger2.ID)
 
 	print(len(HtmlColorSet))
-	mod.setColor("TIME", 100, 200, 255)
+	mod.setColor("TIME", [100, 200, 255])
 	print(len(HtmlColorSet))
 
 	# print(logger.DEBUG(message_text="Debug data"))
