@@ -18,9 +18,11 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
+# todo Document all lists, dictionaries, etc. in README.md.
+
 from .colored_logger import AnsiColorSetInit, Logger
 from .html_colored_logger import HtmlColorSetInitQ, LoggerQ
 
 __authot__ = "Kalynovsky 'Nakama3942' Valentin"
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __email__ = "nakama3942@gmail.com"

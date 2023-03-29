@@ -34,11 +34,33 @@ limitations under the License.
 
 ---
 -->
+## v0.2.0 (29.03.2023)
+
+#### Documentation:
+- Documented all new functionality;
+- Fixed typos and outdated information in old documentation.
+
+#### Enhancements:
+- Added a large dictionary of all ANSI escape codes and the GetAnsi() function to get it;
+- CodColor() function renamed to AnsiForegroundColor();
+- Fully implemented AnsiColorSetInit and Logger classes based on HtmlColorSetInitQ and LoggerQ;
+- Singleton pattern used by HtmlColorSetInitQ, LoggerQ, AnsiColorSetInit and Logger moved to a separate class;
+- A base class has been created for LoggerQ and Logger, which includes initialization, setting up loggers and generating record strings (*at the moment, inherited classes are used to simplify interaction with the base class and use ready-made functionality, but in the future their own functionality will be expanded*);
+- Optimized HexColor() and AnsiForegroundColor() functions;
+- **The project structure has been completely changed** (*however, this only affects the development of the library and support for programs written with the version of the library v0.1.0 will remain, since the external attributes of communication with the library have not changed*);
+- Added the DefaultColorScheme list, which stores a list of all colors that are used in the color schemes of the loggers and the GetDefaultColorScheme() function to get this list;
+- Now the ColorPicker dictionary stores only color values in RGB, and other formats are obtained by converting RGB;
+- Added functions Dec2Hex(), Dec2Ansi(), Hex2Dec(), Hex2Ansi(), Ansi2Dec(), Ansi2Hex(), which are used to convert one color value format to another;
+- *The logic of assembling strings logging entry's has been completely changed*;
+- The work of the HtmlColorSetInitQ and LoggerQ classes is adjusted to the new best functionality that is used in the new classes AnsiColorSetInit and Logger.
+
+---
+
 ## v0.1.0 (26.03.2023)
 
 #### Bug Fixes:
 - Fixed a bug that occurs when passing arguments to the LoggerQ constructor;
-- Fixed a bug due to which the color value was not correctly saved in the journal's color table when changing the color manually.
+- Fixed a bug due to which the color value was not correctly saved in the logger's color table when changing the color manually.
 
 #### Documenting:
 - Completed documentation of the library;
@@ -50,7 +72,7 @@ limitations under the License.
 
 ---
 
-## v0.0.8 (25.03.2023)
+## <span style='color: #ff3333;'>v0.0.8 (25.03.2023)</span>
 
 #### Bug Fixes:
 - Found and fixed several minor bugs.

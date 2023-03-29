@@ -155,6 +155,7 @@ AnsiFormat = {
 
 def GetAnsi() -> dict:
 	"""
+	todo Expand the functionality of the function
 	Returns a complete dictionary of all ANSI escape codes.\n
 	An example of working with ANSI escape codes:\n
 	print(f"{GetAnsi()['reset']['on']}Test string")\n
