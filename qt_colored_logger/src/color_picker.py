@@ -242,14 +242,21 @@ def HexColor(color_name: str) -> str:
 	"""
 	return '{:02x}{:02x}{:02x}'.format(*DecColor(color_name))
 
-def AnsiForegroundColor(color_name: str) -> str:
+def AnsiColor(color_name: str, color_ground: str) -> str:
 	"""
-	Returns an ANSI color value.
+	Returns an ANSI color value.\n
+	In AnsiFormat, the following levels are available under the "color/set/..." path:\n
+	- foreground
+	- background
+	- bright foreground
+	- bright background
+	- underline
 
 	:param color_name: Color name
+	:param color_ground: Color level
 	:return: ANSI color value
 	"""
-	return GetAnsiFormat("color/set/foreground/{};{};{}".format(*DecColor(color_name)))
+	return GetAnsiFormat("color/set/{}/{};{};{}".format(color_ground, *DecColor(color_name)))
 
 def Dec2Hex(dec_colors: list[int, int, int]) -> str:
 	"""
@@ -325,7 +332,7 @@ def Ansi2Hex(ansi_color: str) -> str:
 if __name__ == "__main__":
 	print(DecColor('GREEN'))
 	print(HexColor('GREEN'))
-	print(f"{AnsiForegroundColor('GREEN')}Test string")
+	print(f"{AnsiColor('GREEN', 'foreground')}Test string")
 
 	print(Dec2Hex([100, 200, 255]))
 	print(Dec2Ansi([100, 200, 255]).replace('\033', '3'))

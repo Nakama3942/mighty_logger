@@ -22,7 +22,7 @@ from .ansi_format import GetAnsiFormat
 from .color_picker import GetDefaultColorScheme,\
 	DecColor,\
 	HexColor,\
-	AnsiForegroundColor,\
+	AnsiColor,\
 	Dec2Hex,\
 	Dec2Ansi,\
 	Hex2Dec,\
