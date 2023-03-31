@@ -267,14 +267,15 @@ def Dec2Hex(dec_colors: list[int, int, int]) -> str:
 	"""
 	return '{:02x}{:02x}{:02x}'.format(*dec_colors)
 
-def Dec2Ansi(dec_colors: list[int, int, int]) -> str:
+def Dec2Ansi(dec_colors: list[int, int, int], color_ground: str) -> str:
 	"""
 	Converts a decimal color value to an ANSI escape code.
 
 	:param dec_colors: Decimal color value
+	:param color_ground: Color level (read AnsiColor() function documentation)
 	:return: ANSI escape code color value
 	"""
-	return GetAnsiFormat("color/set/foreground/{};{};{}".format(*dec_colors))
+	return GetAnsiFormat("color/set/{}/{};{};{}".format(color_ground, *dec_colors))
 
 def Hex2Dec(hex_color: str) -> list[int, int, int]:
 	"""
@@ -289,14 +290,16 @@ def Hex2Dec(hex_color: str) -> list[int, int, int]:
 		int(hex_color[4:], base=16)
 	]
 
-def Hex2Ansi(hex_color: str) -> str:
+def Hex2Ansi(hex_color: str, color_ground: str) -> str:
 	"""
 	Converts a hexadecimal color value to an ANSI escape code.
 
 	:param hex_color: Hexadecimal color value
+	:param color_ground: Color level (read AnsiColor() function documentation)
 	:return: ANSI escape code color value
 	"""
-	return GetAnsiFormat("color/set/foreground/{};{};{}".format(
+	return GetAnsiFormat("color/set/{}/{};{};{}".format(
+		color_ground,
 		int(hex_color[:2], base=16),
 		int(hex_color[2:4], base=16),
 		int(hex_color[4:], base=16)
@@ -335,8 +338,8 @@ if __name__ == "__main__":
 	print(f"{AnsiColor('GREEN', 'foreground')}Test string")
 
 	print(Dec2Hex([100, 200, 255]))
-	print(Dec2Ansi([100, 200, 255]).replace('\033', '3'))
+	print(Dec2Ansi([100, 200, 255], "foreground").replace('\033', '3'))
 	print(Hex2Dec('7080ea'))
-	print(Hex2Ansi('7080ea').replace('\033', '3'))
+	print(Hex2Ansi('7080ea', "foreground").replace('\033', '3'))
 	print(Ansi2Dec('\033[38;2;15;19;250m'))
 	print(Ansi2Hex('\033[38;2;15;19;250m'))
