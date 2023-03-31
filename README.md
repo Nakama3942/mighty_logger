@@ -14,8 +14,15 @@
     - [Overview](#overview)
     - [LICENSE](#license)
     - [Installation](#installation)
-    - [Usage](#usage)
-        - [Usage notice](#usage-notice)
+    - [Usage in console](#usage-in-console)
+    - [Usage in Qt](#usage-in-qt)
+    - [Additional functionality](#additional-functionality)
+    - [Data](#data)
+        - [Entry types](#entry-types-)
+        - [X11 color table](#x11-color-table-)
+        - [Default Color Scheme](#default-color-scheme-)
+        - [Logger Color Chart](#logger-color-chart-)
+        - [Tree of ANSI escape code](#tree-of-ansi-escape-code-)
     - [Troubleshooting](#troubleshooting)
     - [Authors](#authors)
 
@@ -33,9 +40,7 @@ The library implements the formation of a beautifully formatted colored text, si
 - Log type
 - Log message
 
-Any information to the output can be turned off (according to the standard, everything is included). It is also possible to change the output settings during the logging process. It is possible to change colors (class ~~HtmlColorSetInit and~~ HtmlColorSetInitQ).
-
-*!!!ATTEMPTION!!! At the moment, logging is implemented only in the form of HTML code for QTextBrowser for PyQt, since quite often I need to output the log not to the console, but to the program and save it to a file, including saving colors. Therefore, in this version, output to the console is not implemented, but only in QTextBrowser, however, in the next versions, a lot of functionality will be implemented for easy and convenient logging!*
+Any information to the output can be turned off (according to the standard, everything is included). It is also possible to change the output settings during the logging process. It is possible to change colors (class AnsiColorSetInit and HtmlColorSetInitQ).
 
 - [Content](#content)
 
@@ -67,113 +72,61 @@ To install the library, enter the command:
 pip install qt-colored-logger
 ```
 
-## Usage
-The library has a complete X11 color table. However, logger use their own color tables for themselves, where the names of colors are determined not by its real physical name, but by a virtual one formed from the place where this color is used. These tables are initially empty. To initialize them, you need to create an object of the HtmlColorSetInitQ class, which, in addition to filling the table, provides methods for changing colors in the table. After that, you can already use the color table, and therefore you can start the logging process.
+## Usage in console
+The library has a complete [X11 color table](#x11-color-table-). However, logger use their [own color tables](#logger-color-chart-) for themselves, where the names of colors are determined not by its real physical name, but by a virtual one formed from the place where this color is used. These tables are initially empty. To initialize them, you need to create an object of the AnsiColorSetInit class, which, in addition to filling the table, provides methods for changing colors in the table. After that, you can already use the color table, and therefore you can start the logging process.
 
-*Since the library is under active development, not the best solutions have been applied at this stage, which will be corrected in the future. But at the moment it is NOT RECOMMENDED to name an object of class LoggerQ by the name log!*
+*Since the library is under active development, not the best solutions have been applied at this stage, which will be corrected in the future. But at the moment it is NOT RECOMMENDED to name an object of class Logger by the name log!*
 
-Logging is done by the LoggerQ class. To write to the log, you need to call a method with the desired record type. There are 16 in total:
-- DEBUG
-- DEBUG_PERFORMANCE
-- PERFORMANCE
-- EVENT
-- AUDIT
-- METRICS
-- USER
-- MESSAGE
-- INFO
-- NOTICE
-- WARNING
-- ERROR
-- CRITICAL
-- ~~PROGRESS~~ (*not implemented because the non-implemented START_PROCESS and STOP_PROCESS methods control this type*)
-- SUCCESS
-- FAIL
+Logging is done by the LoggerQ class. To write to the log, you need to call a method with the desired entry type. There are 16 in total: [see section Data/"Entry types"](#entry-types-).
 
 Not only the log itself has settings, but also each type of record. However, the log settings apply to all entries. Therefore, if you need to disable the output of a specific part of the record for a specific type of record, this must be done before each output of this record to the log (i.e., disable the output before writing and turn it back on after the output, so that this part of the information would be displayed for other types). This approach is used only if the part is disabled only for one or more data types.
 
-There are few settings for each type. There you can turn on/off only the text format bold/italic/standard. Also, do not forget to pass the status text (if enabled) and the message text (if enabled) to the record, since the developer himself determines the data to be recorded.
+There are few settings for each entry type. There you can turn on/off only the text format bold/italic/standard. Also, do not forget to pass the status text (if enabled) and the message text (if enabled) to the record, since the developer himself determines the data to be recorded.
 
 Here is an example using the library:
 ```python
-from qt_colored_logger import HtmlColorSetInitQ, LoggerQ
+from qt_colored_logger import AnsiColorSetInit, Logger
 
 if __name__ == '__main__':
-    color = HtmlColorSetInitQ()
-    logger = LoggerQ(status_message=False)
+    color = AnsiColorSetInit()
+    logger = Logger(status_message=False)
     print(logger.DEBUG(message_text="Debug data"))
     print(logger.DEBUG(message_text="Debug data", bold=True))
     print(logger.DEBUG(message_text="Debug data", italic=True))
     print(logger.DEBUG(message_text="Debug data", bold=True, italic=True))
 ```
 
-The output in QTextBrowser will contain the following text:
+The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
 > <span style='color: #da70d6;'>*2023-03-26 13:25:58.091911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span><br>
 > <b><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></b><br>
 > <i><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></i><br>
 > <b><i><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></i></b><br>
 
-If you want to change the color of a part of a post, you need to refer to the logger's color chart. The class LoggerQ has read access, and HtmlColorSetInitQ has write access. As already mentioned, HtmlColorSetInitQ not only forms a table, but also provides methods for changing colors. The logger Color Chart has the following color names:
-- TIME;
-- USER;
-- STATUS;
-- STATUS_MESSAGE;
-- TYPE_DEBUG;
-- DEBUG_MESSAGE;
-- TYPE_DEBUG_PERFORMANCE;
-- DEBUG_PERFORMANCE_MESSAGE;
-- TYPE_PERFORMANCE;
-- PERFORMANCE_MESSAGE;
-- TYPE_EVENT;
-- EVENT_MESSAGE;
-- TYPE_AUDIT;
-- AUDIT_MESSAGE;
-- TYPE_METRICS;
-- METRICS_MESSAGE;
-- TYPE_USER;
-- USER_MESSAGE;
-- TYPE_MESSAGE;
-- MESSAGE_MESSAGE;
-- TYPE_INFO;
-- INFO_MESSAGE;
-- TYPE_NOTICE;
-- NOTICE_MESSAGE;
-- TYPE_WARNING;
-- WARNING_MESSAGE;
-- TYPE_ERROR;
-- ERROR_MESSAGE;
-- TYPE_CRITICAL;
-- CRITICAL_MESSAGE;
-- TYPE_PROGRESS;
-- PROGRESS_MESSAGE;
-- TYPE_SUCCESS;
-- SUCCESS_MESSAGE;
-- TYPE_FAIL;
-- FAIL_MESSAGE.
+If you want to change the color of a part of a post, you need to refer to the [logger's color chart](#logger-color-chart-). The class Logger has read access, and AnsiColorSetInit has write access. As already mentioned, AnsiColorSetInit not only forms a table, but also provides methods for changing colors. The Logger Color Chart has the following color names: [see section Data/"Logger Color Chart"](#logger-color-chart-).
 
 Here is an example of a color change:
 ```python
-from qt_colored_logger import HtmlColorSetInitQ, LoggerQ
+from qt_colored_logger import AnsiColorSetInit, Logger
 
 if __name__ == '__main__':
-    color = HtmlColorSetInitQ()
-    logger = LoggerQ(status_message=False)
+    color = AnsiColorSetInit()
+    logger = Logger(status_message=False)
     print(logger.NOTICE(message_text="Notice data"))
-    color.setColor("NOTICE_MESSAGE", 127, 255, 0)
+    color.setColor("NOTICE_MESSAGE", [127, 255, 0])
     print(logger.NOTICE(message_text="Notice data"))
 ```
 
-The output in QTextBrowser will contain the following text:
+The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
 > <span style='color: #da70d6;'>*2023-03-26 13:52:29.519001</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #00bfff;'>@NOTICE -</span> <span style='color: #1e90ff;'>Notice data</span><br>
 > <span style='color: #da70d6;'>*2023-03-26 13:52:29.519001</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #00bfff;'>@NOTICE -</span> <span style='color: #7fff00;'>Notice data</span><br>
 
 This is the simplest example of using the library:
 ```python
-from qt_colored_logger import HtmlColorSetInitQ, LoggerQ
+from qt_colored_logger import AnsiColorSetInit, Logger
 
 if __name__ == "__main__":
-	mod = HtmlColorSetInitQ()
-	logger = LoggerQ()
+	mod = AnsiColorSetInit()
+	logger = Logger()
 	print(logger.DEBUG("1", "2"))
 	print(logger.DEBUG_PERFORMANCE("3", "4"))
 	print(logger.PERFORMANCE("5", "6"))
@@ -192,7 +145,7 @@ if __name__ == "__main__":
 	print(logger.FAIL("31", "32"))
 ```
 
-The output in QTextBrowser will contain the following text:
+The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
 > <span style='color: #da70d6;'>*2023-03-26 13:54:25.837031</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>1</span>	<span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>2</span><br>
 > <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>3</span>	<span style='color: #ffdead;'>@DEBUG PERFORMANCE -</span> <span style='color: #f5deb3;'>4</span><br>
 > <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>5</span>	<span style='color: #ffebcd;'>@PERFORMANCE -</span> <span style='color: #ffe4c4;'>6</span><br>
@@ -209,14 +162,8 @@ The output in QTextBrowser will contain the following text:
 > <i><span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>29</span>	<span style='color: #008000;'>@SUCCESS -</span> <span style='color: #006400;'>30</span></i><br>
 > <i><span style='color: #da70d6;'>*2023-03-26 13:54:25.871033</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>31</span>	<span style='color: #b22222;'>@FAIL -</span> <span style='color: #8b0000;'>32</span></i><br>
 
-#### Usage notice
-In fact, these examples, at this stage of the development of the library, will not work that way. *The examples are simply tailored to fit the results and show a simplified usage that differs from actual usage in Qt.* However, when the console logger is implemented, it will be based on these rules. But in the future, with development, everything can change (most likely, **for sure** it will change). Don't forget that the logger generates an HTML string, and the print() method prints the text to the console. The results of the work only simulate how the text will look in the application program, and not in the console. So to get this result:
-> <span style='color: #da70d6;'>*2023-03-26 13:25:58.091911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span><br>
-> <b><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></b><br>
-> <i><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></i><br>
-> <b><i><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></i></b><br>
-
-Need to write the following:
+## Usage in Qt
+Разница между консолью и Qt в том, что Qt использует HTML для отображения форматированого текста, а консоль - ANSI escape code. Однако к базовой логике доступ не планируется, а внешний интерфейс между классами AnsiColorSetInit/HtmlColorSetInitQ и Logger/LoggerQ не отличается (кроме самих названий классов). Поэтому все преддыдущие примеры можно переписать так:
 ```python
 from qt_colored_logger import HtmlColorSetInitQ, LoggerQ
 
@@ -232,30 +179,404 @@ self.someTextBrowserObject.append(logger.DEBUG(message_text="Debug data", bold=T
 ...
 ```
 
-And the code from example:
 ```python
 from qt_colored_logger import HtmlColorSetInitQ, LoggerQ
 
-if __name__ == '__main__':
-    color = HtmlColorSetInitQ()
-    logger = LoggerQ(status_message=False)
-    print(logger.DEBUG(message_text="Debug data"))
-    print(logger.DEBUG(message_text="Debug data", bold=True))
-    print(logger.DEBUG(message_text="Debug data", italic=True))
-    print(logger.DEBUG(message_text="Debug data", bold=True, italic=True))
+...
+
+color = HtmlColorSetInitQ()
+logger = LoggerQ(status_message=False)
+self.someTextBrowserObject.append(logger.NOTICE(message_text="Notice data"))
+color.setColor("NOTICE_MESSAGE", [127, 255, 0])
+self.someTextBrowserObject.append(logger.NOTICE(message_text="Notice data"))
+
+...
 ```
 
-It just prints the following text to the console:
-```html
-<span style='color: #da70d6;'>*2023-03-26 13:25:58.091911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span>
-<b><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></b>
-<i><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></i>
-<b><i><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></i></b>
+
+```python
+from qt_colored_logger import HtmlColorSetInitQ, LoggerQ
+
+...
+
+mod = HtmlColorSetInitQ()
+logger = LoggerQ()
+self.someTextBrowserObject.append(logger.DEBUG("1", "2"))
+self.someTextBrowserObject.append(logger.DEBUG_PERFORMANCE("3", "4"))
+self.someTextBrowserObject.append(logger.PERFORMANCE("5", "6"))
+self.someTextBrowserObject.append(logger.EVENT("7", "8"))
+self.someTextBrowserObject.append(logger.AUDIT("9", "10"))
+self.someTextBrowserObject.append(logger.METRICS("11", "12"))
+self.someTextBrowserObject.append(logger.USER("13", "14"))
+self.someTextBrowserObject.append(logger.MESSAGE("15", "16"))
+self.someTextBrowserObject.append(logger.INFO("17", "18"))
+self.someTextBrowserObject.append(logger.NOTICE("19", "20"))
+self.someTextBrowserObject.append(logger.WARNING("21", "22"))
+self.someTextBrowserObject.append(logger.ERROR("23", "24"))
+self.someTextBrowserObject.append(logger.CRITICAL("25", "26"))
+# self.someTextBrowserObject.append(logger.START_PROCESS("27", "28"))
+self.someTextBrowserObject.append(logger.SUCCESS("29", "30"))
+self.someTextBrowserObject.append(logger.FAIL("31", "32"))
+
+...
 ```
 
-Work on the console logger has just begun. Wait for the completion of its development. The work is being actively carried out.
-
+## *Additional functionality*
 *Additional functionality is also planned. Let's keep it a secret for now. Let it be a surprise.*
+
+- [Content](#content)
+
+## Data
+The library stores various important data for use that you may need to know while using the library.
+
+###### Entry types:
+- DEBUG
+- DEBUG_PERFORMANCE
+- PERFORMANCE
+- EVENT
+- AUDIT
+- METRICS
+- USER
+- MESSAGE
+- INFO
+- NOTICE
+- WARNING
+- ERROR
+- CRITICAL
+- ~~PROGRESS~~ (*not implemented because the non-implemented START_PROCESS and STOP_PROCESS methods control this type*)
+- SUCCESS
+- FAIL
+
+###### X11 color table:
+- Red category:
+    - MAROON
+    - DARKRED
+    - RED
+    - LIGHTRED
+    - FIREBRICK
+    - CRIMSON
+    - INDIANRED
+    - LIGHTCORAL
+    - SALMON
+    - DARKSALMON
+    - LIGHTSALMON
+- Pink category:
+    - MEDIUMVIOLETRED
+    - DEEPPINK
+    - PALEVIOLETRED
+    - HOTPINK
+    - LIGHTPINK
+    - PINK
+- Orange category:
+    - ORANGERED
+    - TOMATO
+    - DARKORANGE
+    - CORAL
+    - ORANGE
+- Yellow category:
+    - DARKKHAKI
+    - GOLD
+    - KHAKI
+    - PEACHPUFF
+    - YELLOW
+    - DARKYELLOW
+    - PALEGOLDENROD
+    - MOCCASIN
+- Purple category:
+    - INDIGO
+    - PURPLE
+    - DARKMAGENTA
+    - DARKVIOLET
+    - DARKSLATEBLUE
+    - BLUEVIOLET
+    - DARKORCHID
+    - FUCHSIA
+    - SLATEBLUE
+    - MEDIUMSLATEBLUE
+    - MEDIUMORCHID
+    - MEDIUMPURPLE
+    - ORCHID
+    - VIOLET
+    - PLUM
+    - THISTLE
+    - LAVENDER
+- Green category:
+    - DARKGREEN
+    - GREEN
+    - DARKOLIVEGREEN
+    - FORESTGREEN
+    - SEAGREEN
+    - DARKSLATEGRAY
+    - OLIVE
+    - OLIVEDRAB
+    - MEDIUMSEAGREEN
+    - LIMEGREEN
+    - LIME
+    - SPRINGGREEN
+    - MEDIUMSPRINGGREEN
+    - DARKSEAGREEN
+    - MEDIUMAQUAMARINE
+    - YELLOWGREEN
+    - LAWNGREEN
+    - CHARTREUSE
+    - LIGHTGREEN
+    - GREENYELLOW
+    - PALEGREEN
+- Aqua category:
+    - TEAL
+    - DARKCYAN
+    - LIGHTSEAGREEN
+    - CADETBLUE
+    - DARKTURQUOISE
+    - MEDIUMTURQUOISE
+    - TURQUOISE
+    - AQUA
+    - AQUAMARINE
+    - SKYBLUE
+    - LIGHTSKYBLUE
+    - LIGHTSTEELBLUE
+    - LIGHTBLUE
+    - POWDERBLUE
+    - PALETURQUOISE
+- Blue category:
+    - MIDNIGHTBLUE
+    - NAVY
+    - DARKBLUE
+    - MEDIUMBLUE
+    - BLUE
+    - ROYALBLUE
+    - STEELBLUE
+    - DODGERBLUE
+    - DEEPSKYBLUE
+    - CORNFLOWERBLUE
+- Brown category:
+    - BROWN
+    - SADDLEBROWN
+    - SIENNA
+    - CHOCOLATE
+    - DARKGOLDENROD
+    - PERU
+    - ROSYBROWN
+    - GOLDENROD
+    - SANDYBROWN
+    - TAN
+    - BURLYWOOD
+    - WHEAT
+    - NAVAJOWHITE
+    - BISQUE
+    - BLANCHEDALMOND
+- White category:
+    - WHITE
+    - SNOW
+    - HONEYDEW
+    - MINTCREAM
+    - AZURE
+    - LIGHTCYAN
+    - ALICEBLUE
+    - GHOSTWHITE
+    - WHITESMOKE
+    - SEASHELL
+    - BEIGE
+    - OLDLACE
+    - FLORALWHITE
+    - IVORY
+    - ANTIQUEWHITE
+    - LINEN
+    - LAVENDERBLUSH
+    - MISTYROSE
+    - PAPAYAWHIP
+    - LIGHTGOLDENRODYELLOW
+    - CORNSILK
+    - LEMONCHIFFON
+    - LIGHTYELLOW
+- Gray and black category:
+    - BLACK
+    - DARKGRAY
+    - DIMGRAY
+    - SLATEGRAY
+    - GRAY
+    - LIGHTSLATEGRAY
+    - SILVER
+    - LIGHTGRAY
+    - GAINSBORO
+
+###### Default Color Scheme:
+- ORCHID
+- MEDIUMORCHID
+- ORANGE
+- DARKORANGE
+- BURLYWOOD
+- TAN
+- NAVAJOWHITE
+- WHEAT
+- BLANCHEDALMOND
+- BISQUE
+- MEDIUMSEAGREEN
+- SEAGREEN
+- YELLOWGREEN
+- OLIVEDRAB
+- OLIVE
+- DARKOLIVEGREEN
+- PALEGREEN
+- LIGHTGREEN
+- LIGHTSTEELBLUE
+- POWDERBLUE
+- PALETURQUOISE
+- LIGHTBLUE
+- DEEPSKYBLUE
+- DODGERBLUE
+- YELLOW
+- DARKYELLOW
+- FIREBRICK
+- DARKRED
+- MAROON
+- SKYBLUE
+- LIGHTSKYBLUE
+- GREEN
+- DARKGREEN
+
+###### Logger Color Chart:
+- TIME
+- USER
+- STATUS
+- STATUS_MESSAGE
+- TYPE_DEBUG
+- DEBUG_MESSAGE
+- TYPE_DEBUG_PERFORMANCE
+- DEBUG_PERFORMANCE_MESSAGE
+- TYPE_PERFORMANCE
+- PERFORMANCE_MESSAGE
+- TYPE_EVENT
+- EVENT_MESSAGE
+- TYPE_AUDIT
+- AUDIT_MESSAGE
+- TYPE_METRICS
+- METRICS_MESSAGE
+- TYPE_USER
+- USER_MESSAGE
+- TYPE_MESSAGE
+- MESSAGE_MESSAGE
+- TYPE_INFO
+- INFO_MESSAGE
+- TYPE_NOTICE
+- NOTICE_MESSAGE
+- TYPE_WARNING
+- WARNING_MESSAGE
+- TYPE_ERROR
+- ERROR_MESSAGE
+- TYPE_CRITICAL
+- CRITICAL_MESSAGE
+- TYPE_PROGRESS
+- PROGRESS_MESSAGE
+- TYPE_SUCCESS
+- SUCCESS_MESSAGE
+- TYPE_FAIL
+- FAIL_MESSAGE
+
+###### Tree of ANSI escape code:
+- reset
+    - on
+- bold
+    - on
+    - off (doubly underlined)
+- faint
+    - on
+    - off
+- italic
+    - on
+    - fraktur
+    - off
+- underline
+    - on
+    - off
+- blink
+    - slow
+    - rapid
+    - off
+- proportional spacing
+    - on
+    - off
+- invert
+    - on
+    - off
+- hide
+    - on
+    - off
+- strike
+    - on
+    - off
+- over line
+    - on
+    - off
+- framed
+    - on
+    - encircled
+    - off
+- font
+    - primary
+    - 1st alternative
+    - 2nd alternative
+    - 3rd alternative
+    - 4th alternative
+    - 5th alternative
+    - 6th alternative
+    - 7th alternative
+    - 8th alternative
+    - 9th alternative
+- color
+    - foreground
+        - black
+        - red
+        - green
+        - yellow
+        - blue
+        - magenta
+        - cyan
+        - white
+    - background
+        - black
+        - red
+        - green
+        - yellow
+        - blue
+        - magenta
+        - cyan
+        - white
+    - bright foreground
+        - black
+        - red
+        - green
+        - yellow
+        - blue
+        - magenta
+        - cyan
+        - white
+    - bright background
+        - black
+        - red
+        - green
+        - yellow
+        - blue
+        - magenta
+        - cyan
+        - white
+    - set
+        - foreground
+            - R;G;B
+        - background
+            - R;G;B
+        - bright foreground
+            - R;G;B
+        - bright background
+            - R;G;B
+        - underline
+            - R;G;B
+    - default
+        - foreground
+        - background
+        - bright foreground
+        - bright background
+        - underline
 
 - [Content](#content)
 
