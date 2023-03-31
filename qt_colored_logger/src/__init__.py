@@ -18,7 +18,7 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from .ansi_format import GetAnsi
+from .ansi_format import GetAnsiFormat
 from .color_picker import GetDefaultColorScheme,\
 	DecColor,\
 	HexColor,\

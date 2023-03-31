@@ -51,7 +51,7 @@ AnsiFormat = {
 		'off': '\033[25m',
 	},
 
-	'proportional spacing ': {  # not work
+	'proportional spacing': {  # not work
 		'on': '\033[26m',
 		'off': '\033[50m',
 	},
@@ -153,36 +153,152 @@ AnsiFormat = {
 	},
 }
 
-def GetAnsi() -> dict:
+def _RecursiveGetAnsiFormat(ansi_address: str, ansi: dict, test: bool = False) -> str:
 	"""
-	todo Expand the functionality of the function
-	Returns a complete dictionary of all ANSI escape codes.\n
-	An example of working with ANSI escape codes:\n
-	print(f"{GetAnsi()['reset']['on']}Test string")\n
-	print(f"{GetAnsi()['italic']['fraktur']}Test string")\n
-	print(f"{GetAnsi()['blink']['slow']}Test string")\n
-	print(f"{GetAnsi()['invert']['off']}Test string")\n
-	print(f"{GetAnsi()['font']['3th alternative']}Test string")\n
-	print(f"{GetAnsi()['color']['foreground']['green']}Test string")\n
-	How to work with GetAnsi()['color']['set']:\n
-	ANSI standard - command '38', '48', '58', '98', '108'; he argument - 'N;R;G;B';\n
-	N - const - NUMBER = 2;\n
-	R - red value, G - green value, B - blue value;\n
-	syntax = '\033[38;N;R;G;Bm', for example, white = '\033[38;2;255;255;255m';\n
-	therefore, '\033[38;2;-m' is ANSI format and '-255;255;255-' is color code.\n
-	To save this command, the color in the dictionary has been encoded with the $ symbol and to
-	use it you need to return the color instead of the $ symbol, which is why you need to use replace():\n
-	print(f"{GetAnsi()['color']['set']['background'].replace('$', '255;255;255')}Test string")
+	Recursively extracts a string with an ANSI escape code from a heavily nested dictionary.
 
-	:return: ANSI escape codes
+	:param ansi_address: Path to ANSI escape code value
+	:param ansi: External/nested dictionary
+	:return: value - ANSI escape code
 	"""
-	return AnsiFormat
+	split_address = ansi_address.split("/")
+	if test:
+		print(split_address)
+	if type(ansi[split_address[0]]) == dict:
+		return _RecursiveGetAnsiFormat("/".join(split_address[1:]), ansi[split_address[0]])
+	else:
+		if len(split_address) == 2:
+			return ansi[split_address[0]].replace('$', split_address[1])
+		else:
+			return ansi[split_address[0]]
+
+def GetAnsiFormat(ansi_address: str) -> str:
+	"""
+	Returns the ANSI escape code value.\n
+	The following values are possible:\n
+	- reset
+		- on
+	- bold
+		- on
+		- off (doubly underlined)
+	- faint
+		- on
+		- off
+	- italic
+		- on
+		- fraktur
+		- off
+	- underline
+		- on
+		- off
+	- blink
+		- slow
+		- rapid
+		- off
+	- proportional spacing
+		- on
+		- off
+	- invert
+		- on
+		- off
+	- hide
+		- on
+		- off
+	- strike
+		- on
+		- off
+	- over line
+		- on
+		- off
+	- framed
+		- on
+		- encircled
+		- off
+	- font
+		- primary
+		- 1th alternative
+		- 2th alternative
+		- 3th alternative
+		- 4th alternative
+		- 5th alternative
+		- 6th alternative
+		- 7th alternative
+		- 8th alternative
+		- 9th alternative
+	- color
+		- foreground
+			- black
+			- red
+			- green
+			- yellow
+			- blue
+			- magenta
+			- cyan
+			- white
+		- background
+			- black
+			- red
+			- green
+			- yellow
+			- blue
+			- magenta
+			- cyan
+			- white
+		- bright foreground
+			- black
+			- red
+			- green
+			- yellow
+			- blue
+			- magenta
+			- cyan
+			- white
+		- bright background
+			- black
+			- red
+			- green
+			- yellow
+			- blue
+			- magenta
+			- cyan
+			- white
+		- set
+			- foreground
+				- R;G;B
+			- background
+				- R;G;B
+			- bright foreground
+				- R;G;B
+			- bright background
+				- R;G;B
+			- underline
+				- R;G;B
+		- default
+			- foreground
+			- background
+			- bright foreground
+			- bright background
+			- underline
+
+	An example of getting an ANSI escape code:\n
+	print(f"{GetAnsiFormat('italic/fraktur')}Test string")\n
+	print(f"{GetAnsiFormat('blink/slow')}Test string")\n
+	print(f"{GetAnsiFormat('invert/off')}Test string")\n
+	print(f"{GetAnsiFormat('font/3th alternative')}Test string")\n
+	print(f"{GetAnsiFormat('color/foreground/green')}Test string")\n
+	print(f"{GetAnsiFormat('color/set/background/255;255;255')}Test string")\n
+	print(f"{GetAnsiFormat('reset/on')}Test string")\n
+
+	:param ansi_address: Path to ANSI escape code value
+	:return: ANSI escape code
+	"""
+	return _RecursiveGetAnsiFormat(ansi_address, AnsiFormat)
 
 if __name__ == "__main__":
-	print(f"{AnsiFormat['italic']['fraktur']}Test string")
-	print(f"{AnsiFormat['blink']['slow']}Test string")
-	print(f"{AnsiFormat['invert']['off']}Test string")
-	print(f"{AnsiFormat['font']['3th alternative']}Test string")
-	print(f"{AnsiFormat['color']['foreground']['green']}Test string")
-	print(f"{AnsiFormat['color']['set']['background'].replace('$', '255;165;0')}Test string")
-	print(f"{AnsiFormat['reset']['on']}Test string")
+	print(f"{GetAnsiFormat('italic/fraktur')}Test string")
+	print(f"{GetAnsiFormat('blink/slow')}Test string")
+	print(f"{GetAnsiFormat('invert/off')}Test string")
+	print(f"{GetAnsiFormat('font/3th alternative')}Test string")
+	print(f"{GetAnsiFormat('color/foreground/green')}Test string")
+	print(f"{GetAnsiFormat('color/set/background/255;255;255')}Test string")
+	print(f"{GetAnsiFormat('reset/on')}Test string")

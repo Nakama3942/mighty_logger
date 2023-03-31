@@ -20,7 +20,7 @@
 
 import datetime, platform, os, random
 
-from qt_colored_logger.src import GetAnsi
+from qt_colored_logger.src import GetAnsiFormat
 
 class BasicLogger:
 	def __init__(
@@ -120,15 +120,15 @@ class BasicLogger:
 		:return: the formed entry string
 		"""
 		log = ""
-		log += f"{GetAnsi()['bold']['on']}" if bold else ""
-		log += f"{GetAnsi()['italic']['on']}" if italic else ""
+		log += f"{GetAnsiFormat('bold/on')}" if bold else ""
+		log += f"{GetAnsiFormat('italic/on')}" if italic else ""
 		log += f"{colors[0]}*{datetime.datetime.now()}\t" if self.time else ""
 		log += f"{colors[1]}${platform.node()}^{os.getlogin()}\t" if self.name else ""
 		log += f"{colors[2]}#STATUS: " if self.status else ""
 		log += f"{colors[3]}{status_message_text}\t" if self.status_message else ""
 		log += f"{colors[4]}{message_type} - " if self.status_type else ""
 		log += f"{colors[5]}{message_text}" if self.message else ""
-		log += f"{GetAnsi()['reset']['on']}"
+		log += f"{GetAnsiFormat('reset/on')}"
 		return log
 
 	def _assemble_html_entry(

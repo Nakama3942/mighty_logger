@@ -18,7 +18,7 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from qt_colored_logger.src import GetAnsi
+from qt_colored_logger.src import GetAnsiFormat
 
 ColorPicker = {
 	# Color table
@@ -249,7 +249,7 @@ def AnsiForegroundColor(color_name: str) -> str:
 	:param color_name: Color name
 	:return: ANSI color value
 	"""
-	return GetAnsi()['color']['set']['foreground'].replace('$', '{};{};{}'.format(*DecColor(color_name)))
+	return GetAnsiFormat("color/set/foreground/{};{};{}".format(*DecColor(color_name)))
 
 def Dec2Hex(dec_colors: list[int, int, int]) -> str:
 	"""
@@ -267,8 +267,7 @@ def Dec2Ansi(dec_colors: list[int, int, int]) -> str:
 	:param dec_colors: Decimal color value
 	:return: ANSI escape code color value
 	"""
-	return GetAnsi()['color']['set']['foreground']\
-		.replace('$', '{};{};{}'.format(*dec_colors))
+	return GetAnsiFormat("color/set/foreground/{};{};{}".format(*dec_colors))
 
 def Hex2Dec(hex_color: str) -> list[int, int, int]:
 	"""
@@ -290,8 +289,7 @@ def Hex2Ansi(hex_color: str) -> str:
 	:param hex_color: Hexadecimal color value
 	:return: ANSI escape code color value
 	"""
-	return GetAnsi()['color']['set']['foreground']\
-		.replace('$', '{};{};{}'.format(
+	return GetAnsiFormat("color/set/foreground/{};{};{}".format(
 		int(hex_color[:2], base=16),
 		int(hex_color[2:4], base=16),
 		int(hex_color[4:], base=16)
