@@ -84,9 +84,9 @@ AnsiFormat = {
 
 	'font': {
 		'primary': '\033[10m',
-		'1th alternative': '\033[11m',
-		'2th alternative': '\033[12m',
-		'3th alternative': '\033[13m',
+		'1st alternative': '\033[11m',
+		'2nd alternative': '\033[12m',
+		'3rd alternative': '\033[13m',
 		'4th alternative': '\033[14m',
 		'5th alternative': '\033[15m',
 		'6th alternative': '\033[16m',
@@ -175,111 +175,7 @@ def _RecursiveGetAnsiFormat(ansi_address: str, ansi: dict, test: bool = False) -
 def GetAnsiFormat(ansi_address: str) -> str:
 	"""
 	Returns the ANSI escape code value.\n
-	The following values are possible:\n
-	- reset
-		- on
-	- bold
-		- on
-		- off (doubly underlined)
-	- faint
-		- on
-		- off
-	- italic
-		- on
-		- fraktur
-		- off
-	- underline
-		- on
-		- off
-	- blink
-		- slow
-		- rapid
-		- off
-	- proportional spacing
-		- on
-		- off
-	- invert
-		- on
-		- off
-	- hide
-		- on
-		- off
-	- strike
-		- on
-		- off
-	- over line
-		- on
-		- off
-	- framed
-		- on
-		- encircled
-		- off
-	- font
-		- primary
-		- 1th alternative
-		- 2th alternative
-		- 3th alternative
-		- 4th alternative
-		- 5th alternative
-		- 6th alternative
-		- 7th alternative
-		- 8th alternative
-		- 9th alternative
-	- color
-		- foreground
-			- black
-			- red
-			- green
-			- yellow
-			- blue
-			- magenta
-			- cyan
-			- white
-		- background
-			- black
-			- red
-			- green
-			- yellow
-			- blue
-			- magenta
-			- cyan
-			- white
-		- bright foreground
-			- black
-			- red
-			- green
-			- yellow
-			- blue
-			- magenta
-			- cyan
-			- white
-		- bright background
-			- black
-			- red
-			- green
-			- yellow
-			- blue
-			- magenta
-			- cyan
-			- white
-		- set
-			- foreground
-				- R;G;B
-			- background
-				- R;G;B
-			- bright foreground
-				- R;G;B
-			- bright background
-				- R;G;B
-			- underline
-				- R;G;B
-		- default
-			- foreground
-			- background
-			- bright foreground
-			- bright background
-			- underline
-
+	The following values are possible: see the list inREADME.md/Data/"Tree of ANSI escape code"\n
 	An example of getting an ANSI escape code:\n
 	print(f"{GetAnsiFormat('italic/fraktur')}Test string")\n
 	print(f"{GetAnsiFormat('blink/slow')}Test string")\n

@@ -18,8 +18,6 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-# todo Document all lists, dictionaries, etc. in README.md.
-
 from .colored_logger import AnsiColorSetInit, Logger
 from .html_colored_logger import HtmlColorSetInitQ, LoggerQ
 

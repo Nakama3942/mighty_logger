@@ -21,14 +21,12 @@
 # The idea is taken here:
 # https://github.com/Nakama3942/WiretappingScanner/commit/da5e0e71681b9e1462d5bba5438fc8b1fde8142e
 
-from qt_colored_logger.basic.patterns import Singleton
-from qt_colored_logger.basic import BasicLogger
-from qt_colored_logger.basic import ColorException
+from qt_colored_logger._basic import _Singleton, _BasicLogger, ColorException
 from qt_colored_logger.src import GetDefaultColorScheme, HexColor, Dec2Hex
 
 HtmlColorSet: dict = {}
 
-class HtmlColorSetInitQ(Singleton):
+class HtmlColorSetInitQ(_Singleton):
 	"""
 	Initializes a color table and provides functionality to modify this table.
 	Only one class object can be created!!!
@@ -98,7 +96,7 @@ class HtmlColorSetInitQ(Singleton):
 			raise ColorException("This color is not in the dictionary")
 
 	@staticmethod
-	def setColor(color_name: str, color_value: [int, int, int]):
+	def setColor(color_name: str, color_value: list[int, int, int]):
 		"""A method that converts the digital values of red, green, and blue
 		in a color to a hexadecimal color code and sets it to the logger's color table.
 		May throw a ColorException if the given color is not in the table.
@@ -118,7 +116,7 @@ class HtmlColorSetInitQ(Singleton):
 		else:
 			raise ColorException("This color is not in the dictionary")
 
-class LoggerQ(Singleton, BasicLogger):
+class LoggerQ(_Singleton, _BasicLogger):
 	"""
 	The LoggerQ class is a class that implements the functionality
 	of logging the work of software in different directions.

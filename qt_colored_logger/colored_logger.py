@@ -18,14 +18,12 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from qt_colored_logger.basic.patterns import Singleton
-from qt_colored_logger.basic import BasicLogger
-from qt_colored_logger.basic import ColorException
+from qt_colored_logger._basic import _Singleton, _BasicLogger, ColorException
 from qt_colored_logger.src import GetDefaultColorScheme, AnsiColor, Dec2Ansi
 
 AnsiColorSet: dict = {}
 
-class AnsiColorSetInit(Singleton):
+class AnsiColorSetInit(_Singleton):
 	"""
 	Initializes a color table and provides functionality to modify this table.
 	Only one class object can be created!!!
@@ -90,11 +88,11 @@ class AnsiColorSetInit(Singleton):
 		:param color_value: Color value in RGB
 		"""
 		if logger_color_name in AnsiColorSet:
-			AnsiColorSet[logger_color_name] = Dec2Ansi(color_value)
+			AnsiColorSet[logger_color_name] = Dec2Ansi(color_value, "foreground")
 		else:
 			raise ColorException("This color is not in the dictionary")
 
-class Logger(Singleton, BasicLogger):
+class Logger(_Singleton, _BasicLogger):
 	"""
 	The LoggerQ class is a class that implements the functionality
 	of logging the work of software in different directions.

@@ -22,7 +22,7 @@ import datetime, platform, os, random
 
 from qt_colored_logger.src import GetAnsiFormat
 
-class BasicLogger:
+class _BasicLogger:
 	def __init__(
 			self,
 			time: bool = True,
