@@ -22,5 +22,5 @@ from .colored_logger import AnsiColorSetInit, Logger
 from .html_colored_logger import HtmlColorSetInitQ, LoggerQ
 
 __authot__ = "Kalynovsky 'Nakama3942' Valentin"
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 __email__ = "nakama3942@gmail.com"

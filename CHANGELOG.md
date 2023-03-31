@@ -241,3 +241,38 @@ Any information to the output can be turned off (according to the standard, ever
 - The work of the HtmlColorSetInitQ and LoggerQ classes is adjusted to the new best functionality that is used in the new classes AnsiColorSetInit and Logger.
 
 ---
+
+## v0.2.1 (31.03.2023)
+
+#### Bug Fixes:
+- Fixed old calls to Singleton and BasicLogger to new _Singleton and _BasicLogger in HtmlColorSetInitQ, LoggerQ, AnsiColorSetInit and Logger classes;
+- Fixed a bug in the setColor() method of the AnsiColorSetInit class, where the value of the new argument was not passed to the Dec2Ansi() function after changing the GetAnsiFormat() function.
+
+#### Documenting:
+- Wrote the actual README.md (which takes into account changes in versions v0.2.0 and v0.2.1);
+- Fixed a bug in the annotation of the setColor() method of the HtmlColorSetInitQ class;
+- Changed the order of the changelog - now it goes in direct order from top to bottom (easy to read and understand), and not from bottom to top.
+
+#### Enhancements:
+- Renamed the GetAnsi() function to GetAnsiFormat(), implemented the _RecursiveGetAnsiFormat() helper function for it - now GetAnsiFormat() takes the path to the ANSI escape code value, recursively traverses the tree and returns the ANSI escape code value, which helps to make the code easier to understand and speed up development programs when using the library; here are some examples:
+```python
+# Before
+print(f"{AnsiFormat['color']['set']['background'].replace('$', '255;165;0')}Test string")
+print(f"{AnsiFormat['reset']['on']}Test string")
+
+# After
+print(f"{GetAnsiFormat('color/set/background/255;255;255')}Test string")
+print(f"{GetAnsiFormat('reset/on')}Test string")
+```
+- Renamed the AnsiForegroundColor() function to AnsiColor() - if earlier the function returned only the color of the text (the usual foreground), now you can specify any of the five plans (this is necessary for the next update, where I will add a change not only to the color, but also to the background of the logs):
+    1. foreground
+    2. background
+    3. bright foreground
+    4. bright background
+    5. underline
+- Adapted the Dec2Ansi() and Hex2Ansi() functions to the modified AnsiColor();
+- Protected the qt_colored_logger/basic directory - now it is called qt_colored_logger/_basic: you can still use its functionality, but now, according to the agreement, the IDE will issue a warning; *remember - protected modules are designed only for use inside the library*;
+- The structure of the qt_colored_logger/_basic protected directory has been slightly changed;
+- Changed names of keys in "AnsiFormat/font" dictionary from "1th alternative", "2th alternative" and "3th alternative" to "1st alternative", "2nd alternative" and "3rd alternative" respectively.
+
+---
