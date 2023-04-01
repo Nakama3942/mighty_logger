@@ -34,55 +34,130 @@ class AnsiColorSetInit(_Singleton):
 		Initializes the color table.
 		Only one class object can be created!!!
 		"""
-		AnsiColorSet['TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
-		AnsiColorSet['USER'] = AnsiColor(GetDefaultColor(7), "foreground")
-		AnsiColorSet['STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
-		AnsiColorSet['STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
+		AnsiColorSet['DEBUG_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['DEBUG_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['DEBUG_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['DEBUG_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_DEBUG'] = AnsiColor(GetDefaultColor(28), "foreground")
 		AnsiColorSet['DEBUG_MESSAGE'] = AnsiColor(GetDefaultColor(27), "foreground")
-		AnsiColorSet['DEBUG_BACKGROUND'] = None
+		AnsiColorSet['DEBUG_BACKGROUND'] = ""
+
+		AnsiColorSet['DEBUG_PERFORMANCE_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['DEBUG_PERFORMANCE_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['DEBUG_PERFORMANCE_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['DEBUG_PERFORMANCE_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_DEBUG_PERFORMANCE'] = AnsiColor(GetDefaultColor(30), "foreground")
 		AnsiColorSet['DEBUG_PERFORMANCE_MESSAGE'] = AnsiColor(GetDefaultColor(29), "foreground")
-		AnsiColorSet['DEBUG_PERFORMANCE_BACKGROUND'] = None
+		AnsiColorSet['DEBUG_PERFORMANCE_BACKGROUND'] = ""
+
+		AnsiColorSet['PERFORMANCE_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['PERFORMANCE_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['PERFORMANCE_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['PERFORMANCE_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_PERFORMANCE'] = AnsiColor(GetDefaultColor(32), "foreground")
 		AnsiColorSet['PERFORMANCE_MESSAGE'] = AnsiColor(GetDefaultColor(31), "foreground")
-		AnsiColorSet['PERFORMANCE_BACKGROUND'] = None
+		AnsiColorSet['PERFORMANCE_BACKGROUND'] = ""
+
+		AnsiColorSet['EVENT_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['EVENT_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['EVENT_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['EVENT_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_EVENT'] = AnsiColor(GetDefaultColor(15), "foreground")
 		AnsiColorSet['EVENT_MESSAGE'] = AnsiColor(GetDefaultColor(12), "foreground")
-		AnsiColorSet['EVENT_BACKGROUND'] = None
+		AnsiColorSet['EVENT_BACKGROUND'] = ""
+
+		AnsiColorSet['AUDIT_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['AUDIT_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['AUDIT_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['AUDIT_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_AUDIT'] = AnsiColor(GetDefaultColor(16), "foreground")
 		AnsiColorSet['AUDIT_MESSAGE'] = AnsiColor(GetDefaultColor(14), "foreground")
-		AnsiColorSet['AUDIT_BACKGROUND'] = None
+		AnsiColorSet['AUDIT_BACKGROUND'] = ""
+
+		AnsiColorSet['METRICS_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['METRICS_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['METRICS_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['METRICS_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_METRICS'] = AnsiColor(GetDefaultColor(13), "foreground")
 		AnsiColorSet['METRICS_MESSAGE'] = AnsiColor(GetDefaultColor(11), "foreground")
-		AnsiColorSet['METRICS_BACKGROUND'] = None
+		AnsiColorSet['METRICS_BACKGROUND'] = ""
+
+		AnsiColorSet['USER_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['USER_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['USER_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['USER_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_USER'] = AnsiColor(GetDefaultColor(18), "foreground")
 		AnsiColorSet['USER_MESSAGE'] = AnsiColor(GetDefaultColor(17), "foreground")
-		AnsiColorSet['USER_BACKGROUND'] = None
+		AnsiColorSet['USER_BACKGROUND'] = ""
+
+		AnsiColorSet['MESSAGE_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['MESSAGE_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['MESSAGE_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['MESSAGE_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_MESSAGE'] = AnsiColor(GetDefaultColor(21), "foreground")
 		AnsiColorSet['MESSAGE_MESSAGE'] = AnsiColor(GetDefaultColor(23), "foreground")
-		AnsiColorSet['MESSAGE_BACKGROUND'] = None
+		AnsiColorSet['MESSAGE_BACKGROUND'] = ""
+
+		AnsiColorSet['INFO_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['INFO_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['INFO_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['INFO_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_INFO'] = AnsiColor(GetDefaultColor(24), "foreground")
 		AnsiColorSet['INFO_MESSAGE'] = AnsiColor(GetDefaultColor(22), "foreground")
-		AnsiColorSet['INFO_BACKGROUND'] = None
+		AnsiColorSet['INFO_BACKGROUND'] = ""
+
+		AnsiColorSet['NOTICE_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['NOTICE_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['NOTICE_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['NOTICE_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_NOTICE'] = AnsiColor(GetDefaultColor(26), "foreground")
 		AnsiColorSet['NOTICE_MESSAGE'] = AnsiColor(GetDefaultColor(25), "foreground")
-		AnsiColorSet['NOTICE_BACKGROUND'] = None
+		AnsiColorSet['NOTICE_BACKGROUND'] = ""
+
+		AnsiColorSet['WARNING_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['WARNING_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['WARNING_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['WARNING_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_WARNING'] = AnsiColor(GetDefaultColor(34), "foreground")
 		AnsiColorSet['WARNING_MESSAGE'] = AnsiColor(GetDefaultColor(33), "foreground")
 		AnsiColorSet['WARNING_BACKGROUND'] = AnsiColor(GetDefaultColor(6), "background")
+
+		AnsiColorSet['ERROR_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['ERROR_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['ERROR_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['ERROR_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_ERROR'] = AnsiColor(GetDefaultColor(33), "foreground")
 		AnsiColorSet['ERROR_MESSAGE'] = AnsiColor(GetDefaultColor(33), "foreground")
 		AnsiColorSet['ERROR_BACKGROUND'] = AnsiColor(GetDefaultColor(2), "background")
+
+		AnsiColorSet['CRITICAL_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['CRITICAL_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['CRITICAL_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['CRITICAL_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_CRITICAL'] = AnsiColor(GetDefaultColor(33), "foreground")
 		AnsiColorSet['CRITICAL_MESSAGE'] = AnsiColor(GetDefaultColor(33), "foreground")
 		AnsiColorSet['CRITICAL_BACKGROUND'] = AnsiColor(GetDefaultColor(0), "background")
+
+		AnsiColorSet['PROGRESS_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['PROGRESS_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['PROGRESS_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['PROGRESS_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_PROGRESS'] = AnsiColor(GetDefaultColor(33), "foreground")
 		AnsiColorSet['PROGRESS_MESSAGE'] = AnsiColor(GetDefaultColor(34), "foreground")
 		AnsiColorSet['PROGRESS_BACKGROUND'] = AnsiColor(GetDefaultColor(20), "background")
+
+		AnsiColorSet['SUCCESS_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['SUCCESS_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['SUCCESS_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['SUCCESS_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_SUCCESS'] = AnsiColor(GetDefaultColor(33), "foreground")
 		AnsiColorSet['SUCCESS_MESSAGE'] = AnsiColor(GetDefaultColor(33), "foreground")
 		AnsiColorSet['SUCCESS_BACKGROUND'] = AnsiColor(GetDefaultColor(9), "background")
+
+		AnsiColorSet['FAIL_TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['FAIL_USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['FAIL_STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['FAIL_STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
 		AnsiColorSet['TYPE_FAIL'] = AnsiColor(GetDefaultColor(33), "foreground")
 		AnsiColorSet['FAIL_MESSAGE'] = AnsiColor(GetDefaultColor(33), "foreground")
 		AnsiColorSet['FAIL_BACKGROUND'] = AnsiColor(GetDefaultColor(1), "background")
@@ -155,10 +230,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['DEBUG_TIME'],
+				AnsiColorSet['DEBUG_USER'],
+				AnsiColorSet['DEBUG_STATUS'],
+				AnsiColorSet['DEBUG_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_DEBUG'],
 				AnsiColorSet['DEBUG_MESSAGE'],
 				AnsiColorSet['DEBUG_BACKGROUND'],
@@ -181,10 +256,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['DEBUG_PERFORMANCE_TIME'],
+				AnsiColorSet['DEBUG_PERFORMANCE_USER'],
+				AnsiColorSet['DEBUG_PERFORMANCE_STATUS'],
+				AnsiColorSet['DEBUG_PERFORMANCE_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_DEBUG_PERFORMANCE'],
 				AnsiColorSet['DEBUG_PERFORMANCE_MESSAGE'],
 				AnsiColorSet['DEBUG_PERFORMANCE_BACKGROUND'],
@@ -207,10 +282,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['PERFORMANCE_TIME'],
+				AnsiColorSet['PERFORMANCE_USER'],
+				AnsiColorSet['PERFORMANCE_STATUS'],
+				AnsiColorSet['PERFORMANCE_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_PERFORMANCE'],
 				AnsiColorSet['PERFORMANCE_MESSAGE'],
 				AnsiColorSet['PERFORMANCE_BACKGROUND'],
@@ -233,10 +308,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['EVENT_TIME'],
+				AnsiColorSet['EVENT_USER'],
+				AnsiColorSet['EVENT_STATUS'],
+				AnsiColorSet['EVENT_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_EVENT'],
 				AnsiColorSet['EVENT_MESSAGE'],
 				AnsiColorSet['EVENT_BACKGROUND'],
@@ -259,10 +334,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['AUDIT_TIME'],
+				AnsiColorSet['AUDIT_USER'],
+				AnsiColorSet['AUDIT_STATUS'],
+				AnsiColorSet['AUDIT_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_AUDIT'],
 				AnsiColorSet['AUDIT_MESSAGE'],
 				AnsiColorSet['AUDIT_BACKGROUND'],
@@ -284,10 +359,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['METRICS_TIME'],
+				AnsiColorSet['METRICS_USER'],
+				AnsiColorSet['METRICS_STATUS'],
+				AnsiColorSet['METRICS_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_METRICS'],
 				AnsiColorSet['METRICS_MESSAGE'],
 				AnsiColorSet['METRICS_BACKGROUND'],
@@ -310,10 +385,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['USER_TIME'],
+				AnsiColorSet['USER_USER'],
+				AnsiColorSet['USER_STATUS'],
+				AnsiColorSet['USER_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_USER'],
 				AnsiColorSet['USER_MESSAGE'],
 				AnsiColorSet['USER_BACKGROUND'],
@@ -335,10 +410,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['MESSAGE_TIME'],
+				AnsiColorSet['MESSAGE_USER'],
+				AnsiColorSet['MESSAGE_STATUS'],
+				AnsiColorSet['MESSAGE_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_MESSAGE'],
 				AnsiColorSet['MESSAGE_MESSAGE'],
 				AnsiColorSet['MESSAGE_BACKGROUND'],
@@ -360,10 +435,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['INFO_TIME'],
+				AnsiColorSet['INFO_USER'],
+				AnsiColorSet['INFO_STATUS'],
+				AnsiColorSet['INFO_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_INFO'],
 				AnsiColorSet['INFO_MESSAGE'],
 				AnsiColorSet['INFO_BACKGROUND'],
@@ -385,10 +460,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['NOTICE_TIME'],
+				AnsiColorSet['NOTICE_USER'],
+				AnsiColorSet['NOTICE_STATUS'],
+				AnsiColorSet['NOTICE_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_NOTICE'],
 				AnsiColorSet['NOTICE_MESSAGE'],
 				AnsiColorSet['NOTICE_BACKGROUND'],
@@ -410,10 +485,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['WARNING_TIME'],
+				AnsiColorSet['WARNING_USER'],
+				AnsiColorSet['WARNING_STATUS'],
+				AnsiColorSet['WARNING_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_WARNING'],
 				AnsiColorSet['WARNING_MESSAGE'],
 				AnsiColorSet['WARNING_BACKGROUND'],
@@ -435,10 +510,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['ERROR_TIME'],
+				AnsiColorSet['ERROR_USER'],
+				AnsiColorSet['ERROR_STATUS'],
+				AnsiColorSet['ERROR_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_ERROR'],
 				AnsiColorSet['ERROR_MESSAGE'],
 				AnsiColorSet['ERROR_BACKGROUND'],
@@ -460,10 +535,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['CRITICAL_TIME'],
+				AnsiColorSet['CRITICAL_USER'],
+				AnsiColorSet['CRITICAL_STATUS'],
+				AnsiColorSet['CRITICAL_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_CRITICAL'],
 				AnsiColorSet['CRITICAL_MESSAGE'],
 				AnsiColorSet['CRITICAL_BACKGROUND'],
@@ -484,10 +559,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		# return self._assemble_entry(
 		# 	[
-		# 		AnsiColorSet['TIME'],
-		# 		AnsiColorSet['USER'],
-		# 		AnsiColorSet['STATUS'],
-		# 		AnsiColorSet['STATUS_MESSAGE'],
+		# 		AnsiColorSet['PROGRESS_TIME'],
+		# 		AnsiColorSet['PROGRESS_USER'],
+		# 		AnsiColorSet['PROGRESS_STATUS'],
+		# 		AnsiColorSet['PROGRESS_STATUS_MESSAGE'],
 		# 		AnsiColorSet['TYPE_PROGRESS'],
 		# 		AnsiColorSet['PROGRESS_MESSAGE'],
 		# 		AnsiColorSet['PROGRESS_BACKGROUND'],
@@ -526,10 +601,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['SUCCESS_TIME'],
+				AnsiColorSet['SUCCESS_USER'],
+				AnsiColorSet['SUCCESS_STATUS'],
+				AnsiColorSet['SUCCESS_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_SUCCESS'],
 				AnsiColorSet['SUCCESS_MESSAGE'],
 				AnsiColorSet['SUCCESS_BACKGROUND'],
@@ -551,10 +626,10 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		return self._assemble_entry(
 			[
-				AnsiColorSet['TIME'],
-				AnsiColorSet['USER'],
-				AnsiColorSet['STATUS'],
-				AnsiColorSet['STATUS_MESSAGE'],
+				AnsiColorSet['FAIL_TIME'],
+				AnsiColorSet['FAIL_USER'],
+				AnsiColorSet['FAIL_STATUS'],
+				AnsiColorSet['FAIL_STATUS_MESSAGE'],
 				AnsiColorSet['TYPE_FAIL'],
 				AnsiColorSet['FAIL_MESSAGE'],
 				AnsiColorSet['FAIL_BACKGROUND'],
