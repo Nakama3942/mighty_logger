@@ -176,52 +176,6 @@ ColorPicker = {
 	'GAINSBORO': [220, 220, 220],
 }
 
-DefaultColorScheme = [
-	'MAROON',
-	'DARKRED',
-	'FIREBRICK',
-	'DARKORANGE',
-	'ORANGE',
-	'YELLOW',
-	'DARKYELLOW',
-	'MEDIUMORCHID',
-	'ORCHID',
-	'DARKGREEN',
-	'GREEN',
-	'DARKOLIVEGREEN',
-	'SEAGREEN',
-	'OLIVE',
-	'OLIVEDRAB',
-	'MEDIUMSEAGREEN',
-	'YELLOWGREEN',
-	'LIGHTGREEN',
-	'PALEGREEN',
-	'SKYBLUE',
-	'LIGHTSKYBLUE',
-	'LIGHTSTEELBLUE',
-	'LIGHTBLUE',
-	'POWDERBLUE',
-	'PALETURQUOISE',
-	'DODGERBLUE',
-	'DEEPSKYBLUE',
-	'TAN',
-	'BURLYWOOD',
-	'WHEAT',
-	'NAVAJOWHITE',
-	'BISQUE',
-	'BLANCHEDALMOND',
-	'BLACK',
-	'DARKGRAY',
-]
-
-def GetDefaultColor(color_number: int) -> str:
-	"""
-	Returns a color from the list of default colors of the logger.
-
-	:return: Color from DefaultColorScheme list
-	"""
-	return DefaultColorScheme[color_number]
-
 def DecColor(color_name: str) -> list[int, int, int]:
 	"""
 	Returns a decimal color value.
