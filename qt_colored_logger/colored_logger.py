@@ -53,8 +53,16 @@ class Logger(_Singleton, _BasicLogger):
 	16) `FAIL`
 	"""
 
-	def __init__(self):
-		super().__init__()
+	def __init__(
+			self,
+			time: bool = True,
+			name: bool = True,
+			status: bool = True,
+			status_message: bool = True,
+			status_type: bool = True,
+			message: bool = True
+	):
+		super().__init__(time, name, status, status_message, status_type, message)
 		self.__AnsiColorSet: dict = {}
 		self._ansi_color_set_init()
 
@@ -62,6 +70,7 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		Sets the colors of the logger.
 		"""
+		# DEBUG colors
 		self.__AnsiColorSet['DEBUG_TIME'] = AnsiColor('ORCHID', "foreground")
 		self.__AnsiColorSet['DEBUG_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
 		self.__AnsiColorSet['DEBUG_STATUS'] = AnsiColor('ORANGE', "foreground")
@@ -69,7 +78,7 @@ class Logger(_Singleton, _BasicLogger):
 		self.__AnsiColorSet['TYPE_DEBUG'] = AnsiColor('BURLYWOOD', "foreground")
 		self.__AnsiColorSet['DEBUG_MESSAGE'] = AnsiColor('TAN', "foreground")
 		self.__AnsiColorSet['DEBUG_BACKGROUND'] = ""
-
+		# DEBUG_PERFORMANCE colors
 		self.__AnsiColorSet['DEBUG_PERFORMANCE_TIME'] = AnsiColor('ORCHID', "foreground")
 		self.__AnsiColorSet['DEBUG_PERFORMANCE_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
 		self.__AnsiColorSet['DEBUG_PERFORMANCE_STATUS'] = AnsiColor('ORANGE', "foreground")
@@ -77,7 +86,7 @@ class Logger(_Singleton, _BasicLogger):
 		self.__AnsiColorSet['TYPE_DEBUG_PERFORMANCE'] = AnsiColor('NAVAJOWHITE', "foreground")
 		self.__AnsiColorSet['DEBUG_PERFORMANCE_MESSAGE'] = AnsiColor('WHEAT', "foreground")
 		self.__AnsiColorSet['DEBUG_PERFORMANCE_BACKGROUND'] = ""
-
+		# PERFORMANCE colors
 		self.__AnsiColorSet['PERFORMANCE_TIME'] = AnsiColor('ORCHID', "foreground")
 		self.__AnsiColorSet['PERFORMANCE_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
 		self.__AnsiColorSet['PERFORMANCE_STATUS'] = AnsiColor('ORANGE', "foreground")
@@ -85,7 +94,7 @@ class Logger(_Singleton, _BasicLogger):
 		self.__AnsiColorSet['TYPE_PERFORMANCE'] = AnsiColor('BLANCHEDALMOND', "foreground")
 		self.__AnsiColorSet['PERFORMANCE_MESSAGE'] = AnsiColor('BISQUE', "foreground")
 		self.__AnsiColorSet['PERFORMANCE_BACKGROUND'] = ""
-
+		# EVENT colors
 		self.__AnsiColorSet['EVENT_TIME'] = AnsiColor('ORCHID', "foreground")
 		self.__AnsiColorSet['EVENT_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
 		self.__AnsiColorSet['EVENT_STATUS'] = AnsiColor('ORANGE', "foreground")
@@ -93,7 +102,7 @@ class Logger(_Singleton, _BasicLogger):
 		self.__AnsiColorSet['TYPE_EVENT'] = AnsiColor('MEDIUMSEAGREEN', "foreground")
 		self.__AnsiColorSet['EVENT_MESSAGE'] = AnsiColor('SEAGREEN', "foreground")
 		self.__AnsiColorSet['EVENT_BACKGROUND'] = ""
-
+		# AUDIT colors
 		self.__AnsiColorSet['AUDIT_TIME'] = AnsiColor('ORCHID', "foreground")
 		self.__AnsiColorSet['AUDIT_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
 		self.__AnsiColorSet['AUDIT_STATUS'] = AnsiColor('ORANGE', "foreground")
@@ -101,7 +110,7 @@ class Logger(_Singleton, _BasicLogger):
 		self.__AnsiColorSet['TYPE_AUDIT'] = AnsiColor('YELLOWGREEN', "foreground")
 		self.__AnsiColorSet['AUDIT_MESSAGE'] = AnsiColor('OLIVEDRAB', "foreground")
 		self.__AnsiColorSet['AUDIT_BACKGROUND'] = ""
-
+		# METRICS colors
 		self.__AnsiColorSet['METRICS_TIME'] = AnsiColor('ORCHID', "foreground")
 		self.__AnsiColorSet['METRICS_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
 		self.__AnsiColorSet['METRICS_STATUS'] = AnsiColor('ORANGE', "foreground")
@@ -109,7 +118,7 @@ class Logger(_Singleton, _BasicLogger):
 		self.__AnsiColorSet['TYPE_METRICS'] = AnsiColor('OLIVE', "foreground")
 		self.__AnsiColorSet['METRICS_MESSAGE'] = AnsiColor('DARKOLIVEGREEN', "foreground")
 		self.__AnsiColorSet['METRICS_BACKGROUND'] = ""
-
+		# USER colors
 		self.__AnsiColorSet['USER_TIME'] = AnsiColor('ORCHID', "foreground")
 		self.__AnsiColorSet['USER_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
 		self.__AnsiColorSet['USER_STATUS'] = AnsiColor('ORANGE', "foreground")
@@ -117,7 +126,7 @@ class Logger(_Singleton, _BasicLogger):
 		self.__AnsiColorSet['TYPE_USER'] = AnsiColor('PALEGREEN', "foreground")
 		self.__AnsiColorSet['USER_MESSAGE'] = AnsiColor('LIGHTGREEN', "foreground")
 		self.__AnsiColorSet['USER_BACKGROUND'] = ""
-
+		# MESSAGE colors
 		self.__AnsiColorSet['MESSAGE_TIME'] = AnsiColor('ORCHID', "foreground")
 		self.__AnsiColorSet['MESSAGE_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
 		self.__AnsiColorSet['MESSAGE_STATUS'] = AnsiColor('ORANGE', "foreground")
@@ -125,7 +134,7 @@ class Logger(_Singleton, _BasicLogger):
 		self.__AnsiColorSet['TYPE_MESSAGE'] = AnsiColor('LIGHTSTEELBLUE', "foreground")
 		self.__AnsiColorSet['MESSAGE_MESSAGE'] = AnsiColor('POWDERBLUE', "foreground")
 		self.__AnsiColorSet['MESSAGE_BACKGROUND'] = ""
-
+		# INFO colors
 		self.__AnsiColorSet['INFO_TIME'] = AnsiColor('ORCHID', "foreground")
 		self.__AnsiColorSet['INFO_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
 		self.__AnsiColorSet['INFO_STATUS'] = AnsiColor('ORANGE', "foreground")
@@ -133,7 +142,7 @@ class Logger(_Singleton, _BasicLogger):
 		self.__AnsiColorSet['TYPE_INFO'] = AnsiColor('PALETURQUOISE', "foreground")
 		self.__AnsiColorSet['INFO_MESSAGE'] = AnsiColor('LIGHTBLUE', "foreground")
 		self.__AnsiColorSet['INFO_BACKGROUND'] = ""
-
+		# NOTICE colors
 		self.__AnsiColorSet['NOTICE_TIME'] = AnsiColor('ORCHID', "foreground")
 		self.__AnsiColorSet['NOTICE_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
 		self.__AnsiColorSet['NOTICE_STATUS'] = AnsiColor('ORANGE', "foreground")
@@ -141,66 +150,60 @@ class Logger(_Singleton, _BasicLogger):
 		self.__AnsiColorSet['TYPE_NOTICE'] = AnsiColor('DEEPSKYBLUE', "foreground")
 		self.__AnsiColorSet['NOTICE_MESSAGE'] = AnsiColor('DODGERBLUE', "foreground")
 		self.__AnsiColorSet['NOTICE_BACKGROUND'] = ""
-
-		self.__AnsiColorSet['WARNING_TIME'] = AnsiColor('ORCHID', "foreground")
-		self.__AnsiColorSet['WARNING_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
-		self.__AnsiColorSet['WARNING_STATUS'] = AnsiColor('ORANGE', "foreground")
-		self.__AnsiColorSet['WARNING_STATUS_MESSAGE'] = AnsiColor('DARKORANGE', "foreground")
-		self.__AnsiColorSet['TYPE_WARNING'] = AnsiColor('DARKGRAY', "foreground")
-		self.__AnsiColorSet['WARNING_MESSAGE'] = AnsiColor('BLACK', "foreground")
+		# WARNING colors
+		self.__AnsiColorSet['WARNING_TIME'] = AnsiColor('DARKMAGENTA', "foreground")
+		self.__AnsiColorSet['WARNING_USER'] = AnsiColor('PURPLE', "foreground")
+		self.__AnsiColorSet['WARNING_STATUS'] = AnsiColor('SIENNA', "foreground")
+		self.__AnsiColorSet['WARNING_STATUS_MESSAGE'] = AnsiColor('SADDLEBROWN', "foreground")
+		self.__AnsiColorSet['TYPE_WARNING'] = AnsiColor('DARKRED', "foreground")
+		self.__AnsiColorSet['WARNING_MESSAGE'] = AnsiColor('MAROON', "foreground")
 		self.__AnsiColorSet['WARNING_BACKGROUND'] = AnsiColor('DARKYELLOW', "background")
-
-		self.__AnsiColorSet['ERROR_TIME'] = AnsiColor('ORCHID', "foreground")
-		self.__AnsiColorSet['ERROR_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
+		# ERROR colors
+		self.__AnsiColorSet['ERROR_TIME'] = AnsiColor('PLUM', "foreground")
+		self.__AnsiColorSet['ERROR_USER'] = AnsiColor('VIOLET', "foreground")
 		self.__AnsiColorSet['ERROR_STATUS'] = AnsiColor('ORANGE', "foreground")
 		self.__AnsiColorSet['ERROR_STATUS_MESSAGE'] = AnsiColor('DARKORANGE', "foreground")
-		self.__AnsiColorSet['TYPE_ERROR'] = AnsiColor('BLACK', "foreground")
-		self.__AnsiColorSet['ERROR_MESSAGE'] = AnsiColor('BLACK', "foreground")
-		self.__AnsiColorSet['ERROR_BACKGROUND'] = AnsiColor('FIREBRICK', "background")
-
-		self.__AnsiColorSet['CRITICAL_TIME'] = AnsiColor('ORCHID', "foreground")
-		self.__AnsiColorSet['CRITICAL_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
+		self.__AnsiColorSet['TYPE_ERROR'] = AnsiColor('GAINSBORO', "foreground")
+		self.__AnsiColorSet['ERROR_MESSAGE'] = AnsiColor('LIGHTGRAY', "foreground")
+		self.__AnsiColorSet['ERROR_BACKGROUND'] = AnsiColor('DARKRED', "background")
+		# CRITICAL colors
+		self.__AnsiColorSet['CRITICAL_TIME'] = AnsiColor('PLUM', "foreground")
+		self.__AnsiColorSet['CRITICAL_USER'] = AnsiColor('VIOLET', "foreground")
 		self.__AnsiColorSet['CRITICAL_STATUS'] = AnsiColor('ORANGE', "foreground")
 		self.__AnsiColorSet['CRITICAL_STATUS_MESSAGE'] = AnsiColor('DARKORANGE', "foreground")
-		self.__AnsiColorSet['TYPE_CRITICAL'] = AnsiColor('BLACK', "foreground")
-		self.__AnsiColorSet['CRITICAL_MESSAGE'] = AnsiColor('BLACK', "foreground")
+		self.__AnsiColorSet['TYPE_CRITICAL'] = AnsiColor('DARKSALMON', "foreground")
+		self.__AnsiColorSet['CRITICAL_MESSAGE'] = AnsiColor('LIGHTSALMON', "foreground")
 		self.__AnsiColorSet['CRITICAL_BACKGROUND'] = AnsiColor('MAROON', "background")
-
-		self.__AnsiColorSet['PROGRESS_TIME'] = AnsiColor('ORCHID', "foreground")
-		self.__AnsiColorSet['PROGRESS_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
-		self.__AnsiColorSet['PROGRESS_STATUS'] = AnsiColor('ORANGE', "foreground")
-		self.__AnsiColorSet['PROGRESS_STATUS_MESSAGE'] = AnsiColor('DARKORANGE', "foreground")
-		self.__AnsiColorSet['TYPE_PROGRESS'] = AnsiColor('BLACK', "foreground")
-		self.__AnsiColorSet['PROGRESS_MESSAGE'] = AnsiColor('DARKGRAY', "foreground")
-		self.__AnsiColorSet['PROGRESS_BACKGROUND'] = AnsiColor('LIGHTSKYBLUE', "background")
-
-		self.__AnsiColorSet['SUCCESS_TIME'] = AnsiColor('ORCHID', "foreground")
-		self.__AnsiColorSet['SUCCESS_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
+		# PROGRESS colors
+		self.__AnsiColorSet['PROGRESS_TIME'] = AnsiColor('PURPLE', "foreground")
+		self.__AnsiColorSet['PROGRESS_USER'] = AnsiColor('INDIGO', "foreground")
+		self.__AnsiColorSet['PROGRESS_STATUS'] = AnsiColor('DARKRED', "foreground")
+		self.__AnsiColorSet['PROGRESS_STATUS_MESSAGE'] = AnsiColor('MAROON', "foreground")
+		self.__AnsiColorSet['TYPE_PROGRESS'] = AnsiColor('NAVY', "foreground")
+		self.__AnsiColorSet['PROGRESS_MESSAGE'] = AnsiColor('MIDNIGHTBLUE', "foreground")
+		self.__AnsiColorSet['PROGRESS_BACKGROUND'] = AnsiColor('SKYBLUE', "background")
+		# SUCCESS colors
+		self.__AnsiColorSet['SUCCESS_TIME'] = AnsiColor('LAVENDERBLUSH', "foreground")
+		self.__AnsiColorSet['SUCCESS_USER'] = AnsiColor('MISTYROSE', "foreground")
 		self.__AnsiColorSet['SUCCESS_STATUS'] = AnsiColor('ORANGE', "foreground")
 		self.__AnsiColorSet['SUCCESS_STATUS_MESSAGE'] = AnsiColor('DARKORANGE', "foreground")
-		self.__AnsiColorSet['TYPE_SUCCESS'] = AnsiColor('BLACK', "foreground")
-		self.__AnsiColorSet['SUCCESS_MESSAGE'] = AnsiColor('BLACK', "foreground")
+		self.__AnsiColorSet['TYPE_SUCCESS'] = AnsiColor('PALEGREEN', "foreground")
+		self.__AnsiColorSet['SUCCESS_MESSAGE'] = AnsiColor('LIGHTGREEN', "foreground")
 		self.__AnsiColorSet['SUCCESS_BACKGROUND'] = AnsiColor('DARKGREEN', "background")
-
-		self.__AnsiColorSet['FAIL_TIME'] = AnsiColor('ORCHID', "foreground")
-		self.__AnsiColorSet['FAIL_USER'] = AnsiColor('MEDIUMORCHID', "foreground")
+		# FAIL colors
+		self.__AnsiColorSet['FAIL_TIME'] = AnsiColor('LAVENDERBLUSH', "foreground")
+		self.__AnsiColorSet['FAIL_USER'] = AnsiColor('MISTYROSE', "foreground")
 		self.__AnsiColorSet['FAIL_STATUS'] = AnsiColor('ORANGE', "foreground")
 		self.__AnsiColorSet['FAIL_STATUS_MESSAGE'] = AnsiColor('DARKORANGE', "foreground")
-		self.__AnsiColorSet['TYPE_FAIL'] = AnsiColor('BLACK', "foreground")
-		self.__AnsiColorSet['FAIL_MESSAGE'] = AnsiColor('BLACK', "foreground")
+		self.__AnsiColorSet['TYPE_FAIL'] = AnsiColor('YELLOW', "foreground")
+		self.__AnsiColorSet['FAIL_MESSAGE'] = AnsiColor('DARKYELLOW', "foreground")
 		self.__AnsiColorSet['FAIL_BACKGROUND'] = AnsiColor('DARKRED', "background")
 
 	def set_color(self, logger_color_name: str, color_value: list[int, int, int]):
 		"""
 		A method that sets the ANSI escape code color code in the color table of the logger.
 		May throw a ColorException if the given color is not in the table.
-		The logger color table stores the following keys:
-		`TIME, USER, STATUS, STATUS_MESSAGE, TYPE_DEBUG, DEBUG_MESSAGE, TYPE_DEBUG_PERFORMANCE,
-		DEBUG_PERFORMANCE_MESSAGE, TYPE_PERFORMANCE, PERFORMANCE_MESSAGE, TYPE_EVENT, EVENT_MESSAGE,
-		TYPE_AUDIT, AUDIT_MESSAGE, TYPE_METRICS, METRICS_MESSAGE, TYPE_USER, USER_MESSAGE,
-		TYPE_MESSAGE, MESSAGE_MESSAGE, TYPE_INFO, INFO_MESSAGE, TYPE_NOTICE, NOTICE_MESSAGE,
-		TYPE_WARNING, WARNING_MESSAGE, TYPE_ERROR, ERROR_MESSAGE, TYPE_CRITICAL, CRITICAL_MESSAGE,
-		TYPE_PROGRESS, PROGRESS_MESSAGE, TYPE_SUCCESS, SUCCESS_MESSAGE, TYPE_FAIL, FAIL_MESSAGE.`
+		The logger color table stores the following keys: see README.md/Data/"Logger Color Chart"
 
 		:param logger_color_name: Color name in logger color table
 		:param color_value: Color value in RGB
@@ -232,7 +235,7 @@ class Logger(_Singleton, _BasicLogger):
 				self.__AnsiColorSet['TYPE_DEBUG'],
 				self.__AnsiColorSet['DEBUG_MESSAGE'],
 				self.__AnsiColorSet['DEBUG_BACKGROUND'],
-			], status_message_text, "@DEBUG", message_text, bold, italic, invert, background
+			], status_message_text, "%DEBUG", message_text, bold, italic, invert, background
 		)
 
 	def DEBUG_PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
@@ -258,7 +261,7 @@ class Logger(_Singleton, _BasicLogger):
 				self.__AnsiColorSet['TYPE_DEBUG_PERFORMANCE'],
 				self.__AnsiColorSet['DEBUG_PERFORMANCE_MESSAGE'],
 				self.__AnsiColorSet['DEBUG_PERFORMANCE_BACKGROUND'],
-			], status_message_text, "@DEBUG PERFORMANCE", message_text, bold, italic, invert, background
+			], status_message_text, "%DEBUG PERFORMANCE", message_text, bold, italic, invert, background
 		)
 
 	def PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
@@ -284,7 +287,7 @@ class Logger(_Singleton, _BasicLogger):
 				self.__AnsiColorSet['TYPE_PERFORMANCE'],
 				self.__AnsiColorSet['PERFORMANCE_MESSAGE'],
 				self.__AnsiColorSet['PERFORMANCE_BACKGROUND'],
-			], status_message_text, "@PERFORMANCE", message_text, bold, italic, invert, background
+			], status_message_text, "%PERFORMANCE", message_text, bold, italic, invert, background
 		)
 
 	def EVENT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
@@ -310,7 +313,7 @@ class Logger(_Singleton, _BasicLogger):
 				self.__AnsiColorSet['TYPE_EVENT'],
 				self.__AnsiColorSet['EVENT_MESSAGE'],
 				self.__AnsiColorSet['EVENT_BACKGROUND'],
-			], status_message_text, "@EVENT", message_text, bold, italic, invert, background
+			], status_message_text, "~EVENT", message_text, bold, italic, invert, background
 		)
 
 	def AUDIT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
@@ -336,7 +339,7 @@ class Logger(_Singleton, _BasicLogger):
 				self.__AnsiColorSet['TYPE_AUDIT'],
 				self.__AnsiColorSet['AUDIT_MESSAGE'],
 				self.__AnsiColorSet['AUDIT_BACKGROUND'],
-			], status_message_text, "@AUDIT", message_text, bold, italic, invert, background
+			], status_message_text, "~AUDIT", message_text, bold, italic, invert, background
 		)
 
 	def METRICS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
@@ -361,7 +364,7 @@ class Logger(_Singleton, _BasicLogger):
 				self.__AnsiColorSet['TYPE_METRICS'],
 				self.__AnsiColorSet['METRICS_MESSAGE'],
 				self.__AnsiColorSet['METRICS_BACKGROUND'],
-			], status_message_text, "@METRICS", message_text, bold, italic, invert, background
+			], status_message_text, "~METRICS", message_text, bold, italic, invert, background
 		)
 
 	def USER(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
@@ -387,7 +390,7 @@ class Logger(_Singleton, _BasicLogger):
 				self.__AnsiColorSet['TYPE_USER'],
 				self.__AnsiColorSet['USER_MESSAGE'],
 				self.__AnsiColorSet['USER_BACKGROUND'],
-			], status_message_text, "@USER", message_text, bold, italic, invert, background
+			], status_message_text, "~USER", message_text, bold, italic, invert, background
 		)
 
 	def MESSAGE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
@@ -487,7 +490,7 @@ class Logger(_Singleton, _BasicLogger):
 				self.__AnsiColorSet['TYPE_WARNING'],
 				self.__AnsiColorSet['WARNING_MESSAGE'],
 				self.__AnsiColorSet['WARNING_BACKGROUND'],
-			], status_message_text, "@WARNING", message_text, bold, italic, invert, background
+			], status_message_text, "!WARNING", message_text, bold, italic, invert, background
 		)
 
 	def ERROR(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = True) -> str:
@@ -512,7 +515,7 @@ class Logger(_Singleton, _BasicLogger):
 				self.__AnsiColorSet['TYPE_ERROR'],
 				self.__AnsiColorSet['ERROR_MESSAGE'],
 				self.__AnsiColorSet['ERROR_BACKGROUND'],
-			], status_message_text, "!ERROR", message_text, bold, italic, invert, background
+			], status_message_text, "!!ERROR", message_text, bold, italic, invert, background
 		)
 
 	def CRITICAL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False, invert: bool = False, background: bool = True) -> str:
@@ -552,17 +555,17 @@ class Logger(_Singleton, _BasicLogger):
 		:param background: Display log with background?
 		:return: the generated log string
 		"""
-		# return self._assemble_entry(
-		# 	[
-		# 		self.__AnsiColorSet['PROGRESS_TIME'],
-		# 		self.__AnsiColorSet['PROGRESS_USER'],
-		# 		self.__AnsiColorSet['PROGRESS_STATUS'],
-		# 		self.__AnsiColorSet['PROGRESS_STATUS_MESSAGE'],
-		# 		self.__AnsiColorSet['TYPE_PROGRESS'],
-		# 		self.__AnsiColorSet['PROGRESS_MESSAGE'],
-		# 		self.__AnsiColorSet['PROGRESS_BACKGROUND'],
-		# 	], status_message_text, "@PROGRESS", message_text, bold, italic, invert, background
-		# )
+		return self._assemble_entry(
+			[
+				self.__AnsiColorSet['PROGRESS_TIME'],
+				self.__AnsiColorSet['PROGRESS_USER'],
+				self.__AnsiColorSet['PROGRESS_STATUS'],
+				self.__AnsiColorSet['PROGRESS_STATUS_MESSAGE'],
+				self.__AnsiColorSet['TYPE_PROGRESS'],
+				self.__AnsiColorSet['PROGRESS_MESSAGE'],
+				self.__AnsiColorSet['PROGRESS_BACKGROUND'],
+			], status_message_text, "&PROGRESS [****......]", message_text, bold, italic, invert, background
+		)
 		pass
 		# Must run on a thread
 
@@ -603,7 +606,7 @@ class Logger(_Singleton, _BasicLogger):
 				self.__AnsiColorSet['TYPE_SUCCESS'],
 				self.__AnsiColorSet['SUCCESS_MESSAGE'],
 				self.__AnsiColorSet['SUCCESS_BACKGROUND'],
-			], status_message_text, "@SUCCESS", message_text, bold, italic, invert, background
+			], status_message_text, "&SUCCESS", message_text, bold, italic, invert, background
 		)
 
 	def FAIL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, background: bool = True) -> str:
@@ -628,7 +631,7 @@ class Logger(_Singleton, _BasicLogger):
 				self.__AnsiColorSet['TYPE_FAIL'],
 				self.__AnsiColorSet['FAIL_MESSAGE'],
 				self.__AnsiColorSet['FAIL_BACKGROUND'],
-			], status_message_text, "@FAIL", message_text, bold, italic, invert, background
+			], status_message_text, "&FAIL", message_text, bold, italic, invert, background
 		)
 
 
@@ -648,9 +651,10 @@ if __name__ == "__main__":
 	print(logger.WARNING("21", "22"))
 	print(logger.ERROR("23", "24"))
 	print(logger.CRITICAL("25", "26"))
-	# print(logger.START_PROCESS("27", "28"))
+	print(logger.START_PROCESS("27", "28"))
 	print(logger.SUCCESS("29", "30"))
-	print(logger.FAIL(status_message_text="31", message_text="32", invert=True))
+	print(logger.FAIL("31", "32"))
+	# print(logger.FAIL(status_message_text="33", message_text="34", invert=True))
 
 	logger.timeEnabled(False)
 	print(logger.DEBUG("1", "2"))
