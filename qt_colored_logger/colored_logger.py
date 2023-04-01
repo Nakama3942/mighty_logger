@@ -19,7 +19,7 @@
 # ############################################################################ #
 
 from qt_colored_logger._basic import _Singleton, _BasicLogger, ColorException
-from qt_colored_logger.src import GetDefaultColorScheme, AnsiColor, Dec2Ansi
+from qt_colored_logger.src import GetDefaultColor, AnsiColor, Dec2Ansi
 
 AnsiColorSet: dict = {}
 
@@ -34,42 +34,43 @@ class AnsiColorSetInit(_Singleton):
 		Initializes the color table.
 		Only one class object can be created!!!
 		"""
-		AnsiColorSet['TIME'] = AnsiColor(GetDefaultColorScheme()[0], "foreground")
-		AnsiColorSet['USER'] = AnsiColor(GetDefaultColorScheme()[1], "foreground")
-		AnsiColorSet['STATUS'] = AnsiColor(GetDefaultColorScheme()[2], "foreground")
-		AnsiColorSet['STATUS_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[3], "foreground")
-		AnsiColorSet['TYPE_DEBUG'] = AnsiColor(GetDefaultColorScheme()[4], "foreground")
-		AnsiColorSet['DEBUG_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[5], "foreground")
-		AnsiColorSet['TYPE_DEBUG_PERFORMANCE'] = AnsiColor(GetDefaultColorScheme()[6], "foreground")
-		AnsiColorSet['DEBUG_PERFORMANCE_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[7], "foreground")
-		AnsiColorSet['TYPE_PERFORMANCE'] = AnsiColor(GetDefaultColorScheme()[8], "foreground")
-		AnsiColorSet['PERFORMANCE_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[9], "foreground")
-		AnsiColorSet['TYPE_EVENT'] = AnsiColor(GetDefaultColorScheme()[10], "foreground")
-		AnsiColorSet['EVENT_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[11], "foreground")
-		AnsiColorSet['TYPE_AUDIT'] = AnsiColor(GetDefaultColorScheme()[12], "foreground")
-		AnsiColorSet['AUDIT_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[13], "foreground")
-		AnsiColorSet['TYPE_METRICS'] = AnsiColor(GetDefaultColorScheme()[14], "foreground")
-		AnsiColorSet['METRICS_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[15], "foreground")
-		AnsiColorSet['TYPE_USER'] = AnsiColor(GetDefaultColorScheme()[16], "foreground")
-		AnsiColorSet['USER_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[17], "foreground")
-		AnsiColorSet['TYPE_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[18], "foreground")
-		AnsiColorSet['MESSAGE_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[19], "foreground")
-		AnsiColorSet['TYPE_INFO'] = AnsiColor(GetDefaultColorScheme()[20], "foreground")
-		AnsiColorSet['INFO_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[21], "foreground")
-		AnsiColorSet['TYPE_NOTICE'] = AnsiColor(GetDefaultColorScheme()[22], "foreground")
-		AnsiColorSet['NOTICE_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[23], "foreground")
-		AnsiColorSet['TYPE_WARNING'] = AnsiColor(GetDefaultColorScheme()[24], "foreground")
-		AnsiColorSet['WARNING_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[25], "foreground")
-		AnsiColorSet['TYPE_ERROR'] = AnsiColor(GetDefaultColorScheme()[26], "foreground")
-		AnsiColorSet['ERROR_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[27], "foreground")
-		AnsiColorSet['TYPE_CRITICAL'] = AnsiColor(GetDefaultColorScheme()[27], "foreground")
-		AnsiColorSet['CRITICAL_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[28], "foreground")
-		AnsiColorSet['TYPE_PROGRESS'] = AnsiColor(GetDefaultColorScheme()[29], "foreground")
-		AnsiColorSet['PROGRESS_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[30], "foreground")
-		AnsiColorSet['TYPE_SUCCESS'] = AnsiColor(GetDefaultColorScheme()[31], "foreground")
-		AnsiColorSet['SUCCESS_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[32], "foreground")
-		AnsiColorSet['TYPE_FAIL'] = AnsiColor(GetDefaultColorScheme()[26], "foreground")
-		AnsiColorSet['FAIL_MESSAGE'] = AnsiColor(GetDefaultColorScheme()[27], "foreground")
+		AnsiColorSet['TIME'] = AnsiColor(GetDefaultColor(8), "foreground")
+		AnsiColorSet['USER'] = AnsiColor(GetDefaultColor(7), "foreground")
+		AnsiColorSet['STATUS'] = AnsiColor(GetDefaultColor(4), "foreground")
+		AnsiColorSet['STATUS_MESSAGE'] = AnsiColor(GetDefaultColor(3), "foreground")
+		AnsiColorSet['TYPE_DEBUG'] = AnsiColor(GetDefaultColor(28), "foreground")
+		AnsiColorSet['DEBUG_MESSAGE'] = AnsiColor(GetDefaultColor(27), "foreground")
+		# AnsiColorSet['DEBUG_BACKGROUND'] = None
+		AnsiColorSet['TYPE_DEBUG_PERFORMANCE'] = AnsiColor(GetDefaultColor(30), "foreground")
+		AnsiColorSet['DEBUG_PERFORMANCE_MESSAGE'] = AnsiColor(GetDefaultColor(29), "foreground")
+		AnsiColorSet['TYPE_PERFORMANCE'] = AnsiColor(GetDefaultColor(32), "foreground")
+		AnsiColorSet['PERFORMANCE_MESSAGE'] = AnsiColor(GetDefaultColor(31), "foreground")
+		AnsiColorSet['TYPE_EVENT'] = AnsiColor(GetDefaultColor(15), "foreground")
+		AnsiColorSet['EVENT_MESSAGE'] = AnsiColor(GetDefaultColor(12), "foreground")
+		AnsiColorSet['TYPE_AUDIT'] = AnsiColor(GetDefaultColor(16), "foreground")
+		AnsiColorSet['AUDIT_MESSAGE'] = AnsiColor(GetDefaultColor(14), "foreground")
+		AnsiColorSet['TYPE_METRICS'] = AnsiColor(GetDefaultColor(13), "foreground")
+		AnsiColorSet['METRICS_MESSAGE'] = AnsiColor(GetDefaultColor(11), "foreground")
+		AnsiColorSet['TYPE_USER'] = AnsiColor(GetDefaultColor(18), "foreground")
+		AnsiColorSet['USER_MESSAGE'] = AnsiColor(GetDefaultColor(17), "foreground")
+		AnsiColorSet['TYPE_MESSAGE'] = AnsiColor(GetDefaultColor(21), "foreground")
+		AnsiColorSet['MESSAGE_MESSAGE'] = AnsiColor(GetDefaultColor(23), "foreground")
+		AnsiColorSet['TYPE_INFO'] = AnsiColor(GetDefaultColor(24), "foreground")
+		AnsiColorSet['INFO_MESSAGE'] = AnsiColor(GetDefaultColor(22), "foreground")
+		AnsiColorSet['TYPE_NOTICE'] = AnsiColor(GetDefaultColor(26), "foreground")
+		AnsiColorSet['NOTICE_MESSAGE'] = AnsiColor(GetDefaultColor(25), "foreground")
+		AnsiColorSet['TYPE_WARNING'] = AnsiColor(GetDefaultColor(5), "foreground")
+		AnsiColorSet['WARNING_MESSAGE'] = AnsiColor(GetDefaultColor(6), "foreground")
+		AnsiColorSet['TYPE_ERROR'] = AnsiColor(GetDefaultColor(2), "foreground")
+		AnsiColorSet['ERROR_MESSAGE'] = AnsiColor(GetDefaultColor(1), "foreground")
+		AnsiColorSet['TYPE_CRITICAL'] = AnsiColor(GetDefaultColor(1), "foreground")
+		AnsiColorSet['CRITICAL_MESSAGE'] = AnsiColor(GetDefaultColor(0), "foreground")
+		AnsiColorSet['TYPE_PROGRESS'] = AnsiColor(GetDefaultColor(19), "foreground")
+		AnsiColorSet['PROGRESS_MESSAGE'] = AnsiColor(GetDefaultColor(20), "foreground")
+		AnsiColorSet['TYPE_SUCCESS'] = AnsiColor(GetDefaultColor(10), "foreground")
+		AnsiColorSet['SUCCESS_MESSAGE'] = AnsiColor(GetDefaultColor(9), "foreground")
+		AnsiColorSet['TYPE_FAIL'] = AnsiColor(GetDefaultColor(2), "foreground")
+		AnsiColorSet['FAIL_MESSAGE'] = AnsiColor(GetDefaultColor(1), "foreground")
 
 	@staticmethod
 	def setColor(logger_color_name: str, color_value: list[int, int, int]):

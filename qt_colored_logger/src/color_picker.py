@@ -177,48 +177,48 @@ ColorPicker = {
 }
 
 DefaultColorScheme = [
-	'ORCHID',
-	'MEDIUMORCHID',
-	'ORANGE',
+	'MAROON',
+	'DARKRED',
+	'FIREBRICK',
 	'DARKORANGE',
-	'BURLYWOOD',
-	'TAN',
-	'NAVAJOWHITE',
-	'WHEAT',
-	'BLANCHEDALMOND',
-	'BISQUE',
-	'MEDIUMSEAGREEN',
-	'SEAGREEN',
-	'YELLOWGREEN',
-	'OLIVEDRAB',
-	'OLIVE',
-	'DARKOLIVEGREEN',
-	'PALEGREEN',
-	'LIGHTGREEN',
-	'LIGHTSTEELBLUE',
-	'POWDERBLUE',
-	'PALETURQUOISE',
-	'LIGHTBLUE',
-	'DEEPSKYBLUE',
-	'DODGERBLUE',
+	'ORANGE',
 	'YELLOW',
 	'DARKYELLOW',
-	'FIREBRICK',
-	'DARKRED',
-	'MAROON',
+	'MEDIUMORCHID',
+	'ORCHID',
+	'DARKGREEN',
+	'GREEN',
+	'DARKOLIVEGREEN',
+	'SEAGREEN',
+	'OLIVE',
+	'OLIVEDRAB',
+	'MEDIUMSEAGREEN',
+	'YELLOWGREEN',
+	'LIGHTGREEN',
+	'PALEGREEN',
 	'SKYBLUE',
 	'LIGHTSKYBLUE',
-	'GREEN',
-	'DARKGREEN',
+	'LIGHTSTEELBLUE',
+	'LIGHTBLUE',
+	'POWDERBLUE',
+	'PALETURQUOISE',
+	'DODGERBLUE',
+	'DEEPSKYBLUE',
+	'TAN',
+	'BURLYWOOD',
+	'WHEAT',
+	'NAVAJOWHITE',
+	'BISQUE',
+	'BLANCHEDALMOND',
 ]
 
-def GetDefaultColorScheme() -> list:
+def GetDefaultColor(color_number: int) -> str:
 	"""
-	Returns a list of default logger color schemes.
+	Returns a color from the list of default colors of the logger.
 
-	:return: DefaultColorScheme list
+	:return: Color from DefaultColorScheme list
 	"""
-	return DefaultColorScheme
+	return DefaultColorScheme[color_number]
 
 def DecColor(color_name: str) -> list[int, int, int]:
 	"""
@@ -308,6 +308,9 @@ def Hex2Ansi(hex_color: str, color_ground: str) -> str:
 def Ansi2Dec(ansi_color: str) -> list[int, int, int]:
 	"""
 	Converts an ANSI escape code color value to a decimal.
+	When converting to ANSI escape code, you need to know which level the color is applied
+	to, and when from ANSI escape code, you don’t need to, because in other formats the levels
+	are defined differently and are not included in the command along with the color.
 
 	:param ansi_color: ANSI escape code color value
 	:return: Decimal color value
@@ -321,6 +324,9 @@ def Ansi2Dec(ansi_color: str) -> list[int, int, int]:
 def Ansi2Hex(ansi_color: str) -> str:
 	"""
 	Converts an ANSI escape code color value to a hexadecimal.
+	When converting to ANSI escape code, you need to know which level the color is applied
+	to, and when from ANSI escape code, you don’t need to, because in other formats the levels
+	are defined differently and are not included in the command along with the color.
 
 	:param ansi_color: ANSI escape code color value
 	:return: Hexadecimal color value
