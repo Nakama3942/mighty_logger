@@ -55,7 +55,8 @@ class Logger(_Singleton, _BasicLogger):
 
 	def __init__(
 			self,
-			program_name: str,
+			*,
+			program_name: str = "Unknown",
 			time: bool = True,
 			name: bool = True,
 			status: bool = True,
@@ -214,7 +215,7 @@ class Logger(_Singleton, _BasicLogger):
 		else:
 			raise ColorException("This color is not in the dictionary")
 
-	def DEBUG(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
+	def DEBUG(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
 		"""
 		Debugging information logging:
 		Can be used to record any information while debugging an application.
@@ -239,7 +240,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "%DEBUG", message_text, bold, italic, invert, background
 		)
 
-	def DEBUG_PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
+	def DEBUG_PERFORMANCE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
 		"""
 		Performance debugging information logging:
 		Can be used to record the execution time of operations or other
@@ -265,7 +266,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "%DEBUG PERFORMANCE", message_text, bold, italic, invert, background
 		)
 
-	def PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
+	def PERFORMANCE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
 		"""
 		Performance information logging:
 		Can be used to record the execution time of operations or
@@ -291,7 +292,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "%PERFORMANCE", message_text, bold, italic, invert, background
 		)
 
-	def EVENT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
+	def EVENT(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
 		"""
 		Event information logging:
 		Can be used to track specific events in the application,
@@ -317,7 +318,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "~EVENT", message_text, bold, italic, invert, background
 		)
 
-	def AUDIT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
+	def AUDIT(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
 		"""
 		Audit information logging:
 		Can be used to track changes in the system, such as creating or
@@ -343,7 +344,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "~AUDIT", message_text, bold, italic, invert, background
 		)
 
-	def METRICS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
+	def METRICS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
 		"""
 		Metrics information logging:
 		Can be used to log metrics to track application performance and identify issues.
@@ -368,7 +369,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "~METRICS", message_text, bold, italic, invert, background
 		)
 
-	def USER(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
+	def USER(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
 		"""
 		User information logging:
 		Can be used to add custom logs to store additional information
@@ -394,7 +395,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "~USER", message_text, bold, italic, invert, background
 		)
 
-	def MESSAGE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
+	def MESSAGE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
 		"""
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
@@ -419,7 +420,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "@MESSAGE", message_text, bold, italic, invert, background
 		)
 
-	def INFO(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
+	def INFO(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
 		"""
 		Default information logging:
 		Can be used to display messages with specific content about the operation of the program.
@@ -444,7 +445,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "@INFO", message_text, bold, italic, invert, background
 		)
 
-	def NOTICE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
+	def NOTICE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = False) -> str:
 		"""
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
@@ -469,7 +470,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "@NOTICE", message_text, bold, italic, invert, background
 		)
 
-	def WARNING(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = True) -> str:
+	def WARNING(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = True) -> str:
 		"""
 		Warning information logging:
 		Can be used to display warnings that the program may work with unpredictable results.
@@ -494,7 +495,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "!WARNING", message_text, bold, italic, invert, background
 		)
 
-	def ERROR(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = True) -> str:
+	def ERROR(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = True) -> str:
 		"""
 		Error information logging:
 		Used to display errors and crashes in the program.
@@ -519,7 +520,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "!!ERROR", message_text, bold, italic, invert, background
 		)
 
-	def CRITICAL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False, invert: bool = False, background: bool = True) -> str:
+	def CRITICAL(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False, invert: bool = False, background: bool = True) -> str:
 		"""
 		Critical error information logging:
 		Used to display critical and unpredictable program failures.
@@ -544,7 +545,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "!!!@CRITICAL", message_text, bold, italic, invert, background
 		)
 
-	def START_PROCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = True) -> str:
+	def START_PROCESS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = True) -> str:
 		"""
 		Stub.
 
@@ -570,7 +571,7 @@ class Logger(_Singleton, _BasicLogger):
 		pass
 		# Must run on a thread
 
-	def STOP_PROCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = True) -> str:
+	def STOP_PROCESS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, background: bool = True) -> str:
 		"""
 		Stub.
 
@@ -585,7 +586,7 @@ class Logger(_Singleton, _BasicLogger):
 		pass
 		# Make transition to SUCCESS or FAIL
 
-	def SUCCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, background: bool = True) -> str:
+	def SUCCESS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, background: bool = True) -> str:
 		"""
 		Success information logging:
 		Used to display a message about the success of the process.
@@ -610,7 +611,7 @@ class Logger(_Singleton, _BasicLogger):
 			], status_message_text, "&SUCCESS", message_text, bold, italic, invert, background
 		)
 
-	def FAIL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, background: bool = True) -> str:
+	def FAIL(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, background: bool = True) -> str:
 		"""
 		Fail information logging:
 		Used to display a message about the failed execution of the process.
@@ -638,24 +639,24 @@ class Logger(_Singleton, _BasicLogger):
 
 # Test
 if __name__ == "__main__":
-	logger = Logger("WiretappingScaner")
-	print(logger.DEBUG("1", "2"))
-	print(logger.DEBUG_PERFORMANCE("3", "4"))
-	print(logger.PERFORMANCE("5", "6"))
-	print(logger.EVENT("7", "8"))
-	print(logger.AUDIT("9", "10"))
-	print(logger.METRICS("11", "12"))
-	print(logger.USER("13", "14"))
-	print(logger.MESSAGE("15", "16"))
-	print(logger.INFO("17", "18"))
-	print(logger.NOTICE("19", "20"))
-	print(logger.WARNING("21", "22"))
-	print(logger.ERROR("23", "24"))
-	print(logger.CRITICAL("25", "26"))
-	print(logger.START_PROCESS("27", "28"))
-	print(logger.SUCCESS("29", "30"))
-	print(logger.FAIL("31", "32"))
+	logger = Logger(program_name="WiretappingScaner")
+	print(logger.DEBUG(status_message_text="1", message_text="2"))
+	print(logger.DEBUG_PERFORMANCE(status_message_text="3", message_text="4"))
+	print(logger.PERFORMANCE(status_message_text="5", message_text="6"))
+	print(logger.EVENT(status_message_text="7", message_text="8"))
+	print(logger.AUDIT(status_message_text="9", message_text="10"))
+	print(logger.METRICS(status_message_text="11", message_text="12"))
+	print(logger.USER(status_message_text="13", message_text="14"))
+	print(logger.MESSAGE(status_message_text="15", message_text="16"))
+	print(logger.INFO(status_message_text="17", message_text="18"))
+	print(logger.NOTICE(status_message_text="19", message_text="20"))
+	print(logger.WARNING(status_message_text="21", message_text="22"))
+	print(logger.ERROR(status_message_text="23", message_text="24"))
+	print(logger.CRITICAL(status_message_text="25", message_text="26"))
+	print(logger.START_PROCESS(status_message_text="27", message_text="28"))
+	print(logger.SUCCESS(status_message_text="29", message_text="30"))
+	print(logger.FAIL(status_message_text="31", message_text="32"))
 	# print(logger.FAIL(status_message_text="33", message_text="34", invert=True))
 
 	# logger.timeEnabled(False)
-	# print(logger.DEBUG("1", "2"))
+	# print(logger.DEBUG(status_message_text="1", message_text="2"))
