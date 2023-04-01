@@ -25,6 +25,7 @@ from qt_colored_logger.src import GetAnsiFormat
 class _BasicLogger:
 	def __init__(
 			self,
+			program_name: str,
 			time: bool = True,
 			name: bool = True,
 			status: bool = True,
@@ -42,6 +43,7 @@ class _BasicLogger:
 		:param status_type: Setting the log type output
 		:param message: Setting the log message output
 		"""
+		self.program_name = program_name
 		self.time = time
 		self.name = name
 		self.status = status
@@ -128,12 +130,14 @@ class _BasicLogger:
 		log += f"{GetAnsiFormat('italic/on')}" if italic else ""
 		log += f"{GetAnsiFormat('invert/on')}" if invert else ""
 		log += f"{colors[6]}" if background else ""
-		log += f"{colors[0]}*{datetime.datetime.now()}\t" if self.time else ""
-		log += f"{colors[1]}${platform.node()}^{os.getlogin()}\t" if self.name else ""
-		log += f"{colors[2]}#STATUS: " if self.status else ""
-		log += f"{colors[3]}{status_message_text}\t" if self.status_message else ""
-		log += f"{colors[4]}{message_type} - " if self.status_type else ""
-		log += f"{colors[5]}{message_text}" if self.message else ""
+		log += f"{colors[4]}-{self.program_name}?entry>"
+		log += f"{colors[0]} *{datetime.datetime.now()}" if self.time else ""
+		log += f"{colors[1]} ${platform.node()}^{os.getlogin()}" if self.name else ""
+		log += f"{colors[4]} /"
+		log += f"{colors[2]} #STATUS:" if self.status else ""
+		log += f"{colors[3]} {status_message_text}" if self.status_message else ""
+		log += f"{colors[4]}\t{message_type} -" if self.status_type else ""
+		log += f"{colors[5]} {message_text}" if self.message else ""
 		log += f"{GetAnsiFormat('reset/on')}"
 		return log
 

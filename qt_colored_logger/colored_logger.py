@@ -55,6 +55,7 @@ class Logger(_Singleton, _BasicLogger):
 
 	def __init__(
 			self,
+			program_name: str,
 			time: bool = True,
 			name: bool = True,
 			status: bool = True,
@@ -62,7 +63,7 @@ class Logger(_Singleton, _BasicLogger):
 			status_type: bool = True,
 			message: bool = True
 	):
-		super().__init__(time, name, status, status_message, status_type, message)
+		super().__init__(program_name, time, name, status, status_message, status_type, message)
 		self.__AnsiColorSet: dict = {}
 		self._ansi_color_set_init()
 
@@ -153,10 +154,10 @@ class Logger(_Singleton, _BasicLogger):
 		# WARNING colors
 		self.__AnsiColorSet['WARNING_TIME'] = AnsiColor('DARKMAGENTA', "foreground")
 		self.__AnsiColorSet['WARNING_USER'] = AnsiColor('PURPLE', "foreground")
-		self.__AnsiColorSet['WARNING_STATUS'] = AnsiColor('SIENNA', "foreground")
-		self.__AnsiColorSet['WARNING_STATUS_MESSAGE'] = AnsiColor('SADDLEBROWN', "foreground")
-		self.__AnsiColorSet['TYPE_WARNING'] = AnsiColor('DARKRED', "foreground")
-		self.__AnsiColorSet['WARNING_MESSAGE'] = AnsiColor('MAROON', "foreground")
+		self.__AnsiColorSet['WARNING_STATUS'] = AnsiColor('DARKRED', "foreground")
+		self.__AnsiColorSet['WARNING_STATUS_MESSAGE'] = AnsiColor('MAROON', "foreground")
+		self.__AnsiColorSet['TYPE_WARNING'] = AnsiColor('NAVY', "foreground")
+		self.__AnsiColorSet['WARNING_MESSAGE'] = AnsiColor('MIDNIGHTBLUE', "foreground")
 		self.__AnsiColorSet['WARNING_BACKGROUND'] = AnsiColor('DARKYELLOW', "background")
 		# ERROR colors
 		self.__AnsiColorSet['ERROR_TIME'] = AnsiColor('PLUM', "foreground")
@@ -185,8 +186,8 @@ class Logger(_Singleton, _BasicLogger):
 		# SUCCESS colors
 		self.__AnsiColorSet['SUCCESS_TIME'] = AnsiColor('LAVENDERBLUSH', "foreground")
 		self.__AnsiColorSet['SUCCESS_USER'] = AnsiColor('MISTYROSE', "foreground")
-		self.__AnsiColorSet['SUCCESS_STATUS'] = AnsiColor('ORANGE', "foreground")
-		self.__AnsiColorSet['SUCCESS_STATUS_MESSAGE'] = AnsiColor('DARKORANGE', "foreground")
+		self.__AnsiColorSet['SUCCESS_STATUS'] = AnsiColor('KHAKI', "foreground")
+		self.__AnsiColorSet['SUCCESS_STATUS_MESSAGE'] = AnsiColor('DARKKHAKI', "foreground")
 		self.__AnsiColorSet['TYPE_SUCCESS'] = AnsiColor('PALEGREEN', "foreground")
 		self.__AnsiColorSet['SUCCESS_MESSAGE'] = AnsiColor('LIGHTGREEN', "foreground")
 		self.__AnsiColorSet['SUCCESS_BACKGROUND'] = AnsiColor('DARKGREEN', "background")
@@ -637,7 +638,7 @@ class Logger(_Singleton, _BasicLogger):
 
 # Test
 if __name__ == "__main__":
-	logger = Logger()
+	logger = Logger("WiretappingScaner")
 	print(logger.DEBUG("1", "2"))
 	print(logger.DEBUG_PERFORMANCE("3", "4"))
 	print(logger.PERFORMANCE("5", "6"))
@@ -656,5 +657,5 @@ if __name__ == "__main__":
 	print(logger.FAIL("31", "32"))
 	# print(logger.FAIL(status_message_text="33", message_text="34", invert=True))
 
-	logger.timeEnabled(False)
-	print(logger.DEBUG("1", "2"))
+	# logger.timeEnabled(False)
+	# print(logger.DEBUG("1", "2"))
