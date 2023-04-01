@@ -210,6 +210,8 @@ DefaultColorScheme = [
 	'NAVAJOWHITE',
 	'BISQUE',
 	'BLANCHEDALMOND',
+	'BLACK',
+	'DARKGRAY',
 ]
 
 def GetDefaultColor(color_number: int) -> str:

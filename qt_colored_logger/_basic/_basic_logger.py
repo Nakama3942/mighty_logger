@@ -100,28 +100,34 @@ class _BasicLogger:
 
 	def _assemble_entry(
 			self,
-			colors: list[str, str, str, str, str, str],
+			colors: list[str, str, str, str, str, str, str],
 			status_message_text: str,
 			message_type: str,
 			message_text: str,
 			bold: bool,
-			italic: bool
+			italic: bool,
+			invert: bool,
+			background: bool
 	):
 		"""
 		A method that assemble an entry into a string and returns it.
 		Forms a console string.
 
-		:param colors: 6 colors that the method uses to assemble the string
+		:param colors: 7 colors that the method uses to assemble the string
 		:param status_message_text: Status message
 		:param message_type: Entry type
 		:param message_text: Entry message
 		:param bold: Format the entry in bold
 		:param italic: Format the entry in italic
+		:param invert: invert the colors in format the entry
+		:param background: Format the entry with background
 		:return: the formed entry string
 		"""
 		log = ""
 		log += f"{GetAnsiFormat('bold/on')}" if bold else ""
 		log += f"{GetAnsiFormat('italic/on')}" if italic else ""
+		log += f"{GetAnsiFormat('invert/on')}" if invert else ""
+		log += f"{colors[6]}" if background else ""
 		log += f"{colors[0]}*{datetime.datetime.now()}\t" if self.time else ""
 		log += f"{colors[1]}${platform.node()}^{os.getlogin()}\t" if self.name else ""
 		log += f"{colors[2]}#STATUS: " if self.status else ""
