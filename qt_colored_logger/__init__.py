@@ -18,7 +18,7 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from .colored_logger import AnsiColorSetInit, Logger
+from .colored_logger import Logger
 from .html_colored_logger import HtmlColorSetInitQ, LoggerQ
 
 __authot__ = "Kalynovsky 'Nakama3942' Valentin"
