@@ -26,12 +26,12 @@ class _BasicLogger:
 	def __init__(
 			self,
 			program_name: str,
-			time: bool = True,
-			name: bool = True,
-			status: bool = True,
-			status_message: bool = True,
-			status_type: bool = True,
-			message: bool = True
+			time: bool,
+			name: bool,
+			status: bool,
+			status_message: bool,
+			status_type: bool,
+			message: bool
 	):
 		"""
 		Initializes and configures the log.
@@ -100,6 +100,13 @@ class _BasicLogger:
 		"""
 		self.message = enabled
 
+	def _initial(self, colors: list[str, str], background: bool):
+		log = ""
+		log += f"{colors[1]}" if background else ""
+		log += f"{colors[0]}-{self.program_name}?entry> ${platform.node()}^{os.getlogin()}"
+		log += f"{GetAnsiFormat('reset/on')}"
+		return log
+
 	def _assemble_entry(
 			self,
 			colors: list[str, str, str, str, str, str, str],
@@ -129,15 +136,13 @@ class _BasicLogger:
 		log += f"{GetAnsiFormat('bold/on')}" if bold else ""
 		log += f"{GetAnsiFormat('italic/on')}" if italic else ""
 		log += f"{GetAnsiFormat('invert/on')}" if invert else ""
-		log += f"{colors[6]}" if background else ""
-		log += f"{colors[4]}-{self.program_name}?entry>"
+		log += f"{colors[5]}" if background else ""
+		log += f"{colors[4]}-?entry>"
 		log += f"{colors[0]} *{datetime.datetime.now()}" if self.time else ""
-		log += f"{colors[1]} ${platform.node()}^{os.getlogin()}" if self.name else ""
-		log += f"{colors[4]} /"
-		log += f"{colors[2]} #STATUS:" if self.status else ""
-		log += f"{colors[3]} {status_message_text}" if self.status_message else ""
-		log += f"{colors[4]}\t{message_type} -" if self.status_type else ""
-		log += f"{colors[5]} {message_text}" if self.message else ""
+		log += f"{colors[1]} #STATUS:" if self.status else ""
+		log += f"{colors[2]} {status_message_text}" if self.status_message else ""
+		log += f"{colors[3]} {message_type} -" if self.status_type else ""
+		log += f"{colors[4]} {message_text}" if self.message else ""
 		log += f"{GetAnsiFormat('reset/on')}"
 		return log
 
