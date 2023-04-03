@@ -100,10 +100,15 @@ class _BasicLogger:
 		"""
 		self.message = enabled
 
-	def _initial(self, colors: list[str, str], background: bool):
+	def _initial(self, colors: list[str, str]):
 		log = ""
-		log += f"{colors[1]}" if background else ""
+		log += f"{colors[1]}"
 		log += f"{colors[0]}-{self.program_name}?entry> ${platform.node()}^{os.getlogin()}"
+		log += f"@{platform.system()}"
+		log += f":{platform.version()}"
+		log += f":{platform.architecture()[0]}"
+		log += f":{platform.architecture()[1]}"
+		log += f":{platform.machine()}"
 		log += f"{GetAnsiFormat('reset/on')}"
 		return log
 
@@ -116,7 +121,6 @@ class _BasicLogger:
 			bold: bool,
 			italic: bool,
 			invert: bool,
-			background: bool
 	):
 		"""
 		A method that assemble an entry into a string and returns it.
@@ -129,20 +133,19 @@ class _BasicLogger:
 		:param bold: Format the entry in bold
 		:param italic: Format the entry in italic
 		:param invert: invert the colors in format the entry
-		:param background: Format the entry with background
 		:return: the formed entry string
 		"""
 		log = ""
 		log += f"{GetAnsiFormat('bold/on')}" if bold else ""
 		log += f"{GetAnsiFormat('italic/on')}" if italic else ""
 		log += f"{GetAnsiFormat('invert/on')}" if invert else ""
-		log += f"{colors[5]}" if background else ""
-		log += f"{colors[4]}-?entry>"
-		log += f"{colors[0]} *{datetime.datetime.now()}" if self.time else ""
-		log += f"{colors[1]} #STATUS:" if self.status else ""
-		log += f"{colors[2]} {status_message_text}" if self.status_message else ""
-		log += f"{colors[3]} {message_type} -" if self.status_type else ""
-		log += f"{colors[4]} {message_text}" if self.message else ""
+		log += f"{colors[5]}"
+		log += f"{colors[4]}-?entry> "
+		log += f"{colors[0]}*{datetime.datetime.now()} " if self.time else ""
+		log += f"{colors[1]}#STATUS: " if self.status else ""
+		log += f"{colors[2]}{status_message_text} " if self.status_message else ""
+		log += f"{colors[3]}{message_type} - " if self.status_type else ""
+		log += f"{colors[4]}{message_text}" if self.message else ""
 		log += f"{GetAnsiFormat('reset/on')}"
 		return log
 
