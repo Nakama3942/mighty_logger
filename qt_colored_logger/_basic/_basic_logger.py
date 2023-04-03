@@ -27,7 +27,6 @@ class _BasicLogger:
 			self,
 			program_name: str,
 			time: bool,
-			name: bool,
 			status: bool,
 			status_message: bool,
 			status_type: bool,
@@ -43,67 +42,18 @@ class _BasicLogger:
 		:param status_type: Setting the log type output
 		:param message: Setting the log message output
 		"""
-		self.program_name = program_name
+		self._program_name = program_name
 		self.time = time
-		self.name = name
 		self.status = status
 		self.status_message = status_message
 		self.status_type = status_type
 		self.message = message
 		self._ID = random.randint(1000000, 9999999)
 
-	def timeEnabled(self, enabled: bool):
-		"""
-		Sets the output of the date-time at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.time = enabled
-
-	def nameEnabled(self, enabled: bool):
-		"""
-		Sets the output of the computer-user at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.name = enabled
-
-	def statusEnabled(self, enabled: bool):
-		"""
-		Sets the output of the status at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.status = enabled
-
-	def status_messageEnabled(self, enabled: bool):
-		"""
-		Sets the output of the status message at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.status_message = enabled
-
-	def status_typeEnabled(self, enabled: bool):
-		"""
-		Sets the output of the log type at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.status_type = enabled
-
-	def messageEnabled(self, enabled: bool):
-		"""
-		Sets the output of the log message at the time the log is written.
-
-		:param enabled: Output state
-		"""
-		self.message = enabled
-
 	def _initial(self, colors: list[str, str]):
 		log = ""
 		log += f"{colors[1]}"
-		log += f"{colors[0]}-{self.program_name}?entry> ${platform.node()}^{os.getlogin()}"
+		log += f"{colors[0]}-{self._program_name}?entry> ${platform.node()}^{os.getlogin()}"
 		log += f"@{platform.system()}"
 		log += f":{platform.version()}"
 		log += f":{platform.architecture()[0]}"
@@ -174,7 +124,7 @@ class _BasicLogger:
 		log += f"<b>" if bold else ""
 		log += f"<i>" if italic else ""
 		log += f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		log += f"<span style='color: #{colors[1]};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
+		# log += f"<span style='color: #{colors[1]};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
 		log += f"<span style='color: #{colors[2]};'>#STATUS:</span> " if self.status else ""
 		log += f"<span style='color: #{colors[3]};'>{status_message_text}</span>\t" if self.status_message else ""
 		log += f"<span style='color: #{colors[4]};'>{message_type} - </span> " if self.status_type else ""
