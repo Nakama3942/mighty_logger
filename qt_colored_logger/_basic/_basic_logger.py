@@ -53,7 +53,8 @@ class _BasicLogger:
 	def _initial(self, colors: list[str, str]):
 		log = ""
 		log += f"{colors[1]}"
-		log += f"{colors[0]}-{self._program_name}?entry> ${platform.node()}^{os.getlogin()}"
+		log += f"{colors[0]}-{self._program_name}?entry> "
+		log += f"${platform.node()}^{os.getlogin()}"
 		log += f"@{platform.system()}"
 		log += f":{platform.version()}"
 		log += f":{platform.architecture()[0]}"
@@ -62,9 +63,22 @@ class _BasicLogger:
 		log += f"{GetAnsiFormat('reset/on')}"
 		return log
 
+	def _html_initial(self, colors: list[str, str]):
+		log = ""
+		log += f"<span style='background-color: #{colors[1]};'>"
+		log += f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> "
+		log += f"${platform.node()}^{os.getlogin()}"
+		log += f"@{platform.system()}"
+		log += f":{platform.version()}"
+		log += f":{platform.architecture()[0]}"
+		log += f":{platform.architecture()[1]}"
+		log += f":{platform.machine()}"
+		log += f"</span></span>"
+		return log
+
 	def _assemble_entry(
 			self,
-			colors: list[str, str, str, str, str, str, str],
+			colors: list[str, str, str, str, str, str],
 			status_message_text: str,
 			message_type: str,
 			message_text: str,
@@ -106,7 +120,7 @@ class _BasicLogger:
 			message_type: str,
 			message_text: str,
 			bold: bool,
-			italic: bool
+			italic: bool,
 	):
 		"""
 		A method that assemble an entry into a string and returns it.
@@ -123,12 +137,13 @@ class _BasicLogger:
 		log = ""
 		log += f"<b>" if bold else ""
 		log += f"<i>" if italic else ""
-		log += f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()}</span>\t" if self.time else ""
-		# log += f"<span style='color: #{colors[1]};'>${platform.node()}^{os.getlogin()}</span>\t" if self.name else ""
-		log += f"<span style='color: #{colors[2]};'>#STATUS:</span> " if self.status else ""
-		log += f"<span style='color: #{colors[3]};'>{status_message_text}</span>\t" if self.status_message else ""
-		log += f"<span style='color: #{colors[4]};'>{message_type} - </span> " if self.status_type else ""
-		log += f"<span style='color: #{colors[5]};'>{message_text}</span>" if self.message else ""
+		log += f"<span style='background-color: #{colors[5]};'>"
+		log += f"<span style='color: #{colors[4]};'>-?entry> </span>"
+		log += f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if self.time else ""
+		log += f"<span style='color: #{colors[1]};'>#STATUS: </span>" if self.status else ""
+		log += f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if self.status_message else ""
+		log += f"<span style='color: #{colors[3]};'>{message_type} - </span>" if self.status_type else ""
+		log += f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if self.message else ""
 		log += f"</i>" if italic else ""
 		log += f"</b>" if bold else ""
 		return log

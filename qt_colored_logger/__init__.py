@@ -19,7 +19,7 @@
 # ############################################################################ #
 
 from .colored_logger import Logger
-from .html_colored_logger import HtmlColorSetInitQ, LoggerQ
+from .html_colored_logger import LoggerQ
 
 __authot__ = "Kalynovsky 'Nakama3942' Valentin"
 __version__ = "0.2.1"
