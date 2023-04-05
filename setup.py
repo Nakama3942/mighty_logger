@@ -44,7 +44,9 @@ setup(
 
     packages=[
         'qt_colored_logger',
+        'qt_colored_logger.text',
         'qt_colored_logger.src',
+        'qt_colored_logger.logger',
         'qt_colored_logger._basic'
     ],
     classifiers=[
