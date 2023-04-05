@@ -95,7 +95,7 @@ if __name__ == '__main__':
 ```
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
-> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $DESKTOP-8KG0R64^User@Windows:10.0.19045:64bit:WindowsPE:AMD64</span></span><br>
+> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $***************^****@*******:**********:*****:*********:*****</span></span><br>
 > <span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 15:41:18.616238 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Debug data</span></span><br>
 > <b><span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 15:41:18.616238 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Debug data</span></span></b><br>
 > <i><span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 15:41:18.616238 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Debug data</span></span></i><br>
@@ -120,7 +120,7 @@ if __name__ == '__main__':
 ```
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
-> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $DESKTOP-8KG0R64^User@Windows:10.0.19045:64bit:WindowsPE:AMD64</span></span><br>
+> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $***************^****@*******:**********:*****:*********:*****</span></span><br>
 > <span style='background-color: #;'><span style='color: #b0c4de;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:09:39.103436 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #add8e6;'>@NOTICE - </span><span style='color: #b0c4de;'>Notice data</span></span><br>
 > <span style='background-color: #;'><span style='color: #7fff00;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:09:39.103436 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #add8e6;'>@NOTICE - </span><span style='color: #7fff00;'>Notice data</span></span><br>
 
@@ -149,7 +149,7 @@ if __name__ == "__main__":
 ```
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
-> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $DESKTOP-8KG0R64^User@Windows:10.0.19045:64bit:WindowsPE:AMD64</span></span><br>
+> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $***************^****@*******:**********:*****:*********:*****</span></span><br>
 > <span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Test message Test message Test message Test message Test message</span></span><br>
 > <span style='background-color: #;'><span style='color: #f5deb3;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #ffdead;'>%DEBUG PERFORMANCE - </span><span style='color: #f5deb3;'>Test message Test message Test message Test message Test message</span></span><br>
 > <span style='background-color: #;'><span style='color: #ffe4c4;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #ffebcd;'>%PERFORMANCE - </span><span style='color: #ffe4c4;'>Test message Test message Test message Test message Test message</span></span><br>

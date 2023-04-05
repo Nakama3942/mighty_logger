@@ -276,3 +276,30 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - Changed names of keys in "AnsiFormat/font" dictionary from "1th alternative", "2th alternative" and "3th alternative" to "1st alternative", "2nd alternative" and "3rd alternative" respectively.
 
 ---
+
+## v0.3.0 (05.04.2023)
+
+#### Documenting:
+- Updated documentation;
+- Wrote the actual README.md (which corresponds to the current version).
+
+#### Enhancements:
+- Added support for inverting colors in posts (console);
+- Added support for backgrounds in posts (console, HTML);
+- Completely redesigned and written from scratch logger color table;
+- Logger included AnsiColorSetInit;
+- LoggerQ included HtmlColorSetInitQ;
+- Removed list of default colors;
+- Post types categorized:
+    - Debugging (%);
+    - Event (~);
+    - Message (@);
+    - Error (!);
+    - Process (&).
+- Argument names are now required;
+- Added an introductory line with system initialized information;
+- Added a global enable background setting;
+- Started work on the text buffer;
+- Added new CombinationException.
+
+---
