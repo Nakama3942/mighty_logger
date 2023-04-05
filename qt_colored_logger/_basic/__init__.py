@@ -19,5 +19,5 @@
 # ############################################################################ #
 
 from ._basic_logger import _BasicLogger
-from ._exceptions import ColorException
+from ._exceptions import ColorException, CombinationException
 from ._patterns import _Singleton

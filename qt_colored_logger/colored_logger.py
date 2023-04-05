@@ -18,23 +18,22 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from qt_colored_logger._basic import _Singleton, _BasicLogger, ColorException
+from qt_colored_logger._basic import _Singleton, _BasicLogger, ColorException, CombinationException
 from qt_colored_logger.src import AnsiColor, Dec2Ansi
 
 class Logger(_Singleton, _BasicLogger):
 	"""
 	The Logger class is a class that implements the functionality
-	of logging the work of software in different directions.
+	of logging the work of software in different directions.\n
 	It has a color output of information, settings for the operation of the log.
-	Only one class object can be created!!!
-	Implements the output of the following information:
+	Only one class object can be created!!!\n
+	Implements the output of the following information:\n
 	1) Record creation time;
-	2) Recording device;
-	3) Record status;
-	4) Recording status message;
-	5) Record type;
-	6) Write message.
-	Implements the output of the following types of records:
+	2) Record status;
+	3) Recording status message;
+	4) Record type;
+	5) Write message.
+	\nImplements the output of the following types of records:\n
 	1)  `DEBUG`
 	2)  `DEBUG_PERFORMANCE`
 	3)  `PERFORMANCE`
@@ -68,7 +67,7 @@ class Logger(_Singleton, _BasicLogger):
 		self._AnsiColorSet: dict = {}
 		self._ansi_color_set_init()
 		self.global_background = global_background
-		print(self._initial_log())
+		print(self._initial_log())  # todo Перенести в буфер
 
 	def _ansi_color_set_init(self):
 		"""
@@ -190,7 +189,10 @@ class Logger(_Singleton, _BasicLogger):
 		self._AnsiColorSet['FAIL_BACKGROUND'] = ["", AnsiColor('DARKRED', "background")]
 
 	def _initial_log(self):
-		return self._initial(
+		"""
+		Displays initialized information.
+		"""
+		return self._initialized_data(  # todo return заменить на buffer
 			[
 				self._AnsiColorSet['INITIAL_COLOR'][self.global_background],
 				self._AnsiColorSet['INITIAL_BACKGROUND'][self.global_background]
@@ -201,9 +203,14 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		A method that sets the ANSI escape code color code in the color table of the logger.
 		May throw a ColorException if the given color is not in the table.
-		The logger color table stores the following keys: see README.md/Data/"Logger Color Chart".
-
-		todo описать, как работают флаги foreground и background
+		The logger color table stores the following keys: see README.md/Data/"Logger Color Chart".\n
+		Boolean flags: If foreground is set to True, then the color of the foreground text will change
+		with/without a background (it all depends on the background flag). If in this case background
+		is set to False (the standard combination of arguments) - then the color of the specifically
+		front text that is displayed without a background changes, otherwise it changes the color
+		of the specifically front text that is displayed with a background. If the foreground is set
+		to False with background set to True, the background itself will change. The last combination,
+		when both arguments are False, is an impossible combination that throws a CombinationException.
 
 		:param logger_color_name: Color name in logger color table
 		:param color_value: Color value in RGB
@@ -215,23 +222,25 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet[logger_color_name][1] = Dec2Ansi(color_value, "background")
 			elif background and foreground:
 				self._AnsiColorSet[logger_color_name][1] = Dec2Ansi(color_value, "foreground")
-			else:
+			elif not background and foreground:
 				self._AnsiColorSet[logger_color_name][0] = Dec2Ansi(color_value, "foreground")
+			else:
+				raise CombinationException("False-False combination of foreground-background flags not possible")
 		else:
 			raise ColorException("This color is not in the dictionary")
 
 	def DEBUG(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None) -> str:
 		"""
 		Debugging information logging:
-		Can be used to record any information while debugging an application.
+		Can be used to log entry any information while debugging an application.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
 		return self._assemble_entry(
@@ -248,16 +257,16 @@ class Logger(_Singleton, _BasicLogger):
 	def DEBUG_PERFORMANCE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None) -> str:
 		"""
 		Performance debugging information logging:
-		Can be used to record the execution time of operations or other
+		Can be used to log entry the execution time of operations or other
 		performance information while the application is being debugged.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
 		return self._assemble_entry(
@@ -274,16 +283,16 @@ class Logger(_Singleton, _BasicLogger):
 	def PERFORMANCE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None) -> str:
 		"""
 		Performance information logging:
-		Can be used to record the execution time of operations or
+		Can be used to log entry the execution time of operations or
 		other application performance information.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
 		return self._assemble_entry(
@@ -300,16 +309,16 @@ class Logger(_Singleton, _BasicLogger):
 	def EVENT(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None) -> str:
 		"""
 		Event information logging:
-		Can be used to track specific events in the application,
+		Can be used to log entry specific events in the application,
 		such as button presses or mouse cursor movements.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
 		return self._assemble_entry(
@@ -326,16 +335,16 @@ class Logger(_Singleton, _BasicLogger):
 	def AUDIT(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None) -> str:
 		"""
 		Audit information logging:
-		Can be used to track changes in the system, such as creating or
+		Can be used to log entry changes in the system, such as creating or
 		deleting users, as well as changes in security settings.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
 		return self._assemble_entry(
@@ -352,15 +361,15 @@ class Logger(_Singleton, _BasicLogger):
 	def METRICS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None) -> str:
 		"""
 		Metrics information logging:
-		Can be used to log metrics to track application performance and identify issues.
+		Can be used to log entry metrics to track application performance and identify issues.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
 		return self._assemble_entry(
@@ -377,16 +386,16 @@ class Logger(_Singleton, _BasicLogger):
 	def USER(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None) -> str:
 		"""
 		User information logging:
-		Can be used to add custom logs to store additional information
+		Can be used to log entry custom logs to store additional information
 		that may be useful for diagnosing problems.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
 		return self._assemble_entry(
@@ -405,13 +414,13 @@ class Logger(_Singleton, _BasicLogger):
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
 		return self._assemble_entry(
@@ -428,15 +437,15 @@ class Logger(_Singleton, _BasicLogger):
 	def INFO(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None) -> str:
 		"""
 		Default information logging:
-		Can be used to display messages with specific content about the operation of the program.
+		Can be used to log entry messages with specific content about the operation of the program.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
 		return self._assemble_entry(
@@ -455,13 +464,13 @@ class Logger(_Singleton, _BasicLogger):
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
 		return self._assemble_entry(
@@ -478,15 +487,15 @@ class Logger(_Singleton, _BasicLogger):
 	def WARNING(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True) -> str:
 		"""
 		Warning information logging:
-		Can be used to display warnings that the program may work with unpredictable results.
+		Can be used to log entry warnings that the program may work with unpredictable results.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		return self._assemble_entry(
 			[
@@ -502,15 +511,15 @@ class Logger(_Singleton, _BasicLogger):
 	def ERROR(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True) -> str:
 		"""
 		Error information logging:
-		Used to display errors and crashes in the program.
+		Used to log entry errors and crashes in the program.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		return self._assemble_entry(
 			[
@@ -526,15 +535,15 @@ class Logger(_Singleton, _BasicLogger):
 	def CRITICAL(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False, invert: bool = False, local_background: bool = True) -> str:
 		"""
 		Critical error information logging:
-		Used to display critical and unpredictable program failures.
+		Used to log entry for critical and unpredictable program failures.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		return self._assemble_entry(
 			[
@@ -551,13 +560,13 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		Stub.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		# return self._assemble_entry(
 		# 	[
@@ -576,13 +585,13 @@ class Logger(_Singleton, _BasicLogger):
 		"""
 		Stub.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		pass
 		# Make transition to SUCCESS or FAIL
@@ -590,15 +599,15 @@ class Logger(_Singleton, _BasicLogger):
 	def SUCCESS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, local_background: bool = True) -> str:
 		"""
 		Success information logging:
-		Used to display a message about the success of the process.
+		Used to log entry a message about the success of the process.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		return self._assemble_entry(
 			[
@@ -614,15 +623,15 @@ class Logger(_Singleton, _BasicLogger):
 	def FAIL(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, local_background: bool = True) -> str:
 		"""
 		Fail information logging:
-		Used to display a message about the failed execution of the process.
+		Used to log entry a message about the failed execution of the process.
 
-		:param status_message_text: Log status message
-		:param message_text: Log message
-		:param bold: Display log in bold font?
-		:param italic: Display log in italic font?
-		:param invert: Display log in invert font?
-		:param local_background: Display log with background?
-		:return: the generated log string
+		:param status_message_text: Log entry status message
+		:param message_text: Log entry message
+		:param bold: Display entry with bold font?
+		:param italic: Display entry with italic font?
+		:param invert: Display entry with invert font?
+		:param local_background: Display entry with background?
+		:return: the generated log entry string
 		"""
 		return self._assemble_entry(
 			[
@@ -639,6 +648,14 @@ class Logger(_Singleton, _BasicLogger):
 # Test
 if __name__ == "__main__":
 	logger = Logger(program_name="WiretappingScaner")
+	print(logger.DEBUG(message_text="Debug data"))
+	print(logger.DEBUG(message_text="Debug data", bold=True))
+	print(logger.DEBUG(message_text="Debug data", italic=True))
+	print(logger.DEBUG(message_text="Debug data", bold=True, italic=True))
+
+
+
+
 	print(logger.DEBUG(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
 	print(logger.DEBUG_PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
 	print(logger.PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))

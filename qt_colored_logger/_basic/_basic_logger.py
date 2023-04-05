@@ -35,6 +35,7 @@ class _BasicLogger:
 		"""
 		Initializes and configures the log.
 
+		:param program_name: Installing the program name output
 		:param time: Setting the time output
 		:param name: Setting the name output
 		:param status: Setting the status output
@@ -49,30 +50,50 @@ class _BasicLogger:
 		self.status_type = status_type
 		self.message = message
 		self._ID = random.randint(1000000, 9999999)
+		self._pc_name = platform.node()
+		self._user_name = os.getlogin()
+		self._system_name = platform.system()
+		self._system_version = platform.version()
+		self._system_architecture = platform.architecture()
+		self._pc_machine = platform.machine()
 
-	def _initial(self, colors: list[str, str]):
+	def _initialized_data(self, colors: list[str, str]) -> str:
+		"""
+		A method that assemble an entry of system initialized data.
+		Forms a console string.
+
+		:param colors: Color string list of initialized data
+		:return: a string with initialized data
+		"""
 		log = ""
 		log += f"{colors[1]}"
 		log += f"{colors[0]}-{self._program_name}?entry> "
-		log += f"${platform.node()}^{os.getlogin()}"
-		log += f"@{platform.system()}"
-		log += f":{platform.version()}"
-		log += f":{platform.architecture()[0]}"
-		log += f":{platform.architecture()[1]}"
-		log += f":{platform.machine()}"
+		log += f"${self._pc_name}^{self._user_name}"
+		log += f"@{self._system_name}"
+		log += f":{self._system_version}"
+		log += f":{self._system_architecture[0]}"
+		log += f":{self._system_architecture[1]}"
+		log += f":{self._pc_machine}"
 		log += f"{GetAnsiFormat('reset/on')}"
 		return log
 
-	def _html_initial(self, colors: list[str, str]):
+	def _html_initialized_data(self, colors: list[str, str]) -> str:
+		"""
+		A method that assemble an entry of system initialized data.
+		Forms an HTML string.
+
+		:param colors: Color string list of initialized data
+		:return: a string with initialized data
+		"""
 		log = ""
 		log += f"<span style='background-color: #{colors[1]};'>"
 		log += f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> "
-		log += f"${platform.node()}^{os.getlogin()}"
-		log += f"@{platform.system()}"
-		log += f":{platform.version()}"
-		log += f":{platform.architecture()[0]}"
-		log += f":{platform.architecture()[1]}"
-		log += f":{platform.machine()}"
+		log += f"${self._pc_name}^{self._user_name}"
+		log += f"@{self._system_name}"
+		log += f":{self._system_version}"
+		log += f":{self._system_architecture[0]}"
+		log += f":{self._system_architecture[1]}"
+		log += f":{self._pc_machine}"
 		log += f"</span></span>"
 		return log
 
@@ -85,7 +106,7 @@ class _BasicLogger:
 			bold: bool,
 			italic: bool,
 			invert: bool,
-	):
+	) -> str:
 		"""
 		A method that assemble an entry into a string and returns it.
 		Forms a console string.
@@ -121,7 +142,7 @@ class _BasicLogger:
 			message_text: str,
 			bold: bool,
 			italic: bool,
-	):
+	) -> str:
 		"""
 		A method that assemble an entry into a string and returns it.
 		Forms an HTML string.

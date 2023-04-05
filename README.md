@@ -20,7 +20,6 @@
     - [Data](#data)
         - [Entry types](#entry-types-)
         - [X11 color table](#x11-color-table-)
-        - [Default Color Scheme](#default-color-scheme-)
         - [Logger Color Chart](#logger-color-chart-)
         - [Tree of ANSI escape code](#tree-of-ansi-escape-code-)
     - [Troubleshooting](#troubleshooting)
@@ -33,14 +32,14 @@ I often came across the opinion that it is better to use not standard output to 
 
 ## Overview
 The library implements the formation of a beautifully formatted colored text, similar to a log, which has all the necessary information:
-- Logging time
-- Name of device and profile that logged
-- Log status
-- Description of the log status
-- Log type
-- Log message
+- Device name and registered profile, system name, etc. (this data is displayed only once at the beginning of the logging)
+- Log entry time
+- Log entry status
+- Description of the log entry status
+- Log entry type
+- Entry message
 
-Any information to the output can be turned off (according to the standard, everything is included). It is also possible to change the output settings during the logging process. It is possible to change colors (class AnsiColorSetInit and HtmlColorSetInitQ).
+Any information to the output can be turned off (according to the standard, everything is included). It is also possible to change the output settings during the logging process. It is possible to change the colors of the foreground text and the background.
 
 - [Content](#content)
 
@@ -73,23 +72,22 @@ pip install qt-colored-logger
 ```
 
 ## Usage in console
-The library has a complete [X11 color table](#x11-color-table-). However, logger use their [own color tables](#logger-color-chart-) for themselves, where the names of colors are determined not by its real physical name, but by a virtual one formed from the place where this color is used. These tables are initially empty. To initialize them, you need to create an object of the AnsiColorSetInit class, which, in addition to filling the table, provides methods for changing colors in the table. After that, you can already use the color table, and therefore you can start the logging process.
+The library has a complete [X11 color table](#x11-color-table-). However, logger use their [own color tables](#logger-color-chart-) for themselves, where the names of colors are determined not by its real physical name, but by a virtual one formed from the place where this color is used. These tables are initially empty and are initialized when the logger is created. Also, the logger provides the functionality of changing colors in color tables.
 
 *Since the library is under active development, not the best solutions have been applied at this stage, which will be corrected in the future. But at the moment it is NOT RECOMMENDED to name an object of class Logger by the name log!*
 
-Logging is done by the LoggerQ class. To write to the log, you need to call a method with the desired entry type. There are 16 in total: [see section Data/"Entry types"](#entry-types-).
+Logging is done by the Logger class. To write to the log, you need to call a method with the desired entry type. There are 16 in total: [see section Data/"Entry types"](#entry-types-).
 
 Not only the log itself has settings, but also each type of record. However, the log settings apply to all entries. Therefore, if you need to disable the output of a specific part of the record for a specific type of record, this must be done before each output of this record to the log (i.e., disable the output before writing and turn it back on after the output, so that this part of the information would be displayed for other types). This approach is used only if the part is disabled only for one or more data types.
 
-There are few settings for each entry type. There you can turn on/off only the text format bold/italic/standard. Also, do not forget to pass the status text (if enabled) and the message text (if enabled) to the record, since the developer himself determines the data to be recorded.
+There are few settings for each entry type. There you can turn on/off only the text format bold/italic/invert(does not support HTML)/background. Also, do not forget to pass the status text (if enabled) and the message text (if enabled) to the record, since the developer himself determines the data to be recorded.
 
 Here is an example using the library:
 ```python
-from qt_colored_logger import AnsiColorSetInit, Logger
+from qt_colored_logger import Logger
 
 if __name__ == '__main__':
-    color = AnsiColorSetInit()
-    logger = Logger(status_message=False)
+    logger = Logger(program_name="Test", status_message=False)
     print(logger.DEBUG(message_text="Debug data"))
     print(logger.DEBUG(message_text="Debug data", bold=True))
     print(logger.DEBUG(message_text="Debug data", italic=True))
@@ -97,126 +95,129 @@ if __name__ == '__main__':
 ```
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
-> <span style='color: #da70d6;'>*2023-03-26 13:25:58.091911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span><br>
-> <b><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></b><br>
-> <i><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></i><br>
-> <b><i><span style='color: #da70d6;'>*2023-03-26 13:25:58.093911</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>Debug data</span></i></b><br>
+> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $DESKTOP-8KG0R64^User@Windows:10.0.19045:64bit:WindowsPE:AMD64</span></span><br>
+> <span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 15:41:18.616238 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Debug data</span></span><br>
+> <b><span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 15:41:18.616238 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Debug data</span></span></b><br>
+> <i><span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 15:41:18.616238 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Debug data</span></span></i><br>
+> <b><i><span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 15:41:18.616238 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Debug data</span></span></i></b><br>
 
-If you want to change the color of a part of a post, you need to refer to the [logger's color chart](#logger-color-chart-). The class Logger has read access, and AnsiColorSetInit has write access. As already mentioned, AnsiColorSetInit not only forms a table, but also provides methods for changing colors. The Logger Color Chart has the following color names: [see section Data/"Logger Color Chart"](#logger-color-chart-).
+If you want to change the color of a part of a post, you need to refer to the [logger's color chart](#logger-color-chart-). It contains a table of colors used by the logger. There are 6 colors for each type of record. Their values in the table can be changed by referring to a specific name. To do this, you need to pass the setColor() method (there is an additional setHexColor() in LoggerQ) the color name, the new color value, and the level flags. If you pass True to the foreground flag, the color of the foreground text with/without background will change, depending on the background flag. If background is set to False, the color of the front text will be changed without a background, and if True - with a background. If background is set to True and foreground is set to False - the background color will be set. Be careful - follow the names! It is quite possible to save the background color to the text color and the display may be completely broken. A False-False combination is not possible.
+
+|                  | Foreground level        | Background level   |
+|------------------|-------------------------|--------------------|
+| Text color       | (..., True, False)      | (..., True, True)  |
+| Background color | ~~(..., False, False)~~ | (..., False, True) |
 
 Here is an example of a color change:
 ```python
-from qt_colored_logger import AnsiColorSetInit, Logger
+from qt_colored_logger import Logger
 
 if __name__ == '__main__':
-    color = AnsiColorSetInit()
-    logger = Logger(status_message=False)
+    logger = Logger(program_name="Test", status_message=False)
     print(logger.NOTICE(message_text="Notice data"))
-    color.setColor("NOTICE_MESSAGE", [127, 255, 0])
+    logger.set_color(logger_color_name="NOTICE_MESSAGE", color_value=[127, 255, 0], foreground=True, background=False)
     print(logger.NOTICE(message_text="Notice data"))
 ```
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
-> <span style='color: #da70d6;'>*2023-03-26 13:52:29.519001</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #00bfff;'>@NOTICE -</span> <span style='color: #1e90ff;'>Notice data</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:52:29.519001</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #00bfff;'>@NOTICE -</span> <span style='color: #7fff00;'>Notice data</span><br>
+> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $DESKTOP-8KG0R64^User@Windows:10.0.19045:64bit:WindowsPE:AMD64</span></span><br>
+> <span style='background-color: #;'><span style='color: #b0c4de;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:09:39.103436 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #add8e6;'>@NOTICE - </span><span style='color: #b0c4de;'>Notice data</span></span><br>
+> <span style='background-color: #;'><span style='color: #7fff00;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:09:39.103436 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #add8e6;'>@NOTICE - </span><span style='color: #7fff00;'>Notice data</span></span><br>
 
 This is the simplest example of using the library:
 ```python
-from qt_colored_logger import AnsiColorSetInit, Logger
+from qt_colored_logger import Logger
 
 if __name__ == "__main__":
-	mod = AnsiColorSetInit()
-	logger = Logger()
-	print(logger.DEBUG("1", "2"))
-	print(logger.DEBUG_PERFORMANCE("3", "4"))
-	print(logger.PERFORMANCE("5", "6"))
-	print(logger.EVENT("7", "8"))
-	print(logger.AUDIT("9", "10"))
-	print(logger.METRICS("11", "12"))
-	print(logger.USER("13", "14"))
-	print(logger.MESSAGE("15", "16"))
-	print(logger.INFO("17", "18"))
-	print(logger.NOTICE("19", "20"))
-	print(logger.WARNING("21", "22"))
-	print(logger.ERROR("23", "24"))
-	print(logger.CRITICAL("25", "26"))
-	# print(logger.START_PROCESS("27", "28"))
-	print(logger.SUCCESS("29", "30"))
-	print(logger.FAIL("31", "32"))
+	logger = Logger(program_name="Test")
+	print(logger.DEBUG(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.DEBUG_PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.EVENT(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.AUDIT(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.METRICS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.USER(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.MESSAGE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.INFO(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.NOTICE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.WARNING(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.ERROR(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.CRITICAL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	# print(logger.START_PROCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.SUCCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	print(logger.FAIL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
 ```
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.837031</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>1</span>	<span style='color: #deb887;'>@DEBUG -</span> <span style='color: #d2b48c;'>2</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>3</span>	<span style='color: #ffdead;'>@DEBUG PERFORMANCE -</span> <span style='color: #f5deb3;'>4</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>5</span>	<span style='color: #ffebcd;'>@PERFORMANCE -</span> <span style='color: #ffe4c4;'>6</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>7</span>	<span style='color: #3cb371;'>@EVENT -</span> <span style='color: #2e8b57;'>8</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>9</span>	<span style='color: #9acd32;'>@AUDIT -</span> <span style='color: #6b8e23;'>10</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>11</span>	<span style='color: #808000;'>@METRICS -</span> <span style='color: #556b2f;'>12</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>13</span>	<span style='color: #98fb98;'>@USER -</span> <span style='color: #90ee90;'>14</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>15</span>	<span style='color: #b0c4de;'>@MESSAGE -</span> <span style='color: #b0e0e6;'>16</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>17</span>	<span style='color: #afeeee;'>@INFO -</span> <span style='color: #add8e6;'>18</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>19</span>	<span style='color: #00bfff;'>@NOTICE -</span> <span style='color: #1e90ff;'>20</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>21</span>	<span style='color: #ffff00;'>@WARNING -</span> <span style='color: #ffcc00;'>22</span><br>
-> <span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>23</span>	<span style='color: #b22222;'>!ERROR -</span> <span style='color: #8b0000;'>24</span><br>
-> <b><span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>25</span>	<span style='color: #8b0000;'>!!!@CRITICAL -</span> <span style='color: #800000;'>26</span></b><br>
-> <i><span style='color: #da70d6;'>*2023-03-26 13:54:25.869034</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>29</span>	<span style='color: #008000;'>@SUCCESS -</span> <span style='color: #006400;'>30</span></i><br>
-> <i><span style='color: #da70d6;'>*2023-03-26 13:54:25.871033</span>	<span style='color: #ba55d3;'>$DESKTOP-NUMBER^User</span>	<span style='color: #ffa500;'>#STATUS:</span> <span style='color: #ff8c00;'>31</span>	<span style='color: #b22222;'>@FAIL -</span> <span style='color: #8b0000;'>32</span></i><br>
+> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $DESKTOP-8KG0R64^User@Windows:10.0.19045:64bit:WindowsPE:AMD64</span></span><br>
+> <span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Test message Test message Test message Test message Test message</span></span><br>
+> <span style='background-color: #;'><span style='color: #f5deb3;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #ffdead;'>%DEBUG PERFORMANCE - </span><span style='color: #f5deb3;'>Test message Test message Test message Test message Test message</span></span><br>
+> <span style='background-color: #;'><span style='color: #ffe4c4;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #ffebcd;'>%PERFORMANCE - </span><span style='color: #ffe4c4;'>Test message Test message Test message Test message Test message</span></span><br>
+> <span style='background-color: #;'><span style='color: #9acd32;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #adff2f;'>~EVENT - </span><span style='color: #9acd32;'>Test message Test message Test message Test message Test message</span></span><br>
+> <span style='background-color: #;'><span style='color: #00ff7f;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #00fa9a;'>~AUDIT - </span><span style='color: #00ff7f;'>Test message Test message Test message Test message Test message</span></span><br>
+> <span style='background-color: #;'><span style='color: #90ee90;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #98fb98;'>~METRICS - </span><span style='color: #90ee90;'>Test message Test message Test message Test message Test message</span></span><br>
+> <span style='background-color: #;'><span style='color: #7cfc00;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #7fff00;'>~USER - </span><span style='color: #7cfc00;'>Test message Test message Test message Test message Test message</span></span><br>
+> <span style='background-color: #;'><span style='color: #b0e0e6;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #afeeee;'>@MESSAGE - </span><span style='color: #b0e0e6;'>Test message Test message Test message Test message Test message</span></span><br>
+> <span style='background-color: #;'><span style='color: #87ceeb;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #87cefa;'>@INFO - </span><span style='color: #87ceeb;'>Test message Test message Test message Test message Test message</span></span><br>
+> <span style='background-color: #;'><span style='color: #b0c4de;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-05 17:17:48.365753 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #add8e6;'>@NOTICE - </span><span style='color: #b0c4de;'>Test message Test message Test message Test message Test message</span></span><br>
+> <span style='background-color: #ffcc00;'><span style='color: #191970;'>-?entry> </span><span style='color: #8b008b;'>*2023-04-05 17:17:48.367751 </span><span style='color: #8b0000;'>#STATUS: </span><span style='color: #800000;'>Test text </span><span style='color: #000080;'>!WARNING - </span><span style='color: #191970;'>Test message Test message Test message Test message Test message</span></span><br>
+> <span style='background-color: #8b0000;'><span style='color: #d3d3d3;'>-?entry> </span><span style='color: #dda0dd;'>*2023-04-05 17:17:48.367751 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #dcdcdc;'>!!ERROR - </span><span style='color: #d3d3d3;'>Test message Test message Test message Test message Test message</span></span><br>
+> <b><span style='background-color: #800000;'><span style='color: #ffa07a;'>-?entry> </span><span style='color: #dda0dd;'>*2023-04-05 17:17:48.367751 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #e9967a;'>!!!@CRITICAL - </span><span style='color: #ffa07a;'>Test message Test message Test message Test message Test message</span></span></b><br>
+> <i><span style='background-color: #006400;'><span style='color: #90ee90;'>-?entry> </span><span style='color: #fff0f5;'>*2023-04-05 17:17:48.367751 </span><span style='color: #7fff00;'>#STATUS: </span><span style='color: #7cfc00;'>Test text </span><span style='color: #98fb98;'>&SUCCESS - </span><span style='color: #90ee90;'>Test message Test message Test message Test message Test message</span></span></i><br>
+> <i><span style='background-color: #8b0000;'><span style='color: #ffcc00;'>-?entry> </span><span style='color: #fff0f5;'>*2023-04-05 17:17:48.367751 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Test text </span><span style='color: #ffff00;'>&FAIL - </span><span style='color: #ffcc00;'>Test message Test message Test message Test message Test message</span></span></i><br>
 
 ## Usage in Qt
-Разница между консолью и Qt в том, что Qt использует HTML для отображения форматированого текста, а консоль - ANSI escape code. Однако к базовой логике доступ не планируется, а внешний интерфейс между классами AnsiColorSetInit/HtmlColorSetInitQ и Logger/LoggerQ не отличается (кроме самих названий классов). Поэтому все преддыдущие примеры можно переписать так:
+The difference between the console and Qt is that Qt uses HTML to display formatted text, while the console uses ANSI escape code. However, access to the basic logic is not planned, and the external interface between the Logger/LoggerQ classes is the same (except for the class names themselves). Therefore, all previous examples can be rewritten like this:
 ```python
-from qt_colored_logger import HtmlColorSetInitQ, LoggerQ
+from qt_colored_logger import LoggerQ
 
 ...
 
-self.color = HtmlColorSetInitQ()
-self.logger = LoggerQ(status_message=False)
-self.someTextBrowserObject.append(logger.DEBUG(message_text="Debug data"))
-self.someTextBrowserObject.append(logger.DEBUG(message_text="Debug data", bold=True))
-self.someTextBrowserObject.append(logger.DEBUG(message_text="Debug data", italic=True))
-self.someTextBrowserObject.append(logger.DEBUG(message_text="Debug data", bold=True, italic=True))
+self.logger = LoggerQ(program_name="Test", status_message=False)
+self.someTextBrowserObject.append(self.logger.DEBUG(message_text="Debug data"))
+self.someTextBrowserObject.append(self.logger.DEBUG(message_text="Debug data", bold=True))
+self.someTextBrowserObject.append(self.logger.DEBUG(message_text="Debug data", italic=True))
+self.someTextBrowserObject.append(self.logger.DEBUG(message_text="Debug data", bold=True, italic=True))
 
 ...
 ```
 
 ```python
-from qt_colored_logger import HtmlColorSetInitQ, LoggerQ
+from qt_colored_logger import LoggerQ
 
 ...
 
-color = HtmlColorSetInitQ()
-logger = LoggerQ(status_message=False)
-self.someTextBrowserObject.append(logger.NOTICE(message_text="Notice data"))
-color.setColor("NOTICE_MESSAGE", [127, 255, 0])
-self.someTextBrowserObject.append(logger.NOTICE(message_text="Notice data"))
+self.logger = LoggerQ(program_name="Test", status_message=False)
+self.someTextBrowserObject.append(self.logger.NOTICE(message_text="Notice data"))
+self.logger.set_color(logger_color_name="NOTICE_MESSAGE", color_value=[127, 255, 0], foreground=True, background=False)
+self.someTextBrowserObject.append(self.logger.NOTICE(message_text="Notice data"))
 
 ...
 ```
 
 
 ```python
-from qt_colored_logger import HtmlColorSetInitQ, LoggerQ
+from qt_colored_logger import LoggerQ
 
 ...
 
-mod = HtmlColorSetInitQ()
-logger = LoggerQ()
-self.someTextBrowserObject.append(logger.DEBUG("1", "2"))
-self.someTextBrowserObject.append(logger.DEBUG_PERFORMANCE("3", "4"))
-self.someTextBrowserObject.append(logger.PERFORMANCE("5", "6"))
-self.someTextBrowserObject.append(logger.EVENT("7", "8"))
-self.someTextBrowserObject.append(logger.AUDIT("9", "10"))
-self.someTextBrowserObject.append(logger.METRICS("11", "12"))
-self.someTextBrowserObject.append(logger.USER("13", "14"))
-self.someTextBrowserObject.append(logger.MESSAGE("15", "16"))
-self.someTextBrowserObject.append(logger.INFO("17", "18"))
-self.someTextBrowserObject.append(logger.NOTICE("19", "20"))
-self.someTextBrowserObject.append(logger.WARNING("21", "22"))
-self.someTextBrowserObject.append(logger.ERROR("23", "24"))
-self.someTextBrowserObject.append(logger.CRITICAL("25", "26"))
-# self.someTextBrowserObject.append(logger.START_PROCESS("27", "28"))
-self.someTextBrowserObject.append(logger.SUCCESS("29", "30"))
-self.someTextBrowserObject.append(logger.FAIL("31", "32"))
+self.logger = LoggerQ(program_name="Test")
+self.someTextBrowserObject.append(self.logger.DEBUG(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.DEBUG_PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.EVENT(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.AUDIT(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.METRICS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.USER(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.MESSAGE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.INFO(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.NOTICE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.WARNING(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.ERROR(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.CRITICAL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+# self.someTextBrowserObject.append(logger.START_PROCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.SUCCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+self.someTextBrowserObject.append(self.logger.FAIL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
 
 ...
 ```
@@ -400,78 +401,107 @@ The library stores various important data for use that you may need to know whil
     - LIGHTGRAY
     - GAINSBORO
 
-###### Default Color Scheme:
-- ORCHID
-- MEDIUMORCHID
-- ORANGE
-- DARKORANGE
-- BURLYWOOD
-- TAN
-- NAVAJOWHITE
-- WHEAT
-- BLANCHEDALMOND
-- BISQUE
-- MEDIUMSEAGREEN
-- SEAGREEN
-- YELLOWGREEN
-- OLIVEDRAB
-- OLIVE
-- DARKOLIVEGREEN
-- PALEGREEN
-- LIGHTGREEN
-- LIGHTSTEELBLUE
-- POWDERBLUE
-- PALETURQUOISE
-- LIGHTBLUE
-- DEEPSKYBLUE
-- DODGERBLUE
-- YELLOW
-- DARKYELLOW
-- FIREBRICK
-- DARKRED
-- MAROON
-- SKYBLUE
-- LIGHTSKYBLUE
-- GREEN
-- DARKGREEN
-
 ###### Logger Color Chart:
-- TIME
-- USER
-- STATUS
-- STATUS_MESSAGE
-- TYPE_DEBUG
-- DEBUG_MESSAGE
-- TYPE_DEBUG_PERFORMANCE
-- DEBUG_PERFORMANCE_MESSAGE
-- TYPE_PERFORMANCE
-- PERFORMANCE_MESSAGE
-- TYPE_EVENT
-- EVENT_MESSAGE
-- TYPE_AUDIT
-- AUDIT_MESSAGE
-- TYPE_METRICS
-- METRICS_MESSAGE
-- TYPE_USER
-- USER_MESSAGE
-- TYPE_MESSAGE
-- MESSAGE_MESSAGE
-- TYPE_INFO
-- INFO_MESSAGE
-- TYPE_NOTICE
-- NOTICE_MESSAGE
-- TYPE_WARNING
-- WARNING_MESSAGE
-- TYPE_ERROR
-- ERROR_MESSAGE
-- TYPE_CRITICAL
-- CRITICAL_MESSAGE
-- TYPE_PROGRESS
-- PROGRESS_MESSAGE
-- TYPE_SUCCESS
-- SUCCESS_MESSAGE
-- TYPE_FAIL
-- FAIL_MESSAGE
+| Color name                        | Foreground color  | Background color |
+|-----------------------------------|-------------------|------------------|
+| INITIAL_COLOR                     | GOLD              | INDIGO           |
+| INITIAL_BACKGROUND                | -                 | GOLD             |
+| DEBUG_TIME                        | ORCHID            | DARKMAGENTA      |
+| DEBUG_STATUS                      | ORANGE            | DARKRED          |
+| DEBUG_STATUS_MESSAGE              | DARKORANGE        | MAROON           |
+| TYPE_DEBUG                        | BURLYWOOD         | NAVY             |
+| DEBUG_MESSAGE                     | TAN               | MIDNIGHTBLUE     |
+| DEBUG_BACKGROUND                  | -                 | TAN              |
+| DEBUG_PERFORMANCE_TIME            | ORCHID            | DARKMAGENTA      |
+| DEBUG_PERFORMANCE_STATUS          | ORANGE            | DARKRED          |
+| DEBUG_PERFORMANCE_STATUS_MESSAGE  | DARKORANGE        | MAROON           |
+| TYPE_DEBUG_PERFORMANCE            | NAVAJOWHITE       | NAVY             |
+| DEBUG_PERFORMANCE_MESSAGE         | WHEAT             | MIDNIGHTBLUE     |
+| DEBUG_PERFORMANCE_BACKGROUND      | -                 | WHEAT            |
+| PERFORMANCE_TIME                  | ORCHID            | DARKMAGENTA      |
+| PERFORMANCE_STATUS                | ORANGE            | DARKRED          |
+| PERFORMANCE_STATUS_MESSAGE        | DARKORANGE        | MAROON           |
+| TYPE_PERFORMANCE                  | BLANCHEDALMOND    | NAVY             |
+| PERFORMANCE_MESSAGE               | BISQUE            | MIDNIGHTBLUE     |
+| PERFORMANCE_BACKGROUND            | -                 | BISQUE           |
+| EVENT_TIME                        | ORCHID            | DARKMAGENTA      |
+| EVENT_STATUS                      | ORANGE            | DARKRED          |
+| EVENT_STATUS_MESSAGE              | DARKORANGE        | MAROON           |
+| TYPE_EVENT                        | GREENYELLOW       | NAVY             |
+| EVENT_MESSAGE                     | YELLOWGREEN       | MIDNIGHTBLUE     |
+| EVENT_BACKGROUND                  | -                 | YELLOWGREEN      |
+| AUDIT_TIME                        | ORCHID            | DARKMAGENTA      |
+| AUDIT_STATUS                      | ORANGE            | DARKRED          |
+| AUDIT_STATUS_MESSAGE              | DARKORANGE        | MAROON           |
+| TYPE_AUDIT                        | MEDIUMSPRINGGREEN | NAVY             |
+| AUDIT_MESSAGE                     | SPRINGGREEN       | MIDNIGHTBLUE     |
+| AUDIT_BACKGROUND                  | -                 | SPRINGGREEN      |
+| METRICS_TIME                      | ORCHID            | DARKMAGENTA      |
+| METRICS_STATUS                    | ORANGE            | DARKRED          |
+| METRICS_STATUS_MESSAGE            | DARKORANGE        | MAROON           |
+| TYPE_METRICS                      | PALEGREEN         | NAVY             |
+| METRICS_MESSAGE                   | LIGHTGREEN        | MIDNIGHTBLUE     |
+| METRICS_BACKGROUND                | -                 | LIGHTGREEN       |
+| USER_TIME                         | ORCHID            | DARKMAGENTA      |
+| USER_STATUS                       | ORANGE            | DARKRED          |
+| USER_STATUS_MESSAGE               | DARKORANGE        | MAROON           |
+| TYPE_USER                         | CHARTREUSE        | NAVY             |
+| USER_MESSAGE                      | LAWNGREEN         | MIDNIGHTBLUE     |
+| USER_BACKGROUND                   | -                 | LAWNGREEN        |
+| MESSAGE_TIME                      | ORCHID            | DARKMAGENTA      |
+| MESSAGE_STATUS                    | ORANGE            | DARKRED          |
+| MESSAGE_STATUS_MESSAGE            | DARKORANGE        | MAROON           |
+| TYPE_MESSAGE                      | PALETURQUOISE     | NAVY             |
+| MESSAGE_MESSAGE                   | POWDERBLUE        | MIDNIGHTBLUE     |
+| MESSAGE_BACKGROUND                | -                 | POWDERBLUE       |
+| INFO_TIME                         | ORCHID            | DARKMAGENTA      |
+| INFO_STATUS                       | ORANGE            | DARKRED          |
+| INFO_STATUS_MESSAGE               | DARKORANGE        | MAROON           |
+| TYPE_INFO                         | LIGHTSKYBLUE      | NAVY             |
+| INFO_MESSAGE                      | SKYBLUE           | MIDNIGHTBLUE     |
+| INFO_BACKGROUND                   | -                 | SKYBLUE          |
+| NOTICE_TIME                       | ORCHID            | DARKMAGENTA      |
+| NOTICE_STATUS                     | ORANGE            | DARKRED          |
+| NOTICE_STATUS_MESSAGE             | DARKORANGE        | MAROON           |
+| TYPE_NOTICE                       | LIGHTBLUE         | NAVY             |
+| NOTICE_MESSAGE                    | LIGHTSTEELBLUE    | MIDNIGHTBLUE     |
+| NOTICE_BACKGROUND                 | -                 | LIGHTSTEELBLUE   |
+| WARNING_TIME                      | ORCHID            | DARKMAGENTA      |
+| WARNING_STATUS                    | ORANGE            | DARKRED          |
+| WARNING_STATUS_MESSAGE            | DARKORANGE        | MAROON           |
+| TYPE_WARNING                      | YELLOW            | NAVY             |
+| WARNING_MESSAGE                   | DARKYELLOW        | MIDNIGHTBLUE     |
+| WARNING_BACKGROUND                | -                 | DARKYELLOW       |
+| ERROR_TIME                        | ORCHID            | PLUM             |
+| ERROR_STATUS                      | ORANGE            | ORANGE           |
+| ERROR_STATUS_MESSAGE              | DARKORANGE        | DARKORANGE       |
+| TYPE_ERROR                        | FIREBRICK         | GAINSBORO        |
+| ERROR_MESSAGE                     | DARKRED           | LIGHTGRAY        |
+| ERROR_BACKGROUND                  | -                 | DARKRED          |
+| CRITICAL_TIME                     | ORCHID            | PLUM             |
+| CRITICAL_STATUS                   | ORANGE            | ORANGE           |
+| CRITICAL_STATUS_MESSAGE           | DARKORANGE        | DARKORANGE       |
+| TYPE_CRITICAL                     | FIREBRICK         | DARKSALMON       |
+| CRITICAL_MESSAGE                  | DARKRED           | LIGHTSALMON      |
+| CRITICAL_BACKGROUND               | -                 | MAROON           |
+| PROGRESS_TIME                     | ORCHID            | PURPLE           |
+| PROGRESS_STATUS                   | ORANGE            | DARKRED          |
+| PROGRESS_STATUS_MESSAGE           | DARKORANGE        | MAROON           |
+| TYPE_PROGRESS                     | LIGHTSKYBLUE      | NAVY             |
+| PROGRESS_MESSAGE                  | SKYBLUE           | MIDNIGHTBLUE     |
+| PROGRESS_BACKGROUND               | -                 | SKYBLUE          |
+| SUCCESS_TIME                      | ORCHID            | LAVENDERBLUSH    |
+| SUCCESS_STATUS                    | ORANGE            | CHARTREUSE       |
+| SUCCESS_STATUS_MESSAGE            | DARKORANGE        | LAWNGREEN        |
+| TYPE_SUCCESS                      | GREEN             | PALEGREEN        |
+| SUCCESS_MESSAGE                   | DARKGREEN         | LIGHTGREEN       |
+| SUCCESS_BACKGROUND                | -                 | DARKGREEN        |
+| FAIL_TIME                         | ORCHID            | LAVENDERBLUSH    |
+| FAIL_STATUS                       | ORANGE            | ORANGE           |
+| FAIL_STATUS_MESSAGE               | DARKORANGE        | DARKORANGE       |
+| TYPE_FAIL                         | FIREBRICK         | YELLOW           |
+| FAIL_MESSAGE                      | DARKRED           | DARKYELLOW       |
+| FAIL_BACKGROUND                   | -                 | DARKRED          |
 
 ###### Tree of ANSI escape code:
 - reset

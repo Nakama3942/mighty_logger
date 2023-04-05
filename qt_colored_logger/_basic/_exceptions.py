@@ -19,6 +19,19 @@
 # ############################################################################ #
 
 class ColorException(BaseException):
+	"""
+	The exception that is thrown when there is no color in any palette.
+	"""
+	def __init__(self, message):
+		self.message = message
+
+	def __str__(self):
+		return self.message
+
+class CombinationException(BaseException):
+	"""
+	An exception that is used when composing impossible combinations of boolean flags.
+	"""
 	def __init__(self, message):
 		self.message = message
 
