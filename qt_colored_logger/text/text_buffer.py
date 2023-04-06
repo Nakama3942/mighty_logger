@@ -1,37 +1,41 @@
-import sys, time
+import sys, time, re
 
 from qt_colored_logger._basic import _Singleton
 
 class TextBuffer(_Singleton):
-	def __init__(self, delay: float = 0.0):
+	def __init__(self, delay: float = 0.0, console_width: int = 60):
 		self._text_buffer: list[str] = []
 		self._cursor_string: int = 0
 		self._buffer_size: int = 0
 		self.delay = delay
+		self.width = console_width
 
 	def append(self, message: str):
-		self._text_buffer.append(message)
-		self._buffer_size = len(self._text_buffer)
+		self._text_buffer.append(f"{message}")
+		console_string = len(re.sub(r"\033\[.*?m", "", message)) // self.width
+		self._buffer_size = self._buffer_size + console_string + 1
 
 	def replace(self, message: str, number_string: int):
-		try:
-			self._text_buffer[number_string] = message
-		except IndexError:
-			while len(self._text_buffer) != number_string:
-				self.append("")
+		if number_string > self._cursor_string:
+			count_new_string = (number_string - len(self._text_buffer))
+			self._text_buffer.extend([""] * count_new_string)
+			self._buffer_size = self._buffer_size + count_new_string
 			self.append(message)
+		else:
+			old_console_string = len(re.sub(r"\033\[.*?m", "", self._text_buffer[number_string])) // self.width
+			new_console_string = len(re.sub(r"\033\[.*?m", "", message)) // self.width
+			self._buffer_size = self._buffer_size + new_console_string - old_console_string
+			self._text_buffer[number_string] = f"{message}"
 
 	def update_console(self):
-		match self._buffer_size:
-			case 1:
-				pass
-			case 2:
+		# Перевести в поток в будущем обновлении
+		match self._cursor_string:
+			case 0:
 				sys.stdout.write(f'\r\033[K')
+				sys.stdout.write('\n'.join(self._text_buffer))
 			case _:
-				# todo оптимизировать, так как если строка не вмещается в
-				# длинну экрана - фактическое количество строк увеличивается
 				sys.stdout.write(f'\033[{self._cursor_string}A\r\033[J')
-		sys.stdout.write('\n'.join(self._text_buffer))
+				sys.stdout.write('\n'.join(self._text_buffer))
 		sys.stdout.flush()  # Clearing the output buffer so that the changes are displayed immediately
 		self._cursor_string = self._buffer_size - 1
 		time.sleep(self.delay)
@@ -52,7 +56,7 @@ if __name__ == "__main__":
 	buffer.update_console()
 
 	buffer.append("555")
-	buffer.replace("15", 2)
+	buffer.replace("15", 20)
 	buffer.update_console()
 
 	buffer.replace("9", 3)

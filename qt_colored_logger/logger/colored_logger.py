@@ -667,7 +667,7 @@ class Logger(_Singleton, _BasicLogger):
 
 # Test
 if __name__ == "__main__":
-	buf = TextBuffer(0.2)
+	buf = TextBuffer(0.5, 100)
 	logger = Logger(program_name="WiretappingScaner", text_buffer=buf)
 	logger.DEBUG(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.DEBUG_PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
@@ -680,7 +680,7 @@ if __name__ == "__main__":
 	logger.USER(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.MESSAGE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.status_type = False
-	logger.INFO(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.INFO(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message")
 	logger.NOTICE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	buf.replace("7", 7)
 	logger.WARNING(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
