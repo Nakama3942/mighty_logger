@@ -247,7 +247,7 @@ class Logger(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['DEBUG_TIME'][background],
 				self._AnsiColorSet['DEBUG_STATUS'][background],
@@ -256,7 +256,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['DEBUG_MESSAGE'][background],
 				self._AnsiColorSet['DEBUG_BACKGROUND'][background],
 			], status_message_text, "%DEBUG", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def DEBUG_PERFORMANCE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -274,7 +274,7 @@ class Logger(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['DEBUG_PERFORMANCE_TIME'][background],
 				self._AnsiColorSet['DEBUG_PERFORMANCE_STATUS'][background],
@@ -283,7 +283,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['DEBUG_PERFORMANCE_MESSAGE'][background],
 				self._AnsiColorSet['DEBUG_PERFORMANCE_BACKGROUND'][background],
 			], status_message_text, "%DEBUG PERFORMANCE", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def PERFORMANCE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -301,7 +301,7 @@ class Logger(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['PERFORMANCE_TIME'][background],
 				self._AnsiColorSet['PERFORMANCE_STATUS'][background],
@@ -310,7 +310,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['PERFORMANCE_MESSAGE'][background],
 				self._AnsiColorSet['PERFORMANCE_BACKGROUND'][background],
 			], status_message_text, "%PERFORMANCE", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def EVENT(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -328,7 +328,7 @@ class Logger(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['EVENT_TIME'][background],
 				self._AnsiColorSet['EVENT_STATUS'][background],
@@ -337,7 +337,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['EVENT_MESSAGE'][background],
 				self._AnsiColorSet['EVENT_BACKGROUND'][background],
 			], status_message_text, "~EVENT", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def AUDIT(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -355,7 +355,7 @@ class Logger(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['AUDIT_TIME'][background],
 				self._AnsiColorSet['AUDIT_STATUS'][background],
@@ -364,7 +364,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['AUDIT_MESSAGE'][background],
 				self._AnsiColorSet['AUDIT_BACKGROUND'][background],
 			], status_message_text, "~AUDIT", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def METRICS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -381,7 +381,7 @@ class Logger(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['METRICS_TIME'][background],
 				self._AnsiColorSet['METRICS_STATUS'][background],
@@ -390,7 +390,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['METRICS_MESSAGE'][background],
 				self._AnsiColorSet['METRICS_BACKGROUND'][background],
 			], status_message_text, "~METRICS", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def USER(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -408,7 +408,7 @@ class Logger(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['USER_TIME'][background],
 				self._AnsiColorSet['USER_STATUS'][background],
@@ -417,7 +417,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['USER_MESSAGE'][background],
 				self._AnsiColorSet['USER_BACKGROUND'][background],
 			], status_message_text, "~USER", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def MESSAGE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -434,7 +434,7 @@ class Logger(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['MESSAGE_TIME'][background],
 				self._AnsiColorSet['MESSAGE_STATUS'][background],
@@ -443,7 +443,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['MESSAGE_MESSAGE'][background],
 				self._AnsiColorSet['MESSAGE_BACKGROUND'][background],
 			], status_message_text, "@MESSAGE", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def INFO(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -460,7 +460,7 @@ class Logger(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['INFO_TIME'][background],
 				self._AnsiColorSet['INFO_STATUS'][background],
@@ -469,7 +469,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['INFO_MESSAGE'][background],
 				self._AnsiColorSet['INFO_BACKGROUND'][background],
 			], status_message_text, "@INFO", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def NOTICE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -486,7 +486,7 @@ class Logger(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['NOTICE_TIME'][background],
 				self._AnsiColorSet['NOTICE_STATUS'][background],
@@ -495,7 +495,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['NOTICE_MESSAGE'][background],
 				self._AnsiColorSet['NOTICE_BACKGROUND'][background],
 			], status_message_text, "@NOTICE", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def WARNING(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
@@ -511,7 +511,7 @@ class Logger(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['WARNING_TIME'][local_background],
 				self._AnsiColorSet['WARNING_STATUS'][local_background],
@@ -520,7 +520,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['WARNING_MESSAGE'][local_background],
 				self._AnsiColorSet['WARNING_BACKGROUND'][local_background],
 			], status_message_text, "!WARNING", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def ERROR(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
@@ -536,7 +536,7 @@ class Logger(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['ERROR_TIME'][local_background],
 				self._AnsiColorSet['ERROR_STATUS'][local_background],
@@ -545,7 +545,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['ERROR_MESSAGE'][local_background],
 				self._AnsiColorSet['ERROR_BACKGROUND'][local_background],
 			], status_message_text, "!!ERROR", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def CRITICAL(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False, invert: bool = False, local_background: bool = True):
@@ -561,7 +561,7 @@ class Logger(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['CRITICAL_TIME'][local_background],
 				self._AnsiColorSet['CRITICAL_STATUS'][local_background],
@@ -570,7 +570,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['CRITICAL_MESSAGE'][local_background],
 				self._AnsiColorSet['CRITICAL_BACKGROUND'][local_background],
 			], status_message_text, "!!!@CRITICAL", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def START_PROCESS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
@@ -585,7 +585,7 @@ class Logger(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		# self._buffer.append(self._assemble_entry(
+		# self._buffer << self._assemble_entry(
 		# 	[
 		# 		self._AnsiColorSet['PROGRESS_TIME'][local_background],
 		# 		self._AnsiColorSet['PROGRESS_STATUS'][local_background],
@@ -594,7 +594,7 @@ class Logger(_Singleton, _BasicLogger):
 		# 		self._AnsiColorSet['PROGRESS_MESSAGE'][local_background],
 		# 		self._AnsiColorSet['PROGRESS_BACKGROUND'][local_background],
 		# 	], status_message_text, "&PROGRESS [*******.............] - 37%", message_text, bold, italic, invert
-		# ))
+		# )
 		# self._buffer.update_console()
 		pass
 		# Must run on a thread
@@ -627,7 +627,7 @@ class Logger(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['SUCCESS_TIME'][local_background],
 				self._AnsiColorSet['SUCCESS_STATUS'][local_background],
@@ -636,7 +636,7 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['SUCCESS_MESSAGE'][local_background],
 				self._AnsiColorSet['SUCCESS_BACKGROUND'][local_background],
 			], status_message_text, "&SUCCESS", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 	def FAIL(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, local_background: bool = True):
@@ -652,7 +652,7 @@ class Logger(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		self._buffer.append(self._assemble_entry(
+		self._buffer << self._assemble_entry(
 			[
 				self._AnsiColorSet['FAIL_TIME'][local_background],
 				self._AnsiColorSet['FAIL_STATUS'][local_background],
@@ -661,13 +661,13 @@ class Logger(_Singleton, _BasicLogger):
 				self._AnsiColorSet['FAIL_MESSAGE'][local_background],
 				self._AnsiColorSet['FAIL_BACKGROUND'][local_background],
 			], status_message_text, "&FAIL", message_text, bold, italic, invert
-		))
+		)
 		self._buffer.update_console()
 
 
 # Test
 if __name__ == "__main__":
-	buf = TextBuffer(0.5, 100)
+	buf = TextBuffer(115)
 	logger = Logger(program_name="WiretappingScaner", text_buffer=buf)
 	logger.DEBUG(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.DEBUG_PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
@@ -682,7 +682,7 @@ if __name__ == "__main__":
 	logger.status_type = False
 	logger.INFO(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message")
 	logger.NOTICE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	buf.replace("7", 7)
+	# buf.replace(7, "7")
 	logger.WARNING(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.ERROR(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.CRITICAL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
@@ -690,6 +690,9 @@ if __name__ == "__main__":
 	logger.SUCCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.FAIL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	# print(logger.FAIL(status_message_text="33", message_text="34", invert=True))
+	buf << "55"
+	logger.INFO(status_message_text="Test text", message_text="Entrying was successful!", bold=True)
+	buf >> "buf"
 
 	# logger.timeEnabled(False)
 	# print(logger.DEBUG(status_message_text="1", message_text="2"))
