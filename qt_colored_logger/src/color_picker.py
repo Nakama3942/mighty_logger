@@ -292,16 +292,3 @@ def Ansi2Hex(ansi_color: str) -> str:
 		int(ansi_color.split(';')[3]),
 		int(ansi_color.split(';')[4][:-1])
 	)
-
-# Test
-if __name__ == "__main__":
-	print(DecColor('GREEN'))
-	print(HexColor('GREEN'))
-	print(f"{AnsiColor('GREEN', 'foreground')}Test string")
-
-	print(Dec2Hex([100, 200, 255]))
-	print(Dec2Ansi([100, 200, 255], "foreground").replace('\033', '3'))
-	print(Hex2Dec('7080ea'))
-	print(Hex2Ansi('7080ea', "foreground").replace('\033', '3'))
-	print(Ansi2Dec('\033[38;2;15;19;250m'))
-	print(Ansi2Hex('\033[38;2;15;19;250m'))

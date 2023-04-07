@@ -1,3 +1,23 @@
+# ##########################   Qt_Colored-logger   ########################### #
+# ---------------------------------------------------------------------------- #
+#                                                                              #
+# Copyright © 2023 Kalynovsky Valentin. All rights reserved.                   #
+#                                                                              #
+# Licensed under the Apache License, Version 2.0 (the "License");              #
+# you may not use this file except in compliance with the License.             #
+# You may obtain a copy of the License at                                      #
+#                                                                              #
+#     http://www.apache.org/licenses/LICENSE-2.0                               #
+#                                                                              #
+# Unless required by applicable law or agreed to in writing, software          #
+# distributed under the License is distributed on an "AS IS" BASIS,            #
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.     #
+# See the License for the specific language governing permissions and          #
+# limitations under the License.                                               #
+#                                                                              #
+# ---------------------------------------------------------------------------- #
+# ############################################################################ #
+
 import sys, re
 
 from qt_colored_logger._basic import _Singleton
@@ -49,52 +69,3 @@ class TextBuffer(_Singleton):
 
 	def __rshift__(self, other):
 		self.save(other)
-
-# if __name__ == "__main__":
-# 	buffer = TextBuffer()
-#
-# 	buffer.append("111")
-# 	buffer.update_console()
-#
-# 	buffer.append("222")
-# 	buffer.update_console()
-#
-# 	buffer.append("333")
-# 	buffer.update_console()
-#
-# 	buffer.append("444")
-# 	buffer.update_console()
-#
-# 	buffer.append("555")
-# 	buffer.replace("15", 2)
-# 	buffer.update_console()
-#
-# 	buffer.replace("9", 3)
-# 	buffer.update_console()
-#
-# 	buffer.append("666")
-# 	buffer.replace("8888", 1)
-# 	buffer.update_console()
-#
-# 	buffer.append("777")
-# 	buffer.update_console()
-#
-# 	buffer.append("888")
-# 	buffer.replace("55", 5)
-# 	buffer.update_console()
-#
-# 	buffer.append("999")
-# 	buffer.replace("6969", 0)
-# 	buffer.update_console()
-#
-# 	buffer.replace("88888888", 1)
-# 	buffer.update_console()
-#
-# 	buffer.append("111111")
-# 	buffer.update_console()
-#
-# 	buffer.append("121212")
-# 	buffer.replace("10", 8)
-# 	buffer.update_console()
-#
-# 	buffer.save()

@@ -1,4 +1,4 @@
-# ##########################   Qt_Сolored-logger   ########################### #
+# ##########################   Qt_Colored-logger   ########################### #
 # ---------------------------------------------------------------------------- #
 #                                                                              #
 # Copyright © 2023 Kalynovsky Valentin. All rights reserved.                   #
@@ -18,47 +18,8 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-# To compile and publish the library, you need to enter the following commands:
-# python setup.py sdist
-# twine upload dist/*
+# ATTENTION! It's just a vision for the future. This is not yet used functionality.
 
-from setuptools import setup
-
-with open("README.md", "r", encoding='utf-8') as readme_file:
-    readme = readme_file.read()
-
-setup(
-    name="qt_colored_logger",
-    version="0.3.0",
-
-    author="Kalynovsky 'Nakama3942' Valentin",
-    author_email="nakama3942@gmail.com",
-
-    description="Powerful functional logger with support for qt programming",
-    long_description=readme,
-    long_description_content_type="text/markdown",
-
-    url="https://github.com/Nakama3942/qt_colored_logger",
-
-    license="Apache License, Version 2.0, see LICENSE file",
-
-    packages=[
-        'qt_colored_logger',
-        'qt_colored_logger.text',
-        'qt_colored_logger.src',
-        'qt_colored_logger.logger',
-        'qt_colored_logger.basic'
-    ],
-    classifiers=[
-        "Development Status :: 3 - Alpha",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: Apache Software License",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3.11",
-        "Topic :: System :: Logging",
-    ],
-    project_urls={
-        'Releases': 'https://github.com/Nakama3942/qt_colored_logger/releases',
-    },
-    python_requires='>=3.11',
-)
+class LogEnvironment:
+    Console = 0
+    HTML = 1

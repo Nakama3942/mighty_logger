@@ -189,12 +189,3 @@ def GetAnsiFormat(ansi_address: str) -> str:
 	:return: ANSI escape code
 	"""
 	return _RecursiveGetAnsiFormat(ansi_address, AnsiFormat)
-
-if __name__ == "__main__":
-	print(f"{GetAnsiFormat('italic/fraktur')}Test string")
-	print(f"{GetAnsiFormat('blink/slow')}Test string")
-	print(f"{GetAnsiFormat('invert/off')}Test string")
-	print(f"{GetAnsiFormat('font/3rd alternative')}Test string")
-	print(f"{GetAnsiFormat('color/foreground/green')}Test string")
-	print(f"{GetAnsiFormat('color/set/background/255;255;255')}Test string")
-	print(f"{GetAnsiFormat('reset/on')}Test string")

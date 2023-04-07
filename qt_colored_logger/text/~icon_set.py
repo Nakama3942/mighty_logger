@@ -18,6 +18,12 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from ._basic_logger import _BasicLogger
-from ._exceptions import ColorException, CombinationException
-from ._patterns import _Singleton
+class IconSet:
+    info = 'ℹ'
+    success = '✔'
+    fail = '✘'
+    warning = '!'
+    error = '☠'
+    critical = '☠'
+    process = '⧗'
+    time = '◴'
