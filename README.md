@@ -65,6 +65,8 @@ Any information to the output can be turned off (according to the standard, ever
 - [Content](#content)
 
 ## Important releases
+<details><summary>See the important releases (possible spoilers)</summary>
+
 - [x] v0.1.0 - First official release
 - [x] v0.2.0 - Structural update (the structure of the project has been changed)
 - [x] v0.3.0 - Background update (added background for log entries)
@@ -72,6 +74,8 @@ Any information to the output can be turned off (according to the standard, ever
 - [ ] v0.5.0 - Unifying update (console and HTML are combined into one class)
 - [ ] v0.6.0 - Progress update (added start of some log entries in threads (process))
 - [ ] v0.7.0 - Symbols update (added hint symbols near log entries types)
+
+</details>
 
 - [Content](#content)
 

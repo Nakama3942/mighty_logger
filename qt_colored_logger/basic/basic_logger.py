@@ -65,17 +65,14 @@ class BasicLogger:
 		:param colors: Color string list of initialized data
 		:return: a string with initialized data
 		"""
-		log = ""
-		log += f"{colors[1]}"
-		log += f"{colors[0]}-{self._program_name}?entry> "
-		log += f"${self._pc_name}^{self._user_name}"
-		log += f"@{self._system_name}"
-		log += f":{self._system_version}"
-		log += f":{self._system_architecture[0]}"
-		log += f":{self._system_architecture[1]}"
-		log += f":{self._pc_machine}"
-		log += f"{GetAnsiFormat('reset/on')}"
-		return log
+		return f"{colors[1]}" +\
+			f"{colors[0]}-{self._program_name}?entry> " +\
+			f"${self._pc_name}^{self._user_name}" +\
+			f"@{self._system_name}" +\
+			f":{self._system_version}" +\
+			f":{self._system_architecture[0]}" +\
+			f":{self._system_architecture[1]}" +\
+			f":{self._pc_machine}{GetAnsiFormat('reset/on')}"
 
 	def _html_initialized_data(self, colors: list[str, str]) -> str:
 		"""
@@ -85,17 +82,14 @@ class BasicLogger:
 		:param colors: Color string list of initialized data
 		:return: a string with initialized data
 		"""
-		log = ""
-		log += f"<span style='background-color: #{colors[1]};'>"
-		log += f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> "
-		log += f"${self._pc_name}^{self._user_name}"
-		log += f"@{self._system_name}"
-		log += f":{self._system_version}"
-		log += f":{self._system_architecture[0]}"
-		log += f":{self._system_architecture[1]}"
-		log += f":{self._pc_machine}"
-		log += f"</span></span>"
-		return log
+		return f"<span style='background-color: #{colors[1]};'>" +\
+			f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +\
+			f"${self._pc_name}^{self._user_name}" +\
+			f"@{self._system_name}" +\
+			f":{self._system_version}" +\
+			f":{self._system_architecture[0]}" +\
+			f":{self._system_architecture[1]}" +\
+			f":{self._pc_machine}</span></span>"
 
 	def _assemble_entry(
 			self,
@@ -120,19 +114,17 @@ class BasicLogger:
 		:param invert: invert the colors in format the entry
 		:return: the formed entry string
 		"""
-		log = ""
-		log += f"{GetAnsiFormat('bold/on')}" if bold else ""
-		log += f"{GetAnsiFormat('italic/on')}" if italic else ""
-		log += f"{GetAnsiFormat('invert/on')}" if invert else ""
-		log += f"{colors[5]}"
-		log += f"{colors[4]}-?entry> "
-		log += f"{colors[0]}*{datetime.datetime.now()} " if self.time else ""
-		log += f"{colors[1]}#STATUS: " if self.status else ""
-		log += f"{colors[2]}{status_message_text} " if self.status_message else ""
-		log += f"{colors[3]}{message_type} - " if self.status_type else ""
-		log += f"{colors[4]}{message_text}" if self.message else ""
-		log += f"{GetAnsiFormat('reset/on')}"
-		return log
+		return f"{GetAnsiFormat('bold/on')}" if bold else "" +\
+			f"{GetAnsiFormat('italic/on')}" if italic else "" +\
+			f"{GetAnsiFormat('invert/on')}" if invert else "" +\
+			f"{colors[5]}" +\
+			f"{colors[4]}-?entry> " +\
+			f"{colors[0]}*{datetime.datetime.now()} " if self.time else "" +\
+			f"{colors[1]}#STATUS: " if self.status else "" +\
+			f"{colors[2]}{status_message_text} " if self.status_message else "" +\
+			f"{colors[3]}{message_type} - " if self.status_type else "" +\
+			f"{colors[4]}{message_text}" if self.message else "" +\
+			f"{GetAnsiFormat('reset/on')}"
 
 	def _assemble_html_entry(
 			self,
@@ -155,16 +147,14 @@ class BasicLogger:
 		:param italic: Format the entry in italic
 		:return: the formed entry string
 		"""
-		log = ""
-		log += f"<b>" if bold else ""
-		log += f"<i>" if italic else ""
-		log += f"<span style='background-color: #{colors[5]};'>"
-		log += f"<span style='color: #{colors[4]};'>-?entry> </span>"
-		log += f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if self.time else ""
-		log += f"<span style='color: #{colors[1]};'>#STATUS: </span>" if self.status else ""
-		log += f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if self.status_message else ""
-		log += f"<span style='color: #{colors[3]};'>{message_type} - </span>" if self.status_type else ""
-		log += f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if self.message else ""
-		log += f"</i>" if italic else ""
-		log += f"</b>" if bold else ""
-		return log
+		return f"<b>" if bold else "" +\
+			f"<i>" if italic else "" +\
+			f"<span style='background-color: #{colors[5]};'>" +\
+			f"<span style='color: #{colors[4]};'>-?entry> </span>" +\
+			f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if self.time else "" +\
+			f"<span style='color: #{colors[1]};'>#STATUS: </span>" if self.status else "" +\
+			f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if self.status_message else "" +\
+			f"<span style='color: #{colors[3]};'>{message_type} - </span>" if self.status_type else "" +\
+			f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if self.message else "" +\
+			f"</i>" if italic else "" +\
+			f"</b>" if bold else ""
