@@ -196,12 +196,12 @@ class Logger(BasicLogger):
 		"""
 		Displays initialized information.
 		"""
-		self._buffer.append(self._initialized_data(
+		self._buffer << self._initialized_data(
 			[
 				self._AnsiColorSet['INITIAL_COLOR'][self.global_background],
 				self._AnsiColorSet['INITIAL_BACKGROUND'][self.global_background]
 			]
-		))
+		)
 		self._buffer.update_console()
 
 	def set_color(self, *, logger_color_name: str, color_value: list[int, int, int], foreground: bool = True, background: bool = False):
@@ -667,7 +667,6 @@ class Logger(BasicLogger):
 			], status_message_text, "&FAIL", message_text, bold, italic, invert
 		)
 		self._buffer.update_console()
-
 
 # Test
 if __name__ == "__main__":

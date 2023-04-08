@@ -93,7 +93,7 @@ class BasicLogger(Singleton):
 				f":{self._system_version}" +
 				f":{self._system_architecture[0]}" +
 				f":{self._system_architecture[1]}" +
-				f":{self._pc_machine}</span></span>"
+				f":{self._pc_machine}</span></span><br>"
 		)
 
 	def _assemble_entry(
@@ -165,5 +165,5 @@ class BasicLogger(Singleton):
 				(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if self.status_type else "") +
 				(f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if self.message else "") +
 				(f"</i>" if italic else "") +
-				(f"</b>" if bold else "")
+				(f"</b>" if bold else "") + "<br>"
 		)

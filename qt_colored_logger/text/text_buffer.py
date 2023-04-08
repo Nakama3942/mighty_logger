@@ -22,17 +22,44 @@ import sys, re
 
 from qt_colored_logger.basic.patterns import Singleton
 
-class TextBuffer(Singleton):
-	def __init__(self, console_width: int = 60):
+class BasicTextBuffer(Singleton):
+	def __init__(self):
 		self._text_buffer: list[str] = []
+
+	def append(self, message: str):
+		self._text_buffer.append(f"{message}")
+
+	def replace(self, number_string: int, message: str):
+		if number_string < len(self._text_buffer):
+			self._text_buffer[number_string] = f"{message}"
+		else:
+			self._text_buffer.extend([""] * (number_string - len(self._text_buffer)))
+			self.append(message)
+
+	def get_data(self):
+		return self._text_buffer
+
+	def save(self, name_file: str = "buffer"):
+		with open(name_file, "w") as text_buffer_file:
+			text_buffer_file.write('\n'.join(self._text_buffer))
+
+	def __lshift__(self, other):
+		self.append(f"{other}")
+
+	def __rshift__(self, other):
+		self.save(other)
+
+class TextBuffer(BasicTextBuffer):
+	def __init__(self, console_width: int = 60):
+		super().__init__()
 		self._cursor_string: int = 0
 		self._buffer_size: int = 0
 		self.width = console_width
 
 	def append(self, message: str):
-		self._text_buffer.append(f"{message}")
 		excess_console_string = len(re.sub(r"\033\[.*?m", "", message)) // self.width
 		self._buffer_size += 1 + excess_console_string
+		self._text_buffer.append(f"{message}")
 
 	def replace(self, number_string: int, message: str):
 		if number_string > self._cursor_string:
@@ -63,9 +90,3 @@ class TextBuffer(Singleton):
 		sys.stdout.write('\n'.join(self._text_buffer))
 		sys.stdout.flush()  # Clearing the output buffer so that the changes are displayed immediately
 		self._cursor_string = self._buffer_size - 1
-
-	def __lshift__(self, other):
-		self.append(f"{other}")
-
-	def __rshift__(self, other):
-		self.save(other)

@@ -21,10 +21,12 @@
 # The idea is taken here:
 # https://github.com/Nakama3942/WiretappingScanner/commit/da5e0e71681b9e1462d5bba5438fc8b1fde8142e
 
-from qt_colored_logger._basic import _Singleton, _BasicLogger, ColorException, CombinationException
-from qt_colored_logger.src import HexColor, Dec2Hex
+from qt_colored_logger.basic.basic_logger import BasicLogger
+from qt_colored_logger.basic.exceptions import ColorException, CombinationException
+from qt_colored_logger.src.color_picker import HexColor, Dec2Hex
+from qt_colored_logger.text.text_buffer import BasicTextBuffer
 
-class LoggerQ(_Singleton, _BasicLogger):
+class LoggerQ(BasicLogger):
 	"""
 	The LoggerQ class is a class that implements the functionality
 	of logging the work of software in different directions.\n
@@ -60,6 +62,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			self,
 			*,
 			program_name: str = "Unknown",
+			text_buffer: BasicTextBuffer = BasicTextBuffer(),
 			global_background: bool = False,
 			time: bool = True,
 			status: bool = True,
@@ -68,10 +71,11 @@ class LoggerQ(_Singleton, _BasicLogger):
 			message: bool = True
 	):
 		super().__init__(program_name, time, status, status_message, status_type, message)
+		self._buffer = text_buffer
 		self._HtmlColorSet: dict = {}
 		self._html_color_set_init()
 		self.global_background = global_background
-		# print(self._initial_log())  # todo Перенести в буфер
+		self._initial_log()
 
 	def _html_color_set_init(self):
 		"""
@@ -196,7 +200,8 @@ class LoggerQ(_Singleton, _BasicLogger):
 		"""
 		Displays initialized information.
 		"""
-		return self._html_initialized_data(  # todo return заменить на buffer
+		self._buffer << "<body style='background-color: #000000;'>"
+		self._buffer << self._html_initialized_data(
 			[
 				self._HtmlColorSet['INITIAL_COLOR'][self.global_background],
 				self._HtmlColorSet['INITIAL_BACKGROUND'][self.global_background]
@@ -259,7 +264,10 @@ class LoggerQ(_Singleton, _BasicLogger):
 		else:
 			raise ColorException("This color is not in the dictionary")
 
-	def DEBUG(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> str:
+	def get_buffer(self):
+		return self._buffer
+
+	def DEBUG(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> None:
 		"""
 		Debugging information logging:
 		Can be used to log entry any information while debugging an application.
@@ -272,7 +280,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['DEBUG_TIME'][background],
 				self._HtmlColorSet['DEBUG_STATUS'][background],
@@ -283,7 +291,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "%DEBUG", message_text, bold, italic
 		)
 
-	def DEBUG_PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> str:
+	def DEBUG_PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> None:
 		"""
 		Performance debugging information logging:
 		Can be used to log entry the execution time of operations or other
@@ -297,7 +305,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['DEBUG_PERFORMANCE_TIME'][background],
 				self._HtmlColorSet['DEBUG_PERFORMANCE_STATUS'][background],
@@ -308,7 +316,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "%DEBUG PERFORMANCE", message_text, bold, italic
 		)
 
-	def PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> str:
+	def PERFORMANCE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> None:
 		"""
 		Performance information logging:
 		Can be used to log entry the execution time of operations or
@@ -322,7 +330,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['PERFORMANCE_TIME'][background],
 				self._HtmlColorSet['PERFORMANCE_STATUS'][background],
@@ -333,7 +341,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "%PERFORMANCE", message_text, bold, italic
 		)
 
-	def EVENT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> str:
+	def EVENT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> None:
 		"""
 		Event information logging:
 		Can be used to log entry specific events in the application,
@@ -347,7 +355,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['EVENT_TIME'][background],
 				self._HtmlColorSet['EVENT_STATUS'][background],
@@ -358,7 +366,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "~EVENT", message_text, bold, italic
 		)
 
-	def AUDIT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> str:
+	def AUDIT(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> None:
 		"""
 		Audit information logging:
 		Can be used to log entry changes in the system, such as creating or
@@ -372,7 +380,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['AUDIT_TIME'][background],
 				self._HtmlColorSet['AUDIT_STATUS'][background],
@@ -383,7 +391,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "~AUDIT", message_text, bold, italic
 		)
 
-	def METRICS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> str:
+	def METRICS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> None:
 		"""
 		Metrics information logging:
 		Can be used to log entry metrics to track application performance and identify issues.
@@ -396,7 +404,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['METRICS_TIME'][background],
 				self._HtmlColorSet['METRICS_STATUS'][background],
@@ -407,7 +415,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "~METRICS", message_text, bold, italic
 		)
 
-	def USER(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> str:
+	def USER(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> None:
 		"""
 		User information logging:
 		Can be used to log entry custom logs to store additional information
@@ -421,7 +429,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['USER_TIME'][background],
 				self._HtmlColorSet['USER_STATUS'][background],
@@ -432,7 +440,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "~USER", message_text, bold, italic
 		)
 
-	def MESSAGE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> str:
+	def MESSAGE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> None:
 		"""
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
@@ -445,7 +453,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['MESSAGE_TIME'][background],
 				self._HtmlColorSet['MESSAGE_STATUS'][background],
@@ -456,7 +464,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "@MESSAGE", message_text, bold, italic
 		)
 
-	def INFO(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> str:
+	def INFO(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> None:
 		"""
 		Default information logging:
 		Can be used to log entry messages with specific content about the operation of the program.
@@ -469,7 +477,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['INFO_TIME'][background],
 				self._HtmlColorSet['INFO_STATUS'][background],
@@ -480,7 +488,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "@INFO", message_text, bold, italic
 		)
 
-	def NOTICE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> str:
+	def NOTICE(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> None:
 		"""
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
@@ -493,7 +501,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:return: the generated log entry string
 		"""
 		background = local_background if local_background is not None else self.global_background
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['NOTICE_TIME'][background],
 				self._HtmlColorSet['NOTICE_STATUS'][background],
@@ -504,7 +512,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "@NOTICE", message_text, bold, italic
 		)
 
-	def WARNING(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = True) -> str:
+	def WARNING(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = True) -> None:
 		"""
 		Warning information logging:
 		Can be used to log entry warnings that the program may work with unpredictable results.
@@ -516,7 +524,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['WARNING_TIME'][local_background],
 				self._HtmlColorSet['WARNING_STATUS'][local_background],
@@ -527,7 +535,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "!WARNING", message_text, bold, italic
 		)
 
-	def ERROR(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = True) -> str:
+	def ERROR(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = True) -> None:
 		"""
 		Error information logging:
 		Used to log entry errors and crashes in the program.
@@ -539,7 +547,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['ERROR_TIME'][local_background],
 				self._HtmlColorSet['ERROR_STATUS'][local_background],
@@ -550,7 +558,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "!!ERROR", message_text, bold, italic
 		)
 
-	def CRITICAL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False, local_background: bool = True) -> str:
+	def CRITICAL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False, local_background: bool = True) -> None:
 		"""
 		Critical error information logging:
 		Used to log entry for critical and unpredictable program failures.
@@ -562,7 +570,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['CRITICAL_TIME'][local_background],
 				self._HtmlColorSet['CRITICAL_STATUS'][local_background],
@@ -573,7 +581,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "!!!@CRITICAL", message_text, bold, italic
 		)
 
-	def START_PROCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = True) -> str:
+	def START_PROCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = True) -> None:
 		"""
 		Stub.
 
@@ -584,7 +592,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		# return self._assemble_html_entry(
+		# self._buffer << self._assemble_html_entry(
 		# 	[
 		# 		self._HtmlColorSet['PROGRESS_TIME'][local_background],
 		# 		self._HtmlColorSet['PROGRESS_STATUS'][local_background],
@@ -597,7 +605,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		pass
 		# Must run on a thread
 
-	def STOP_PROCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = True) -> str:
+	def STOP_PROCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = True) -> None:
 		"""
 		Stub.
 
@@ -611,7 +619,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		pass
 		# Make transition to SUCCESS or FAIL
 
-	def SUCCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, local_background: bool = True) -> str:
+	def SUCCESS(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, local_background: bool = True) -> None:
 		"""
 		Success information logging:
 		Used to log entry a message about the success of the process.
@@ -623,7 +631,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['SUCCESS_TIME'][local_background],
 				self._HtmlColorSet['SUCCESS_STATUS'][local_background],
@@ -634,7 +642,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "&SUCCESS", message_text, bold, italic
 		)
 
-	def FAIL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, local_background: bool = True) -> str:
+	def FAIL(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, local_background: bool = True) -> None:
 		"""
 		Fail information logging:
 		Used to log entry a message about the failed execution of the process.
@@ -646,7 +654,7 @@ class LoggerQ(_Singleton, _BasicLogger):
 		:param local_background: Display entry with background?
 		:return: the generated log entry string
 		"""
-		return self._assemble_html_entry(
+		self._buffer << self._assemble_html_entry(
 			[
 				self._HtmlColorSet['FAIL_TIME'][local_background],
 				self._HtmlColorSet['FAIL_STATUS'][local_background],
@@ -657,31 +665,33 @@ class LoggerQ(_Singleton, _BasicLogger):
 			], status_message_text, "&FAIL", message_text, bold, italic
 		)
 
-
 # Test
 if __name__ == "__main__":
-	logger = LoggerQ(program_name="Test")
-	print(logger._initial_log())
-	print(logger.DEBUG(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	print(logger.DEBUG_PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	print(logger.PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	print(logger.EVENT(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	buf = BasicTextBuffer()
+	logger = LoggerQ(program_name="Test", text_buffer=buf)
+	logger.DEBUG(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.DEBUG_PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.EVENT(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	# logger.global_background = True
-	print(logger.AUDIT(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	print(logger.METRICS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	logger.AUDIT(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.METRICS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	# logger.time = False
-	print(logger.USER(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	print(logger.MESSAGE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
+	logger.USER(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.MESSAGE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	# logger.status_type = False
-	print(logger.INFO(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	print(logger.NOTICE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	print(logger.WARNING(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	print(logger.ERROR(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	print(logger.CRITICAL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	# print(logger.START_PROCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	print(logger.SUCCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	print(logger.FAIL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message"))
-	# print(logger.FAIL(status_message_text="33", message_text="34", invert=True))
+	logger.INFO(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.NOTICE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.WARNING(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.ERROR(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.CRITICAL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	# logger.START_PROCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.SUCCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	logger.FAIL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
+	# print(logger.FAIL(status_message_text="33", message_text="34", invert=True)
+
+	buf >> "2.html"
+	print('\n'.join(buf.get_data()))
 
 	# logger2 = LoggerQ()
 	# print(logger.ID)
