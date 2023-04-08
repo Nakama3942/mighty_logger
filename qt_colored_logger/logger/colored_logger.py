@@ -1,22 +1,20 @@
-# ##########################   Qt_Colored-logger   ########################### #
-# ---------------------------------------------------------------------------- #
-#                                                                              #
-# Copyright © 2023 Kalynovsky Valentin. All rights reserved.                   #
-#                                                                              #
-# Licensed under the Apache License, Version 2.0 (the "License");              #
-# you may not use this file except in compliance with the License.             #
-# You may obtain a copy of the License at                                      #
-#                                                                              #
-#     http://www.apache.org/licenses/LICENSE-2.0                               #
-#                                                                              #
-# Unless required by applicable law or agreed to in writing, software          #
-# distributed under the License is distributed on an "AS IS" BASIS,            #
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.     #
-# See the License for the specific language governing permissions and          #
-# limitations under the License.                                               #
-#                                                                              #
-# ---------------------------------------------------------------------------- #
-# ############################################################################ #
+"""
+A module with the implementation of a standard (console) logger.
+\n
+Copyright © 2023 Kalynovsky Valentin. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
 
 from qt_colored_logger.basic.basic_logger import BasicLogger
 from qt_colored_logger.basic.exceptions import ColorException, CombinationException
@@ -235,6 +233,14 @@ class Logger(BasicLogger):
 			raise ColorException("This color is not in the dictionary")
     
 	def get_buffer(self):
+		"""
+		Usually, before creating a logger, you need to create a text buffer
+		and pass it to the constructor. But if this has not been done, the buffer
+		is created directly in the logger. And to get it (for example, to save
+		the buffer to a file), this method was implemented. It returns a buffer.
+
+		:return: a text buffer object
+		"""
 		return self._buffer
 
 	def DEBUG(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -685,7 +691,7 @@ if __name__ == "__main__":
 	logger.status_type = False
 	logger.INFO(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message")
 	logger.NOTICE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	# buf.replace(7, "7")
+	buf.replace(7, "7")
 	logger.WARNING(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.ERROR(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.CRITICAL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")

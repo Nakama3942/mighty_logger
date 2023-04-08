@@ -1,22 +1,20 @@
-# ##########################   Qt_Colored-logger   ########################### #
-# ---------------------------------------------------------------------------- #
-#                                                                              #
-# Copyright © 2023 Kalynovsky Valentin. All rights reserved.                   #
-#                                                                              #
-# Licensed under the Apache License, Version 2.0 (the "License");              #
-# you may not use this file except in compliance with the License.             #
-# You may obtain a copy of the License at                                      #
-#                                                                              #
-#     http://www.apache.org/licenses/LICENSE-2.0                               #
-#                                                                              #
-# Unless required by applicable law or agreed to in writing, software          #
-# distributed under the License is distributed on an "AS IS" BASIS,            #
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.     #
-# See the License for the specific language governing permissions and          #
-# limitations under the License.                                               #
-#                                                                              #
-# ---------------------------------------------------------------------------- #
-# ############################################################################ #
+"""
+A module with the implementation of a Qt (HTML) logger.
+\n
+Copyright © 2023 Kalynovsky Valentin. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
 
 # The idea is taken here:
 # https://github.com/Nakama3942/WiretappingScanner/commit/da5e0e71681b9e1462d5bba5438fc8b1fde8142e
@@ -231,8 +229,10 @@ class LoggerQ(BasicLogger):
 				self._HtmlColorSet[logger_color_name][1] = hex_color_value
 			elif background and foreground:
 				self._HtmlColorSet[logger_color_name][1] = hex_color_value
-			else:
+			elif not background and foreground:
 				self._HtmlColorSet[logger_color_name][0] = hex_color_value
+			else:
+				raise CombinationException("False-False combination of foreground-background flags not possible")
 		else:
 			raise ColorException("This color is not in the dictionary")
 
@@ -259,12 +259,22 @@ class LoggerQ(BasicLogger):
 				self._HtmlColorSet[logger_color_name][1] = Dec2Hex(color_value)
 			elif background and foreground:
 				self._HtmlColorSet[logger_color_name][1] = Dec2Hex(color_value)
-			else:
+			elif not background and foreground:
 				self._HtmlColorSet[logger_color_name][0] = Dec2Hex(color_value)
+			else:
+				raise CombinationException("False-False combination of foreground-background flags not possible")
 		else:
 			raise ColorException("This color is not in the dictionary")
 
 	def get_buffer(self):
+		"""
+		Usually, before creating a logger, you need to create a text buffer
+		and pass it to the constructor. But if this has not been done, the buffer
+		is created directly in the logger. And to get it (for example, to save
+		the buffer to a file), this method was implemented. It returns a buffer.
+
+		:return: a text buffer object
+		"""
 		return self._buffer
 
 	def DEBUG(self, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, local_background: bool = None) -> None:
