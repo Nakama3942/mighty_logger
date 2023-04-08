@@ -153,7 +153,7 @@ AnsiFormat = {
 	},
 }
 
-def _RecursiveGetAnsiFormat(ansi_address: str, ansi: dict, test: bool = False) -> str:
+def _RecursiveGetAnsiFormat(ansi_address: str, ansi: dict) -> str:
 	"""
 	Recursively extracts a string with an ANSI escape code from a heavily nested dictionary.
 
@@ -162,8 +162,7 @@ def _RecursiveGetAnsiFormat(ansi_address: str, ansi: dict, test: bool = False) -
 	:return: value - ANSI escape code
 	"""
 	split_address = ansi_address.split("/")
-	if test:
-		print(split_address)
+	# print(split_address)
 	if type(ansi[split_address[0]]) == dict:
 		return _RecursiveGetAnsiFormat("/".join(split_address[1:]), ansi[split_address[0]])
 	else:

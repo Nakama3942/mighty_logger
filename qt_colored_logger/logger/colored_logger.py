@@ -18,11 +18,12 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from qt_colored_logger._basic import _Singleton, _BasicLogger, ColorException, CombinationException
-from qt_colored_logger.src import AnsiColor, Dec2Ansi
-from qt_colored_logger.text import TextBuffer
+from qt_colored_logger.basic.basic_logger import BasicLogger
+from qt_colored_logger.basic.exceptions import ColorException, CombinationException
+from qt_colored_logger.src.color_picker import AnsiColor, Dec2Ansi
+from qt_colored_logger.text.text_buffer import TextBuffer
 
-class Logger(_Singleton, _BasicLogger):
+class Logger(BasicLogger):
 	"""
 	The Logger class is a class that implements the functionality
 	of logging the work of software in different directions.\n
@@ -232,6 +233,9 @@ class Logger(_Singleton, _BasicLogger):
 				raise CombinationException("False-False combination of foreground-background flags not possible")
 		else:
 			raise ColorException("This color is not in the dictionary")
+    
+	def get_buffer(self):
+		return self._buffer
 
 	def DEBUG(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
 		"""

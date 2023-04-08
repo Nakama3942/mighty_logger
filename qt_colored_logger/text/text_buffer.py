@@ -20,9 +20,9 @@
 
 import sys, re
 
-from qt_colored_logger._basic import _Singleton
+from qt_colored_logger.basic.patterns import Singleton
 
-class TextBuffer(_Singleton):
+class TextBuffer(Singleton):
 	def __init__(self, console_width: int = 60):
 		self._text_buffer: list[str] = []
 		self._cursor_string: int = 0

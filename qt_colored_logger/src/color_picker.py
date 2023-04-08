@@ -18,7 +18,8 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-from qt_colored_logger.src import GetAnsiFormat
+from qt_colored_logger.basic.exceptions import ColorException
+from qt_colored_logger.src.ansi_format import GetAnsiFormat
 
 ColorPicker = {
 	# Color table
@@ -186,7 +187,6 @@ def DecColor(color_name: str) -> list[int, int, int]:
 	if color_name in ColorPicker:
 		return ColorPicker[color_name]
 	else:
-		from qt_colored_logger._basic import ColorException
 		raise ColorException("This color is not in the dictionary")
 
 def HexColor(color_name: str) -> str:
