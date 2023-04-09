@@ -53,8 +53,18 @@ class BasicTextBuffer(Singleton):
 		"""
 		self._text_buffer.append(f"{message}")
 
-	def append_to_place(self):
-		pass
+	def insert(self, number_string: int, message: str) -> None:
+		"""
+		Adds a string to the middle of the text buffer at the specified position.
+
+		:param number_string: Position (number) of the line to which you need to add a string
+		:param message: The string to be placed on the position
+		"""
+		if number_string < len(self._text_buffer):
+			self._text_buffer.insert(number_string, f"{message}")
+		else:
+			self._text_buffer.extend([""] * (number_string - len(self._text_buffer)))
+			self.append(message)
 
 	def replace(self, number_string: int, message: str) -> None:
 		"""
@@ -105,6 +115,17 @@ class TextBuffer(BasicTextBuffer):
 		excess_console_string = len(re.sub(r"\033\[.*?m", "", message)) // self.width
 		self._buffer_size += 1 + excess_console_string
 		self._text_buffer.append(f"{message}")
+
+	def insert(self, number_string: int, message: str):
+		if number_string > self._cursor_string:
+			count_empty_strings = (number_string - len(self._text_buffer))
+			self._text_buffer.extend([""] * count_empty_strings)
+			self._buffer_size += count_empty_strings
+			self.append(message)
+		else:
+			excess_console_string = len(re.sub(r"\033\[.*?m", "", message)) // self.width
+			self._buffer_size += 1 + excess_console_string
+			self._text_buffer.insert(number_string, f"{message}")
 
 	def replace(self, number_string: int, message: str) -> None:
 		if number_string > self._cursor_string:

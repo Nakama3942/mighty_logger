@@ -700,6 +700,7 @@ if __name__ == "__main__":
 	logger.FAIL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	# print(logger.FAIL(status_message_text="33", message_text="34", invert=True))
 	buf << "55"
+	buf.insert(3, "150")
 	logger.INFO(status_message_text="Test text", message_text="Entrying was successful!", bold=True)
 	buf >> "buf"
 

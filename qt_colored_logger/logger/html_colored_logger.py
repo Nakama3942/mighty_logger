@@ -198,7 +198,7 @@ class LoggerQ(BasicLogger):
 		"""
 		Displays initialized information.
 		"""
-		self._buffer << "<body style='background-color: #000000;'>"
+		self._buffer << "<body style='background-color: #000000; color: #ffffff;'>"
 		self._buffer << self._html_initialized_data(
 			[
 				self._HtmlColorSet['INITIAL_COLOR'][self.global_background],
@@ -700,6 +700,7 @@ if __name__ == "__main__":
 	logger.FAIL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	# print(logger.FAIL(status_message_text="33", message_text="34", invert=True)
 
+	buf.insert(3, "150<br>")
 	buf >> "2.html"
 	print('\n'.join(buf.get_data()))
 
