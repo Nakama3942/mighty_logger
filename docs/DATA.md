@@ -1,6 +1,14 @@
 ## Data
 The library stores various important data for use that you may need to know while using the library.
 
+#### Content
+- [Data](#data)
+	- [Content](#content)
+    - [Entry types](#entry-types-)
+    - [X11 color table](#x11-color-table-)
+    - [Logger Color Scheme](#logger-color-scheme-)
+    - [Tree of ANSI escape code](#tree-of-ansi-escape-code-)
+
 ###### Entry types:
 - DEBUG
 - DEBUG_PERFORMANCE
@@ -172,7 +180,7 @@ The library stores various important data for use that you may need to know whil
     - LIGHTGRAY
     - GAINSBORO
 
-###### Logger Color Chart:
+###### Logger Color Scheme:
 | Color name                        | Foreground color  | Background color |
 |-----------------------------------|-------------------|------------------|
 | INITIAL_COLOR                     | GOLD              | INDIGO           |
