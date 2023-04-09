@@ -65,8 +65,8 @@ Any information to the output can be turned off (according to the default, every
 ## Important releases
 <details><summary>See the important releases (possible spoilers)</summary>
 
-- [x] v0.1.0 - First official release
-- [x] v0.2.0 - Structural update (the structure of the project has been changed)
+- [x] v0.1.0 - First official release (complete basic HTML logger)
+- [x] v0.2.0 - Structural update (added basic console logger with HTML base)
 - [x] v0.3.0 - Background update (added background for log entries)
 - [x] v0.4.0 - Buffer update (added text buffer)
 - [ ] v0.5.0 - Unifying update (console and HTML are combined into one class)
@@ -74,6 +74,7 @@ Any information to the output can be turned off (according to the default, every
 - [ ] v0.7.0 - Progress update (added start of some log entries in threads (process))
 - [ ] v0.8.0 - Animation update (added animations in processes)
 - [ ] v0.9.0 - Search update (added search by log entry types)
+- [ ] v0.9.1 - Extension update (made wheel format and instruction of toml)
 - [ ] v1.0.0 - Completion of logger development (logger development completed)
 - [ ] v1.1.0 - Font update (added a class that formats text outside the logger)
 
