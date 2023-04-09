@@ -303,3 +303,24 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - Added new CombinationException.
 
 ---
+
+## v0.4.0 (09.04.2023)
+
+#### Documenting:
+- Split README.md, cutting DATA.md and APPLYING.md out of it;
+- Published a plan for the next updates in README.md;
+- Updated documentation;
+- Wrote the actual README.md, DATA.md and APPLYING.md (which corresponds to the current version).
+
+#### Enhancements:
+- Added a package qt_colored_logger.text;
+- Added TextBuffer (used for console) to qt_colored_logger.text package;
+- Added BasicTextBuffer (used with HTML) to qt_colored_logger.text package;
+- Loggers moved from qt_colored_logger root package to nested qt_colored_logger.logger;
+- Entry methods rewritten - now they do not return strings of entries, but add them to the text buffer;
+- Returned protected modules, making them fully available;
+- Added blanks for the next updates;
+- Reworked the principle of forming strings of records in the BasicLogger, getting rid of the string variable;
+- Added get_buffer() method in loggers.
+
+---

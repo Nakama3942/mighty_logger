@@ -78,7 +78,6 @@ The outputs in console will contain the following text (GitHub, PyPi and possibl
 ### Usage in Qt (available since v0.0.1)
 The difference between the console and Qt is that Qt uses HTML to display formatted text, while the console uses ANSI escape codes. However, access to the basic logic is not planned, and the external interface between the Logger/LoggerQ classes is the same (except for the class names themselves). Therefore, all previous examples can be rewritten like this:
 ```python
-from qt_colored_logger.text import BasicTextBuffer
 from qt_colored_logger.logger import LoggerQ
 
 ...
@@ -90,20 +89,18 @@ self.logger.time = False  # Just for example
 ```
 
 ```python
-from qt_colored_logger.text import BasicTextBuffer
 from qt_colored_logger.logger import LoggerQ
 
 ...
 
 self.logger = LoggerQ(program_name="Test")
 self.logger.MESSAGE(status_message_text="OK", message_text="Outputting the message")
-self.someTextBrowserObject.setText('\n'.join(logger.get_buffer().get_data()))
+self.someTextBrowserObject.setText('\n'.join(self.logger.get_buffer().get_data()))
 
 ...
 ```
 
 ```python
-from qt_colored_logger.text import BasicTextBuffer
 from qt_colored_logger.logger import LoggerQ
 
 ...
@@ -113,7 +110,7 @@ self.logger.MESSAGE(message_text="Message data")
 self.logger.MESSAGE(message_text="Message data", bold=True)
 self.logger.MESSAGE(message_text="Message data", italic=True)
 self.logger.MESSAGE(message_text="Message data", bold=True, italic=True)
-self.someTextBrowserObject.setText('\n'.join(logger.get_buffer().get_data()))
+self.someTextBrowserObject.setText('\n'.join(self.logger.get_buffer().get_data()))
 
 ...
 ```
@@ -124,9 +121,10 @@ from qt_colored_logger import LoggerQ
 ...
 
 self.logger = LoggerQ(program_name="Test", status_message=False)
-self.someTextBrowserObject.append(self.logger.NOTICE(message_text="Notice data"))
+self.logger.NOTICE(message_text="Notice data")
 self.logger.set_color(logger_color_name="NOTICE_MESSAGE", color_value=[127, 255, 0], foreground=True, background=False)
-self.someTextBrowserObject.append(self.logger.NOTICE(message_text="Notice data"))
+self.logger.NOTICE(message_text="Notice data")
+self.someTextBrowserObject.append('\n'.join(self.logger.get_buffer().get_data()))
 
 ...
 ```

@@ -20,5 +20,5 @@ limitations under the License.
 # from .html_colored_logger import LoggerQ
 
 __authot__ = "Kalynovsky 'Nakama3942' Valentin"
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 __email__ = "nakama3942@gmail.com"
