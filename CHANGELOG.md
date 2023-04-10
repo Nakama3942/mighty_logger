@@ -324,3 +324,32 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - Added get_buffer() method in loggers.
 
 ---
+
+## v0.5.0-dev (10.04.2023)
+
+#### Enhancements:
+- _html_initialized_data() attached to _initialized_data();
+- _assemble_html_entry() attached to _assemble_entry();
+- Implemented LogEnvironment enumeration with Console and HTML values;
+- The abstract class TextBufferBase is implemented as a type for buffers (it was necessary to combine two buffers BasicTextBuffer and TextBuffer);
+- The Logger class has been rewritten;
+- The LoggerQ class is hidden;
+
+---
+
+## v0.5.0-pre (10.04.2023)
+
+#### Documenting:
+- Updated annotation of modules and packages.
+
+#### Enhancements:
+- The TextBufferBase class has been moved to the qt_colored_logger.basic package in the new text_buffer_type.py module and renamed to TextBufferType;
+- Optimized the Logger class;
+- Completed the LogEnvironments format and usage;
+- Removed LoggerQ class and html_colored_logger.py module;
+- Accounted for environment in the set_color() function in the Logger class;
+- The colored_logger.py module has been renamed to powerful_logger.py and moved to the library root;
+- Removed the empty qt_colored_logger.logger package;
+- Renamed the library to mighty_logger.
+
+---
