@@ -21,5 +21,5 @@
 # ATTENTION! It's just a vision for the future. This is not yet used functionality.
 
 class LogEnvironment:
-    Console = 0
-    HTML = 1
+    Console: bool = False
+    HTML: bool = True

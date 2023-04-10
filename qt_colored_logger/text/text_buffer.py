@@ -20,12 +20,7 @@ import sys, re
 
 from qt_colored_logger.basic.patterns import Singleton
 
-class BasicTextBuffer(Singleton):
-	"""
-	A class with a basic implementation of a simple text buffer. It is intended
-	to be used in conjunction with HTML, but this is optional.
-	"""
-
+class TextBufferBase(Singleton):
 	def __init__(self):
 		self._text_buffer: list[str] = []
 
@@ -44,6 +39,38 @@ class BasicTextBuffer(Singleton):
 		:param other: The name of the file where you want to save the buffer
 		"""
 		self.save(other)
+
+	def append(self, message: str) -> None:
+		pass
+
+	def insert(self, number_string: int, message: str) -> None:
+		pass
+
+	def replace(self, number_string: int, message: str) -> None:
+		pass
+
+	def get_data(self) -> list:
+		"""
+		Returns a list of strings from a text buffer.
+
+		:return: a list of text buffer lines
+		"""
+		return self._text_buffer
+
+	def save(self, name_file: str = "buffer") -> None:
+		pass
+
+	def update_console(self) -> None:
+		pass
+
+class BasicTextBuffer(TextBufferBase):
+	"""
+	A class with a basic implementation of a simple text buffer. It is intended
+	to be used in conjunction with HTML, but this is optional.
+	"""
+
+	def __init__(self):
+		super().__init__()
 
 	def append(self, message: str) -> None:
 		"""
@@ -80,14 +107,6 @@ class BasicTextBuffer(Singleton):
 			self._text_buffer.extend([""] * (number_string - len(self._text_buffer)))
 			self.append(message)
 
-	def get_data(self) -> list:
-		"""
-		Returns a list of strings from a text buffer.
-
-		:return: a list of text buffer lines
-		"""
-		return self._text_buffer
-
 	def save(self, name_file: str = "buffer") -> None:
 		"""
 		Saves the text of the buffer to a file.
@@ -97,7 +116,13 @@ class BasicTextBuffer(Singleton):
 		with open(name_file, "w") as text_buffer_file:
 			text_buffer_file.write('\n'.join(self._text_buffer))
 
-class TextBuffer(BasicTextBuffer):
+	def update_console(self) -> None:
+		"""
+		Refreshes the console, erasing output text and outputting an updated buffer.
+		"""
+		raise NotImplementedError("Method update_console() is not implemented in the base class.")
+
+class TextBuffer(TextBufferBase):
 	"""
 	A class with an advanced implementation of the console text buffer. It is not necessary to use it
 	only in the console, but almost all methods are reimplemented for more complex algorithms, taking
