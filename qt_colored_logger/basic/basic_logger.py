@@ -20,6 +20,7 @@ import datetime, platform, os, random
 
 from qt_colored_logger.basic.patterns import Singleton
 from qt_colored_logger.src.ansi_format import GetAnsiFormat
+from qt_colored_logger.src.log_environment import LogEnvironments
 
 class BasicLogger(Singleton):
 	def __init__(
@@ -59,7 +60,7 @@ class BasicLogger(Singleton):
 	def _initialized_data(
 			self,
 			colors: list[str, str],
-			html_environment: bool = False
+			env: str
 	) -> str:
 		"""
 		A method that assemble an entry of system initialized data.
@@ -68,7 +69,7 @@ class BasicLogger(Singleton):
 		:param colors: Color string list of initialized data
 		:return: a string with initialized data
 		"""
-		if html_environment:
+		if env == LogEnvironments.HTML:
 			return (
 					f"<span style='background-color: #{colors[1]};'>" +
 					f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +
@@ -119,7 +120,7 @@ class BasicLogger(Singleton):
 			bold: bool,
 			italic: bool,
 			invert: bool,
-			html_environment: bool = False
+			env: str
 	) -> str:
 		"""
 		A method that assemble an entry into a string and returns it.
@@ -134,7 +135,7 @@ class BasicLogger(Singleton):
 		:param invert: invert the colors in format the entry
 		:return: the formed entry string
 		"""
-		if html_environment:
+		if env == LogEnvironments.HTML:
 			return (
 					(f"<b>" if bold else "") +
 					(f"<i>" if italic else "") +

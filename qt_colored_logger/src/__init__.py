@@ -26,4 +26,4 @@ from .color_picker import DecColor,\
 	Hex2Ansi,\
 	Ansi2Dec,\
 	Ansi2Hex
-from .log_environment import LogEnvironment
+from .log_environment import LogEnvironments

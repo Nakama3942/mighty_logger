@@ -18,8 +18,10 @@ limitations under the License.
 
 from qt_colored_logger.basic.basic_logger import BasicLogger
 from qt_colored_logger.basic.exceptions import ColorException, CombinationException
+from qt_colored_logger.basic.text_buffer_type import TextBufferType
 from qt_colored_logger.src.color_picker import AnsiColor, HexColor, Dec2Ansi
-from qt_colored_logger.text.text_buffer import TextBufferBase, BasicTextBuffer, TextBuffer
+from qt_colored_logger.src.log_environment import LogEnvironments
+from qt_colored_logger.text.text_buffer import BasicTextBuffer, TextBuffer
 
 class Logger(BasicLogger):
 	"""
@@ -56,8 +58,7 @@ class Logger(BasicLogger):
 			self,
 			*,
 			program_name: str = "Unknown",
-			# text_buffer: TextBufferBase = None,
-			log_environment: bool = False,
+			log_environment: str = LogEnvironments.CONSOLE,
 			console_width: int = 60,
 			global_background: bool = False,
 			time: bool = True,
@@ -68,265 +69,255 @@ class Logger(BasicLogger):
 	):
 		super().__init__(program_name, time, status, status_message, status_type, message)
 		self._ColorScheme: dict = {}
-		# if text_buffer is not None:  # Предложить оптимизировать GPT
-		# 	self._buffer = text_buffer
-		# 	if log_environment:
-		# 		self._html_color_set_init()
-		# 	else:
-		# 		self._ansi_color_set_init()
-		if log_environment:
-			self._buffer = BasicTextBuffer()
-			self._html_color_set_init()
-		else:
+		if log_environment == LogEnvironments.CONSOLE:
 			self._buffer = TextBuffer(console_width)
-			self._ansi_color_set_init()
+		else:
+			self._buffer = BasicTextBuffer()
+		self._html_color_set_init()
 		self._environment = log_environment
 		self.global_background = global_background
 		self._initial_log()
 
-	def _ansi_color_set_init(self):
+	def _color_scheme_init(self):
 		"""
 		Sets the colors of the logger.
 		"""
-		self._ColorScheme['INITIAL_COLOR'] = [AnsiColor('GOLD', "foreground"), AnsiColor('INDIGO', "foreground")]
-		self._ColorScheme['INITIAL_BACKGROUND'] = ["", AnsiColor('GOLD', "background")]
-		# DEBUG colors
-		self._ColorScheme['DEBUG_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-		self._ColorScheme['DEBUG_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['DEBUG_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_DEBUG'] = [AnsiColor('BURLYWOOD', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['DEBUG_MESSAGE'] = [AnsiColor('TAN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['DEBUG_BACKGROUND'] = ["", AnsiColor('TAN', "background")]
-		# DEBUG_PERFORMANCE colors
-		self._ColorScheme['DEBUG_PERFORMANCE_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-		self._ColorScheme['DEBUG_PERFORMANCE_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['DEBUG_PERFORMANCE_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_DEBUG_PERFORMANCE'] = [AnsiColor('NAVAJOWHITE', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['DEBUG_PERFORMANCE_MESSAGE'] = [AnsiColor('WHEAT', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['DEBUG_PERFORMANCE_BACKGROUND'] = ["", AnsiColor('WHEAT', "background")]
-		# PERFORMANCE colors
-		self._ColorScheme['PERFORMANCE_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-		self._ColorScheme['PERFORMANCE_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['PERFORMANCE_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_PERFORMANCE'] = [AnsiColor('BLANCHEDALMOND', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['PERFORMANCE_MESSAGE'] = [AnsiColor('BISQUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['PERFORMANCE_BACKGROUND'] = ["", AnsiColor('BISQUE', "background")]
-		# EVENT colors
-		self._ColorScheme['EVENT_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-		self._ColorScheme['EVENT_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['EVENT_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_EVENT'] = [AnsiColor('GREENYELLOW', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['EVENT_MESSAGE'] = [AnsiColor('YELLOWGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['EVENT_BACKGROUND'] = ["", AnsiColor('YELLOWGREEN', "background")]
-		# AUDIT colors
-		self._ColorScheme['AUDIT_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-		self._ColorScheme['AUDIT_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['AUDIT_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_AUDIT'] = [AnsiColor('MEDIUMSPRINGGREEN', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['AUDIT_MESSAGE'] = [AnsiColor('SPRINGGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['AUDIT_BACKGROUND'] = ["", AnsiColor('SPRINGGREEN', "background")]
-		# METRICS colors
-		self._ColorScheme['METRICS_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-		self._ColorScheme['METRICS_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['METRICS_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_METRICS'] = [AnsiColor('PALEGREEN', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['METRICS_MESSAGE'] = [AnsiColor('LIGHTGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['METRICS_BACKGROUND'] = ["", AnsiColor('LIGHTGREEN', "background")]
-		# USER colors
-		self._ColorScheme['USER_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-		self._ColorScheme['USER_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['USER_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_USER'] = [AnsiColor('CHARTREUSE', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['USER_MESSAGE'] = [AnsiColor('LAWNGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['USER_BACKGROUND'] = ["", AnsiColor('LAWNGREEN', "background")]
-		# MESSAGE colors
-		self._ColorScheme['MESSAGE_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-		self._ColorScheme['MESSAGE_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['MESSAGE_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_MESSAGE'] = [AnsiColor('PALETURQUOISE', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['MESSAGE_MESSAGE'] = [AnsiColor('POWDERBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['MESSAGE_BACKGROUND'] = ["", AnsiColor('POWDERBLUE', "background")]
-		# INFO colors
-		self._ColorScheme['INFO_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-		self._ColorScheme['INFO_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['INFO_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_INFO'] = [AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['INFO_MESSAGE'] = [AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['INFO_BACKGROUND'] = ["", AnsiColor('SKYBLUE', "background")]
-		# NOTICE colors
-		self._ColorScheme['NOTICE_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-		self._ColorScheme['NOTICE_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['NOTICE_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_NOTICE'] = [AnsiColor('LIGHTBLUE', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['NOTICE_MESSAGE'] = [AnsiColor('LIGHTSTEELBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['NOTICE_BACKGROUND'] = ["", AnsiColor('LIGHTSTEELBLUE', "background")]
-		# WARNING colors
-		self._ColorScheme['WARNING_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-		self._ColorScheme['WARNING_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['WARNING_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_WARNING'] = [AnsiColor('YELLOW', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['WARNING_MESSAGE'] = [AnsiColor('DARKYELLOW', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['WARNING_BACKGROUND'] = ["", AnsiColor('DARKYELLOW', "background")]
-		# ERROR colors
-		self._ColorScheme['ERROR_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('PLUM', "foreground")]
-		self._ColorScheme['ERROR_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")]
-		self._ColorScheme['ERROR_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")]
-		self._ColorScheme['TYPE_ERROR'] = [AnsiColor('FIREBRICK', "foreground"), AnsiColor('GAINSBORO', "foreground")]
-		self._ColorScheme['ERROR_MESSAGE'] = [AnsiColor('DARKRED', "foreground"), AnsiColor('LIGHTGRAY', "foreground")]
-		self._ColorScheme['ERROR_BACKGROUND'] = ["", AnsiColor('DARKRED', "background")]
-		# CRITICAL colors
-		self._ColorScheme['CRITICAL_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('PLUM', "foreground")]
-		self._ColorScheme['CRITICAL_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")]
-		self._ColorScheme['CRITICAL_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")]
-		self._ColorScheme['TYPE_CRITICAL'] = [AnsiColor('FIREBRICK', "foreground"), AnsiColor('DARKSALMON', "foreground")]
-		self._ColorScheme['CRITICAL_MESSAGE'] = [AnsiColor('DARKRED', "foreground"), AnsiColor('LIGHTSALMON', "foreground")]
-		self._ColorScheme['CRITICAL_BACKGROUND'] = ["", AnsiColor('MAROON', "background")]
-		# PROGRESS colors
-		self._ColorScheme['PROGRESS_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")]
-		self._ColorScheme['PROGRESS_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-		self._ColorScheme['PROGRESS_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-		self._ColorScheme['TYPE_PROGRESS'] = [AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")]
-		self._ColorScheme['PROGRESS_MESSAGE'] = [AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-		self._ColorScheme['PROGRESS_BACKGROUND'] = ["", AnsiColor('SKYBLUE', "background")]
-		# SUCCESS colors
-		self._ColorScheme['SUCCESS_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")]
-		self._ColorScheme['SUCCESS_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")]
-		self._ColorScheme['SUCCESS_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")]
-		self._ColorScheme['TYPE_SUCCESS'] = [AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")]
-		self._ColorScheme['SUCCESS_MESSAGE'] = [AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")]
-		self._ColorScheme['SUCCESS_BACKGROUND'] = ["", AnsiColor('DARKGREEN', "background")]
-		# FAIL colors
-		self._ColorScheme['FAIL_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")]
-		self._ColorScheme['FAIL_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")]
-		self._ColorScheme['FAIL_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")]
-		self._ColorScheme['TYPE_FAIL'] = [AnsiColor('FIREBRICK', "foreground"), AnsiColor('YELLOW', "foreground")]
-		self._ColorScheme['FAIL_MESSAGE'] = [AnsiColor('DARKRED', "foreground"), AnsiColor('DARKYELLOW', "foreground")]
-		self._ColorScheme['FAIL_BACKGROUND'] = ["", AnsiColor('DARKRED', "background")]
-
-	def _html_color_set_init(self):
-		"""
-		Sets the colors of the logger.
-		"""
-		self._ColorScheme['INITIAL_COLOR'] = [HexColor('GOLD'), HexColor('INDIGO')]
-		self._ColorScheme['INITIAL_BACKGROUND'] = ["", HexColor('GOLD')]
-		# DEBUG colors
-		self._ColorScheme['DEBUG_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-		self._ColorScheme['DEBUG_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['DEBUG_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_DEBUG'] = [HexColor('BURLYWOOD'), HexColor('NAVY')]
-		self._ColorScheme['DEBUG_MESSAGE'] = [HexColor('TAN'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['DEBUG_BACKGROUND'] = ["", HexColor('TAN')]
-		# DEBUG_PERFORMANCE colors
-		self._ColorScheme['DEBUG_PERFORMANCE_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-		self._ColorScheme['DEBUG_PERFORMANCE_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['DEBUG_PERFORMANCE_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_DEBUG_PERFORMANCE'] = [HexColor('NAVAJOWHITE'), HexColor('NAVY')]
-		self._ColorScheme['DEBUG_PERFORMANCE_MESSAGE'] = [HexColor('WHEAT'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['DEBUG_PERFORMANCE_BACKGROUND'] = ["", HexColor('WHEAT')]
-		# PERFORMANCE colors
-		self._ColorScheme['PERFORMANCE_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-		self._ColorScheme['PERFORMANCE_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['PERFORMANCE_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_PERFORMANCE'] = [HexColor('BLANCHEDALMOND'), HexColor('NAVY')]
-		self._ColorScheme['PERFORMANCE_MESSAGE'] = [HexColor('BISQUE'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['PERFORMANCE_BACKGROUND'] = ["", HexColor('BISQUE')]
-		# EVENT colors
-		self._ColorScheme['EVENT_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-		self._ColorScheme['EVENT_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['EVENT_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_EVENT'] = [HexColor('GREENYELLOW'), HexColor('NAVY')]
-		self._ColorScheme['EVENT_MESSAGE'] = [HexColor('YELLOWGREEN'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['EVENT_BACKGROUND'] = ["", HexColor('YELLOWGREEN')]
-		# AUDIT colors
-		self._ColorScheme['AUDIT_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-		self._ColorScheme['AUDIT_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['AUDIT_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_AUDIT'] = [HexColor('MEDIUMSPRINGGREEN'), HexColor('NAVY')]
-		self._ColorScheme['AUDIT_MESSAGE'] = [HexColor('SPRINGGREEN'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['AUDIT_BACKGROUND'] = ["", HexColor('SPRINGGREEN')]
-		# METRICS colors
-		self._ColorScheme['METRICS_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-		self._ColorScheme['METRICS_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['METRICS_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_METRICS'] = [HexColor('PALEGREEN'), HexColor('NAVY')]
-		self._ColorScheme['METRICS_MESSAGE'] = [HexColor('LIGHTGREEN'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['METRICS_BACKGROUND'] = ["", HexColor('LIGHTGREEN')]
-		# USER colors
-		self._ColorScheme['USER_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-		self._ColorScheme['USER_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['USER_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_USER'] = [HexColor('CHARTREUSE'), HexColor('NAVY')]
-		self._ColorScheme['USER_MESSAGE'] = [HexColor('LAWNGREEN'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['USER_BACKGROUND'] = ["", HexColor('LAWNGREEN')]
-		# MESSAGE colors
-		self._ColorScheme['MESSAGE_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-		self._ColorScheme['MESSAGE_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['MESSAGE_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_MESSAGE'] = [HexColor('PALETURQUOISE'), HexColor('NAVY')]
-		self._ColorScheme['MESSAGE_MESSAGE'] = [HexColor('POWDERBLUE'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['MESSAGE_BACKGROUND'] = ["", HexColor('POWDERBLUE')]
-		# INFO colors
-		self._ColorScheme['INFO_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-		self._ColorScheme['INFO_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['INFO_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_INFO'] = [HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
-		self._ColorScheme['INFO_MESSAGE'] = [HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['INFO_BACKGROUND'] = ["", HexColor('SKYBLUE')]
-		# NOTICE colors
-		self._ColorScheme['NOTICE_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-		self._ColorScheme['NOTICE_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['NOTICE_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_NOTICE'] = [HexColor('LIGHTBLUE'), HexColor('NAVY')]
-		self._ColorScheme['NOTICE_MESSAGE'] = [HexColor('LIGHTSTEELBLUE'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['NOTICE_BACKGROUND'] = ["", HexColor('LIGHTSTEELBLUE')]
-		# WARNING colors
-		self._ColorScheme['WARNING_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-		self._ColorScheme['WARNING_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['WARNING_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_WARNING'] = [HexColor('YELLOW'), HexColor('NAVY')]
-		self._ColorScheme['WARNING_MESSAGE'] = [HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['WARNING_BACKGROUND'] = ["", HexColor('DARKYELLOW')]
-		# ERROR colors
-		self._ColorScheme['ERROR_TIME'] = [HexColor('ORCHID'), HexColor('PLUM')]
-		self._ColorScheme['ERROR_STATUS'] = [HexColor('ORANGE'), HexColor('ORANGE')]
-		self._ColorScheme['ERROR_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('DARKORANGE')]
-		self._ColorScheme['TYPE_ERROR'] = [HexColor('FIREBRICK'), HexColor('GAINSBORO')]
-		self._ColorScheme['ERROR_MESSAGE'] = [HexColor('DARKRED'), HexColor('LIGHTGRAY')]
-		self._ColorScheme['ERROR_BACKGROUND'] = ["", HexColor('DARKRED')]
-		# CRITICAL colors
-		self._ColorScheme['CRITICAL_TIME'] = [HexColor('ORCHID'), HexColor('PLUM')]
-		self._ColorScheme['CRITICAL_STATUS'] = [HexColor('ORANGE'), HexColor('ORANGE')]
-		self._ColorScheme['CRITICAL_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('DARKORANGE')]
-		self._ColorScheme['TYPE_CRITICAL'] = [HexColor('FIREBRICK'), HexColor('DARKSALMON')]
-		self._ColorScheme['CRITICAL_MESSAGE'] = [HexColor('DARKRED'), HexColor('LIGHTSALMON')]
-		self._ColorScheme['CRITICAL_BACKGROUND'] = ["", HexColor('MAROON')]
-		# PROGRESS colors
-		self._ColorScheme['PROGRESS_TIME'] = [HexColor('ORCHID'), HexColor('PURPLE')]
-		self._ColorScheme['PROGRESS_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-		self._ColorScheme['PROGRESS_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-		self._ColorScheme['TYPE_PROGRESS'] = [HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
-		self._ColorScheme['PROGRESS_MESSAGE'] = [HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
-		self._ColorScheme['PROGRESS_BACKGROUND'] = ["", HexColor('SKYBLUE')]
-		# SUCCESS colors
-		self._ColorScheme['SUCCESS_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
-		self._ColorScheme['SUCCESS_STATUS'] = [HexColor('ORANGE'), HexColor('CHARTREUSE')]
-		self._ColorScheme['SUCCESS_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
-		self._ColorScheme['TYPE_SUCCESS'] = [HexColor('GREEN'), HexColor('PALEGREEN')]
-		self._ColorScheme['SUCCESS_MESSAGE'] = [HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
-		self._ColorScheme['SUCCESS_BACKGROUND'] = ["", HexColor('DARKGREEN')]
-		# FAIL colors
-		self._ColorScheme['FAIL_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
-		self._ColorScheme['FAIL_STATUS'] = [HexColor('ORANGE'), HexColor('ORANGE')]
-		self._ColorScheme['FAIL_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('DARKORANGE')]
-		self._ColorScheme['TYPE_FAIL'] = [HexColor('FIREBRICK'), HexColor('YELLOW')]
-		self._ColorScheme['FAIL_MESSAGE'] = [HexColor('DARKRED'), HexColor('DARKYELLOW')]
-		self._ColorScheme['FAIL_BACKGROUND'] = ["", HexColor('DARKRED')]
+		if self._environment == LogEnvironments.CONSOLE:
+			self._ColorScheme['INITIAL_COLOR'] = [AnsiColor('GOLD', "foreground"), AnsiColor('INDIGO', "foreground")]
+			self._ColorScheme['INITIAL_BACKGROUND'] = ["", AnsiColor('GOLD', "background")]
+			# DEBUG colors
+			self._ColorScheme['DEBUG_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+			self._ColorScheme['DEBUG_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['DEBUG_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_DEBUG'] = [AnsiColor('BURLYWOOD', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['DEBUG_MESSAGE'] = [AnsiColor('TAN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['DEBUG_BACKGROUND'] = ["", AnsiColor('TAN', "background")]
+			# DEBUG_PERFORMANCE colors
+			self._ColorScheme['DEBUG_PERFORMANCE_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+			self._ColorScheme['DEBUG_PERFORMANCE_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['DEBUG_PERFORMANCE_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_DEBUG_PERFORMANCE'] = [AnsiColor('NAVAJOWHITE', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['DEBUG_PERFORMANCE_MESSAGE'] = [AnsiColor('WHEAT', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['DEBUG_PERFORMANCE_BACKGROUND'] = ["", AnsiColor('WHEAT', "background")]
+			# PERFORMANCE colors
+			self._ColorScheme['PERFORMANCE_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+			self._ColorScheme['PERFORMANCE_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['PERFORMANCE_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_PERFORMANCE'] = [AnsiColor('BLANCHEDALMOND', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['PERFORMANCE_MESSAGE'] = [AnsiColor('BISQUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['PERFORMANCE_BACKGROUND'] = ["", AnsiColor('BISQUE', "background")]
+			# EVENT colors
+			self._ColorScheme['EVENT_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+			self._ColorScheme['EVENT_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['EVENT_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_EVENT'] = [AnsiColor('GREENYELLOW', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['EVENT_MESSAGE'] = [AnsiColor('YELLOWGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['EVENT_BACKGROUND'] = ["", AnsiColor('YELLOWGREEN', "background")]
+			# AUDIT colors
+			self._ColorScheme['AUDIT_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+			self._ColorScheme['AUDIT_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['AUDIT_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_AUDIT'] = [AnsiColor('MEDIUMSPRINGGREEN', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['AUDIT_MESSAGE'] = [AnsiColor('SPRINGGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['AUDIT_BACKGROUND'] = ["", AnsiColor('SPRINGGREEN', "background")]
+			# METRICS colors
+			self._ColorScheme['METRICS_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+			self._ColorScheme['METRICS_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['METRICS_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_METRICS'] = [AnsiColor('PALEGREEN', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['METRICS_MESSAGE'] = [AnsiColor('LIGHTGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['METRICS_BACKGROUND'] = ["", AnsiColor('LIGHTGREEN', "background")]
+			# USER colors
+			self._ColorScheme['USER_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+			self._ColorScheme['USER_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['USER_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_USER'] = [AnsiColor('CHARTREUSE', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['USER_MESSAGE'] = [AnsiColor('LAWNGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['USER_BACKGROUND'] = ["", AnsiColor('LAWNGREEN', "background")]
+			# MESSAGE colors
+			self._ColorScheme['MESSAGE_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+			self._ColorScheme['MESSAGE_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['MESSAGE_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_MESSAGE'] = [AnsiColor('PALETURQUOISE', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['MESSAGE_MESSAGE'] = [AnsiColor('POWDERBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['MESSAGE_BACKGROUND'] = ["", AnsiColor('POWDERBLUE', "background")]
+			# INFO colors
+			self._ColorScheme['INFO_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+			self._ColorScheme['INFO_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['INFO_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_INFO'] = [AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['INFO_MESSAGE'] = [AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['INFO_BACKGROUND'] = ["", AnsiColor('SKYBLUE', "background")]
+			# NOTICE colors
+			self._ColorScheme['NOTICE_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+			self._ColorScheme['NOTICE_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['NOTICE_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_NOTICE'] = [AnsiColor('LIGHTBLUE', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['NOTICE_MESSAGE'] = [AnsiColor('LIGHTSTEELBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['NOTICE_BACKGROUND'] = ["", AnsiColor('LIGHTSTEELBLUE', "background")]
+			# WARNING colors
+			self._ColorScheme['WARNING_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+			self._ColorScheme['WARNING_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['WARNING_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_WARNING'] = [AnsiColor('YELLOW', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['WARNING_MESSAGE'] = [AnsiColor('DARKYELLOW', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['WARNING_BACKGROUND'] = ["", AnsiColor('DARKYELLOW', "background")]
+			# ERROR colors
+			self._ColorScheme['ERROR_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('PLUM', "foreground")]
+			self._ColorScheme['ERROR_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")]
+			self._ColorScheme['ERROR_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")]
+			self._ColorScheme['TYPE_ERROR'] = [AnsiColor('FIREBRICK', "foreground"), AnsiColor('GAINSBORO', "foreground")]
+			self._ColorScheme['ERROR_MESSAGE'] = [AnsiColor('DARKRED', "foreground"), AnsiColor('LIGHTGRAY', "foreground")]
+			self._ColorScheme['ERROR_BACKGROUND'] = ["", AnsiColor('DARKRED', "background")]
+			# CRITICAL colors
+			self._ColorScheme['CRITICAL_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('PLUM', "foreground")]
+			self._ColorScheme['CRITICAL_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")]
+			self._ColorScheme['CRITICAL_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")]
+			self._ColorScheme['TYPE_CRITICAL'] = [AnsiColor('FIREBRICK', "foreground"), AnsiColor('DARKSALMON', "foreground")]
+			self._ColorScheme['CRITICAL_MESSAGE'] = [AnsiColor('DARKRED', "foreground"), AnsiColor('LIGHTSALMON', "foreground")]
+			self._ColorScheme['CRITICAL_BACKGROUND'] = ["", AnsiColor('MAROON', "background")]
+			# PROGRESS colors
+			self._ColorScheme['PROGRESS_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")]
+			self._ColorScheme['PROGRESS_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+			self._ColorScheme['PROGRESS_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+			self._ColorScheme['TYPE_PROGRESS'] = [AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")]
+			self._ColorScheme['PROGRESS_MESSAGE'] = [AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+			self._ColorScheme['PROGRESS_BACKGROUND'] = ["", AnsiColor('SKYBLUE', "background")]
+			# SUCCESS colors
+			self._ColorScheme['SUCCESS_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")]
+			self._ColorScheme['SUCCESS_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")]
+			self._ColorScheme['SUCCESS_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")]
+			self._ColorScheme['TYPE_SUCCESS'] = [AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")]
+			self._ColorScheme['SUCCESS_MESSAGE'] = [AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")]
+			self._ColorScheme['SUCCESS_BACKGROUND'] = ["", AnsiColor('DARKGREEN', "background")]
+			# FAIL colors
+			self._ColorScheme['FAIL_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")]
+			self._ColorScheme['FAIL_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")]
+			self._ColorScheme['FAIL_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")]
+			self._ColorScheme['TYPE_FAIL'] = [AnsiColor('FIREBRICK', "foreground"), AnsiColor('YELLOW', "foreground")]
+			self._ColorScheme['FAIL_MESSAGE'] = [AnsiColor('DARKRED', "foreground"), AnsiColor('DARKYELLOW', "foreground")]
+			self._ColorScheme['FAIL_BACKGROUND'] = ["", AnsiColor('DARKRED', "background")]
+		else:
+			self._ColorScheme['INITIAL_COLOR'] = [HexColor('GOLD'), HexColor('INDIGO')]
+			self._ColorScheme['INITIAL_BACKGROUND'] = ["", HexColor('GOLD')]
+			# DEBUG colors
+			self._ColorScheme['DEBUG_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			self._ColorScheme['DEBUG_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['DEBUG_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_DEBUG'] = [HexColor('BURLYWOOD'), HexColor('NAVY')]
+			self._ColorScheme['DEBUG_MESSAGE'] = [HexColor('TAN'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['DEBUG_BACKGROUND'] = ["", HexColor('TAN')]
+			# DEBUG_PERFORMANCE colors
+			self._ColorScheme['DEBUG_PERFORMANCE_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			self._ColorScheme['DEBUG_PERFORMANCE_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['DEBUG_PERFORMANCE_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_DEBUG_PERFORMANCE'] = [HexColor('NAVAJOWHITE'), HexColor('NAVY')]
+			self._ColorScheme['DEBUG_PERFORMANCE_MESSAGE'] = [HexColor('WHEAT'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['DEBUG_PERFORMANCE_BACKGROUND'] = ["", HexColor('WHEAT')]
+			# PERFORMANCE colors
+			self._ColorScheme['PERFORMANCE_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			self._ColorScheme['PERFORMANCE_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['PERFORMANCE_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_PERFORMANCE'] = [HexColor('BLANCHEDALMOND'), HexColor('NAVY')]
+			self._ColorScheme['PERFORMANCE_MESSAGE'] = [HexColor('BISQUE'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['PERFORMANCE_BACKGROUND'] = ["", HexColor('BISQUE')]
+			# EVENT colors
+			self._ColorScheme['EVENT_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			self._ColorScheme['EVENT_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['EVENT_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_EVENT'] = [HexColor('GREENYELLOW'), HexColor('NAVY')]
+			self._ColorScheme['EVENT_MESSAGE'] = [HexColor('YELLOWGREEN'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['EVENT_BACKGROUND'] = ["", HexColor('YELLOWGREEN')]
+			# AUDIT colors
+			self._ColorScheme['AUDIT_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			self._ColorScheme['AUDIT_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['AUDIT_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_AUDIT'] = [HexColor('MEDIUMSPRINGGREEN'), HexColor('NAVY')]
+			self._ColorScheme['AUDIT_MESSAGE'] = [HexColor('SPRINGGREEN'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['AUDIT_BACKGROUND'] = ["", HexColor('SPRINGGREEN')]
+			# METRICS colors
+			self._ColorScheme['METRICS_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			self._ColorScheme['METRICS_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['METRICS_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_METRICS'] = [HexColor('PALEGREEN'), HexColor('NAVY')]
+			self._ColorScheme['METRICS_MESSAGE'] = [HexColor('LIGHTGREEN'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['METRICS_BACKGROUND'] = ["", HexColor('LIGHTGREEN')]
+			# USER colors
+			self._ColorScheme['USER_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			self._ColorScheme['USER_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['USER_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_USER'] = [HexColor('CHARTREUSE'), HexColor('NAVY')]
+			self._ColorScheme['USER_MESSAGE'] = [HexColor('LAWNGREEN'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['USER_BACKGROUND'] = ["", HexColor('LAWNGREEN')]
+			# MESSAGE colors
+			self._ColorScheme['MESSAGE_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			self._ColorScheme['MESSAGE_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['MESSAGE_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_MESSAGE'] = [HexColor('PALETURQUOISE'), HexColor('NAVY')]
+			self._ColorScheme['MESSAGE_MESSAGE'] = [HexColor('POWDERBLUE'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['MESSAGE_BACKGROUND'] = ["", HexColor('POWDERBLUE')]
+			# INFO colors
+			self._ColorScheme['INFO_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			self._ColorScheme['INFO_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['INFO_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_INFO'] = [HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
+			self._ColorScheme['INFO_MESSAGE'] = [HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['INFO_BACKGROUND'] = ["", HexColor('SKYBLUE')]
+			# NOTICE colors
+			self._ColorScheme['NOTICE_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			self._ColorScheme['NOTICE_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['NOTICE_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_NOTICE'] = [HexColor('LIGHTBLUE'), HexColor('NAVY')]
+			self._ColorScheme['NOTICE_MESSAGE'] = [HexColor('LIGHTSTEELBLUE'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['NOTICE_BACKGROUND'] = ["", HexColor('LIGHTSTEELBLUE')]
+			# WARNING colors
+			self._ColorScheme['WARNING_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			self._ColorScheme['WARNING_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['WARNING_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_WARNING'] = [HexColor('YELLOW'), HexColor('NAVY')]
+			self._ColorScheme['WARNING_MESSAGE'] = [HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['WARNING_BACKGROUND'] = ["", HexColor('DARKYELLOW')]
+			# ERROR colors
+			self._ColorScheme['ERROR_TIME'] = [HexColor('ORCHID'), HexColor('PLUM')]
+			self._ColorScheme['ERROR_STATUS'] = [HexColor('ORANGE'), HexColor('ORANGE')]
+			self._ColorScheme['ERROR_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('DARKORANGE')]
+			self._ColorScheme['TYPE_ERROR'] = [HexColor('FIREBRICK'), HexColor('GAINSBORO')]
+			self._ColorScheme['ERROR_MESSAGE'] = [HexColor('DARKRED'), HexColor('LIGHTGRAY')]
+			self._ColorScheme['ERROR_BACKGROUND'] = ["", HexColor('DARKRED')]
+			# CRITICAL colors
+			self._ColorScheme['CRITICAL_TIME'] = [HexColor('ORCHID'), HexColor('PLUM')]
+			self._ColorScheme['CRITICAL_STATUS'] = [HexColor('ORANGE'), HexColor('ORANGE')]
+			self._ColorScheme['CRITICAL_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('DARKORANGE')]
+			self._ColorScheme['TYPE_CRITICAL'] = [HexColor('FIREBRICK'), HexColor('DARKSALMON')]
+			self._ColorScheme['CRITICAL_MESSAGE'] = [HexColor('DARKRED'), HexColor('LIGHTSALMON')]
+			self._ColorScheme['CRITICAL_BACKGROUND'] = ["", HexColor('MAROON')]
+			# PROGRESS colors
+			self._ColorScheme['PROGRESS_TIME'] = [HexColor('ORCHID'), HexColor('PURPLE')]
+			self._ColorScheme['PROGRESS_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+			self._ColorScheme['PROGRESS_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+			self._ColorScheme['TYPE_PROGRESS'] = [HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
+			self._ColorScheme['PROGRESS_MESSAGE'] = [HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
+			self._ColorScheme['PROGRESS_BACKGROUND'] = ["", HexColor('SKYBLUE')]
+			# SUCCESS colors
+			self._ColorScheme['SUCCESS_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+			self._ColorScheme['SUCCESS_STATUS'] = [HexColor('ORANGE'), HexColor('CHARTREUSE')]
+			self._ColorScheme['SUCCESS_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+			self._ColorScheme['TYPE_SUCCESS'] = [HexColor('GREEN'), HexColor('PALEGREEN')]
+			self._ColorScheme['SUCCESS_MESSAGE'] = [HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
+			self._ColorScheme['SUCCESS_BACKGROUND'] = ["", HexColor('DARKGREEN')]
+			# FAIL colors
+			self._ColorScheme['FAIL_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+			self._ColorScheme['FAIL_STATUS'] = [HexColor('ORANGE'), HexColor('ORANGE')]
+			self._ColorScheme['FAIL_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('DARKORANGE')]
+			self._ColorScheme['TYPE_FAIL'] = [HexColor('FIREBRICK'), HexColor('YELLOW')]
+			self._ColorScheme['FAIL_MESSAGE'] = [HexColor('DARKRED'), HexColor('DARKYELLOW')]
+			self._ColorScheme['FAIL_BACKGROUND'] = ["", HexColor('DARKRED')]
 
 	def _initial_log(self):
 		"""
 		Displays initialized information.
 		"""
-		if self._environment:
+		if self._environment == LogEnvironments.HTML:
 			self._buffer << "<body style='background-color: #000000; color: #ffffff;'>"
 		self._buffer << self._initialized_data(
 			[
@@ -334,7 +325,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['INITIAL_BACKGROUND'][self.global_background]
 			], self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def set_color(self, *, logger_color_name: str, color_value: list[int, int, int], foreground: bool = True, background: bool = False):
@@ -367,7 +358,7 @@ class Logger(BasicLogger):
 		else:
 			raise ColorException("This color is not in the dictionary")
 
-	def get_buffer(self) -> TextBufferBase:
+	def get_buffer(self) -> TextBufferType:
 		"""
 		Usually, before creating a logger, you need to create a text buffer
 		and pass it to the constructor. But if this has not been done, the buffer
@@ -402,7 +393,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['DEBUG_BACKGROUND'][background],
 			], status_message_text, "%DEBUG", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def DEBUG_PERFORMANCE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -430,7 +421,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['DEBUG_PERFORMANCE_BACKGROUND'][background],
 			], status_message_text, "%DEBUG PERFORMANCE", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def PERFORMANCE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -458,7 +449,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['PERFORMANCE_BACKGROUND'][background],
 			], status_message_text, "%PERFORMANCE", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def EVENT(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -486,7 +477,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['EVENT_BACKGROUND'][background],
 			], status_message_text, "~EVENT", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def AUDIT(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -514,7 +505,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['AUDIT_BACKGROUND'][background],
 			], status_message_text, "~AUDIT", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def METRICS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -541,7 +532,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['METRICS_BACKGROUND'][background],
 			], status_message_text, "~METRICS", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def USER(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -569,7 +560,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['USER_BACKGROUND'][background],
 			], status_message_text, "~USER", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def MESSAGE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -596,7 +587,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['MESSAGE_BACKGROUND'][background],
 			], status_message_text, "@MESSAGE", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def INFO(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -623,7 +614,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['INFO_BACKGROUND'][background],
 			], status_message_text, "@INFO", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def NOTICE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
@@ -650,7 +641,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['NOTICE_BACKGROUND'][background],
 			], status_message_text, "@NOTICE", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def WARNING(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
@@ -676,7 +667,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['WARNING_BACKGROUND'][local_background],
 			], status_message_text, "!WARNING", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def ERROR(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
@@ -702,7 +693,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['ERROR_BACKGROUND'][local_background],
 			], status_message_text, "!!ERROR", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def CRITICAL(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False, invert: bool = False, local_background: bool = True):
@@ -728,7 +719,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['CRITICAL_BACKGROUND'][local_background],
 			], status_message_text, "!!!@CRITICAL", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def START_PROCESS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
@@ -753,7 +744,7 @@ class Logger(BasicLogger):
 		# 		self._ColorScheme['PROGRESS_BACKGROUND'][local_background],
 		# 	], status_message_text, "&PROGRESS [*******.............] - 37%", message_text, bold, italic, invert, self._environment
 		# )
-		# if not self._environment:
+		# if self._environment == LogEnvironments.CONSOLE:
 		# 	self._buffer.update_console()
 		pass
 		# Must run on a thread
@@ -796,7 +787,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['SUCCESS_BACKGROUND'][local_background],
 			], status_message_text, "&SUCCESS", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def FAIL(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, local_background: bool = True):
@@ -822,14 +813,14 @@ class Logger(BasicLogger):
 				self._ColorScheme['FAIL_BACKGROUND'][local_background],
 			], status_message_text, "&FAIL", message_text, bold, italic, invert, self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 # Test
 if __name__ == "__main__":
-	# buf = TextBuffer(115)
-	logger = Logger(program_name="WiretappingScaner", log_environment=True, console_width=115)
-	buf = logger.get_buffer()
+	buf = TextBuffer(115)
+	logger = Logger(program_name="WiretappingScaner", log_environment=LogEnvironments.CONSOLE)
+	# buf = logger.get_buffer()
 	logger.DEBUG(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.DEBUG_PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
@@ -843,7 +834,7 @@ if __name__ == "__main__":
 	logger.status_type = False
 	logger.INFO(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message")
 	logger.NOTICE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	buf.replace(7, "7")
+	logger.get_buffer().replace(7, "7")
 	logger.WARNING(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.ERROR(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.CRITICAL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
@@ -851,10 +842,10 @@ if __name__ == "__main__":
 	logger.SUCCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.FAIL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	# print(logger.FAIL(status_message_text="33", message_text="34", invert=True))
-	buf << "55"
-	buf.insert(3, "150")
+	logger.get_buffer() << "55"
+	logger.get_buffer().insert(3, "150")
 	logger.INFO(status_message_text="Test text", message_text="Entrying was successful!", bold=True)
-	buf >> "buf"
+	logger.get_buffer() >> "buf"
 
 	# logger.timeEnabled(False)
 	# print(logger.DEBUG(status_message_text="1", message_text="2"))

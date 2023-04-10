@@ -20,6 +20,14 @@ class TextBufferType(ABC):
 		"""
 		self.save(other)
 
+	def get_data(self) -> list:
+		"""
+		Returns a list of strings from a text buffer.
+
+		:return: a list of text buffer lines
+		"""
+		return self._text_buffer
+
 	@abstractmethod
 	def append(self, message: str) -> None:
 		"""
@@ -49,14 +57,6 @@ class TextBufferType(ABC):
 		:param message: A string that will replace the previous one by position
 		"""
 		raise NotImplementedError("Method replace() is not implemented in the base class.")
-
-	def get_data(self) -> list:
-		"""
-		Returns a list of strings from a text buffer.
-
-		:return: a list of text buffer lines
-		"""
-		return self._text_buffer
 
 	@abstractmethod
 	def save(self, name_file: str = "buffer") -> None:

@@ -28,7 +28,9 @@ class BasicTextBuffer(Singleton, TextBufferType):
 	"""
 
 	def __init__(self):
-		super().__init__()
+		if not hasattr(self, "initialized"):
+			self.initialized = True
+			super().__init__()
 
 	def append(self, message: str) -> None:
 		self._text_buffer.append(f"{message}")
@@ -63,10 +65,12 @@ class TextBuffer(Singleton, TextBufferType):
 	"""
 
 	def __init__(self, console_width: int = 60):
-		super().__init__()
-		self._cursor_string: int = 0
-		self._buffer_size: int = 0
-		self.width = console_width
+		if not hasattr(self, "initialized"):
+			self.initialized = True
+			super().__init__()
+			self._cursor_string: int = 0
+			self._buffer_size: int = 0
+			self.width = console_width
 
 	def append(self, message: str) -> None:
 		excess_console_string = len(re.sub(r"\033\[.*?m", "", message)) // self.width

@@ -18,8 +18,6 @@
 # ---------------------------------------------------------------------------- #
 # ############################################################################ #
 
-# ATTENTION! It's just a vision for the future. This is not yet used functionality.
-
-class LogEnvironment:
-    Console: bool = False
-    HTML: bool = True
+class LogEnvironments:
+	CONSOLE = 'console',
+	HTML = 'html'
