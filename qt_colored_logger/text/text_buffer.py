@@ -19,51 +19,9 @@ limitations under the License.
 import sys, re
 
 from qt_colored_logger.basic.patterns import Singleton
+from qt_colored_logger.basic.text_buffer_type import TextBufferType
 
-class TextBufferBase(Singleton):
-	def __init__(self):
-		self._text_buffer: list[str] = []
-
-	def __lshift__(self, other) -> None:
-		"""
-		Used to add a string to the end of the buffer.
-
-		:param other: The line to be added
-		"""
-		self.append(f"{other}")
-
-	def __rshift__(self, other) -> None:
-		"""
-		Used to save a buffer to the file.
-
-		:param other: The name of the file where you want to save the buffer
-		"""
-		self.save(other)
-
-	def append(self, message: str) -> None:
-		pass
-
-	def insert(self, number_string: int, message: str) -> None:
-		pass
-
-	def replace(self, number_string: int, message: str) -> None:
-		pass
-
-	def get_data(self) -> list:
-		"""
-		Returns a list of strings from a text buffer.
-
-		:return: a list of text buffer lines
-		"""
-		return self._text_buffer
-
-	def save(self, name_file: str = "buffer") -> None:
-		pass
-
-	def update_console(self) -> None:
-		pass
-
-class BasicTextBuffer(TextBufferBase):
+class BasicTextBuffer(Singleton, TextBufferType):
 	"""
 	A class with a basic implementation of a simple text buffer. It is intended
 	to be used in conjunction with HTML, but this is optional.
@@ -73,20 +31,9 @@ class BasicTextBuffer(TextBufferBase):
 		super().__init__()
 
 	def append(self, message: str) -> None:
-		"""
-		Adds a string to the end of the text buffer.
-
-		:param message: The string to be added to the buffer
-		"""
 		self._text_buffer.append(f"{message}")
 
 	def insert(self, number_string: int, message: str) -> None:
-		"""
-		Adds a string to the middle of the text buffer at the specified position.
-
-		:param number_string: Position (number) of the line to which you need to add a string
-		:param message: The string to be placed on the position
-		"""
 		if number_string < len(self._text_buffer):
 			self._text_buffer.insert(number_string, f"{message}")
 		else:
@@ -94,13 +41,6 @@ class BasicTextBuffer(TextBufferBase):
 			self.append(message)
 
 	def replace(self, number_string: int, message: str) -> None:
-		"""
-		Replaces a specific string in a text buffer. If there is no such string, the method
-		fills the list with empty strings up to the required position and *adds* the string.
-
-		:param number_string: Position (number) of the string to be replaced (added)
-		:param message: A string that will replace the previous one by position
-		"""
 		if number_string < len(self._text_buffer):
 			self._text_buffer[number_string] = f"{message}"
 		else:
@@ -108,21 +48,13 @@ class BasicTextBuffer(TextBufferBase):
 			self.append(message)
 
 	def save(self, name_file: str = "buffer") -> None:
-		"""
-		Saves the text of the buffer to a file.
-
-		:param name_file: The name of the file where the buffer will be saved
-		"""
 		with open(name_file, "w") as text_buffer_file:
 			text_buffer_file.write('\n'.join(self._text_buffer))
 
 	def update_console(self) -> None:
-		"""
-		Refreshes the console, erasing output text and outputting an updated buffer.
-		"""
-		raise NotImplementedError("Method update_console() is not implemented in the base class.")
+		super().update_console()
 
-class TextBuffer(TextBufferBase):
+class TextBuffer(Singleton, TextBufferType):
 	"""
 	A class with an advanced implementation of the console text buffer. It is not necessary to use it
 	only in the console, but almost all methods are reimplemented for more complex algorithms, taking
@@ -173,9 +105,6 @@ class TextBuffer(TextBufferBase):
 				text_buffer_file.write('\n'.join(self._text_buffer))
 
 	def update_console(self) -> None:
-		"""
-		Refreshes the console, erasing output text and outputting an updated buffer.
-		"""
 		# todo Translate to thread in a future update
 		if self._cursor_string == 0:
 			sys.stdout.write(f'\r\033[K')

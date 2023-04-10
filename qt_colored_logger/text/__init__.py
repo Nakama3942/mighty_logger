@@ -16,4 +16,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .text_buffer import TextBufferBase, BasicTextBuffer, TextBuffer
+from .text_buffer import BasicTextBuffer, TextBuffer
