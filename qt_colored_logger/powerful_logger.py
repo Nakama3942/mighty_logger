@@ -1,5 +1,5 @@
 """
-A module with the implementation of a standard (console) logger.
+A module with the implementation of a powerful logger.
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
@@ -819,8 +819,8 @@ class Logger(BasicLogger):
 
 # Test
 if __name__ == "__main__":
-	buf = TextBuffer(115)
-	logger = Logger(program_name="WiretappingScaner", log_environment=LogEnvironments.CONSOLE)
+	# buf = TextBuffer(115)
+	logger = Logger(program_name="WiretappingScaner", log_environment=LogEnvironments.CONSOLE, console_width=115)
 	# buf = logger.get_buffer()
 	logger.DEBUG(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
 	logger.DEBUG_PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")

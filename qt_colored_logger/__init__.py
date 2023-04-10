@@ -1,5 +1,5 @@
 """
-...
+A root package that provides access to a implementation of the powerful logger.
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
@@ -16,9 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# from .colored_logger import Logger
-# from .html_colored_logger import LoggerQ
+from .powerful_logger import Logger
 
 __authot__ = "Kalynovsky 'Nakama3942' Valentin"
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 __email__ = "nakama3942@gmail.com"

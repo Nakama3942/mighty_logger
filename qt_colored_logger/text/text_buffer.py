@@ -1,5 +1,5 @@
 """
-Module with implementation of text buffer.
+Module with implementation of text buffers.
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 

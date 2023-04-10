@@ -92,25 +92,6 @@ class BasicLogger(Singleton):
 					f":{self._pc_machine}{GetAnsiFormat('reset/on')}"
 			)
 
-	# def _html_initialized_data(self, colors: list[str, str]) -> str:
-	# 	"""
-	# 	A method that assemble an entry of system initialized data.
-	# 	Forms an HTML string.
-	#
-	# 	:param colors: Color string list of initialized data
-	# 	:return: a string with initialized data
-	# 	"""
-	# 	return (
-	# 			f"<span style='background-color: #{colors[1]};'>" +
-	# 			f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +
-	# 			f"${self._pc_name}^{self._user_name}" +
-	# 			f"@{self._system_name}" +
-	# 			f":{self._system_version}" +
-	# 			f":{self._system_architecture[0]}" +
-	# 			f":{self._system_architecture[1]}" +
-	# 			f":{self._pc_machine}</span></span><br>"
-	# 	)
-
 	def _assemble_entry(
 			self,
 			colors: list[str, str, str, str, str, str],
@@ -163,38 +144,3 @@ class BasicLogger(Singleton):
 					(f"{colors[4]}{message_text}" if self.message else "") +
 					f"{GetAnsiFormat('reset/on')}"
 			)
-
-	# def _assemble_html_entry(
-	# 		self,
-	# 		colors: list[str, str, str, str, str, str],
-	# 		status_message_text: str,
-	# 		message_type: str,
-	# 		message_text: str,
-	# 		bold: bool,
-	# 		italic: bool,
-	# ) -> str:
-	# 	"""
-	# 	A method that assemble an entry into a string and returns it.
-	# 	Forms an HTML string.
-	#
-	# 	:param colors: 6 colors that the method uses to assemble the string
-	# 	:param status_message_text: Status message
-	# 	:param message_type: Entry type
-	# 	:param message_text: Entry message
-	# 	:param bold: Format the entry in bold
-	# 	:param italic: Format the entry in italic
-	# 	:return: the formed entry string
-	# 	"""
-	# 	return (
-	# 			(f"<b>" if bold else "") +
-	# 			(f"<i>" if italic else "") +
-	# 			f"<span style='background-color: #{colors[5]};'>" +
-	# 			f"<span style='color: #{colors[4]};'>-?entry> </span>" +
-	# 			(f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if self.time else "") +
-	# 			(f"<span style='color: #{colors[1]};'>#STATUS: </span>" if self.status else "") +
-	# 			(f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if self.status_message else "") +
-	# 			(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if self.status_type else "") +
-	# 			(f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if self.message else "") +
-	# 			(f"</i>" if italic else "") +
-	# 			(f"</b>" if bold else "") + "<br>"
-	# 	)
