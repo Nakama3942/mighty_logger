@@ -18,8 +18,8 @@ limitations under the License.
 
 import sys, re
 
-from qt_colored_logger.basic.patterns import Singleton
-from qt_colored_logger.basic.text_buffer_type import TextBufferType
+from mighty_logger.basic.patterns import Singleton
+from mighty_logger.basic.text_buffer_type import TextBufferType
 
 class BasicTextBuffer(Singleton, TextBufferType):
 	"""

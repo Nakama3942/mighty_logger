@@ -16,12 +16,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from qt_colored_logger.basic.basic_logger import BasicLogger
-from qt_colored_logger.basic.exceptions import ColorException, CombinationException
-from qt_colored_logger.basic.text_buffer_type import TextBufferType
-from qt_colored_logger.src.color_picker import AnsiColor, HexColor, Dec2Ansi, Dec2Hex
-from qt_colored_logger.src.log_environment import LogEnvironments
-from qt_colored_logger.text.text_buffer import BasicTextBuffer, TextBuffer
+from mighty_logger.basic.basic_logger import BasicLogger
+from mighty_logger.basic.exceptions import ColorException, CombinationException
+from mighty_logger.basic.text_buffer_type import TextBufferType
+from mighty_logger.src.color_picker import AnsiColor, HexColor, Dec2Ansi, Dec2Hex
+from mighty_logger.src.log_environment import LogEnvironments
+from mighty_logger.text.text_buffer import BasicTextBuffer, TextBuffer
 
 class Logger(BasicLogger):
 	"""

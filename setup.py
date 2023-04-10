@@ -28,8 +28,8 @@ with open("README.md", "r", encoding='utf-8') as readme_file:
     readme = readme_file.read()
 
 setup(
-    name="qt_colored_logger",
-    version="0.4.0",
+    name="mighty_logger",
+    version="0.5.0",
 
     author="Kalynovsky 'Nakama3942' Valentin",
     author_email="nakama3942@gmail.com",
@@ -43,11 +43,10 @@ setup(
     license="Apache License, Version 2.0, see LICENSE file",
 
     packages=[
-        'qt_colored_logger',
-        'qt_colored_logger.text',
-        'qt_colored_logger.src',
-        'qt_colored_logger.logger',
-        'qt_colored_logger.basic'
+        'mighty_logger',
+        'mighty_logger.text',
+        'mighty_logger.src',
+        'mighty_logger.basic'
     ],
     classifiers=[
         "Development Status :: 3 - Alpha",

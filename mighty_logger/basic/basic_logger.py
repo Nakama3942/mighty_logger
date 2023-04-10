@@ -18,9 +18,9 @@ limitations under the License.
 
 import datetime, platform, os, random
 
-from qt_colored_logger.basic.patterns import Singleton
-from qt_colored_logger.src.ansi_format import GetAnsiFormat
-from qt_colored_logger.src.log_environment import LogEnvironments
+from mighty_logger.basic.patterns import Singleton
+from mighty_logger.src.ansi_format import GetAnsiFormat
+from mighty_logger.src.log_environment import LogEnvironments
 
 class BasicLogger(Singleton):
 	def __init__(

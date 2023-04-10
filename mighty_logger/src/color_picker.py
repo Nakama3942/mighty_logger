@@ -16,8 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from qt_colored_logger.basic.exceptions import ColorException
-from qt_colored_logger.src.ansi_format import GetAnsiFormat
+from mighty_logger.basic.exceptions import ColorException
+from mighty_logger.src.ansi_format import GetAnsiFormat
 
 ColorPicker = {
 	# Color table
