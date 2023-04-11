@@ -22,6 +22,8 @@ from mighty_logger.basic.patterns import Singleton
 from mighty_logger.src.ansi_format import GetAnsiFormat
 from mighty_logger.src.log_environment import LogEnvironments
 
+# todo Сделать работу с настройками в отдельном словаре.
+
 class BasicLogger(Singleton):
 	def __init__(
 			self,
@@ -30,7 +32,7 @@ class BasicLogger(Singleton):
 			status: bool,
 			status_message: bool,
 			status_type: bool,
-			message: bool
+			entry_message: bool
 	):
 		"""
 		Initializes and configures the log.
@@ -41,14 +43,14 @@ class BasicLogger(Singleton):
 		:param status: Setting the status output
 		:param status_message: Setting the status message output
 		:param status_type: Setting the log type output
-		:param message: Setting the log message output
+		:param entry_message: Setting the log message output
 		"""
 		self._program_name = program_name
 		self.time = time
 		self.status = status
 		self.status_message = status_message
 		self.status_type = status_type
-		self.message = message
+		self.entry_message = entry_message
 		self._ID = random.randint(1000000, 9999999)
 		self._pc_name = platform.node()
 		self._user_name = os.getlogin()

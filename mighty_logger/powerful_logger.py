@@ -17,7 +17,7 @@ limitations under the License.
 """
 
 from mighty_logger.basic.basic_logger import BasicLogger
-from mighty_logger.basic.exceptions import ColorException, CombinationException
+from mighty_logger.basic.exceptions import ColorException, CombinationException, ReCreationException
 from mighty_logger.basic.text_buffer_type import TextBufferType
 from mighty_logger.src.color_picker import AnsiColor, HexColor, Dec2Ansi, Dec2Hex
 from mighty_logger.src.log_environment import LogEnvironments
@@ -65,18 +65,37 @@ class Logger(BasicLogger):
 			status: bool = True,
 			status_message: bool = True,
 			status_type: bool = True,
-			message: bool = True
-	):
-		super().__init__(program_name, time, status, status_message, status_type, message)
-		self._ColorScheme: dict = {}
-		if log_environment == LogEnvironments.CONSOLE:
-			self._buffer = TextBuffer(console_width)
+			entry_message: bool = True
+	) -> None:
+		if not hasattr(self, "_ColorScheme"):
+			super().__init__(program_name, time, status, status_message, status_type, entry_message)
+			self._ColorScheme: dict = {}
+			self._environment = log_environment
+			self.global_background = global_background
+			self._color_scheme_init()
+			if self._environment == LogEnvironments.CONSOLE:
+				if TextBuffer._instance is not None:
+					self._buffer = TextBuffer._instance
+					self.notice(
+						message_text="An existing logger was taken into use",
+						status_message_text="Note",
+						italic=True
+					)
+				else:
+					self._buffer = TextBuffer(console_width)
+			else:
+				if BasicTextBuffer._instance is not None:
+					self._buffer = BasicTextBuffer._instance
+					self.notice(
+						message_text="An existing logger was taken into use",
+						status_message_text="Note",
+						italic=True
+					)
+				else:
+					self._buffer = BasicTextBuffer()
+			self._initial_log()
 		else:
-			self._buffer = BasicTextBuffer()
-		self._environment = log_environment
-		self.global_background = global_background
-		self._color_scheme_init()
-		self._initial_log()
+			raise ReCreationException("Logger class object already created")
 
 	def _color_scheme_init(self):
 		"""
@@ -359,7 +378,7 @@ class Logger(BasicLogger):
 		else:
 			raise ColorException("This color is not in the dictionary")
 
-	def get_buffer(self) -> TextBufferType:
+	def buffer(self) -> TextBufferType:
 		"""
 		Usually, before creating a logger, you need to create a text buffer
 		and pass it to the constructor. But if this has not been done, the buffer
@@ -370,7 +389,9 @@ class Logger(BasicLogger):
 		"""
 		return self._buffer
 
-	def DEBUG(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	#todo сделать конвертер из Console в HTML и наоборот
+
+	def debug(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
 		"""
 		Debugging information logging:
 		Can be used to log entry any information while debugging an application.
@@ -397,7 +418,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def DEBUG_PERFORMANCE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def debug_performance(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
 		"""
 		Performance debugging information logging:
 		Can be used to log entry the execution time of operations or other
@@ -425,7 +446,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def PERFORMANCE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def performance(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
 		"""
 		Performance information logging:
 		Can be used to log entry the execution time of operations or
@@ -453,7 +474,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def EVENT(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def event(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
 		"""
 		Event information logging:
 		Can be used to log entry specific events in the application,
@@ -481,7 +502,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def AUDIT(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def audit(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
 		"""
 		Audit information logging:
 		Can be used to log entry changes in the system, such as creating or
@@ -509,7 +530,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def METRICS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def metrics(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
 		"""
 		Metrics information logging:
 		Can be used to log entry metrics to track application performance and identify issues.
@@ -536,7 +557,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def USER(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def user(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
 		"""
 		User information logging:
 		Can be used to log entry custom logs to store additional information
@@ -564,7 +585,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def MESSAGE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def message(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
 		"""
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
@@ -591,7 +612,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def INFO(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def info(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
 		"""
 		Default information logging:
 		Can be used to log entry messages with specific content about the operation of the program.
@@ -618,7 +639,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def NOTICE(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def notice(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
 		"""
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
@@ -645,7 +666,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def WARNING(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
+	def warning(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
 		"""
 		Warning information logging:
 		Can be used to log entry warnings that the program may work with unpredictable results.
@@ -671,7 +692,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def ERROR(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
+	def error(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
 		"""
 		Error information logging:
 		Used to log entry errors and crashes in the program.
@@ -697,7 +718,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def CRITICAL(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False, invert: bool = False, local_background: bool = True):
+	def critical(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False, invert: bool = False, local_background: bool = True):
 		"""
 		Critical error information logging:
 		Used to log entry for critical and unpredictable program failures.
@@ -723,7 +744,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def START_PROCESS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
+	def start_process(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
 		"""
 		Stub.
 
@@ -750,7 +771,7 @@ class Logger(BasicLogger):
 		pass
 		# Must run on a thread
 
-	def STOP_PROCESS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
+	def stop_process(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
 		"""
 		Stub.
 
@@ -765,7 +786,7 @@ class Logger(BasicLogger):
 		pass
 		# Make transition to SUCCESS or FAIL
 
-	def SUCCESS(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, local_background: bool = True):
+	def success(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, local_background: bool = True):
 		"""
 		Success information logging:
 		Used to log entry a message about the success of the process.
@@ -791,7 +812,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def FAIL(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, local_background: bool = True):
+	def fail(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, local_background: bool = True):
 		"""
 		Fail information logging:
 		Used to log entry a message about the failed execution of the process.
@@ -816,37 +837,3 @@ class Logger(BasicLogger):
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
-
-# Test
-if __name__ == "__main__":
-	# buf = TextBuffer(115)
-	logger = Logger(program_name="WiretappingScaner", log_environment=LogEnvironments.CONSOLE, console_width=115)
-	# buf = logger.get_buffer()
-	logger.DEBUG(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.DEBUG_PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.PERFORMANCE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.EVENT(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.global_background = True
-	logger.AUDIT(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.METRICS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.time = False
-	logger.USER(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.MESSAGE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.status_type = False
-	logger.INFO(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message Test message")
-	logger.NOTICE(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.get_buffer().replace(7, "7")
-	logger.WARNING(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.ERROR(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.CRITICAL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	# logger.START_PROCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.SUCCESS(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	logger.FAIL(status_message_text="Test text", message_text="Test message Test message Test message Test message Test message")
-	# print(logger.FAIL(status_message_text="33", message_text="34", invert=True))
-	logger.get_buffer() << "55"
-	logger.get_buffer().insert(3, "150")
-	logger.INFO(status_message_text="Test text", message_text="Entrying was successful!", bold=True)
-	logger.get_buffer() >> "buf"
-
-	# logger.timeEnabled(False)
-	# print(logger.DEBUG(status_message_text="1", message_text="2"))

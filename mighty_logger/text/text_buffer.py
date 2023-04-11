@@ -18,6 +18,7 @@ limitations under the License.
 
 import sys, re
 
+from mighty_logger.basic.exceptions import ReCreationException
 from mighty_logger.basic.patterns import Singleton
 from mighty_logger.basic.text_buffer_type import TextBufferType
 
@@ -28,9 +29,10 @@ class BasicTextBuffer(Singleton, TextBufferType):
 	"""
 
 	def __init__(self):
-		if not hasattr(self, "initialized"):
-			self.initialized = True
+		if not hasattr(self, "_text_buffer"):
 			super().__init__()
+		else:
+			raise ReCreationException("BasicTextBuffer class object already created")
 
 	def append(self, message: str) -> None:
 		self._text_buffer.append(f"{message}")
@@ -49,7 +51,8 @@ class BasicTextBuffer(Singleton, TextBufferType):
 			self._text_buffer.extend([""] * (number_string - len(self._text_buffer)))
 			self.append(message)
 
-	def save(self, name_file: str = "buffer") -> None:
+	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
+		# todo сделать очистку HTML в plain text
 		with open(name_file, "w") as text_buffer_file:
 			text_buffer_file.write('\n'.join(self._text_buffer))
 
@@ -65,12 +68,13 @@ class TextBuffer(Singleton, TextBufferType):
 	"""
 
 	def __init__(self, console_width: int = 60):
-		if not hasattr(self, "initialized"):
-			self.initialized = True
+		if not hasattr(self, "_text_buffer"):
 			super().__init__()
 			self._cursor_string: int = 0
 			self._buffer_size: int = 0
 			self.width = console_width
+		else:
+			raise ReCreationException("TextBuffer class object already created")
 
 	def append(self, message: str) -> None:
 		excess_console_string = len(re.sub(r"\033\[.*?m", "", message)) // self.width

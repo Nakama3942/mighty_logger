@@ -77,11 +77,12 @@ class TextBufferType(ABC):
 		raise NotImplementedError("Method replace() is not implemented in the base class.")
 
 	@abstractmethod
-	def save(self, name_file: str = "buffer") -> None:
+	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
 		"""
 		Saves the text of the buffer to a file.
 
 		:param name_file: The name of the file where the buffer will be saved
+		:param clean: ...
 		"""
 		raise NotImplementedError("Method save() is not implemented in the base class.")
 
@@ -91,3 +92,5 @@ class TextBufferType(ABC):
 		Refreshes the console, erasing output text and outputting an updated buffer.
 		"""
 		raise NotImplementedError("Method update_console() is not implemented in the base class.")
+
+	# todo abstractmethod remove(), clear(), open_save()
