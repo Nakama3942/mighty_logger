@@ -70,6 +70,8 @@ if __name__ == "__main__":
 
 ```
 
+todo расписать, что если поставить цвет фона в текст через set_color(), то тогда цвет фона всё равно будет установлен, но цвет указанной части в set_color() поламается.
+
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
 > <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $███████████████^████@███████:██████████:█████:█████████:█████</span></span><br>
 > <span style='background-color: #;'><span style='color: #b0c4de;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-09 15:45:03.186454 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #add8e6;'>@NOTICE - </span><span style='color: #b0c4de;'>Notice data</span></span><br>
@@ -308,3 +310,6 @@ Contents of the output.txt file:
 3
 4
 ```
+
+### Новая система настроек (available since v0.5.0)
+todo Расписать про новую систему настроек

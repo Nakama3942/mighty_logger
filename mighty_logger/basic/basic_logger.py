@@ -22,42 +22,19 @@ from mighty_logger.basic.patterns import Singleton
 from mighty_logger.src.ansi_format import GetAnsiFormat
 from mighty_logger.src.log_environment import LogEnvironments
 
-# todo Сделать работу с настройками в отдельном словаре.
-
 class BasicLogger(Singleton):
 	def __init__(
 			self,
 			program_name: str,
-			time: bool,
-			status: bool,
-			status_message: bool,
-			status_type: bool,
-			entry_message: bool
 	):
 		"""
 		Initializes and configures the log.
 
 		:param program_name: Installing the program name output
-		:param time: Setting the time output
-		:param name: Setting the name output
-		:param status: Setting the status output
-		:param status_message: Setting the status message output
-		:param status_type: Setting the log type output
-		:param entry_message: Setting the log message output
 		"""
 		self._program_name = program_name
-		self.time = time
-		self.status = status
-		self.status_message = status_message
-		self.status_type = status_type
-		self.entry_message = entry_message
+		self._settings: dict = {}
 		self._ID = random.randint(1000000, 9999999)
-		self._pc_name = platform.node()
-		self._user_name = os.getlogin()
-		self._system_name = platform.system()
-		self._system_version = platform.version()
-		self._system_architecture = platform.architecture()
-		self._pc_machine = platform.machine()
 
 	def _initialized_data(
 			self,
@@ -75,23 +52,23 @@ class BasicLogger(Singleton):
 			return (
 					f"<span style='background-color: #{colors[1]};'>" +
 					f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +
-					f"${self._pc_name}^{self._user_name}" +
-					f"@{self._system_name}" +
-					f":{self._system_version}" +
-					f":{self._system_architecture[0]}" +
-					f":{self._system_architecture[1]}" +
-					f":{self._pc_machine}</span></span><br>"
+					f"${platform.node()}^{os.getlogin()}" +
+					f"@{platform.system()}" +
+					f":{platform.version()}" +
+					":{}:{}".format(*platform.architecture()) +
+					f":{platform.machine()}" +
+					f"</span></span><br>"
 			)
 		else:
 			return (
 					f"{colors[1]}" +
 					f"{colors[0]}-{self._program_name}?entry> " +
-					f"${self._pc_name}^{self._user_name}" +
-					f"@{self._system_name}" +
-					f":{self._system_version}" +
-					f":{self._system_architecture[0]}" +
-					f":{self._system_architecture[1]}" +
-					f":{self._pc_machine}{GetAnsiFormat('reset/on')}"
+					f"${platform.node()}^{os.getlogin()}" +
+					f"@{platform.system()}" +
+					f":{platform.version()}" +
+					":{}:{}".format(*platform.architecture()) +
+					f":{platform.machine()}" +
+					f"{GetAnsiFormat('reset/on')}"
 			)
 
 	def _assemble_entry(
@@ -100,10 +77,8 @@ class BasicLogger(Singleton):
 			status_message_text: str,
 			message_type: str,
 			message_text: str,
-			bold: bool,
-			italic: bool,
-			invert: bool,
-			env: str
+			env: str,
+			local_settings: dict
 	) -> str:
 		"""
 		A method that assemble an entry into a string and returns it.
@@ -113,22 +88,29 @@ class BasicLogger(Singleton):
 		:param status_message_text: Status message
 		:param message_type: Entry type
 		:param message_text: Entry message
-		:param bold: Format the entry in bold
-		:param italic: Format the entry in italic
-		:param invert: invert the colors in format the entry
+		:param env: ...
+		:param local_settings: ...
 		:return: the formed entry string
 		"""
+		bold = local_settings['bold'] if 'bold' in local_settings else self._settings['global_bold_font']
+		italic = local_settings['italic'] if 'italic' in local_settings else self._settings['global_italic_font']
+		invert = local_settings['invert'] if 'invert' in local_settings else self._settings['global_invert_font']
+		time_entry = local_settings['time_local_entry'] if 'time_local_entry' in local_settings else self._settings['time_global_entry']
+		status_entry = local_settings['status_local_entry'] if 'status_local_entry' in local_settings else self._settings['status_global_entry']
+		status_message_entry = local_settings['status_message_local_entry'] if 'status_message_local_entry' in local_settings else self._settings['status_message_global_entry']
+		status_type_entry = local_settings['status_type_local_entry'] if 'status_type_local_entry' in local_settings else self._settings['status_type_global_entry']
+		message_entry = local_settings['message_local_entry'] if 'message_local_entry' in local_settings else self._settings['message_global_entry']
 		if env == LogEnvironments.HTML:
 			return (
 					(f"<b>" if bold else "") +
 					(f"<i>" if italic else "") +
 					f"<span style='background-color: #{colors[5]};'>" +
 					f"<span style='color: #{colors[4]};'>-?entry> </span>" +
-					(f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if self.time else "") +
-					(f"<span style='color: #{colors[1]};'>#STATUS: </span>" if self.status else "") +
-					(f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if self.status_message else "") +
-					(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if self.status_type else "") +
-					(f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if self.message else "") +
+					(f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
+					(f"<span style='color: #{colors[1]};'>#STATUS: </span>" if status_entry else "") +
+					(f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if status_message_entry else "") +
+					(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if status_type_entry else "") +
+					(f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if message_entry else "") +
 					(f"</i>" if italic else "") +
 					(f"</b>" if bold else "") + "<br>"
 			)
@@ -139,10 +121,10 @@ class BasicLogger(Singleton):
 					(f"{GetAnsiFormat('invert/on')}" if invert else "") +
 					f"{colors[5]}" +
 					f"{colors[4]}-?entry> " +
-					(f"{colors[0]}*{datetime.datetime.now()} " if self.time else "") +
-					(f"{colors[1]}#STATUS: " if self.status else "") +
-					(f"{colors[2]}{status_message_text} " if self.status_message else "") +
-					(f"{colors[3]}{message_type} - " if self.status_type else "") +
-					(f"{colors[4]}{message_text}" if self.message else "") +
+					(f"{colors[0]}*{datetime.datetime.now()} " if time_entry else "") +
+					(f"{colors[1]}#STATUS: " if status_entry else "") +
+					(f"{colors[2]}{status_message_text} " if status_message_entry else "") +
+					(f"{colors[3]}{message_type} - " if status_type_entry else "") +
+					(f"{colors[4]}{message_text}" if message_entry else "") +
 					f"{GetAnsiFormat('reset/on')}"
 			)

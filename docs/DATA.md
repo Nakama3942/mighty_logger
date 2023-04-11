@@ -4,10 +4,11 @@ The library stores various important data for use that you may need to know whil
 #### Content
 - [Data](#data)
 	- [Content](#content)
-    - [Entry types](#entry-types-)
-    - [X11 color table](#x11-color-table-)
-    - [Logger Color Scheme](#logger-color-scheme-)
-    - [Tree of ANSI escape code](#tree-of-ansi-escape-code-)
+	- [Entry types](#entry-types-)
+    - [Settings](#settings-)
+	- [X11 color table](#x11-color-table-)
+	- [Logger Color Scheme](#logger-color-scheme-)
+	- [Tree of ANSI escape code](#tree-of-ansi-escape-code-)
 
 ###### Entry types:
 - DEBUG
@@ -27,158 +28,179 @@ The library stores various important data for use that you may need to know whil
 - SUCCESS
 - FAIL
 
+###### Settings:
+- Global:
+	- time_global_entry
+	- status_global_entry
+	- status_message_global_entry
+	- status_type_global_entry
+	- message_global_entry
+	- global_bold_font
+	- global_italic_font
+	- global_invert_font (ignored in HTML)
+	- global_background (the only one available that can be changed during operation)
+- Local:
+	- bold
+    - italic
+    - invert
+    - time_local_entry
+    - status_local_entry
+    - status_message_local_entry
+    - status_type_local_entry
+    - message_local_entry
+
 ###### X11 color table:
 - Red category:
-    - MAROON
-    - DARKRED
-    - RED
-    - LIGHTRED
-    - FIREBRICK
-    - CRIMSON
-    - INDIANRED
-    - LIGHTCORAL
-    - SALMON
-    - DARKSALMON
-    - LIGHTSALMON
+	- MAROON
+	- DARKRED
+	- RED
+	- LIGHTRED
+	- FIREBRICK
+	- CRIMSON
+	- INDIANRED
+	- LIGHTCORAL
+	- SALMON
+	- DARKSALMON
+	- LIGHTSALMON
 - Pink category:
-    - MEDIUMVIOLETRED
-    - DEEPPINK
-    - PALEVIOLETRED
-    - HOTPINK
-    - LIGHTPINK
-    - PINK
+	- MEDIUMVIOLETRED
+	- DEEPPINK
+	- PALEVIOLETRED
+	- HOTPINK
+	- LIGHTPINK
+	- PINK
 - Orange category:
-    - ORANGERED
-    - TOMATO
-    - DARKORANGE
-    - CORAL
-    - ORANGE
+	- ORANGERED
+	- TOMATO
+	- DARKORANGE
+	- CORAL
+	- ORANGE
 - Yellow category:
-    - DARKKHAKI
-    - GOLD
-    - KHAKI
-    - PEACHPUFF
-    - YELLOW
-    - DARKYELLOW
-    - PALEGOLDENROD
-    - MOCCASIN
+	- DARKKHAKI
+	- GOLD
+	- KHAKI
+	- PEACHPUFF
+	- YELLOW
+	- DARKYELLOW
+	- PALEGOLDENROD
+	- MOCCASIN
 - Purple category:
-    - INDIGO
-    - PURPLE
-    - DARKMAGENTA
-    - DARKVIOLET
-    - DARKSLATEBLUE
-    - BLUEVIOLET
-    - DARKORCHID
-    - FUCHSIA
-    - SLATEBLUE
-    - MEDIUMSLATEBLUE
-    - MEDIUMORCHID
-    - MEDIUMPURPLE
-    - ORCHID
-    - VIOLET
-    - PLUM
-    - THISTLE
-    - LAVENDER
+	- INDIGO
+	- PURPLE
+	- DARKMAGENTA
+	- DARKVIOLET
+	- DARKSLATEBLUE
+	- BLUEVIOLET
+	- DARKORCHID
+	- FUCHSIA
+	- SLATEBLUE
+	- MEDIUMSLATEBLUE
+	- MEDIUMORCHID
+	- MEDIUMPURPLE
+	- ORCHID
+	- VIOLET
+	- PLUM
+	- THISTLE
+	- LAVENDER
 - Green category:
-    - DARKGREEN
-    - GREEN
-    - DARKOLIVEGREEN
-    - FORESTGREEN
-    - SEAGREEN
-    - DARKSLATEGRAY
-    - OLIVE
-    - OLIVEDRAB
-    - MEDIUMSEAGREEN
-    - LIMEGREEN
-    - LIME
-    - SPRINGGREEN
-    - MEDIUMSPRINGGREEN
-    - DARKSEAGREEN
-    - MEDIUMAQUAMARINE
-    - YELLOWGREEN
-    - LAWNGREEN
-    - CHARTREUSE
-    - LIGHTGREEN
-    - GREENYELLOW
-    - PALEGREEN
+	- DARKGREEN
+	- GREEN
+	- DARKOLIVEGREEN
+	- FORESTGREEN
+	- SEAGREEN
+	- DARKSLATEGRAY
+	- OLIVE
+	- OLIVEDRAB
+	- MEDIUMSEAGREEN
+	- LIMEGREEN
+	- LIME
+	- SPRINGGREEN
+	- MEDIUMSPRINGGREEN
+	- DARKSEAGREEN
+	- MEDIUMAQUAMARINE
+	- YELLOWGREEN
+	- LAWNGREEN
+	- CHARTREUSE
+	- LIGHTGREEN
+	- GREENYELLOW
+	- PALEGREEN
 - Aqua category:
-    - TEAL
-    - DARKCYAN
-    - LIGHTSEAGREEN
-    - CADETBLUE
-    - DARKTURQUOISE
-    - MEDIUMTURQUOISE
-    - TURQUOISE
-    - AQUA
-    - AQUAMARINE
-    - SKYBLUE
-    - LIGHTSKYBLUE
-    - LIGHTSTEELBLUE
-    - LIGHTBLUE
-    - POWDERBLUE
-    - PALETURQUOISE
+	- TEAL
+	- DARKCYAN
+	- LIGHTSEAGREEN
+	- CADETBLUE
+	- DARKTURQUOISE
+	- MEDIUMTURQUOISE
+	- TURQUOISE
+	- AQUA
+	- AQUAMARINE
+	- SKYBLUE
+	- LIGHTSKYBLUE
+	- LIGHTSTEELBLUE
+	- LIGHTBLUE
+	- POWDERBLUE
+	- PALETURQUOISE
 - Blue category:
-    - MIDNIGHTBLUE
-    - NAVY
-    - DARKBLUE
-    - MEDIUMBLUE
-    - BLUE
-    - ROYALBLUE
-    - STEELBLUE
-    - DODGERBLUE
-    - DEEPSKYBLUE
-    - CORNFLOWERBLUE
+	- MIDNIGHTBLUE
+	- NAVY
+	- DARKBLUE
+	- MEDIUMBLUE
+	- BLUE
+	- ROYALBLUE
+	- STEELBLUE
+	- DODGERBLUE
+	- DEEPSKYBLUE
+	- CORNFLOWERBLUE
 - Brown category:
-    - BROWN
-    - SADDLEBROWN
-    - SIENNA
-    - CHOCOLATE
-    - DARKGOLDENROD
-    - PERU
-    - ROSYBROWN
-    - GOLDENROD
-    - SANDYBROWN
-    - TAN
-    - BURLYWOOD
-    - WHEAT
-    - NAVAJOWHITE
-    - BISQUE
-    - BLANCHEDALMOND
+	- BROWN
+	- SADDLEBROWN
+	- SIENNA
+	- CHOCOLATE
+	- DARKGOLDENROD
+	- PERU
+	- ROSYBROWN
+	- GOLDENROD
+	- SANDYBROWN
+	- TAN
+	- BURLYWOOD
+	- WHEAT
+	- NAVAJOWHITE
+	- BISQUE
+	- BLANCHEDALMOND
 - White category:
-    - WHITE
-    - SNOW
-    - HONEYDEW
-    - MINTCREAM
-    - AZURE
-    - LIGHTCYAN
-    - ALICEBLUE
-    - GHOSTWHITE
-    - WHITESMOKE
-    - SEASHELL
-    - BEIGE
-    - OLDLACE
-    - FLORALWHITE
-    - IVORY
-    - ANTIQUEWHITE
-    - LINEN
-    - LAVENDERBLUSH
-    - MISTYROSE
-    - PAPAYAWHIP
-    - LIGHTGOLDENRODYELLOW
-    - CORNSILK
-    - LEMONCHIFFON
-    - LIGHTYELLOW
+	- WHITE
+	- SNOW
+	- HONEYDEW
+	- MINTCREAM
+	- AZURE
+	- LIGHTCYAN
+	- ALICEBLUE
+	- GHOSTWHITE
+	- WHITESMOKE
+	- SEASHELL
+	- BEIGE
+	- OLDLACE
+	- FLORALWHITE
+	- IVORY
+	- ANTIQUEWHITE
+	- LINEN
+	- LAVENDERBLUSH
+	- MISTYROSE
+	- PAPAYAWHIP
+	- LIGHTGOLDENRODYELLOW
+	- CORNSILK
+	- LEMONCHIFFON
+	- LIGHTYELLOW
 - Gray and black category:
-    - BLACK
-    - DARKGRAY
-    - DIMGRAY
-    - SLATEGRAY
-    - GRAY
-    - LIGHTSLATEGRAY
-    - SILVER
-    - LIGHTGRAY
-    - GAINSBORO
+	- BLACK
+	- DARKGRAY
+	- DIMGRAY
+	- SLATEGRAY
+	- GRAY
+	- LIGHTSLATEGRAY
+	- SILVER
+	- LIGHTGRAY
+	- GAINSBORO
 
 ###### Logger Color Scheme:
 | Color name                        | Foreground color  | Background color |
@@ -284,105 +306,105 @@ The library stores various important data for use that you may need to know whil
 
 ###### Tree of ANSI escape code:
 - reset
-    - on
+	- on
 - bold
-    - on
-    - off (doubly underlined)
+	- on
+	- off (doubly underlined)
 - faint
-    - on
-    - off
+	- on
+	- off
 - italic
-    - on
-    - fraktur
-    - off
+	- on
+	- fraktur
+	- off
 - underline
-    - on
-    - off
+	- on
+	- off
 - blink
-    - slow
-    - rapid
-    - off
+	- slow
+	- rapid
+	- off
 - proportional spacing
-    - on
-    - off
+	- on
+	- off
 - invert
-    - on
-    - off
+	- on
+	- off
 - hide
-    - on
-    - off
+	- on
+	- off
 - strike
-    - on
-    - off
+	- on
+	- off
 - over line
-    - on
-    - off
+	- on
+	- off
 - framed
-    - on
-    - encircled
-    - off
+	- on
+	- encircled
+	- off
 - font
-    - primary
-    - 1st alternative
-    - 2nd alternative
-    - 3rd alternative
-    - 4th alternative
-    - 5th alternative
-    - 6th alternative
-    - 7th alternative
-    - 8th alternative
-    - 9th alternative
+	- primary
+	- 1st alternative
+	- 2nd alternative
+	- 3rd alternative
+	- 4th alternative
+	- 5th alternative
+	- 6th alternative
+	- 7th alternative
+	- 8th alternative
+	- 9th alternative
 - color
-    - foreground
-        - black
-        - red
-        - green
-        - yellow
-        - blue
-        - magenta
-        - cyan
-        - white
-    - background
-        - black
-        - red
-        - green
-        - yellow
-        - blue
-        - magenta
-        - cyan
-        - white
-    - bright foreground
-        - black
-        - red
-        - green
-        - yellow
-        - blue
-        - magenta
-        - cyan
-        - white
-    - bright background
-        - black
-        - red
-        - green
-        - yellow
-        - blue
-        - magenta
-        - cyan
-        - white
-    - set
-        - foreground
-            - R;G;B
-        - background
-            - R;G;B
-        - bright foreground
-            - R;G;B
-        - bright background
-            - R;G;B
-        - underline
-            - R;G;B
-    - default
-        - foreground
-        - background
-        - bright foreground
-        - bright background
-        - underline
+	- foreground
+		- black
+		- red
+		- green
+		- yellow
+		- blue
+		- magenta
+		- cyan
+		- white
+	- background
+		- black
+		- red
+		- green
+		- yellow
+		- blue
+		- magenta
+		- cyan
+		- white
+	- bright foreground
+		- black
+		- red
+		- green
+		- yellow
+		- blue
+		- magenta
+		- cyan
+		- white
+	- bright background
+		- black
+		- red
+		- green
+		- yellow
+		- blue
+		- magenta
+		- cyan
+		- white
+	- set
+		- foreground
+			- R;G;B
+		- background
+			- R;G;B
+		- bright foreground
+			- R;G;B
+		- bright background
+			- R;G;B
+		- underline
+			- R;G;B
+	- default
+		- foreground
+		- background
+		- bright foreground
+		- bright background
+		- underline

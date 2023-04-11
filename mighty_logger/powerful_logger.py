@@ -60,15 +60,26 @@ class Logger(BasicLogger):
 			program_name: str = "Unknown",
 			log_environment: str = LogEnvironments.CONSOLE,
 			console_width: int = 60,
+			time_global_entry: bool = True,
+			status_global_entry: bool = True,
+			status_message_global_entry: bool = True,
+			status_type_global_entry: bool = True,
+			message_global_entry: bool = True,
+			global_bold_font: bool = False,
+			global_italic_font: bool = False,
+			global_invert_font: bool = False,
 			global_background: bool = False,
-			time: bool = True,
-			status: bool = True,
-			status_message: bool = True,
-			status_type: bool = True,
-			entry_message: bool = True
 	) -> None:
 		if not hasattr(self, "_ColorScheme"):
-			super().__init__(program_name, time, status, status_message, status_type, entry_message)
+			super().__init__(program_name)
+			self._settings["global_bold_font"] = global_bold_font
+			self._settings["global_italic_font"] = global_italic_font
+			self._settings["global_invert_font"] = global_invert_font
+			self._settings["time_global_entry"] = time_global_entry
+			self._settings["status_global_entry"] = status_global_entry
+			self._settings["status_message_global_entry"] = status_message_global_entry
+			self._settings["status_type_global_entry"] = status_type_global_entry
+			self._settings["message_global_entry"] = message_global_entry
 			self._ColorScheme: dict = {}
 			self._environment = log_environment
 			self.global_background = global_background
@@ -79,7 +90,7 @@ class Logger(BasicLogger):
 					self.notice(
 						message_text="An existing logger was taken into use",
 						status_message_text="Note",
-						italic=True
+						local_settings={"italic": True}
 					)
 				else:
 					self._buffer = TextBuffer(console_width)
@@ -89,7 +100,7 @@ class Logger(BasicLogger):
 					self.notice(
 						message_text="An existing logger was taken into use",
 						status_message_text="Note",
-						italic=True
+						local_settings={"italic": True}
 					)
 				else:
 					self._buffer = BasicTextBuffer()
@@ -391,19 +402,19 @@ class Logger(BasicLogger):
 
 	#todo сделать конвертер из Console в HTML и наоборот
 
-	def debug(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def debug(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = None, local_settings: dict = None):
 		"""
 		Debugging information logging:
 		Can be used to log entry any information while debugging an application.
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
@@ -413,12 +424,12 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_DEBUG'][background],
 				self._ColorScheme['DEBUG_MESSAGE'][background],
 				self._ColorScheme['DEBUG_BACKGROUND'][background],
-			], status_message_text, "%DEBUG", message_text, bold, italic, invert, self._environment
+			], status_message_text, "%DEBUG", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def debug_performance(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def debug_performance(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = None, local_settings: dict = None):
 		"""
 		Performance debugging information logging:
 		Can be used to log entry the execution time of operations or other
@@ -426,12 +437,12 @@ class Logger(BasicLogger):
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
@@ -441,12 +452,12 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_DEBUG_PERFORMANCE'][background],
 				self._ColorScheme['DEBUG_PERFORMANCE_MESSAGE'][background],
 				self._ColorScheme['DEBUG_PERFORMANCE_BACKGROUND'][background],
-			], status_message_text, "%DEBUG PERFORMANCE", message_text, bold, italic, invert, self._environment
+			], status_message_text, "%DEBUG PERFORMANCE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def performance(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def performance(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = None, local_settings: dict = None):
 		"""
 		Performance information logging:
 		Can be used to log entry the execution time of operations or
@@ -454,12 +465,12 @@ class Logger(BasicLogger):
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
@@ -469,12 +480,12 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_PERFORMANCE'][background],
 				self._ColorScheme['PERFORMANCE_MESSAGE'][background],
 				self._ColorScheme['PERFORMANCE_BACKGROUND'][background],
-			], status_message_text, "%PERFORMANCE", message_text, bold, italic, invert, self._environment
+			], status_message_text, "%PERFORMANCE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def event(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def event(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = None, local_settings: dict = None):
 		"""
 		Event information logging:
 		Can be used to log entry specific events in the application,
@@ -482,12 +493,12 @@ class Logger(BasicLogger):
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
@@ -497,12 +508,12 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_EVENT'][background],
 				self._ColorScheme['EVENT_MESSAGE'][background],
 				self._ColorScheme['EVENT_BACKGROUND'][background],
-			], status_message_text, "~EVENT", message_text, bold, italic, invert, self._environment
+			], status_message_text, "~EVENT", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def audit(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def audit(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = None, local_settings: dict = None):
 		"""
 		Audit information logging:
 		Can be used to log entry changes in the system, such as creating or
@@ -510,12 +521,12 @@ class Logger(BasicLogger):
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
@@ -525,24 +536,24 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_AUDIT'][background],
 				self._ColorScheme['AUDIT_MESSAGE'][background],
 				self._ColorScheme['AUDIT_BACKGROUND'][background],
-			], status_message_text, "~AUDIT", message_text, bold, italic, invert, self._environment
+			], status_message_text, "~AUDIT", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def metrics(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def metrics(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = None, local_settings: dict = None):
 		"""
 		Metrics information logging:
 		Can be used to log entry metrics to track application performance and identify issues.
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
@@ -552,12 +563,12 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_METRICS'][background],
 				self._ColorScheme['METRICS_MESSAGE'][background],
 				self._ColorScheme['METRICS_BACKGROUND'][background],
-			], status_message_text, "~METRICS", message_text, bold, italic, invert, self._environment
+			], status_message_text, "~METRICS", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def user(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def user(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = None, local_settings: dict = None):
 		"""
 		User information logging:
 		Can be used to log entry custom logs to store additional information
@@ -565,12 +576,12 @@ class Logger(BasicLogger):
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
@@ -580,24 +591,24 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_USER'][background],
 				self._ColorScheme['USER_MESSAGE'][background],
 				self._ColorScheme['USER_BACKGROUND'][background],
-			], status_message_text, "~USER", message_text, bold, italic, invert, self._environment
+			], status_message_text, "~USER", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def message(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def message(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = None, local_settings: dict = None):
 		"""
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
@@ -607,24 +618,24 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_MESSAGE'][background],
 				self._ColorScheme['MESSAGE_MESSAGE'][background],
 				self._ColorScheme['MESSAGE_BACKGROUND'][background],
-			], status_message_text, "@MESSAGE", message_text, bold, italic, invert, self._environment
+			], status_message_text, "@MESSAGE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def info(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def info(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = None, local_settings: dict = None):
 		"""
 		Default information logging:
 		Can be used to log entry messages with specific content about the operation of the program.
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
@@ -634,24 +645,24 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_INFO'][background],
 				self._ColorScheme['INFO_MESSAGE'][background],
 				self._ColorScheme['INFO_BACKGROUND'][background],
-			], status_message_text, "@INFO", message_text, bold, italic, invert, self._environment
+			], status_message_text, "@INFO", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def notice(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = None):
+	def notice(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = None, local_settings: dict = None):
 		"""
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
@@ -661,24 +672,24 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_NOTICE'][background],
 				self._ColorScheme['NOTICE_MESSAGE'][background],
 				self._ColorScheme['NOTICE_BACKGROUND'][background],
-			], status_message_text, "@NOTICE", message_text, bold, italic, invert, self._environment
+			], status_message_text, "@NOTICE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def warning(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
+	def warning(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = True, local_settings: dict = None):
 		"""
 		Warning information logging:
 		Can be used to log entry warnings that the program may work with unpredictable results.
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		self._buffer << self._assemble_entry(
 			[
 				self._ColorScheme['WARNING_TIME'][local_background],
@@ -687,24 +698,24 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_WARNING'][local_background],
 				self._ColorScheme['WARNING_MESSAGE'][local_background],
 				self._ColorScheme['WARNING_BACKGROUND'][local_background],
-			], status_message_text, "!WARNING", message_text, bold, italic, invert, self._environment
+			], status_message_text, "!WARNING", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def error(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
+	def error(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = True, local_settings: dict = None):
 		"""
 		Error information logging:
 		Used to log entry errors and crashes in the program.
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
 		self._buffer << self._assemble_entry(
 			[
 				self._ColorScheme['ERROR_TIME'][local_background],
@@ -713,24 +724,26 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_ERROR'][local_background],
 				self._ColorScheme['ERROR_MESSAGE'][local_background],
 				self._ColorScheme['ERROR_BACKGROUND'][local_background],
-			], status_message_text, "!!ERROR", message_text, bold, italic, invert, self._environment
+			], status_message_text, "!!ERROR", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def critical(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = True, italic: bool = False, invert: bool = False, local_background: bool = True):
+	def critical(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = True, local_settings: dict = None):
 		"""
 		Critical error information logging:
 		Used to log entry for critical and unpredictable program failures.
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
+		if not 'bold' in local_settings:
+			local_settings["bold"] = True
 		self._buffer << self._assemble_entry(
 			[
 				self._ColorScheme['CRITICAL_TIME'][local_background],
@@ -739,23 +752,23 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_CRITICAL'][local_background],
 				self._ColorScheme['CRITICAL_MESSAGE'][local_background],
 				self._ColorScheme['CRITICAL_BACKGROUND'][local_background],
-			], status_message_text, "!!!@CRITICAL", message_text, bold, italic, invert, self._environment
+			], status_message_text, "!!!@CRITICAL", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def start_process(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
+	def start_process(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = True, local_settings: dict = None):
 		"""
 		Stub.
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		# if local_settings is None:
+		# 	local_settings = {}
 		# self._buffer << self._assemble_entry(
 		# 	[
 		# 		self._ColorScheme['PROGRESS_TIME'][local_background],
@@ -764,14 +777,14 @@ class Logger(BasicLogger):
 		# 		self._ColorScheme['TYPE_PROGRESS'][local_background],
 		# 		self._ColorScheme['PROGRESS_MESSAGE'][local_background],
 		# 		self._ColorScheme['PROGRESS_BACKGROUND'][local_background],
-		# 	], status_message_text, "&PROGRESS [*******.............] - 37%", message_text, bold, italic, invert, self._environment
+		# 	], status_message_text, "&PROGRESS [*******.............] - 37%", message_text, self._environment, local_settings
 		# )
 		# if self._environment == LogEnvironments.CONSOLE:
 		# 	self._buffer.update_console()
 		pass
 		# Must run on a thread
 
-	def stop_process(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True):
+	def stop_process(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = False, invert: bool = False, local_background: bool = True, local_settings: dict = None):
 		"""
 		Stub.
 
@@ -781,24 +794,27 @@ class Logger(BasicLogger):
 		:param italic: Display entry with italic font?
 		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
 		pass
 		# Make transition to SUCCESS or FAIL
 
-	def success(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, local_background: bool = True):
+	def success(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = True, local_settings: dict = None):
 		"""
 		Success information logging:
 		Used to log entry a message about the success of the process.
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
+		if not 'italic' in local_settings:
+			local_settings["italic"] = True
 		self._buffer << self._assemble_entry(
 			[
 				self._ColorScheme['SUCCESS_TIME'][local_background],
@@ -807,24 +823,26 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_SUCCESS'][local_background],
 				self._ColorScheme['SUCCESS_MESSAGE'][local_background],
 				self._ColorScheme['SUCCESS_BACKGROUND'][local_background],
-			], status_message_text, "&SUCCESS", message_text, bold, italic, invert, self._environment
+			], status_message_text, "&SUCCESS", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def fail(self, *, status_message_text: str = "...", message_text: str = "...", bold: bool = False, italic: bool = True, invert: bool = False, local_background: bool = True):
+	def fail(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = True, local_settings: dict = None):
 		"""
 		Fail information logging:
 		Used to log entry a message about the failed execution of the process.
 
 		:param status_message_text: Log entry status message
 		:param message_text: Log entry message
-		:param bold: Display entry with bold font?
-		:param italic: Display entry with italic font?
-		:param invert: Display entry with invert font?
 		:param local_background: Display entry with background?
+		:param local_settings: ...
 		:return: the generated log entry string
 		"""
+		if local_settings is None:
+			local_settings = {}
+		if not 'italic' in local_settings:
+			local_settings["italic"] = True
 		self._buffer << self._assemble_entry(
 			[
 				self._ColorScheme['FAIL_TIME'][local_background],
@@ -833,7 +851,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_FAIL'][local_background],
 				self._ColorScheme['FAIL_MESSAGE'][local_background],
 				self._ColorScheme['FAIL_BACKGROUND'][local_background],
-			], status_message_text, "&FAIL", message_text, bold, italic, invert, self._environment
+			], status_message_text, "&FAIL", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
