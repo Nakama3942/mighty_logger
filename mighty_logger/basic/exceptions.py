@@ -28,7 +28,7 @@ class ColorException(BaseException):
 
 class CombinationException(BaseException):
 	"""
-	An exception that is used when composing impossible combinations of boolean flags.
+	An exception that is thrown when composing impossible combinations of boolean flags.
 	"""
 	def __init__(self, message):
 		self.message = message
@@ -38,7 +38,7 @@ class CombinationException(BaseException):
 
 class ReCreationException(BaseException):
 	"""
-	...
+	The exception that is thrown when an object of the Singleton class is re-created.
 	"""
 	def __init__(self, message):
 		self.message = message

@@ -26,12 +26,7 @@ class BasicLogger(Singleton):
 	def __init__(
 			self,
 			program_name: str,
-	):
-		"""
-		Initializes and configures the log.
-
-		:param program_name: Installing the program name output
-		"""
+	) -> None:
 		self._program_name = program_name
 		self._settings: dict = {}
 		self._ID = random.randint(1000000, 9999999)
@@ -43,7 +38,6 @@ class BasicLogger(Singleton):
 	) -> str:
 		"""
 		A method that assemble an entry of system initialized data.
-		Forms a console string.
 
 		:param colors: Color string list of initialized data
 		:return: a string with initialized data
@@ -82,14 +76,13 @@ class BasicLogger(Singleton):
 	) -> str:
 		"""
 		A method that assemble an entry into a string and returns it.
-		Forms a console string.
 
-		:param colors: 7 colors that the method uses to assemble the string
+		:param colors: 6 colors that the method uses to assemble the string
 		:param status_message_text: Status message
 		:param message_type: Entry type
 		:param message_text: Entry message
-		:param env: ...
-		:param local_settings: ...
+		:param env: For what environment is the string formed?
+		:param local_settings: Settings for the string of the current entry
 		:return: the formed entry string
 		"""
 		bold = local_settings['bold'] if 'bold' in local_settings else self._settings['global_bold_font']

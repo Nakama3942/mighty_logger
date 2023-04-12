@@ -28,7 +28,7 @@ class BasicTextBuffer(Singleton, TextBufferType):
 	to be used in conjunction with HTML, but this is optional.
 	"""
 
-	def __init__(self):
+	def __init__(self) -> None:
 		if not hasattr(self, "_text_buffer"):
 			super().__init__()
 		else:
@@ -67,7 +67,7 @@ class TextBuffer(Singleton, TextBufferType):
 	that are only found in the console.
 	"""
 
-	def __init__(self, console_width: int = 60):
+	def __init__(self, console_width: int = 60) -> None:
 		if not hasattr(self, "_text_buffer"):
 			super().__init__()
 			self._cursor_string: int = 0
@@ -81,7 +81,7 @@ class TextBuffer(Singleton, TextBufferType):
 		self._buffer_size += 1 + excess_console_string
 		self._text_buffer.append(f"{message}")
 
-	def insert(self, number_string: int, message: str):
+	def insert(self, number_string: int, message: str) -> None:
 		if number_string > self._cursor_string:
 			count_empty_strings = (number_string - len(self._text_buffer))
 			self._text_buffer.extend([""] * count_empty_strings)

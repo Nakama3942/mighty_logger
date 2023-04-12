@@ -19,7 +19,7 @@ limitations under the License.
 from abc import ABC, abstractmethod
 
 class TextBufferType(ABC):
-	def __init__(self):
+	def __init__(self) -> None:
 		self._text_buffer: list[str] = []
 
 	def __lshift__(self, other) -> None:
@@ -82,7 +82,7 @@ class TextBufferType(ABC):
 		Saves the text of the buffer to a file.
 
 		:param name_file: The name of the file where the buffer will be saved
-		:param clean: ...
+		:param clean: Saving should be done in Plain text?
 		"""
 		raise NotImplementedError("Method save() is not implemented in the base class.")
 
@@ -93,4 +93,4 @@ class TextBufferType(ABC):
 		"""
 		raise NotImplementedError("Method update_console() is not implemented in the base class.")
 
-	# todo abstractmethod remove(), clear(), open_save()
+	# todo abstractmethod remove(), clear(), -open_save() or load()-
