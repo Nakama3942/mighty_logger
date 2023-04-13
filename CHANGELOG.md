@@ -353,3 +353,23 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - Renamed the library to mighty_logger.
 
 ---
+
+## v0.5.0 (10.04.2023)
+
+#### Bug Fixes:
+- Fixed TypeError in the message() method (because its name began to intersect with the setting responsible for displaying the message entry);
+- A bug of possible unpredictable behavior of the Logger has been fixed, since when creating the second object, a link to the existing one is returned, but \_\_init\_\_() is still called, and in case of switching to HTML format or changing other settings, unexpected behavior of the program could occur (just re-initialization of the class was excluded);
+- Fixed a bug in the save() method of the TextBufferType class and inherited classes: the fact is that TextBuffer overrides the method with the addition of the `clean` argument, which is not in the parent abstract TextBufferType class - now it (the argument) is defined in all classes;
+- Fixed a bug when the buffer is created in advance: now there is a check if the buffer object exists; if it exists, the link is saved to the logger and a log is written that the buffer is borrowed, otherwise a new buffer is created.
+
+#### Documenting:
+- Updated documentation;
+- Wrote the actual README.md, DATA.md and APPLYING.md (which corresponds to the current version).
+
+#### Enhancements:
+- Renamed the repository to mighty_logger;
+- Translated the names of the recording methods from the Upper case format to the Lower case format;
+- Added a new ReCreationException that is thrown when an object of a class inherited from Singleton is re-created;
+- The settings system has been completely changed.
+
+---
