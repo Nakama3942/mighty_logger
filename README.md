@@ -27,9 +27,9 @@
 
 </div>
 
-# Qt_Сolored-logger
+# Mighty Logger
 ### Content
-- [Qt_Сolored-logger](#qtсolored-logger)
+- [Qt_Сolored-logger](#mighty-logger)
 	- [Content](#content)
 	- [Preamble](#preamble)
 	- [Overview](#overview)
@@ -105,26 +105,24 @@ Despite the fact that the library was originally developed for use in PyQt, it d
 
 To install the library, enter the command:
 ```sh
-pip install qt-colored-logger
+pip install mighty_logger
 ```
 
 ## Usage
 This is the simplest example of using the library:
 ```python
-from qt_colored_logger.text import TextBuffer
-from qt_colored_logger.logger import Logger
+from mighty_logger import Logger
 
 if __name__ == "__main__":
-	buf = TextBuffer(115)
-	logger = Logger(program_name="Test", text_buffer=buf)
-	logger.MESSAGE(status_message_text="OK", message_text="Outputting the message")
+	logger = Logger(program_name="Test", console_width=115)
+	logger.message(status_message_text="Hooray", message_text="Hello world!")
 ```
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
 > <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $███████████████^████@███████:██████████:█████:█████████:█████</span></span><br>
-> <span style='background-color: #;'><span style='color: #b0e0e6;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-09 12:37:07.198496 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>OK </span><span style='color: #afeeee;'>@MESSAGE - </span><span style='color: #b0e0e6;'>Outputting the message</span></span><br>
+> <span style='background-color: #;'><span style='color: #b0e0e6;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-09 12:37:07.198496 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Hooray </span><span style='color: #afeeee;'>@MESSAGE - </span><span style='color: #b0e0e6;'>Hello world!</span></span><br>
 
-See the USAGING.md file for more details.
+See the APPLYING.md file for more details.
 
 - [Content](#content)
 
