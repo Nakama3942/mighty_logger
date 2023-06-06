@@ -54,7 +54,10 @@ class BasicTextBuffer(Singleton, TextBufferType):
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
 		# todo сделать очистку HTML в plain text
 		with open(name_file, "w") as text_buffer_file:
-			text_buffer_file.write('\n'.join(self._text_buffer))
+			if clean:
+				text_buffer_file.write(self._text_buffer[0] + '<br>'.join(self._text_buffer[1:]))
+			else:
+				text_buffer_file.write(self._text_buffer[0] + '\n' + '\n<br>'.join(self._text_buffer[1:]))
 
 	def update_console(self) -> None:
 		super().update_console()

@@ -56,12 +56,12 @@ Any information to the output can be turned off (according to the standard, ever
 
 #### Enhancements:
 - Added new colors:
-    - OCEANBLUE;
-    - DARKOCEANBLUE.
+	- OCEANBLUE;
+	- DARKOCEANBLUE.
 - Changed color names:
-    - CYAN -> BLUE;
-    - DARKCYAN -> DARKBLUE.
-- Added an ID to each logger class; 
+	- CYAN -> BLUE;
+	- DARKCYAN -> DARKBLUE.
+- Added an ID to each logger class;
 - Added new methods to the Logger class:
 	- SUCCESS();
 	- FAIL();
@@ -94,39 +94,39 @@ Any information to the output can be turned off (according to the standard, ever
 
 #### Enhancements:
 - Added new types of log output:
-    1. DEBUG_PERFORMANCE;
-    2. PERFORMANCE;
-    3. EVENT;
-    4. AUDIT;
-    5. METRICS;
-    6. USER;
-    7. MESSAGE;
-    8. NOTICE.
+	1. DEBUG_PERFORMANCE;
+	2. PERFORMANCE;
+	3. EVENT;
+	4. AUDIT;
+	5. METRICS;
+	6. USER;
+	7. MESSAGE;
+	8. NOTICE.
 - Added new colors:
-    1.  FIREBRICK *replaced RED*
-    2.  MEDIUMSPRINGGREEN
-    3.  SPRINGGREEN
-    4.  MEDIUMSEAGREEN
-    5.  SEAGREEN
-    6.  FORESTGREEN *not used yet*
-    7.  YELLOWGREEN
-    8.  OLIVEDRAB
-    9.  OLIVE
-    10. DARKOLIVEGREEN
-    11. AQUAMARINE *replaced BLUE*
-    12. TURQUOISE *replaced DARKBLUE*
-    13. SKYBLUE *replaced OCEANBLUE*
-    14. LIGHTSKYBLUE *replaced DARKOCEANBLUE*
-    15. BLUE *Adopted its color according to the X11 standards table*
-    16. MEDIUMBLUE
-    17. DARKBLUE *Adopted its color according to the X11 standards table*
-    18. NAVY
-    19. BLUEVIOLET *replaced VIOLET*
-    20. DARKVIOLET *Adopted its color according to the X11 standards table*
-    21. GAINSBORO
-    22. LIGHTGREY
-    23. SILVER
-    24. DIMGREY
+	1.  FIREBRICK *replaced RED*
+	2.  MEDIUMSPRINGGREEN
+	3.  SPRINGGREEN
+	4.  MEDIUMSEAGREEN
+	5.  SEAGREEN
+	6.  FORESTGREEN *not used yet*
+	7.  YELLOWGREEN
+	8.  OLIVEDRAB
+	9.  OLIVE
+	10. DARKOLIVEGREEN
+	11. AQUAMARINE *replaced BLUE*
+	12. TURQUOISE *replaced DARKBLUE*
+	13. SKYBLUE *replaced OCEANBLUE*
+	14. LIGHTSKYBLUE *replaced DARKOCEANBLUE*
+	15. BLUE *Adopted its color according to the X11 standards table*
+	16. MEDIUMBLUE
+	17. DARKBLUE *Adopted its color according to the X11 standards table*
+	18. NAVY
+	19. BLUEVIOLET *replaced VIOLET*
+	20. DARKVIOLET *Adopted its color according to the X11 standards table*
+	21. GAINSBORO
+	22. LIGHTGREY
+	23. SILVER
+	24. DIMGREY
 
 ---
 
@@ -163,42 +163,42 @@ Any information to the output can be turned off (according to the standard, ever
 - Now only one object of the HtmlColorSetInitQ class can be created;
 - Now only one object of the LoggerQ class can be created;
 - The color table of the LoggerQ logger has been changed - now the table does not store color names, but abstract names:
-    - TIME;
-    - USER;
-    - STATUS;
-    - STATUS_MESSAGE;
-    - TYPE_DEBUG;
-    - DEBUG_MESSAGE;
-    - TYPE_DEBUG_PERFORMANCE;
-    - DEBUG_PERFORMANCE_MESSAGE;
-    - TYPE_PERFORMANCE;
-    - PERFORMANCE_MESSAGE;
-    - TYPE_EVENT;
-    - EVENT_MESSAGE;
-    - TYPE_AUDIT;
-    - AUDIT_MESSAGE;
-    - TYPE_METRICS;
-    - METRICS_MESSAGE;
-    - TYPE_USER;
-    - USER_MESSAGE;
-    - TYPE_MESSAGE;
-    - MESSAGE_MESSAGE;
-    - TYPE_INFO;
-    - INFO_MESSAGE;
-    - TYPE_NOTICE;
-    - NOTICE_MESSAGE;
-    - TYPE_WARNING;
-    - WARNING_MESSAGE;
-    - TYPE_ERROR;
-    - ERROR_MESSAGE;
-    - TYPE_CRITICAL;
-    - CRITICAL_MESSAGE;
-    - TYPE_PROGRESS;
-    - PROGRESS_MESSAGE;
-    - TYPE_SUCCESS;
-    - SUCCESS_MESSAGE;
-    - TYPE_FAIL;
-    - FAIL_MESSAGE.
+	- TIME;
+	- USER;
+	- STATUS;
+	- STATUS_MESSAGE;
+	- TYPE_DEBUG;
+	- DEBUG_MESSAGE;
+	- TYPE_DEBUG_PERFORMANCE;
+	- DEBUG_PERFORMANCE_MESSAGE;
+	- TYPE_PERFORMANCE;
+	- PERFORMANCE_MESSAGE;
+	- TYPE_EVENT;
+	- EVENT_MESSAGE;
+	- TYPE_AUDIT;
+	- AUDIT_MESSAGE;
+	- TYPE_METRICS;
+	- METRICS_MESSAGE;
+	- TYPE_USER;
+	- USER_MESSAGE;
+	- TYPE_MESSAGE;
+	- MESSAGE_MESSAGE;
+	- TYPE_INFO;
+	- INFO_MESSAGE;
+	- TYPE_NOTICE;
+	- NOTICE_MESSAGE;
+	- TYPE_WARNING;
+	- WARNING_MESSAGE;
+	- TYPE_ERROR;
+	- ERROR_MESSAGE;
+	- TYPE_CRITICAL;
+	- CRITICAL_MESSAGE;
+	- TYPE_PROGRESS;
+	- PROGRESS_MESSAGE;
+	- TYPE_SUCCESS;
+	- SUCCESS_MESSAGE;
+	- TYPE_FAIL;
+	- FAIL_MESSAGE.
 - Now, initially this table is not initialized and the logger will not be able to work. First you need to initialize the table by creating an object of the HtmlColorSetInitQ class, which also provides methods for changing this very logger color table;
 - Implemented library functionality tests for early detection of minor bugs.
 
@@ -265,11 +265,11 @@ print(f"{GetAnsiFormat('color/set/background/255;255;255')}Test string")
 print(f"{GetAnsiFormat('reset/on')}Test string")
 ```
 - Renamed the AnsiForegroundColor() function to AnsiColor() - if earlier the function returned only the color of the text (the usual foreground), now you can specify any of the five plans (this is necessary for the next update, where I will add a change not only to the color, but also to the background of the logs):
-    1. foreground
-    2. background
-    3. bright foreground
-    4. bright background
-    5. underline
+	1. foreground
+	2. background
+	3. bright foreground
+	4. bright background
+	5. underline
 - Adapted the Dec2Ansi() and Hex2Ansi() functions to the modified AnsiColor();
 - Protected the qt_colored_logger/basic directory - now it is called qt_colored_logger/_basic: you can still use its functionality, but now, according to the agreement, the IDE will issue a warning; *remember - protected modules are designed only for use inside the library*;
 - The structure of the qt_colored_logger/_basic protected directory has been slightly changed;
@@ -291,11 +291,11 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - LoggerQ included HtmlColorSetInitQ;
 - Removed list of default colors;
 - Post types categorized:
-    - Debugging (%);
-    - Event (~);
-    - Message (@);
-    - Error (!);
-    - Process (&).
+	- Debugging (%);
+	- Event (~);
+	- Message (@);
+	- Error (!);
+	- Process (&).
 - Argument names are now required;
 - Added an introductory line with system initialized information;
 - Added a global enable background setting;
@@ -354,7 +354,7 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 ---
 
-## v0.5.0 (10.04.2023)
+## v0.5.0 (13.04.2023)
 
 #### Bug Fixes:
 - Fixed TypeError in the message() method (because its name began to intersect with the setting responsible for displaying the message entry);
@@ -371,5 +371,12 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - Translated the names of the recording methods from the Upper case format to the Lower case format;
 - Added a new ReCreationException that is thrown when an object of a class inherited from Singleton is re-created;
 - The settings system has been completely changed.
+
+---
+
+## v0.4.0.1 (13.04.2023)
+
+#### Documenting:
+- Preparing a renamed. Minor changes have been made to README.md, adding links to a new repository with a new name.
 
 ---

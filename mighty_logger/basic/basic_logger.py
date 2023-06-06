@@ -51,7 +51,7 @@ class BasicLogger(Singleton):
 					f":{platform.version()}" +
 					":{}:{}".format(*platform.architecture()) +
 					f":{platform.machine()}" +
-					f"</span></span><br>"
+					f"</span></span>"
 			)
 		else:
 			return (
@@ -105,7 +105,7 @@ class BasicLogger(Singleton):
 					(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if status_type_entry else "") +
 					(f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if message_entry else "") +
 					(f"</i>" if italic else "") +
-					(f"</b>" if bold else "") + "<br>"
+					(f"</b>" if bold else "")
 			)
 		else:
 			return (
