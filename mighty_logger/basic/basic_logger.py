@@ -68,6 +68,8 @@ class BasicLogger(Singleton):
 	def _assemble_entry(
 			self,
 			colors: list[str, str, str, str, str, str],
+			animation: list,
+			icon: str,
 			status_message_text: str,
 			message_type: str,
 			message_text: str,
@@ -78,6 +80,8 @@ class BasicLogger(Singleton):
 		A method that assemble an entry into a string and returns it.
 
 		:param colors: 6 colors that the method uses to assemble the string
+		:param animation: Animation of entry
+		:param icon: Type icon
 		:param status_message_text: Status message
 		:param message_type: Entry type
 		:param message_text: Entry message
@@ -98,8 +102,9 @@ class BasicLogger(Singleton):
 					(f"<b>" if bold else "") +
 					(f"<i>" if italic else "") +
 					f"<span style='background-color: #{colors[5]};'>" +
-					f"<span style='color: #{colors[4]};'>-?entry> </span>" +
+					f"<span style='color: #{colors[4]};'>-?entry> {animation[0]}</span>" +  # todo Must add animation
 					(f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
+					f"<div style='display: inline-block; white-space: pre; tab-size: 4'>{icon}&#9;</div>" +
 					(f"<span style='color: #{colors[1]};'>#STATUS: </span>" if status_entry else "") +
 					(f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if status_message_entry else "") +
 					(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if status_type_entry else "") +
@@ -113,8 +118,9 @@ class BasicLogger(Singleton):
 					(f"{GetAnsiFormat('italic/on')}" if italic else "") +
 					(f"{GetAnsiFormat('invert/on')}" if invert else "") +
 					f"{colors[5]}" +
-					f"{colors[4]}-?entry> " +
+					f"{colors[4]}-?entry> {animation[0]}" +  # todo Must add animation
 					(f"{colors[0]}*{datetime.datetime.now()} " if time_entry else "") +
+					f"{icon}\t" +
 					(f"{colors[1]}#STATUS: " if status_entry else "") +
 					(f"{colors[2]}{status_message_text} " if status_message_entry else "") +
 					(f"{colors[3]}{message_type} - " if status_type_entry else "") +

@@ -16,4 +16,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+from .icon_set import IconSet
 from .text_buffer import BasicTextBuffer, TextBuffer

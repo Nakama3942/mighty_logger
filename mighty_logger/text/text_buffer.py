@@ -52,8 +52,7 @@ class BasicTextBuffer(Singleton, TextBufferType):
 			self.append(message)
 
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
-		# todo сделать очистку HTML в plain text
-		with open(name_file, "w") as text_buffer_file:
+		with open(name_file, "w", encoding="utf-8") as text_buffer_file:
 			if clean:
 				text_buffer_file.write(self._text_buffer[0] + '<br>'.join(self._text_buffer[1:]))
 			else:
@@ -108,7 +107,7 @@ class TextBuffer(Singleton, TextBufferType):
 			self._text_buffer[number_string] = f"{message}"
 
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
-		with open(name_file, "w") as text_buffer_file:
+		with open(name_file, "w", encoding="utf-8") as text_buffer_file:
 			if clean:
 				for item in self._text_buffer:
 					text_buffer_file.write("{}\n".format(re.sub(r"\033\[.*?m", "", item)))

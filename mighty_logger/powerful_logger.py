@@ -21,6 +21,7 @@ from mighty_logger.basic.exceptions import ColorException, CombinationException,
 from mighty_logger.basic.text_buffer_type import TextBufferType
 from mighty_logger.src.color_picker import AnsiColor, HexColor, Dec2Ansi, Dec2Hex
 from mighty_logger.src.log_environment import LogEnvironments
+from mighty_logger.text.icon_set import IconSet
 from mighty_logger.text.text_buffer import BasicTextBuffer, TextBuffer
 
 class Logger(BasicLogger):
@@ -406,7 +407,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_DEBUG'][background],
 				self._ColorScheme['DEBUG_MESSAGE'][background],
 				self._ColorScheme['DEBUG_BACKGROUND'][background],
-			], status_message_text, "%DEBUG", message_text, self._environment, local_settings
+			], ["."], IconSet.debug, status_message_text, "%DEBUG", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -433,7 +434,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_DEBUG_PERFORMANCE'][background],
 				self._ColorScheme['DEBUG_PERFORMANCE_MESSAGE'][background],
 				self._ColorScheme['DEBUG_PERFORMANCE_BACKGROUND'][background],
-			], status_message_text, "%DEBUG PERFORMANCE", message_text, self._environment, local_settings
+			], ["."], IconSet.debug_performance, status_message_text, "%DEBUG PERFORMANCE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -460,7 +461,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_PERFORMANCE'][background],
 				self._ColorScheme['PERFORMANCE_MESSAGE'][background],
 				self._ColorScheme['PERFORMANCE_BACKGROUND'][background],
-			], status_message_text, "%PERFORMANCE", message_text, self._environment, local_settings
+			], ["."], IconSet.performance, status_message_text, "%PERFORMANCE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -487,7 +488,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_EVENT'][background],
 				self._ColorScheme['EVENT_MESSAGE'][background],
 				self._ColorScheme['EVENT_BACKGROUND'][background],
-			], status_message_text, "~EVENT", message_text, self._environment, local_settings
+			], ["."], IconSet.event, status_message_text, "~EVENT", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -514,7 +515,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_AUDIT'][background],
 				self._ColorScheme['AUDIT_MESSAGE'][background],
 				self._ColorScheme['AUDIT_BACKGROUND'][background],
-			], status_message_text, "~AUDIT", message_text, self._environment, local_settings
+			], ["."], IconSet.audit, status_message_text, "~AUDIT", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -540,7 +541,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_METRICS'][background],
 				self._ColorScheme['METRICS_MESSAGE'][background],
 				self._ColorScheme['METRICS_BACKGROUND'][background],
-			], status_message_text, "~METRICS", message_text, self._environment, local_settings
+			], ["."], IconSet.metrics, status_message_text, "~METRICS", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -567,7 +568,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_USER'][background],
 				self._ColorScheme['USER_MESSAGE'][background],
 				self._ColorScheme['USER_BACKGROUND'][background],
-			], status_message_text, "~USER", message_text, self._environment, local_settings
+			], ["."], IconSet.user, status_message_text, "~USER", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -593,7 +594,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_MESSAGE'][background],
 				self._ColorScheme['MESSAGE_MESSAGE'][background],
 				self._ColorScheme['MESSAGE_BACKGROUND'][background],
-			], status_message_text, "@MESSAGE", message_text, self._environment, local_settings
+			], ["."], IconSet.message, status_message_text, "@MESSAGE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -619,7 +620,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_INFO'][background],
 				self._ColorScheme['INFO_MESSAGE'][background],
 				self._ColorScheme['INFO_BACKGROUND'][background],
-			], status_message_text, "@INFO", message_text, self._environment, local_settings
+			], ["."], IconSet.info, status_message_text, "@INFO", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -645,7 +646,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_NOTICE'][background],
 				self._ColorScheme['NOTICE_MESSAGE'][background],
 				self._ColorScheme['NOTICE_BACKGROUND'][background],
-			], status_message_text, "@NOTICE", message_text, self._environment, local_settings
+			], ["."], IconSet.notice, status_message_text, "@NOTICE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -670,7 +671,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_WARNING'][local_background],
 				self._ColorScheme['WARNING_MESSAGE'][local_background],
 				self._ColorScheme['WARNING_BACKGROUND'][local_background],
-			], status_message_text, "!WARNING", message_text, self._environment, local_settings
+			], ["."], IconSet.warning, status_message_text, "!WARNING", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -695,7 +696,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_ERROR'][local_background],
 				self._ColorScheme['ERROR_MESSAGE'][local_background],
 				self._ColorScheme['ERROR_BACKGROUND'][local_background],
-			], status_message_text, "!!ERROR", message_text, self._environment, local_settings
+			], ["."], IconSet.error, status_message_text, "!!ERROR", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -722,7 +723,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_CRITICAL'][local_background],
 				self._ColorScheme['CRITICAL_MESSAGE'][local_background],
 				self._ColorScheme['CRITICAL_BACKGROUND'][local_background],
-			], status_message_text, "!!!@CRITICAL", message_text, self._environment, local_settings
+			], ["."], IconSet.critical, status_message_text, "!!!@CRITICAL", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -736,21 +737,21 @@ class Logger(BasicLogger):
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local recording settings
 		"""
-		# if local_settings is None:
-		# 	local_settings = {}
-		# self._buffer << self._assemble_entry(
-		# 	[
-		# 		self._ColorScheme['PROGRESS_TIME'][local_background],
-		# 		self._ColorScheme['PROGRESS_STATUS'][local_background],
-		# 		self._ColorScheme['PROGRESS_STATUS_MESSAGE'][local_background],
-		# 		self._ColorScheme['TYPE_PROGRESS'][local_background],
-		# 		self._ColorScheme['PROGRESS_MESSAGE'][local_background],
-		# 		self._ColorScheme['PROGRESS_BACKGROUND'][local_background],
-		# 	], status_message_text, "&PROGRESS [*******.............] - 37%", message_text, self._environment, local_settings
-		# )
-		# if self._environment == LogEnvironments.CONSOLE:
-		# 	self._buffer.update_console()
-		pass
+		if local_settings is None:
+			local_settings = {}
+		self._buffer << self._assemble_entry(
+			[
+				self._ColorScheme['PROGRESS_TIME'][local_background],
+				self._ColorScheme['PROGRESS_STATUS'][local_background],
+				self._ColorScheme['PROGRESS_STATUS_MESSAGE'][local_background],
+				self._ColorScheme['TYPE_PROGRESS'][local_background],
+				self._ColorScheme['PROGRESS_MESSAGE'][local_background],
+				self._ColorScheme['PROGRESS_BACKGROUND'][local_background],
+			], ["."], IconSet.process, status_message_text, "&PROGRESS [*******.............] - 37%", message_text, self._environment, local_settings
+		)
+		if self._environment == LogEnvironments.CONSOLE:
+			self._buffer.update_console()
+		# pass
 		# Must run on a thread
 
 	def stop_process(self, *, status_message_text: str = "...", message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
@@ -787,7 +788,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_SUCCESS'][local_background],
 				self._ColorScheme['SUCCESS_MESSAGE'][local_background],
 				self._ColorScheme['SUCCESS_BACKGROUND'][local_background],
-			], status_message_text, "&SUCCESS", message_text, self._environment, local_settings
+			], ["."], IconSet.success, status_message_text, "&SUCCESS", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -814,7 +815,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_FAIL'][local_background],
 				self._ColorScheme['FAIL_MESSAGE'][local_background],
 				self._ColorScheme['FAIL_BACKGROUND'][local_background],
-			], status_message_text, "&FAIL", message_text, self._environment, local_settings
+			], ["."], IconSet.fail, status_message_text, "&FAIL", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
