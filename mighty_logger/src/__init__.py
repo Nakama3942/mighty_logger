@@ -27,3 +27,4 @@ from .color_picker import DecColor,\
 	Ansi2Dec,\
 	Ansi2Hex
 from .log_environment import LogEnvironments
+from .status_variables import StatusMessagePatterns

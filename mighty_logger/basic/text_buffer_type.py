@@ -22,21 +22,21 @@ class TextBufferType(ABC):
 	def __init__(self) -> None:
 		self._text_buffer: list[str] = []
 
-	def __lshift__(self, other) -> None:
+	def __lshift__(self, entry: str) -> None:
 		"""
 		Used to add a string to the end of the buffer.
 
-		:param other: The line to be added
+		:param entry: The line to be added
 		"""
-		self.append(f"{other}")
+		self.append(f"{entry}")
 
-	def __rshift__(self, other) -> None:
+	def __rshift__(self, entry: str) -> None:
 		"""
 		Used to save a buffer to the file.
 
-		:param other: The name of the file where you want to save the buffer
+		:param entry: The name of the file where you want to save the buffer
 		"""
-		self.save(other)
+		self.save(entry)
 
 	def get_data(self) -> list:
 		"""
