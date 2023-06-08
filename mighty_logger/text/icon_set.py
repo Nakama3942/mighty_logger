@@ -1,5 +1,5 @@
 """
-A module with the icon set.
+A module with the icon sets.
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
@@ -16,84 +16,107 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-class IconSet:
-	# Debug
-	debug1 = '🐛'
-	debug2 = '🐞'
-	debug3 = '🚧'
-	debug4 = '🔬'
-	# Debug performance
-	debug_performance1 = '⏱️'
-	debug_performance2 = '⌛️'
-	debug_performance3 = '🔍'
-	debug_performance4 = '📈'
-	# Performance
-	performance1 = '⏱️'
-	performance2 = '🚀'
-	performance3 = '📊'
-	performance4 = '⚡️'
-	# Event
-	event1 = '🔔'
-	event2 = '🎉'
-	event3 = '📣'
-	event4 = '🚨'
-	# Audit
-	audit1 = '🔍'
-	audit2 = '🔒'
-	audit3 = '📋'
-	audit4 = '🔐'
-	# Metrics
-	metrics1 = '📊'
-	metrics2 = '📈'
-	metrics3 = '📉'
-	metrics4 = '📄'
-	# User
-	user1 = '👤'
-	user2 = '👥'
-	user3 = '🙋‍♂️'
-	user4 = '🙋‍♀️'
-	# Message
-	message1 = '💬'
-	message2 = '📝'
-	message3 = '🗒️'
-	message4 = '📨'
-	# Info
-	info1 = 'ℹ️'
-	info2 = '🔍'
-	info3 = '📌'
-	info4 = '🔔'
-	# Notice
-	notice1 = '📌'
-	notice2 = '📎'
-	notice3 = '🔖'
-	notice4 = '🚩'
-	# Warning
-	warning1 = '⚠️'
-	warning2 = '⚡️'
-	warning3 = '⛔️'
-	warning4 = '🔺'
-	# Error
-	error1 = '❌'
-	error2 = '🚫'
-	error3 = '💔'
-	error4 = '🔴'
-	# Critical
-	critical1 = '🔥'
-	critical2 = '🚨'
-	critical3 = '⛔️'
-	critical4 = '🚒'
-	# Process
-	process1 = '⏳'
-	process2 = '🔄'
-	process3 = '⚙️'
-	process4 = '🕰️'
-	# Success
-	success1 = '✔️'
-	success2 = '🎉'
-	success3 = '👍'
-	success4 = '✅'
-	# Fail
-	fail1 = '❌'
-	fail2 = '🚫'
-	fail3 = '👎'
-	fail4 = '❎'
+class IconSetType:
+	"""
+	Template class for creating custom icon sets.
+	"""
+	debug = ''
+	debug_performance = ''
+	performance = ''
+	event = ''
+	audit = ''
+	metrics = ''
+	user = ''
+	message = ''
+	info = ''
+	notice = ''
+	warning = ''
+	error = ''
+	critical = ''
+	process = ''
+	success = ''
+	fail = ''
+
+class IconSet1(IconSetType):
+	"""
+	First icon set.
+	"""
+	debug = '🐛'
+	debug_performance = '⏱️'
+	performance = '⏱️'
+	event = '🔔'
+	audit = '🔍'
+	metrics = '📊'
+	user = '👤'
+	message = '💬'
+	info = 'ℹ️'
+	notice = '📌'
+	warning = '⚠️'
+	error = '❌'
+	critical = '🔥'
+	process = '⏳'
+	success = '✔️'
+	fail = '❌'
+
+class IconSet2(IconSetType):
+	"""
+	Second icon set.
+	"""
+	debug = '🐞'
+	debug_performance = '⌛️'
+	performance = '🚀'
+	event = '🎉'
+	audit = '🔒'
+	metrics = '📈'
+	user = '👥'
+	message = '📝'
+	info = '🔍'
+	notice = '📎'
+	warning = '⚡️'
+	error = '🚫'
+	critical = '🚨'
+	process = '🔄'
+	success = '🎉'
+	fail = '🚫'
+
+class IconSet3(IconSetType):
+	"""
+	Third icon set.
+	"""
+	debug = '🚧'
+	debug_performance = '🔍'
+	performance = '📊'
+	event = '📣'
+	audit = '📋'
+	metrics = '📉'
+	user = '🙋‍♂️'
+	message = '🗒️'
+	info = '📌'
+	notice = '🔖'
+	warning = '⛔️'
+	error = '💔'
+	critical = '⛔️'
+	process = '⚙️'
+	success = '👍'
+	fail = '👎'
+
+class IconSet4(IconSetType):
+	"""
+	Fourth icon set.
+	"""
+	debug = '🔬'
+	debug_performance = '📈'
+	performance = '⚡️'
+	event = '🚨'
+	audit = '🔐'
+	metrics = '📄'
+	user = '🙋‍♀️'
+	message = '📨'
+	info = '🔔'
+	notice = '🚩'
+	warning = '🔺'
+	error = '🔴'
+	critical = '🚒'
+	process = '🕰️'
+	success = '✅'
+	fail = '❎'

@@ -1,7 +1,7 @@
 from mighty_logger import Logger
 from mighty_logger.src import LogEnvironments
 from mighty_logger.src import StatusMessagePatterns
-from mighty_logger.text import IconSet
+from mighty_logger.text import IconSet3
 
 if __name__ == "__main__":
 	logger = Logger(program_name="Test", log_environment=LogEnvironments.HTML)
@@ -13,7 +13,16 @@ if __name__ == "__main__":
 	logger.metrics(message_text="Hello world!")
 	logger.user(message_text="Hello world!")
 	logger.message(message_text="Hello world!")
-	logger.info(icon=IconSet.info3, message_text="Hello world!")
+	logger.info(message_text="Hello world!")
+	logger.notice(message_text="Hello world!")
+	logger.warning(message_text="Hello world!")
+	logger.error(message_text="Hello world!")
+	logger.critical(message_text="Hello world!")
+	logger.start_process(message_text="Hello world!")
+	logger.success(message_text="Hello world!")
+	logger.fail(message_text="Hello world!")
+	logger.set_icons(IconSet3())
+	logger.info(message_text="Hello world!")
 	logger.notice(message_text="Hello world!")
 	logger.warning(message_text="Hello world!")
 	logger.error(message_text="Hello world!")

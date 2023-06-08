@@ -22,7 +22,7 @@ from mighty_logger.basic.text_buffer_type import TextBufferType
 from mighty_logger.src.color_picker import AnsiColor, HexColor, Dec2Ansi, Dec2Hex
 from mighty_logger.src.log_environment import LogEnvironments
 from mighty_logger.src.status_variables import StatusMessageType
-from mighty_logger.text.icon_set import IconSet
+from mighty_logger.text.icon_set import IconSetType, IconSet1
 from mighty_logger.text.text_buffer import BasicTextBuffer, TextBuffer
 
 class Logger(BasicLogger):
@@ -47,6 +47,7 @@ class Logger(BasicLogger):
 			program_name: str = "Unknown",
 			log_environment: str = LogEnvironments.CONSOLE,
 			console_width: int = 60,
+			icon_set: IconSetType = IconSet1(),
 			time_global_entry: bool = True,
 			status_global_entry: bool = True,
 			status_message_global_entry: bool = True,
@@ -59,6 +60,7 @@ class Logger(BasicLogger):
 	) -> None:
 		if not hasattr(self, "_ColorScheme"):
 			super().__init__(program_name)
+			self._icon_set = icon_set
 			self._settings["global_bold_font"] = global_bold_font
 			self._settings["global_italic_font"] = global_italic_font
 			self._settings["global_invert_font"] = global_invert_font
@@ -346,6 +348,17 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
+	# def set_animation(self):
+	# 	pass
+
+	def set_icons(self, icon_set: IconSetType):
+		"""
+		Changes the current icon set used by the Logger.
+
+		:param icon_set: Icon set to use
+		"""
+		self._icon_set = icon_set
+
 	def set_color(self, *, logger_color_name: str, color_value: list[int, int, int], foreground: bool = True, background: bool = False) -> None:
 		"""
 		A method that sets the ANSI escape code color in the color table of the logger.
@@ -385,14 +398,13 @@ class Logger(BasicLogger):
 		"""
 		return self._buffer
 
-	#todo сделать конвертер из Console в HTML и наоборот
+	#todo v0.8.1 сделать конвертер из Console в HTML и наоборот
 
-	def debug(self, *, icon: str = IconSet.debug1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def debug(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
 		"""
 		Debugging information logging:
 		Can be used to log entry any information while debugging an application.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -409,18 +421,17 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_DEBUG'][background],
 				self._ColorScheme['DEBUG_MESSAGE'][background],
 				self._ColorScheme['DEBUG_BACKGROUND'][background],
-			], [""], icon, status_message.current_status_message, "%DEBUG", message_text, self._environment, local_settings
+			], [""], self._icon_set.debug, status_message.current_status_message, "%DEBUG", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def debug_performance(self, *, icon: str = IconSet.debug_performance1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def debug_performance(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
 		"""
 		Performance debugging information logging:
 		Can be used to log entry the execution time of operations or other
 		performance information while the application is being debugged.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -437,18 +448,17 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_DEBUG_PERFORMANCE'][background],
 				self._ColorScheme['DEBUG_PERFORMANCE_MESSAGE'][background],
 				self._ColorScheme['DEBUG_PERFORMANCE_BACKGROUND'][background],
-			], [""], icon, status_message.current_status_message, "%DEBUG PERFORMANCE", message_text, self._environment, local_settings
+			], [""], self._icon_set.debug_performance, status_message.current_status_message, "%DEBUG PERFORMANCE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def performance(self, *, icon: str = IconSet.performance1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def performance(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
 		"""
 		Performance information logging:
 		Can be used to log entry the execution time of operations or
 		other application performance information.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -465,18 +475,17 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_PERFORMANCE'][background],
 				self._ColorScheme['PERFORMANCE_MESSAGE'][background],
 				self._ColorScheme['PERFORMANCE_BACKGROUND'][background],
-			], [""], icon, status_message.current_status_message, "%PERFORMANCE", message_text, self._environment, local_settings
+			], [""], self._icon_set.performance, status_message.current_status_message, "%PERFORMANCE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def event(self, *, icon: str = IconSet.event1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def event(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
 		"""
 		Event information logging:
 		Can be used to log entry specific events in the application,
 		such as button presses or mouse cursor movements.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -493,18 +502,17 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_EVENT'][background],
 				self._ColorScheme['EVENT_MESSAGE'][background],
 				self._ColorScheme['EVENT_BACKGROUND'][background],
-			], [""], icon, status_message.current_status_message, "~EVENT", message_text, self._environment, local_settings
+			], [""], self._icon_set.event, status_message.current_status_message, "~EVENT", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def audit(self, *, icon: str = IconSet.audit1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def audit(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
 		"""
 		Audit information logging:
 		Can be used to log entry changes in the system, such as creating or
 		deleting users, as well as changes in security settings.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -521,17 +529,16 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_AUDIT'][background],
 				self._ColorScheme['AUDIT_MESSAGE'][background],
 				self._ColorScheme['AUDIT_BACKGROUND'][background],
-			], [""], icon, status_message.current_status_message, "~AUDIT", message_text, self._environment, local_settings
+			], [""], self._icon_set.audit, status_message.current_status_message, "~AUDIT", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def metrics(self, *, icon: str = IconSet.metrics1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def metrics(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
 		"""
 		Metrics information logging:
 		Can be used to log entry metrics to track application performance and identify issues.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -548,18 +555,17 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_METRICS'][background],
 				self._ColorScheme['METRICS_MESSAGE'][background],
 				self._ColorScheme['METRICS_BACKGROUND'][background],
-			], [""], icon, status_message.current_status_message, "~METRICS", message_text, self._environment, local_settings
+			], [""], self._icon_set.metrics, status_message.current_status_message, "~METRICS", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def user(self, *, icon: str = IconSet.user1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def user(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
 		"""
 		User information logging:
 		Can be used to log entry custom logs to store additional information
 		that may be useful for diagnosing problems.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -576,17 +582,16 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_USER'][background],
 				self._ColorScheme['USER_MESSAGE'][background],
 				self._ColorScheme['USER_BACKGROUND'][background],
-			], [""], icon, status_message.current_status_message, "~USER", message_text, self._environment, local_settings
+			], [""], self._icon_set.user, status_message.current_status_message, "~USER", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def message(self, *, icon: str = IconSet.message1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def message(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
 		"""
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -603,17 +608,16 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_MESSAGE'][background],
 				self._ColorScheme['MESSAGE_MESSAGE'][background],
 				self._ColorScheme['MESSAGE_BACKGROUND'][background],
-			], [""], icon, status_message.current_status_message, "@MESSAGE", message_text, self._environment, local_settings
+			], [""], self._icon_set.message, status_message.current_status_message, "@MESSAGE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def info(self, *, icon: str = IconSet.info1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def info(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
 		"""
 		Default information logging:
 		Can be used to log entry messages with specific content about the operation of the program.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -630,17 +634,16 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_INFO'][background],
 				self._ColorScheme['INFO_MESSAGE'][background],
 				self._ColorScheme['INFO_BACKGROUND'][background],
-			], [""], icon, status_message.current_status_message, "@INFO", message_text, self._environment, local_settings
+			], [""], self._icon_set.info, status_message.current_status_message, "@INFO", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def notice(self, *, icon: str = IconSet.notice1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def notice(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
 		"""
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -657,17 +660,16 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_NOTICE'][background],
 				self._ColorScheme['NOTICE_MESSAGE'][background],
 				self._ColorScheme['NOTICE_BACKGROUND'][background],
-			], [""], icon, status_message.current_status_message, "@NOTICE", message_text, self._environment, local_settings
+			], [""], self._icon_set.notice, status_message.current_status_message, "@NOTICE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def warning(self, *, icon: str = IconSet.warning1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def warning(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
 		"""
 		Warning information logging:
 		Can be used to log entry warnings that the program may work with unpredictable results.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -683,17 +685,16 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_WARNING'][local_background],
 				self._ColorScheme['WARNING_MESSAGE'][local_background],
 				self._ColorScheme['WARNING_BACKGROUND'][local_background],
-			], [""], icon, status_message.current_status_message, "!WARNING", message_text, self._environment, local_settings
+			], [""], self._icon_set.warning, status_message.current_status_message, "!WARNING", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def error(self, *, icon: str = IconSet.error1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def error(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
 		"""
 		Error information logging:
 		Used to log entry errors and crashes in the program.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -709,17 +710,16 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_ERROR'][local_background],
 				self._ColorScheme['ERROR_MESSAGE'][local_background],
 				self._ColorScheme['ERROR_BACKGROUND'][local_background],
-			], [""], icon, status_message.current_status_message, "!!ERROR", message_text, self._environment, local_settings
+			], [""], self._icon_set.error, status_message.current_status_message, "!!ERROR", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def critical(self, *, icon: str = IconSet.critical1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def critical(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
 		"""
 		Critical error information logging:
 		Used to log entry for critical and unpredictable program failures.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -737,16 +737,15 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_CRITICAL'][local_background],
 				self._ColorScheme['CRITICAL_MESSAGE'][local_background],
 				self._ColorScheme['CRITICAL_BACKGROUND'][local_background],
-			], [""], icon, status_message.current_status_message, "!!!@CRITICAL", message_text, self._environment, local_settings
+			], [""], self._icon_set.critical, status_message.current_status_message, "!!!@CRITICAL", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def start_process(self, *, icon: str = IconSet.process1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def start_process(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
 		"""
 		Stub.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -762,18 +761,17 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_PROGRESS'][local_background],
 				self._ColorScheme['PROGRESS_MESSAGE'][local_background],
 				self._ColorScheme['PROGRESS_BACKGROUND'][local_background],
-			], [""], icon, status_message.current_status_message, "&PROGRESS [*******.............] - 37%", message_text, self._environment, local_settings
+			], [""], self._icon_set.process, status_message.current_status_message, "&PROGRESS [*******.............] - 37%", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 		# pass
 		# Must run on a thread
 
-	def stop_process(self, *, icon: str = IconSet.process1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def stop_process(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
 		"""
 		Stub.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -782,12 +780,11 @@ class Logger(BasicLogger):
 		pass
 		# Make transition to SUCCESS or FAIL
 
-	def success(self, *, icon: str = IconSet.success1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def success(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
 		"""
 		Success information logging:
 		Used to log entry a message about the success of the process.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -805,17 +802,16 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_SUCCESS'][local_background],
 				self._ColorScheme['SUCCESS_MESSAGE'][local_background],
 				self._ColorScheme['SUCCESS_BACKGROUND'][local_background],
-			], [""], icon, status_message.current_status_message, "&SUCCESS", message_text, self._environment, local_settings
+			], [""], self._icon_set.success, status_message.current_status_message, "&SUCCESS", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def fail(self, *, icon: str = IconSet.fail1, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def fail(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
 		"""
 		Fail information logging:
 		Used to log entry a message about the failed execution of the process.
 
-		:param icon: Log entry icon
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
@@ -833,7 +829,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_FAIL'][local_background],
 				self._ColorScheme['FAIL_MESSAGE'][local_background],
 				self._ColorScheme['FAIL_BACKGROUND'][local_background],
-			], [""], icon, status_message.current_status_message, "&FAIL", message_text, self._environment, local_settings
+			], [""], self._icon_set.fail, status_message.current_status_message, "&FAIL", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()

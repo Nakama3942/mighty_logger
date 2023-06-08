@@ -17,6 +17,9 @@ limitations under the License.
 """
 
 class StatusMessageType:
+	"""
+	Wrapper class for status message.
+	"""
 	def __init__(self, message: str):
 		self.__current_status_message = message
 
@@ -25,6 +28,9 @@ class StatusMessageType:
 		return self.__current_status_message
 
 class StatusMessagePatterns:
+	"""
+	A class that emits the desired status message templates.
+	"""
 	@staticmethod
 	def completed() -> StatusMessageType:
 		return StatusMessageType("Completed")
