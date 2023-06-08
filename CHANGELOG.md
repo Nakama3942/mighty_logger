@@ -380,3 +380,18 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - Preparing a renamed. Minor changes have been made to README.md, adding links to a new repository with a new name.
 
 ---
+
+## v0.5.1 (08.06.2023)
+
+#### Bug Fixes:
+- Removed line breaks in HTML, since Qt's append() method adds a line break on its own; this way lists of HTML records will be displayed correctly in Qt (no unnecessary breaks), but when saving the file, you can choose whether to add line breaks between entries or not.
+
+#### Documenting:
+- Updated documentation;
+- Wrote the actual README.md, DATA.md and APPLYING.md (which corresponds to the current version).
+
+#### Enhancements:
+- Added 4 sets of icons for entries with the ability to create your own sets;
+- Added template status messages with the ability to specify your own status message.
+
+---

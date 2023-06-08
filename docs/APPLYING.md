@@ -10,7 +10,9 @@ Instructions for using the library for practical purposes.
 		- [Base change](#base-change)
 	- [Initial opening entry](#initial-opening-entry--available-since-v030-)
 	- [Text buffer](#text-buffer--available-since-v040-)
-	- [New settings system](#new-settings-system--available-since-v050-)
+	- [Settings system](#settings-system--available-since-v050-)
+    - [Status messages](#status-messages--available-since-v051-)
+    - [Icon sets](#icon-sets--available-since-v051-)
 
 ### Nuts and bolts (fully altered since v0.5.0)
 There are two environments (for now) for which logging can be implemented:
@@ -19,7 +21,7 @@ There are two environments (for now) for which logging can be implemented:
 
 Log entries are kept in a text buffer. If the logging environment is Console, then when the update_console() method is called, the program output to the console is completely updated (the main thing is to specify the correct screen width). However, when HTML logging, it is not known where and how to display the text (despite the fact that the library was originally created for logging in Qt - the library does not use this framework at all), so you need to get the text from the buffer and use it manually.
 
-Logging is done by the Logger class. To write to the log, you need to call a method with the desired entry type. There are 16 in total: [see section Data/"Entry types"](/docs/DATA.md#entry-types-).
+Logging is done by the Logger class. To write to the log, you need to call a method with the desired entry type. There are 16 in total: [see section Data/"Entry types"](/docs/DATA.md#entry-types--and-icon-in-set--).
 
 The fundamental difference between the two logging environments:
 ```python
@@ -51,7 +53,7 @@ if __name__ == "__main__":
 	logger.buffer().save("log.html")
 	# But, for example, in Qt you can add a widget that will display
 	# a log. Let it be a TextBrowser widget. In that case, we can do this:
-	# self.someTextBrowserObject.append(self.logger.get_buffer().get_data()[-1])
+	# self.someTextBrowserObject.append(self.logger.buffer().get_data()[-1])
 ```
 
 That's the whole fundamental difference. To summarize: to create a logger in the console, you need to specify the width of the console increased by one, and to create a logger with an HTML log, you need to change the logging environment to `LogEnvironments.HTML` and, apart entering, process the output manually.
@@ -83,8 +85,8 @@ As already mentioned, you need to follow the flags and names, but in practice, t
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
 > <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $███████████████^████@███████:██████████:█████:█████████:█████</span></span><br>
-> <span style='background-color: #;'><span style='color: #b0c4de;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-09 15:45:03.186454 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #add8e6;'>@NOTICE - </span><span style='color: #b0c4de;'>Notice data</span></span><br>
-> <span style='background-color: #;'><span style='color: #7fff00;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-09 15:45:03.186454 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #add8e6;'>@NOTICE - </span><span style='color: #7fff00;'>Notice data</span></span><br>
+> <span style='background-color: #;'><span style='color: #b0c4de;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-09 15:45:03.186454 </span>📌 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #add8e6;'>@NOTICE - </span><span style='color: #b0c4de;'>Notice data</span></span><br>
+> <span style='background-color: #;'><span style='color: #7fff00;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-09 15:45:03.186454 </span>📌 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #add8e6;'>@NOTICE - </span><span style='color: #7fff00;'>Notice data</span></span><br>
 
 ##### Base change
 The logger constructor calls the protected _color_scheme_init() method, which is responsible for initializing the logger color table. By overriding the method, you can change the color table or even create it from scratch.
@@ -97,7 +99,7 @@ The logger constructor calls the protected _color_scheme_init() method, which is
 | Second part of the text | Text color without background | Text color with background |
 | Third part of the text  | Text color without background | Text color with background |
 | Fourth part of the text | Text color without background | Text color with background |
-| fifth part of the text  | Text color without background | Text color with background |
+| Fifth part of the text  | Text color without background | Text color with background |
 | Background              |               -               |      Background color      |
 
 Each entry has its own individual color of the entry message. And the background color is formed according to the color of the entry message.
@@ -199,6 +201,7 @@ By standard, the logger itself creates a buffer, but it can be created earlier. 
 
 The standard text buffer manually changes the console output, but the basic one does not. But also the base one does not have any buffer display functionality at all. The programmer must manually retrieve the content and form the display.
 
+There are two options for the development of events:
 1. First, a buffer is created:
 	- Create a buffer (and configure if it's a console one)
     - Create a logger (it will pull up the buffer itself)
@@ -222,7 +225,7 @@ if __name__ == "__main__":
 # option №2
 
 from mighty_logger.text import BasicTextBuffer
-from mighty_logger import LoggerQ
+from mighty_logger import Logger
 
 if __name__ == "__main__":
 	self.logger = Logger(program_name="Test", log_environment=LogEnvironments.HTML)
@@ -265,7 +268,7 @@ Contents of the output.txt file:
 4
 ```
 
-### New settings system (available since v0.5.0)
+### Settings system (available since v0.5.0)
 With the merging of classes, the system for setting up the logger has been completely changed. It is now possible to configure each entry locally instead of changing the logger settings.
 
 And local settings got their globality. Now you do not need to specify, for example, italic font in each entry.
@@ -285,4 +288,69 @@ if __name__ == "__main__":
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
 > <span style='background-color: #;'><span style='color: #ffd700;'>-Unknown?entry> $███████████████^████@███████:██████████:█████:█████████:█████</span></span><br>
-> <b><span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #ff8c00;'>... </span><span style='color: #d2b48c;'>logger debugging</span></span></b><br>
+> <b><span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span>🐛 <span style='color: #ff8c00;'>... </span><span style='color: #d2b48c;'>logger debugging</span></span></b><br>
+
+### Status messages (available since v0.5.1)
+In v0.5.1, the understanding of the "status message" has been changed. Now this is not an ordinary string, but a full-fledged data type. Status message output is enabled by default, but it's not covered how to use it due to a change in v0.5.1. If no status message is specified, an empty message (which contains an ellipsis) will be displayed. Whatever the ellipsis is not displayed - you need to turn off its output either in the global or in the local settings.
+
+However, there may be a situation where you need to enter a status message. To do this, you need to use the Status Message Template. There are 46 templates in total (excluding empty and custom ones).
+
+All possible options for working with status message templates (for comparison):
+```python
+from mighty_logger import Logger
+from mighty_logger.src import LogEnvironments
+from mighty_logger.src import StatusMessagePatterns
+
+if __name__ == "__main__":
+	logger = Logger(program_name="Test", log_environment=LogEnvironments.HTML)
+	logger.debug(message_text="Hello world!")
+	logger.debug(message_text="Hello world!", local_settings={"status_message_local_entry": False})
+	logger.debug(status_message=StatusMessagePatterns.activated(), message_text="Hello world!")
+	logger.debug(status_message=StatusMessagePatterns.custom("Hooray"), message_text="Hello world!")
+	logger.buffer().save("log.html", False)
+```
+
+The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
+> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $███████████████^████@███████:██████████:█████:█████████:█████</span></span><br>
+> <span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-06-08 17:28:45.582804 </span>🐛 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>... </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Hello world!</span></span><br>
+> <span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-06-08 17:28:45.582804 </span>🐛 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Hello world!</span></span><br>
+> <span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-06-08 17:28:45.582804 </span>🐛 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Activated </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Hello world!</span></span><br>
+> <span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-06-08 17:28:45.582804 </span>🐛 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Hooray </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Hello world!</span></span><br>
+
+### Icon sets (available since v0.5.1)
+Also in v0.5.1, in addition to changing the status message, icons were added. In fact, these are ordinary UTF8 emoticons, but you can quickly understand the type of post from them without reading the type itself or determining the color of the entry message (that's why the icon).
+
+The library provides as many as four icon sets, but you can make your own set by inheriting from the icon set type.
+
+By default, the first set is used, but you can import and transfer to the Logger another set from the library.
+
+```python
+from mighty_logger import Logger
+from mighty_logger.src import LogEnvironments
+from mighty_logger.text import IconSetType, IconSet3
+
+class MyIconSet(IconSetType):
+	debug = '🐞'
+	debug_performance = ''
+
+if __name__ == "__main__":
+	logger = Logger(program_name="Test", log_environment=LogEnvironments.HTML)
+	logger.debug(message_text="Hello world!")
+	logger.set_icons(IconSet3())
+	logger.debug(message_text="Hello world!")
+	logger.set_icons(MyIconSet())
+	logger.debug(message_text="Hello world!")
+	logger.debug_performance(message_text="Hello world!")
+	logger.performance(message_text="Hello world!")
+	logger.buffer().save("log.html")
+```
+
+The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
+> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $███████████████^████@███████:██████████:█████:█████████:█████</span></span><br>
+> <span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-06-08 17:58:59.773554 </span>🐛 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>... </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Hello world!</span></span><br>
+> <span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-06-08 17:58:59.773554 </span>🚧 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>... </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Hello world!</span></span><br>
+> <span style='background-color: #;'><span style='color: #d2b48c;'>-?entry> </span><span style='color: #da70d6;'>*2023-06-08 17:58:59.773554 </span>🐞 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>... </span><span style='color: #deb887;'>%DEBUG - </span><span style='color: #d2b48c;'>Hello world!</span></span><br>
+> <span style='background-color: #;'><span style='color: #f5deb3;'>-?entry> </span><span style='color: #da70d6;'>*2023-06-08 17:58:59.773554 </span> <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>... </span><span style='color: #ffdead;'>%DEBUG PERFORMANCE - </span><span style='color: #f5deb3;'>Hello world!</span></span><br>
+> <span style='background-color: #;'><span style='color: #ffe4c4;'>-?entry> </span><span style='color: #da70d6;'>*2023-06-08 17:58:59.773554 </span> <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>... </span><span style='color: #ffebcd;'>%PERFORMANCE - </span><span style='color: #ffe4c4;'>Hello world!</span></span><br>
+
+As you can see, if you create an incomplete set, then entries whose icons are not defined will be displayed without icons. You need to define your own set of icons completely, or use ready-made sets. If the task is to remove the icons completely, you can import an empty set `EmptyIconSet` and use it. Then the icons will not be displayed.

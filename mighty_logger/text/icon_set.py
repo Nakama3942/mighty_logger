@@ -37,6 +37,9 @@ class IconSetType:
 	success = ''
 	fail = ''
 
+class EmptyIconSet(IconSetType):
+	...
+
 class IconSet1(IconSetType):
 	"""
 	First icon set.

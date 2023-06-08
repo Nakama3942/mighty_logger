@@ -93,4 +93,4 @@ class TextBufferType(ABC):
 		"""
 		raise NotImplementedError("Method update_console() is not implemented in the base class.")
 
-	# todo abstractmethod remove(), clear(), -open_save() or load()-
+	# todo v0.7.0 abstractmethod remove(), clear(), -open_save() or load()-

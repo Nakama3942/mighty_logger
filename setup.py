@@ -29,16 +29,16 @@ with open("README.md", "r", encoding='utf-8') as readme_file:
 
 setup(
     name="mighty_logger",
-    version="0.5.0",
+    version="0.5.1",
 
-    author="Kalynovsky 'Nakama3942' Valentin",
+    author="Kalynovsky 'Nakamura Akira' Valentin",
     author_email="nakama3942@gmail.com",
 
     description="Powerful functional logger with support for qt programming",
     long_description=readme,
     long_description_content_type="text/markdown",
 
-    url="https://github.com/Nakama3942/qt_colored_logger",
+    url="https://github.com/Nakama3942/mighty_logger",
 
     license="Apache License, Version 2.0, see LICENSE file",
 
@@ -57,7 +57,7 @@ setup(
         "Topic :: System :: Logging",
     ],
     project_urls={
-        'Releases': 'https://github.com/Nakama3942/qt_colored_logger/releases',
+        'Releases': 'https://github.com/Nakama3942/mighty_logger/releases',
     },
     python_requires='>=3.11',
 )

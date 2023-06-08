@@ -4,29 +4,30 @@ The library stores various important data for use that you may need to know whil
 #### Content
 - [Data](#data)
 	- [Content](#content)
-	- [Entry types](#entry-types-)
+	- [Entry types](#entry-types--and-icon-in-set--)
     - [Settings](#settings-)
+    - [Status message patterns](#status-message-patterns-)
 	- [X11 color table](#x11-color-table-)
 	- [Logger Color Scheme](#logger-color-scheme-)
 	- [Tree of ANSI escape code](#tree-of-ansi-escape-code-)
 
-###### Entry types:
-- DEBUG
-- DEBUG_PERFORMANCE
-- PERFORMANCE
-- EVENT
-- AUDIT
-- METRICS
-- USER
-- MESSAGE
-- INFO
-- NOTICE
-- WARNING
-- ERROR
-- CRITICAL
-- ~~PROGRESS~~ (*not implemented because the non-implemented START_PROCESS and STOP_PROCESS methods control this type*)
-- SUCCESS
-- FAIL
+###### Entry types (and icon in set):
+- debug
+- debug_performance
+- performance
+- event
+- audit
+- metrics
+- user
+- message
+- info
+- notice
+- warning
+- error
+- critical
+- ~~progress~~ (*not implemented because the non-implemented START_PROCESS and STOP_PROCESS methods control this type*)
+- success
+- fail
 
 ###### Settings:
 - Global:
@@ -42,12 +43,62 @@ The library stores various important data for use that you may need to know whil
 - Local:
 	- bold
     - italic
-    - invert
+    - invert (ignored in HTML)
     - time_local_entry
     - status_local_entry
     - status_message_local_entry
     - status_type_local_entry
     - message_local_entry
+
+###### Status message patterns:
+- `StatusMessagePatterns.completed()`
+- `StatusMessagePatterns.failed()`
+- `StatusMessagePatterns.skipped()`
+- `StatusMessagePatterns.lost()`
+- `StatusMessagePatterns.removed()`
+- `StatusMessagePatterns.created()`
+- `StatusMessagePatterns.updated()`
+- `StatusMessagePatterns.loaded()`
+- `StatusMessagePatterns.imported()`
+- `StatusMessagePatterns.exported()`
+- `StatusMessagePatterns.sent()`
+- `StatusMessagePatterns.received()`
+- `StatusMessagePatterns.done()`
+- `StatusMessagePatterns.canceled()`
+- `StatusMessagePatterns.rejected()`
+- `StatusMessagePatterns.activated()`
+- `StatusMessagePatterns.deactivated()`
+- `StatusMessagePatterns.awaiting()`
+- `StatusMessagePatterns.locked()`
+- `StatusMessagePatterns.unlocked()`
+- `StatusMessagePatterns.saved()`
+- `StatusMessagePatterns.moved()`
+- `StatusMessagePatterns.copied()`
+- `StatusMessagePatterns.restored()`
+- `StatusMessagePatterns.checked()`
+- `StatusMessagePatterns.verified()`
+- `StatusMessagePatterns.approved()`
+- `StatusMessagePatterns.confirmed()`
+- `StatusMessagePatterns.changed()`
+- `StatusMessagePatterns.reloaded()`
+- `StatusMessagePatterns.launched()`
+- `StatusMessagePatterns.stopped()`
+- `StatusMessagePatterns.suspended()`
+- `StatusMessagePatterns.renewed()`
+- `StatusMessagePatterns.included()`
+- `StatusMessagePatterns.exclude()`
+- `StatusMessagePatterns.installed()`
+- `StatusMessagePatterns.reset()`
+- `StatusMessagePatterns.connected()`
+- `StatusMessagePatterns.disconnected()`
+- `StatusMessagePatterns.enabled()`
+- `StatusMessagePatterns.disabled()`
+- `StatusMessagePatterns.inserted()`
+- `StatusMessagePatterns.extracted()`
+- `StatusMessagePatterns.open()`
+- `StatusMessagePatterns.closed()`
+- `StatusMessagePatterns.empty()`
+- `StatusMessagePatterns.custom("")`
 
 ###### X11 color table:
 - Red category:

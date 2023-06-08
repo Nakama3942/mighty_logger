@@ -398,7 +398,7 @@ class Logger(BasicLogger):
 		"""
 		return self._buffer
 
-	#todo v0.8.1 сделать конвертер из Console в HTML и наоборот
+	#todo v0.7.1 сделать конвертер из Console в HTML и наоборот
 
 	def debug(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
 		"""

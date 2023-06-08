@@ -21,6 +21,7 @@
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Nakama3942/mighty_logger?color=darkgreen&style=for-the-badge)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Nakama3942/mighty_logger?color=darkgreen&style=for-the-badge)
+![Lines of code](https://img.shields.io/tokei/lines/github/Nakama3942/mighty_logger?style=for-the-badge)
 
 </div>
 
@@ -47,11 +48,13 @@
 This library it was renamed to "Mighty logger" but before this library named is "Qt Colored logger". Old commits may search in this repository, but download old build may on next link: https://pypi.org/project/qt-colored-logger/ .
 -->
 
-This library has been renamed to "Mighty logger", but this library used to be called "Qt Colored logger". You can search for old commits in this repository, but you can download the old build from the [link](https://pypi.org/project/qt-colored-logger/).
-
-I often came across the opinion that it is better to use not standard output to the console, but full-fledged logging... However, the standard libraries do not provide exactly what I need... Therefore, I decided to make my own library! Which will implement the functionality I need.
+> I often came across the opinion that it is better to use not standard output to the console, but full-fledged logging... However, the standard libraries do not provide exactly what I need... Therefore, I decided to make my own library! Which will implement the functionality I need.
 
 I was inspired by the [colored-logs](https://pypi.org/project/colored-logs/) library.
+
+---
+
+*This library has been renamed to "Mighty logger", but this library used to be called "Qt Colored logger". You can search for old commits in this repository, but you can download the old build from the [link](https://pypi.org/project/qt-colored-logger/).*
 
 - [Content](#content)
 
@@ -62,11 +65,10 @@ The library implements the formation of a beautifully formatted colored text, si
 - Device name and registered profile, system name, etc. (this data is displayed only once at the beginning of the logging)
 - Log entry time
 - Log entry status
-- Description of the log entry status
 - Log entry type
 - Entry message
 
-Any information to the output can be turned off (according to the default, everything is included). It is also possible to change the output settings during the logging process. It is possible to change the colors of the foreground text and the background.
+Any information to the output can be turned off (according to the default, everything is included). It is also possible to change the output settings during the logging process. It is possible to change the colors of the foreground text and the background, icons ~~and animations~~.
 
 - [Content](#content)
 
@@ -79,11 +81,13 @@ Any information to the output can be turned off (according to the default, every
 - [x] v0.3.0 - Background update (added background for log entries)
 - [x] v0.4.0 - Buffer update (added text buffer)
 - [x] v0.5.0 - Unifying update (console and HTML are combined into one class)
-- [ ] v0.5.1 - Symbols update (added hint symbols near log entries types)
+- [x] v0.5.1 - Hints update (added status message templates and hint symbols (icons) near log entries status)
 - [ ] v0.6.0 - Progress update (added start of some log entries in threads (process))
-- [ ] v0.7.0 - Animation update (added animations in processes)
-- [ ] v0.8.0 - Search update (added search by log entry types)
-- [ ] v0.8.1 - Extension update (made wheel format and instruction of toml)
+- [ ] v0.6.1 - Animation update (added animations in processes)
+- [ ] v0.7.0 - "Buffer improvement" update (added buffer clearing and loading)
+- [ ] v0.7.1 - Conversion update (added conversion from Console type to HTML and vice versa)
+- [ ] v0.7.2 - Search update (added search by log entry types)
+- [ ] v0.7.3 - Extension update (made wheel format and instruction of toml)
 - [ ] v1.0.0 - Completion of logger development (logger development completed)
 - [ ] v1.1.0 - Font update (added a class that formats text outside the logger)
 
@@ -126,16 +130,17 @@ This is the simplest example of using the library:
 
 ```python
 from mighty_logger import Logger
+from mighty_logger.src import StatusMessagePatterns
 
 if __name__ == "__main__":
     logger = Logger(program_name="Test", console_width=115)
-    logger.message(status_message_text="Hooray", message_text="Hello world!")
+    logger.message(status_message=StatusMessagePatterns.custom("Hooray"), message_text="Hello world!")
 ```
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
 
 > <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $███████████████^████@███████:██████████:█████:█████████:█████</span></span><br>
-> <span style='background-color: #;'><span style='color: #b0e0e6;'>-?entry> </span><span style='color: #da70d6;'>*2023-04-09 12:37:07.198496 </span><span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Hooray </span><span style='color: #afeeee;'>@MESSAGE - </span><span style='color: #b0e0e6;'>Hello world!</span></span><br>
+> <span style='background-color: #;'><span style='color: #b0e0e6;'>-?entry> </span><span style='color: #da70d6;'>*2023-06-08 14:01:39.423493 </span>💬 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Hooray </span><span style='color: #afeeee;'>@MESSAGE - </span><span style='color: #b0e0e6;'>Hello world!</span></span><br>
 
 See the APPLYING.md file for more details.
 

@@ -18,6 +18,6 @@ limitations under the License.
 
 from .powerful_logger import Logger
 
-__authot__ = "Kalynovsky 'Nakama3942' Valentin"
-__version__ = "0.5.0"
+__authot__ = "Kalynovsky 'Nakamura Akira' Valentin"
+__version__ = "0.5.1"
 __email__ = "nakama3942@gmail.com"
