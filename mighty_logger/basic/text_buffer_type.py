@@ -77,6 +77,22 @@ class TextBufferType(ABC):
 		raise NotImplementedError("Method replace() is not implemented in the base class.")
 
 	@abstractmethod
+	def pop(self, number_string: int = -1) -> str:
+		"""
+		...
+		"""
+		raise NotImplementedError("Method remove() is not implemented in the base class.")
+
+	@abstractmethod
+	def remove(self, number_string: int = -1) -> None:
+		"""
+		...
+
+		:param number_string:
+		"""
+		raise NotImplementedError("Method remove() is not implemented in the base class.")
+
+	@abstractmethod
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
 		"""
 		Saves the text of the buffer to a file.
@@ -88,6 +104,13 @@ class TextBufferType(ABC):
 
 	@abstractmethod
 	def update_console(self) -> None:
+		"""
+		Refreshes the console, erasing output text and outputting an updated buffer.
+		"""
+		raise NotImplementedError("Method update_console() is not implemented in the base class.")
+
+	@abstractmethod
+	def update_entry(self) -> None:
 		"""
 		Refreshes the console, erasing output text and outputting an updated buffer.
 		"""

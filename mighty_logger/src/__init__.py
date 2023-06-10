@@ -26,5 +26,5 @@ from .color_picker import DecColor,\
 	Hex2Ansi,\
 	Ansi2Dec,\
 	Ansi2Hex
-from .log_environment import LogEnvironments
+from .log_enums import LogEnvironments, ClarifyingEntries, StayingEntries
 from .status_variables import StatusMessagePatterns

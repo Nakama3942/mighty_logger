@@ -20,7 +20,7 @@ import datetime, platform, os, random
 
 from mighty_logger.basic.patterns import Singleton
 from mighty_logger.src.ansi_format import GetAnsiFormat
-from mighty_logger.src.log_environment import LogEnvironments
+from mighty_logger.src.log_enums import LogEnvironments
 
 class BasicLogger(Singleton):
 	def __init__(
@@ -68,7 +68,7 @@ class BasicLogger(Singleton):
 	def _assemble_entry(
 			self,
 			colors: list[str, str, str, str, str, str],
-			animation: list,
+			animation: str,
 			icon: str,
 			status_message_text: str,
 			message_type: str,
@@ -102,7 +102,7 @@ class BasicLogger(Singleton):
 					(f"<b>" if bold else "") +
 					(f"<i>" if italic else "") +
 					f"<span style='background-color: #{colors[5]};'>" +
-					f"<span style='color: #{colors[4]};'>-?entry> {animation[0]}</span>" +  # todo Must add animation
+					f"<span style='color: #{colors[4]};'>-?entry> {animation} </span>" +
 					(f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
 					f"<div style='display: inline-block; white-space: pre; tab-size: 4'>{icon}&#9;</div>" +
 					(f"<span style='color: #{colors[1]};'>#STATUS: </span>" if status_entry else "") +
@@ -118,7 +118,7 @@ class BasicLogger(Singleton):
 					(f"{GetAnsiFormat('italic/on')}" if italic else "") +
 					(f"{GetAnsiFormat('invert/on')}" if invert else "") +
 					f"{colors[5]}" +
-					f"{colors[4]}-?entry> {animation[0]}" +  # todo Must add animation
+					f"{colors[4]}-?entry> {animation} " +
 					(f"{colors[0]}*{datetime.datetime.now()} " if time_entry else "") +
 					f"{icon}\t" +
 					(f"{colors[1]}#STATUS: " if status_entry else "") +

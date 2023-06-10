@@ -17,5 +17,26 @@ limitations under the License.
 """
 
 class LogEnvironments:
-	CONSOLE = 'console',
+	CONSOLE = 'console'
 	HTML = 'html'
+
+class ClarifyingEntries:
+	# for note_process()
+	DEBUG = 'debug()'
+	DEBUG_PERFORMANCE = 'debug_performance'
+	PERFORMANCE = 'performance'
+	EVENT = 'event'
+	AUDIT = 'audit'
+	METRICS = 'metrics'
+	USER = 'user'
+	MESSAGE = 'message'
+	INFO = 'info'
+	NOTICE = 'notice'
+	WARNING = 'warning'
+	ERROR = 'error'
+	CRITICAL = 'critical'
+
+class StayingEntries:
+	# for stop_process()
+	SUCCESS = '_success'
+	FAIL = '_fail'

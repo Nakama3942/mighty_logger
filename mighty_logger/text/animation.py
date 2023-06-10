@@ -21,9 +21,23 @@
 # ATTENTION! It's just a vision for the future. This is not yet used functionality.
 # Source: https://github.com/kopensource/colored_logs/blob/develop/colored_logs/models/animation_type.py
 
-class AnimationType:
-    Dots = ['.  ', '.. ', '...']
-    Wave = [
+class BasicAnimationType:
+    def __init__(self, animation: list):
+        self.__animation: list = animation
+
+    @property
+    def animation(self) -> list:
+        return self.__animation
+
+class IndefiniteAnimationType(BasicAnimationType):
+    ...
+
+class DefiniteAnimationType(BasicAnimationType):
+    ...
+
+class IndefiniteAnimations:
+    Dots = IndefiniteAnimationType(['.  ', '.. ', '...'])
+    Wave = IndefiniteAnimationType([
         '⸳·⸳․․․․․',
         '․⸳·⸳․․․․',
         '․․⸳·⸳․․․',
@@ -32,8 +46,8 @@ class AnimationType:
         '․․․․․⸳·⸳',
         '⸳․․․․․⸳·',
         '·⸳․․․․․⸳'
-    ]
-    WaveAutoReverse = [
+    ])
+    WaveAutoReverse = IndefiniteAnimationType([
         '⸳·⸳․․․․․',
         '․⸳·⸳․․․․',
         '․․⸳·⸳․․․',
@@ -44,32 +58,38 @@ class AnimationType:
         '․․․⸳·⸳․․',
         '․․⸳·⸳․․․',
         '․⸳·⸳․․․․'
-    ]
-    Clock1 = ['⌏', '⌎', '⌌', '⌍']
-    Clock2 = ['◴', '◷', '◶', '◵']
-    Clock3 = ['◴   ', ' ◷  ', '  ◶ ', '   ◵', '  ◶ ', ' ◷  ']
-    Circle = ['◜ ', ' ◝', ' ◞', '◟ ']
-    KnightRider = ['▪▪▫▫▫▫▫', '▪▪▪▫▫▫▫', '▫▪▪▪▫▫▫', '▫▫▪▪▪▫▫', '▫▫▫▪▪▪▫', '▫▫▫▫▪▪▪', '▫▫▫▫▫▪▪']
-    KnightRiderAutoReverse = [
+    ])
+    Clock1 = IndefiniteAnimationType(['⌏', '⌎', '⌌', '⌍'])
+    Clock2 = IndefiniteAnimationType(['◴', '◷', '◶', '◵'])
+    Clock3 = IndefiniteAnimationType(['◴   ', ' ◷  ', '  ◶ ', '   ◵', '  ◶ ', ' ◷  '])
+    Circle = IndefiniteAnimationType(['◜ ', ' ◝', ' ◞', '◟ '])
+    KnightRider = IndefiniteAnimationType(['▪▪▫▫▫▫▫', '▪▪▪▫▫▫▫', '▫▪▪▪▫▫▫', '▫▫▪▪▪▫▫', '▫▫▫▪▪▪▫', '▫▫▫▫▪▪▪', '▫▫▫▫▫▪▪'])
+    KnightRiderAutoReverse = IndefiniteAnimationType([
         '▪▫▫▫▫▫▫', '▪▪▫▫▫▫▫', '▪▪▪▫▫▫▫', '▫▪▪▪▫▫▫', '▫▫▪▪▪▫▫', '▫▫▫▪▪▪▫', '▫▫▫▫▪▪▪', '▫▫▫▫▫▪▪',
         '▫▫▫▫▫▫▪', '▫▫▫▫▫▪▪', '▫▫▫▫▪▪▪', '▫▫▫▪▪▪▫', '▫▫▪▪▪▫▫', '▫▪▪▪▫▫▫', '▪▪▪▫▫▫▫', '▪▪▫▫▫▫▫'
-    ]
-    Blocks1 = ['▖', '▗', '▝', '▘']
-    Blocks2 = ['▚', '▞']
-    Blocks3 = ['▟', '▙', '▛', '▜']
-    Blocks4 = ['▖', '▗', '▝', '▘', '▚', '▞', '▟', '▙', '▛', '▜', '█']
-    BlocksAutoReverse = ['▖', '▗', '▝', '▘', '▚', '▞', '▟', '▙', '▛', '▜', '█', '▜', '▛', '▙', '▟', '▞', '▚', '▘', '▝', '▗']
-    Line = ['▓▓▒▒▒▒▒▒', '▓▓▓▒▒▒▒▒', '▒▓▓▓▒▒▒▒', '▒▒▓▓▓▒▒▒', '▒▒▒▓▓▓▒▒', '▒▒▒▒▓▓▓▒', '▒▒▒▒▒▓▓▓', '▒▒▒▒▒▒▓▓', '▓▒▒▒▒▒▒▓']
-    LineAutoReverse = [
+    ])
+    Blocks1 = IndefiniteAnimationType(['▖', '▗', '▝', '▘'])
+    Blocks2 = IndefiniteAnimationType(['▚', '▞'])
+    Blocks3 = IndefiniteAnimationType(['▟', '▙', '▛', '▜'])
+    Blocks4 = IndefiniteAnimationType(['▖', '▗', '▝', '▘', '▚', '▞', '▟', '▙', '▛', '▜', '█'])
+    BlocksAutoReverse = IndefiniteAnimationType(['▖', '▗', '▝', '▘', '▚', '▞', '▟', '▙', '▛', '▜', '█', '▜', '▛', '▙', '▟', '▞', '▚', '▘', '▝', '▗'])
+    Line = IndefiniteAnimationType(['▓▓▒▒▒▒▒▒', '▓▓▓▒▒▒▒▒', '▒▓▓▓▒▒▒▒', '▒▒▓▓▓▒▒▒', '▒▒▒▓▓▓▒▒', '▒▒▒▒▓▓▓▒', '▒▒▒▒▒▓▓▓', '▒▒▒▒▒▒▓▓', '▓▒▒▒▒▒▒▓'])
+    LineAutoReverse = IndefiniteAnimationType([
         '▓▒▒▒▒▒▒▒', '▓▓▒▒▒▒▒▒', '▓▓▓▒▒▒▒▒', '▒▓▓▓▒▒▒▒', '▒▒▓▓▓▒▒▒', '▒▒▒▓▓▓▒▒', '▒▒▒▒▓▓▓▒', '▒▒▒▒▒▓▓▓', '▒▒▒▒▒▒▓▓',
         '▒▒▒▒▒▒▒▓', '▒▒▒▒▒▒▓▓', '▒▒▒▒▒▓▓▓', '▒▒▒▒▓▓▓▒', '▒▒▒▓▓▓▒▒', '▒▒▓▓▓▒▒▒', '▒▓▓▓▒▒▒▒', '▓▓▓▒▒▒▒▒', '▓▓▒▒▒▒▒▒'
-    ]
-    BlockVerticalFill = ['▁', '▂', '▃', '▅', '▆', '▇']
-    BlockVerticalFillAutoReverse = [
+    ])
+    BlockVerticalFill = IndefiniteAnimationType(['▁', '▂', '▃', '▅', '▆', '▇'])
+    BlockVerticalFillAutoReverse = IndefiniteAnimationType([
         '▁', '▂', '▃', '▅', '▆',
         '▇', '▆', '▅', '▃', '▂'
-    ]
-    BlockHorizontalFillAutoReverse = [
+    ])
+    BlockHorizontalFillAutoReverse = IndefiniteAnimationType([
         '▏', '▎', '▍', '▋', '▊',
         '▉', '▊', '▋', '▍', '▎'
-    ]
+    ])
+
+class DefiniteAnimations:
+    Dots = DefiniteAnimationType(['        ', '.       ', '..      ', '...     ', '....    ', '.....   ', '......  ', '....... ', '........'])
+    KnightRider = DefiniteAnimationType(['▫▫▫▫▫▫▫▫', '▪▫▫▫▫▫▫▫', '▪▪▫▫▫▫▫▫', '▪▪▪▫▫▫▫▫', '▪▪▪▪▫▫▫▫', '▪▪▪▪▪▫▫▫', '▪▪▪▪▪▪▫▫', '▪▪▪▪▪▪▪▫', '▪▪▪▪▪▪▪▪'])
+    Line = DefiniteAnimationType(['▒▒▒▒▒▒▒▒', '▓▒▒▒▒▒▒▒', '▓▓▒▒▒▒▒▒', '▓▓▓▒▒▒▒▒', '▓▓▓▓▒▒▒▒', '▓▓▓▓▓▒▒▒', '▓▓▓▓▓▓▒▒', '▓▓▓▓▓▓▓▒', '▓▓▓▓▓▓▓▓'])
+    BlockVerticalFill = DefiniteAnimationType(['        ', '▇       ', '▇▇      ', '▇▇▇     ', '▇▇▇▇    ', '▇▇▇▇▇   ', '▇▇▇▇▇▇  ', '▇▇▇▇▇▇▇ ', '▇▇▇▇▇▇▇▇'])

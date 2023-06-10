@@ -51,6 +51,13 @@ class BasicTextBuffer(Singleton, TextBufferType):
 			self._text_buffer.extend([""] * (number_string - len(self._text_buffer)))
 			self.append(message)
 
+	def pop(self, number_string: int = -1) -> str:
+		last = self._text_buffer.pop(number_string)
+		return last
+
+	def remove(self, number_string: int = -1) -> None:
+		self._text_buffer.pop(number_string)
+
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
 		with open(name_file, "w", encoding="utf-8") as text_buffer_file:
 			if clean:
@@ -59,6 +66,9 @@ class BasicTextBuffer(Singleton, TextBufferType):
 				text_buffer_file.write(self._text_buffer[0] + '\n' + '\n'.join(self._text_buffer[1:]))
 
 	def update_console(self) -> None:
+		super().update_console()
+
+	def update_entry(self) -> None:
 		super().update_console()
 
 class TextBuffer(Singleton, TextBufferType):
@@ -106,6 +116,15 @@ class TextBuffer(Singleton, TextBufferType):
 			self._buffer_size += new_excess_console_strings - old_excess_console_strings
 			self._text_buffer[number_string] = f"{message}"
 
+	def pop(self, number_string: int = -1) -> str:
+		self._buffer_size -= 1
+		last = self._text_buffer.pop(number_string)
+		return last
+
+	def remove(self, number_string: int = -1) -> None:
+		self._buffer_size -= 1
+		self._text_buffer.pop(number_string)
+
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
 		with open(name_file, "w", encoding="utf-8") as text_buffer_file:
 			if clean:
@@ -123,3 +142,9 @@ class TextBuffer(Singleton, TextBufferType):
 		sys.stdout.write('\n'.join(self._text_buffer))
 		sys.stdout.flush()  # Clearing the output buffer so that the changes are displayed immediately
 		self._cursor_string = self._buffer_size - 1
+
+	def update_entry(self) -> None:
+		# todo Translate to thread in a future update
+		sys.stdout.write(f'\r')
+		sys.stdout.write(self._text_buffer[-1])
+		sys.stdout.flush()  # Clearing the output buffer so that the changes are displayed immediately

@@ -21,7 +21,7 @@ class StatusMessageType:
 	Wrapper class for status message.
 	"""
 	def __init__(self, message: str):
-		self.__current_status_message = message
+		self.__current_status_message: str = message
 
 	@property
 	def current_status_message(self) -> str:

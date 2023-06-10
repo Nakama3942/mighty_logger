@@ -16,5 +16,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+from .animation import IndefiniteAnimations, DefiniteAnimations
 from .icon_set import IconSetType, EmptyIconSet, IconSet1, IconSet2, IconSet3, IconSet4
 from .text_buffer import BasicTextBuffer, TextBuffer
