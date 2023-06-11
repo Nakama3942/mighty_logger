@@ -20,9 +20,9 @@ class LogEnvironments:
 	CONSOLE = 'console'
 	HTML = 'html'
 
-class ClarifyingEntries:
+class TypesEntries:
 	# for note_process()
-	DEBUG = 'debug()'
+	DEBUG = 'debug'
 	DEBUG_PERFORMANCE = 'debug_performance'
 	PERFORMANCE = 'performance'
 	EVENT = 'event'
@@ -35,8 +35,3 @@ class ClarifyingEntries:
 	WARNING = 'warning'
 	ERROR = 'error'
 	CRITICAL = 'critical'
-
-class StayingEntries:
-	# for stop_process()
-	SUCCESS = '_success'
-	FAIL = '_fail'

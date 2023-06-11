@@ -1,19 +1,25 @@
 from time import sleep
 
 from mighty_logger import Logger
-from mighty_logger.src import StayingEntries, ClarifyingEntries
+from mighty_logger.src import TypesEntries
 
 if __name__ == "__main__":
-	logger = Logger(program_name="Test", console_width=115)
-	sleep(1)
-	logger.start_indefinite_process()
-	sleep(2)
-	logger.note_process(entry_type=ClarifyingEntries.MESSAGE, message_text="la la la")
-	sleep(3)
-	logger.stop_process(entry_type=StayingEntries.SUCCESS)
+	logger = Logger(program_name="Test", console_width=115, status_message_global_entry=False)
+
+	logger.message(message_text="Запущена установка программы")
 
 	sleep(1)
-	logger.start_definite_process()
+	logger.start_indefinite_process(message_text="Загрузка файлов")
+	sleep(2)
+	logger.note_process(entry_type=TypesEntries.INFO, message_text="Файлы загружены")
+	sleep(3)
+	logger.progress_rise(100)
+	logger.stop_process(message_text="Файлы разархивированы")
+
+	logger.warning(message_text="Найдена более новая версия программы")
+
+	sleep(1)
+	logger.start_definite_process(message_text="Установка файлов")
 	sleep(0.6)
 	logger.progress_rise(3)
 	sleep(0.4)
@@ -33,7 +39,7 @@ if __name__ == "__main__":
 	sleep(1.6)
 	logger.progress_rise(46)
 	sleep(1.1)
-	logger.note_process(entry_type=ClarifyingEntries.INFO, message_text="la la la")
+	logger.note_process(entry_type=TypesEntries.INFO, message_text="Файлы подготовлены")
 	sleep(3.7)
 	logger.progress_rise(76)
 	sleep(1.5)
@@ -46,6 +52,16 @@ if __name__ == "__main__":
 	logger.progress_rise(82)
 	sleep(1.3)
 	logger.progress_rise(85)
+	sleep(0.8)
+	logger.note_process(entry_type=TypesEntries.ERROR, message_text="Обнаружена несовместимость")
+	sleep(1.3)
+	logger.note_process(entry_type=TypesEntries.NOTICE, message_text="Несовместимость ликвидирована")
+	sleep(1.1)
+	logger.progress_rise(86)
+	sleep(0.6)
+	logger.progress_rise(87)
+	sleep(0.9)
+	logger.progress_rise(88)
 	sleep(0.9)
 	logger.progress_rise(89)
 	sleep(0.9)
@@ -57,6 +73,6 @@ if __name__ == "__main__":
 	sleep(1.5)
 	logger.progress_rise(100)
 	sleep(1.3)
-	logger.stop_process(entry_type=StayingEntries.SUCCESS)
+	logger.stop_process(message_text="Программа установлена")
 
 	logger.buffer().save("log.txt")
