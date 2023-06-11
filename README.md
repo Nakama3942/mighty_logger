@@ -88,6 +88,7 @@ Any information to the output can be turned off (according to the default, every
 - [ ] v0.7.1 - Conversion update (added conversion from Console type to HTML and vice versa)
 - [ ] v0.7.2 - Search update (added search by log entry types)
 - [ ] v0.7.3 - Extension update (made wheel format and instruction of toml)
+- [ ] v0.8.0 - ? (???) in short, add export to csv
 - [ ] v1.0.0 - Completion of logger development (logger development completed)
 - [ ] v1.1.0 - Font update (added a class that formats text outside the logger)
 

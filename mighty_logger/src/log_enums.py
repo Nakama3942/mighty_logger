@@ -35,3 +35,7 @@ class TypesEntries:
 	WARNING = 'warning'
 	ERROR = 'error'
 	CRITICAL = 'critical'
+	RESOLVED = 'resolved'
+	UNRESOLVED = 'unresolved'
+	ACHIEVEMENT = '_achievement'
+	MILESTONE = '_milestone'

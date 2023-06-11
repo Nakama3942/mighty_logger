@@ -5,29 +5,41 @@ The library stores various important data for use that you may need to know whil
 - [Data](#data)
 	- [Content](#content)
 	- [Entry types](#entry-types--and-icon-in-set--)
-    - [Settings](#settings-)
-    - [Status message patterns](#status-message-patterns-)
+	- [Settings](#settings-)
+	- [Status message patterns](#status-message-patterns-)
 	- [X11 color table](#x11-color-table-)
 	- [Logger Color Scheme](#logger-color-scheme-)
 	- [Tree of ANSI escape code](#tree-of-ansi-escape-code-)
 
 ###### Entry types (and icon in set):
-- debug
-- debug_performance
-- performance
-- event
-- audit
-- metrics
-- user
-- message
-- info
-- notice
-- warning
-- error
-- critical
-- ~~progress~~ (*not implemented because the non-implemented START_PROCESS and STOP_PROCESS methods control this type*)
-- success
-- fail
+- No category
+	- empty
+- Debugging (%)
+	- debug
+	- debug_performance
+	- performance
+- Event (~)
+	- event
+	- audit
+	- metrics
+	- user
+- Message (@)
+	- message
+	- info
+	- notice
+- Error (!)
+	- warning
+	- error
+	- critical
+	- resolved (v0.6.0)
+	- unresolved (v0.6.0)
+- Process (&)
+	- initiation (v0.6.0)
+	- progress (v0.6.0)
+    - achievement (v0.6.0)
+    - milestone (v0.6.0)
+	- success
+	- fail
 
 ###### Settings:
 - Global:
@@ -99,7 +111,19 @@ The library stores various important data for use that you may need to know whil
 - `StatusMessagePatterns.closed()`
 - `StatusMessagePatterns.empty()`
 - `StatusMessagePatterns.custom("")`
-
+<!--
+###### Searching:
+- ? - entry (no)
+- * - time
+- # - status
+- % - type: Debugging
+- ~ - type: Event
+- @ - type: Message
+- ! - type: Error
+- & - type: Process
+- $ - free
+- ^ - free
+-->
 ###### X11 color table:
 - Red category:
 	- MAROON
