@@ -356,6 +356,20 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_CRITICAL'] = [HexColor('FIREBRICK'), HexColor('DARKSALMON')]
 				self._ColorScheme['CRITICAL_MESSAGE'] = [HexColor('DARKRED'), HexColor('LIGHTSALMON')]
 				self._ColorScheme['CRITICAL_BACKGROUND'] = ["", HexColor('MAROON')]
+				# RESOLVED colors
+				self._ColorScheme['RESOLVED_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+				self._ColorScheme['RESOLVED_STATUS'] = [HexColor('ORANGE'), HexColor('CHARTREUSE')]
+				self._ColorScheme['RESOLVED_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+				self._ColorScheme['TYPE_RESOLVED'] = [HexColor('GREEN'), HexColor('PALEGREEN')]
+				self._ColorScheme['RESOLVED_MESSAGE'] = [HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
+				self._ColorScheme['RESOLVED_BACKGROUND'] = ["", HexColor('DARKGREEN')]
+				# UNRESOLVED colors
+				self._ColorScheme['UNRESOLVED_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+				self._ColorScheme['UNRESOLVED_STATUS'] = [HexColor('ORANGE'), HexColor('ORANGE')]
+				self._ColorScheme['UNRESOLVED_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('DARKORANGE')]
+				self._ColorScheme['TYPE_UNRESOLVED'] = [HexColor('FIREBRICK'), HexColor('YELLOW')]
+				self._ColorScheme['UNRESOLVED_MESSAGE'] = [HexColor('DARKRED'), HexColor('DARKYELLOW')]
+				self._ColorScheme['UNRESOLVED_BACKGROUND'] = ["", HexColor('DARKRED')]
 				# INITIATION colors
 				self._ColorScheme['INITIATION_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
 				self._ColorScheme['INITIATION_STATUS'] = [HexColor('ORANGE'), HexColor('CHARTREUSE')]
@@ -370,6 +384,20 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_PROGRESS'] = [HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
 				self._ColorScheme['PROGRESS_MESSAGE'] = [HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
 				self._ColorScheme['PROGRESS_BACKGROUND'] = ["", HexColor('SKYBLUE')]
+				# ACHIEVEMENT colors
+				self._ColorScheme['ACHIEVEMENT_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+				self._ColorScheme['ACHIEVEMENT_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+				self._ColorScheme['ACHIEVEMENT_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+				self._ColorScheme['TYPE_ACHIEVEMENT'] = [HexColor('YELLOW'), HexColor('NAVY')]
+				self._ColorScheme['ACHIEVEMENT_MESSAGE'] = [HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')]
+				self._ColorScheme['ACHIEVEMENT_BACKGROUND'] = ["", HexColor('DARKYELLOW')]
+				# MILESTONE colors
+				self._ColorScheme['MILESTONE_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+				self._ColorScheme['MILESTONE_STATUS'] = [HexColor('ORANGE'), HexColor('CHARTREUSE')]
+				self._ColorScheme['MILESTONE_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+				self._ColorScheme['TYPE_MILESTONE'] = [HexColor('GREEN'), HexColor('PALEGREEN')]
+				self._ColorScheme['MILESTONE_MESSAGE'] = [HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
+				self._ColorScheme['MILESTONE_BACKGROUND'] = ["", HexColor('DARKGREEN')]
 				# SUCCESS colors
 				self._ColorScheme['SUCCESS_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
 				self._ColorScheme['SUCCESS_STATUS'] = [HexColor('ORANGE'), HexColor('CHARTREUSE')]
@@ -936,7 +964,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_RESOLVED'][background],
 				self._ColorScheme['RESOLVED_MESSAGE'][background],
 				self._ColorScheme['RESOLVED_BACKGROUND'][background],
-			], self._progress_time, self._icon_set.event, status_message.current_status_message, "!RESOLVED", message_text, self._environment, local_settings
+			], self._progress_time, self._icon_set.resolved, status_message.current_status_message, "!RESOLVED", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -971,7 +999,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_UNRESOLVED'][background],
 				self._ColorScheme['UNRESOLVED_MESSAGE'][background],
 				self._ColorScheme['UNRESOLVED_BACKGROUND'][background],
-			], self._progress_time, self._icon_set.event, status_message.current_status_message, "!UNRESOLVED", message_text, self._environment, local_settings
+			], self._progress_time, self._icon_set.unresolved, status_message.current_status_message, "!UNRESOLVED", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -1006,19 +1034,18 @@ class Logger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = str(progress_stop - self._progress_start).split(".")[0]
 		func = getattr(self, "_initiation", None)
-		if func is not None and callable(func):
-			args = {}
-			if status_message != StatusMessageType("..."):
-				args['status_message'] = status_message
-			if message_text != "...":
-				args['message_text'] = message_text
-			if local_background is not None:
-				args['local_background'] = local_background
-			if local_settings is not None:
-				args['local_settings'] = local_settings
-			func(**args)
+		args = {}
+		if status_message != StatusMessageType("..."):
+			args['status_message'] = status_message
+		if message_text != "...":
+			args['message_text'] = message_text
+		if local_background is not None:
+			args['local_background'] = local_background
+		if local_settings is not None:
+			args['local_settings'] = local_settings
+		func(**args)
 
-		thread = Thread(target=self._indefinite_progress, args=(status_message, message_text, local_background, local_settings))
+		thread = Thread(target=self._indefinite_progress, kwargs=args)
 		thread.start()
 
 	def _indefinite_progress(
@@ -1096,19 +1123,18 @@ class Logger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = str(progress_stop - self._progress_start).split(".")[0]
 		func = getattr(self, "_initiation", None)
-		if func is not None and callable(func):
-			args = {}
-			if status_message != StatusMessageType("..."):
-				args['status_message'] = status_message
-			if message_text != "...":
-				args['message_text'] = message_text
-			if local_background is not None:
-				args['local_background'] = local_background
-			if local_settings is not None:
-				args['local_settings'] = local_settings
-			func(**args)
+		args = {}
+		if status_message != StatusMessageType("..."):
+			args['status_message'] = status_message
+		if message_text != "...":
+			args['message_text'] = message_text
+		if local_background is not None:
+			args['local_background'] = local_background
+		if local_settings is not None:
+			args['local_settings'] = local_settings
+		func(**args)
 
-		thread = Thread(target=self._definite_progress, args=(status_message, message_text, local_background, local_settings))
+		thread = Thread(target=self._definite_progress, kwargs=args)
 		thread.start()
 
 	def _definite_progress(
@@ -1204,17 +1230,16 @@ class Logger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = str(progress_stop - self._progress_start).split(".")[0]
 		func = getattr(self, entry_type, None)
-		if func is not None and callable(func):
-			args = {}
-			if status_message != StatusMessageType("..."):
-				args['status_message'] = status_message
-			if message_text != "...":
-				args['message_text'] = message_text
-			if local_background is not None:
-				args['local_background'] = local_background
-			if local_settings is not None:
-				args['local_settings'] = local_settings
-			func(**args)
+		args = {}
+		if status_message != StatusMessageType("..."):
+			args['status_message'] = status_message
+		if message_text != "...":
+			args['message_text'] = message_text
+		if local_background is not None:
+			args['local_background'] = local_background
+		if local_settings is not None:
+			args['local_settings'] = local_settings
+		func(**args)
 
 		self.empty(entry=last)
 
@@ -1245,17 +1270,16 @@ class Logger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = str(progress_stop - self._progress_start).split(".")[0]
 		func = getattr(self, "_success", None) if self._progress_rise == 100 else getattr(self, "_fail", None)
-		if func is not None and callable(func):
-			args = {}
-			if status_message != StatusMessageType("..."):
-				args['status_message'] = status_message
-			if message_text != "...":
-				args['message_text'] = message_text
-			if local_background is not None:
-				args['local_background'] = local_background
-			if local_settings is not None:
-				args['local_settings'] = local_settings
-			func(**args)
+		args = {}
+		if status_message != StatusMessageType("..."):
+			args['status_message'] = status_message
+		if message_text != "...":
+			args['message_text'] = message_text
+		if local_background is not None:
+			args['local_background'] = local_background
+		if local_settings is not None:
+			args['local_settings'] = local_settings
+		func(**args)
 
 		self._progress_rise = 0
 		self._progress_start = None
@@ -1291,7 +1315,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_INITIATION'][local_background],
 				self._ColorScheme['INITIATION_MESSAGE'][local_background],
 				self._ColorScheme['INITIATION_BACKGROUND'][local_background],
-			], self._progress_time, self._icon_set.success, status_message.current_status_message, "&INITIATION", message_text, self._environment, local_settings
+			], self._progress_time, self._icon_set.initiation, status_message.current_status_message, "&INITIATION", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -1324,7 +1348,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_ACHIEVEMENT'][background],
 				self._ColorScheme['ACHIEVEMENT_MESSAGE'][background],
 				self._ColorScheme['ACHIEVEMENT_BACKGROUND'][background],
-			], self._progress_time, self._icon_set.event, status_message.current_status_message, "&ACHIEVEMENT", message_text, self._environment, local_settings
+			], self._progress_time, self._icon_set.achievement, status_message.current_status_message, "&ACHIEVEMENT", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
@@ -1357,7 +1381,7 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_MILESTONE'][background],
 				self._ColorScheme['MILESTONE_MESSAGE'][background],
 				self._ColorScheme['MILESTONE_BACKGROUND'][background],
-			], self._progress_time, self._icon_set.event, status_message.current_status_message, "&MILESTONE", message_text, self._environment, local_settings
+			], self._progress_time, self._icon_set.milestone, status_message.current_status_message, "&MILESTONE", message_text, self._environment, local_settings
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
