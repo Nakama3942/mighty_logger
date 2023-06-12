@@ -79,16 +79,18 @@ class TextBufferType(ABC):
 	@abstractmethod
 	def pop(self, number_string: int = -1) -> str:
 		"""
-		...
+		Removes and returns the specified string from the buffer.
+
+		:param number_string: The string to be removed from the buffer
 		"""
 		raise NotImplementedError("Method remove() is not implemented in the base class.")
 
 	@abstractmethod
 	def remove(self, number_string: int = -1) -> None:
 		"""
-		...
+		Deletes without returning the specified string from the buffer.
 
-		:param number_string:
+		:param number_string: The string to be removed from the buffer
 		"""
 		raise NotImplementedError("Method remove() is not implemented in the base class.")
 
@@ -112,8 +114,9 @@ class TextBufferType(ABC):
 	@abstractmethod
 	def update_entry(self) -> None:
 		"""
-		Refreshes the console, erasing output text and outputting an updated buffer.
+		Rewrites the last line of output after updating the last line of the buffer.
+		Used (mostly) by the Progress bar (that is Progress string).
 		"""
-		raise NotImplementedError("Method update_console() is not implemented in the base class.")
+		raise NotImplementedError("Method update_entry() is not implemented in the base class.")
 
 	# todo v0.7.0 abstractmethod remove(), clear(), -open_save() or load()-

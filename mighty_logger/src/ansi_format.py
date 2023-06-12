@@ -1,5 +1,5 @@
 """
-Module with implementation of ANSI escape codes.
+A module with implementation of ANSI escape codes.
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 

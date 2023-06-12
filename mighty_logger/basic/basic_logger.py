@@ -24,17 +24,17 @@ from mighty_logger.src.log_enums import LogEnvironments
 
 class BasicLogger(Singleton):
 	def __init__(
-			self,
-			program_name: str,
+		self,
+		program_name: str,
 	) -> None:
 		self._program_name = program_name
 		self._settings: dict = {}
 		self._ID = random.randint(1000000, 9999999)
 
 	def _initialized_data(
-			self,
-			colors: list[str, str],
-			env: str
+		self,
+		colors: list[str, str],
+		env: str
 	) -> str:
 		"""
 		A method that assemble an entry of system initialized data.
@@ -66,15 +66,15 @@ class BasicLogger(Singleton):
 			)
 
 	def _assemble_entry(
-			self,
-			colors: list[str, str, str, str, str, str],
-			animation: str,
-			icon: str,
-			status_message_text: str,
-			message_type: str,
-			message_text: str,
-			env: str,
-			local_settings: dict
+		self,
+		colors: list[str, str, str, str, str, str],
+		animation: str,
+		icon: str,
+		status_message_text: str,
+		message_type: str,
+		message_text: str,
+		env: str,
+		local_settings: dict
 	) -> str:
 		"""
 		A method that assemble an entry into a string and returns it.
@@ -104,7 +104,7 @@ class BasicLogger(Singleton):
 					f"<span style='background-color: #{colors[5]};'>" +
 					f"<span style='color: #{colors[4]};'>-?entry> {animation} </span>" +
 					(f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
-					f"<div style='display: inline-block; white-space: pre; tab-size: 4'>{icon}&#9;</div>" +
+					f"<div style='display: inline-block; white-space: pre; tab-size: 4'>{icon} </div>" +
 					(f"<span style='color: #{colors[1]};'>#STATUS: </span>" if status_entry else "") +
 					(f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if status_message_entry else "") +
 					(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if status_type_entry else "") +
@@ -120,7 +120,7 @@ class BasicLogger(Singleton):
 					f"{colors[5]}" +
 					f"{colors[4]}-?entry> {animation} " +
 					(f"{colors[0]}*{datetime.datetime.now()} " if time_entry else "") +
-					f"{icon}\t" +
+					f"{icon} " +
 					(f"{colors[1]}#STATUS: " if status_entry else "") +
 					(f"{colors[2]}{status_message_text} " if status_message_entry else "") +
 					(f"{colors[3]}{message_type} - " if status_type_entry else "") +

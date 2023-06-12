@@ -47,21 +47,21 @@ class Logger(BasicLogger):
 	"""
 
 	def __init__(
-			self,
-			*,
-			program_name: str = "Unknown",
-			log_environment: str = LogEnvironments.CONSOLE,
-			console_width: int = 60,
-			icon_set: IconSetType = IconSet1(),
-			time_global_entry: bool = True,
-			status_global_entry: bool = True,
-			status_message_global_entry: bool = True,
-			status_type_global_entry: bool = True,
-			message_global_entry: bool = True,
-			global_bold_font: bool = False,
-			global_italic_font: bool = False,
-			global_invert_font: bool = False,
-			global_background: bool = False,
+		self,
+		*,
+		program_name: str = "Unknown",
+		log_environment: str = LogEnvironments.CONSOLE,
+		console_width: int = 60,
+		icon_set: IconSetType = IconSet1(),
+		time_global_entry: bool = True,
+		status_global_entry: bool = True,
+		status_message_global_entry: bool = True,
+		status_type_global_entry: bool = True,
+		message_global_entry: bool = True,
+		global_bold_font: bool = False,
+		global_italic_font: bool = False,
+		global_invert_font: bool = False,
+		global_background: bool = False,
 	) -> None:
 		if not hasattr(self, "_ColorScheme"):
 			super().__init__(program_name)
@@ -400,10 +400,7 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	# def set_animation(self):
-	# 	pass
-
-	def set_icons(self, icon_set: IconSetType):
+	def set_icons(self, icon_set: IconSetType) -> None:
 		"""
 		Changes the current icon set used by the Logger.
 
@@ -411,7 +408,14 @@ class Logger(BasicLogger):
 		"""
 		self._icon_set = icon_set
 
-	def set_color(self, *, logger_color_name: str, color_value: list[int, int, int], foreground: bool = True, background: bool = False) -> None:
+	def set_color(
+		self,
+		*,
+		logger_color_name: str,
+		color_value: list[int, int, int],
+		foreground: bool = True,
+		background: bool = False
+	) -> None:
 		"""
 		A method that sets the ANSI escape code color in the color table of the logger.
 		May throw a ColorException if the given color is not in the table.
@@ -452,17 +456,31 @@ class Logger(BasicLogger):
 
 	#todo v0.7.1 сделать конвертер из Console в HTML и наоборот
 
-	def empty(self, *, entry: str) -> None:
+	def empty(
+		self,
+		*,
+		entry: str
+	) -> None:
 		"""
-		...
+		Empty logging:
+		A type denoting an "empty" entry - an entry that carries nothing but the purest text.
+		\n
+		Since v0.6.0
 
-		:param entry:
+		:param entry: "Empty" entry
 		"""
 		self._buffer << entry
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def debug(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def debug(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Debugging information logging:
 		Can be used to log entry any information while debugging an application.
@@ -470,7 +488,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -488,7 +506,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def debug_performance(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def debug_performance(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Performance debugging information logging:
 		Can be used to log entry the execution time of operations or other
@@ -497,7 +522,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -515,7 +540,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def performance(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def performance(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Performance information logging:
 		Can be used to log entry the execution time of operations or
@@ -524,7 +556,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -542,7 +574,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def event(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def event(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Event information logging:
 		Can be used to log entry specific events in the application,
@@ -551,7 +590,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -569,7 +608,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def audit(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def audit(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Audit information logging:
 		Can be used to log entry changes in the system, such as creating or
@@ -578,7 +624,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -596,7 +642,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def metrics(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def metrics(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Metrics information logging:
 		Can be used to log entry metrics to track application performance and identify issues.
@@ -604,7 +657,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -622,7 +675,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def user(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def user(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
 		User information logging:
 		Can be used to log entry custom logs to store additional information
@@ -631,7 +691,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -649,7 +709,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def message(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def message(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
@@ -657,7 +724,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -675,7 +742,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def info(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def info(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Default information logging:
 		Can be used to log entry messages with specific content about the operation of the program.
@@ -683,7 +757,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -701,7 +775,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def notice(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def notice(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
@@ -709,7 +790,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -727,7 +808,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def warning(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def warning(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Warning information logging:
 		Can be used to log entry warnings that the program may work with unpredictable results.
@@ -735,7 +823,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -752,7 +840,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def error(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def error(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Error information logging:
 		Used to log entry errors and crashes in the program.
@@ -760,7 +855,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -777,7 +872,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def critical(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def critical(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Critical error information logging:
 		Used to log entry for critical and unpredictable program failures.
@@ -785,7 +887,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -804,14 +906,24 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def resolved(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def resolved(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
-		...
+		Resolved information logging:
+		Used to log entry resolved solutions to problems and errors.
+		\n
+		Since v0.6.0
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -829,14 +941,24 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def unresolved(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def unresolved(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
-		...
+		Unresolved information logging:
+		Used to log entry unresolved solutions to problems and errors.
+		\n
+		Since v0.6.0
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -854,11 +976,30 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def start_indefinite_process(self, *, animation: IndefiniteAnimationType = IndefiniteAnimations.Line, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def start_indefinite_process(
+		self,
+		*,
+		animation: IndefiniteAnimationType = IndefiniteAnimations.Line,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
-		Stub.
+		A method that starts the whole process of indefinite logging. While the process
+		is running, you cannot start other processes in the Logger and call the entering
+		methods directly. While the process is running - the last entry will play
+		the animation of the process. Before starting a process, you can specify that
+		the process Logs and configure Initiation and Progress entries.
+		\n
+		Since v0.6.0
+
+		:param animation: The name of the animation that will play in the Progress entry
+		:param status_message: Log entry status message
+		:param message_text: Log entry message
+		:param local_background: Display entry with background?
+		:param local_settings: Dictionary of local entering settings
 		"""
-		# process_type - ProcessType
 		self._animation = animation
 
 		self._progress_start = datetime.now()
@@ -880,14 +1021,25 @@ class Logger(BasicLogger):
 		thread = Thread(target=self._indefinite_progress, args=(status_message, message_text, local_background, local_settings))
 		thread.start()
 
-	def _indefinite_progress(self, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def _indefinite_progress(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
-		Stub.
+		A method that creates an animation entry. Only works on the last string.
+		You need to run in a thread. Terminates when the process stop flag
+		is set by the Logger.stop_process() method.
+		\n
+		Since v0.6.0
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -914,12 +1066,31 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def start_definite_process(self, *, animation: DefiniteAnimationType = DefiniteAnimations.Line, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def start_definite_process(
+		self,
+		*,
+		progress_bar: DefiniteAnimationType = DefiniteAnimations.Line,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
-		Stub.
+		A method that starts the whole process of a definite logging. While the process
+		is running, you cannot start other processes in the Logger and call the entering
+		methods directly. While the process is running - the last entry will display
+		the progress of the process. Before starting a process, you can specify that
+		the process Logs and configure Initiation and Progress entries.
+		\n
+		Since v0.6.0
+
+		:param progress_bar: The name of the progress bar that will play in the Progress entry
+		:param status_message: Log entry status message
+		:param message_text: Log entry message
+		:param local_background: Display entry with background?
+		:param local_settings: Dictionary of local entering settings
 		"""
-		# process_type - ProcessType
-		self._animation = animation
+		self._animation = progress_bar
 
 		self._progress_start = datetime.now()
 		progress_stop = datetime.now()
@@ -940,14 +1111,25 @@ class Logger(BasicLogger):
 		thread = Thread(target=self._definite_progress, args=(status_message, message_text, local_background, local_settings))
 		thread.start()
 
-	def _definite_progress(self, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def _definite_progress(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
-		Stub.
+		A method that creates a progress bar entry. Only works on the last string.
+		You need to run in a thread. Terminates when the process stop flag
+		is set by the Logger.stop_process() method.
+		\n
+		Since v0.6.0
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -977,14 +1159,46 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def progress_rise(self, percent: int):
+	def progress_rise(self, percent: int) -> None:
+		"""
+		Sets the process completion percentage. Usually used for a specific process.
+		However, it is used for both types of processes as a flag for the success
+		of the process. If you set the percentage of completion to 100% before terminating
+		the process, the process will complete successfully, otherwise it will fail.
+		\n
+		Since v0.6.0
+
+		:param percent: Process completion percentage
+		"""
 		self._progress_rise = percent
 
-	def note_process(self, *, entry_type: str, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def note_process(
+		self,
+		*,
+		entry_type: str,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
-		Stub.
+		An important method that allows you to add standard non-process entry types
+		while a process is running. It's important to note that this entry will still be
+		associated with the process, so it's best to use this entry when you want to describe
+		intermediate process execution entries beyond process initiation, progress, and
+		success/failure entries. Adds the ability to use two additional entry types that
+		cannot be used outside a process: achievement and milestone.
+		\n
+		Use `from mighty_logger.src import TypesEntries` for `entry_type`.
+		\n
+		Since v0.6.0
+
+		:param entry_type: The type of entry to be entered in the progress history
+		:param status_message: Log entry status message
+		:param message_text: Log entry message
+		:param local_background: Display entry with background?
+		:param local_settings: Dictionary of local entering settings
 		"""
-		# entry_type - ClarifyingEntries
 		last = self._buffer.pop()
 
 		progress_stop = datetime.now()
@@ -1004,11 +1218,27 @@ class Logger(BasicLogger):
 
 		self.empty(entry=last)
 
-	def stop_process(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = None, local_settings: dict = None) -> None:
+	def stop_process(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
 		"""
-		Stub.
+		The method that terminates the process. If before the end of the process
+		its execution has reached 100% - the process was completed successfully,
+		otherwise - failed. After calling this method, the Progress entry will be replaced
+		by the entry with the result of the process execution.
+		\n
+		Since v0.6.0
+
+		:param status_message: Log entry status message
+		:param message_text: Log entry message
+		:param local_background: Display entry with background?
+		:param local_settings: Dictionary of local entering settings
 		"""
-		# entry_type - StayingEntries
 		self._progress_interrupt = True
 		self._buffer.remove()
 
@@ -1032,14 +1262,22 @@ class Logger(BasicLogger):
 		self._progress_time = "       "
 		self._progress_interrupt = False
 
-	def _initiation(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def _initiation(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
-		...
+		Initiation information logging:
+		Used to explain the running process.
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -1058,14 +1296,22 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def _achievement(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def _achievement(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
-		...
+		Achievement information logging:
+		Used to log entry the achievements gained while executing a process.
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -1083,14 +1329,22 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def _milestone(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def _milestone(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
-		...
+		Milestone information logging:
+		Used to log entry the milestones gained while executing a process.
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -1108,7 +1362,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def _success(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def _success(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Success information logging:
 		Used to log entry a message about the success of the process.
@@ -1116,7 +1377,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}
@@ -1136,7 +1397,14 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
-	def _fail(self, *, status_message: StatusMessageType = StatusMessageType("..."), message_text: str = "...", local_background: bool = True, local_settings: dict = None) -> None:
+	def _fail(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
 		"""
 		Fail information logging:
 		Used to log entry a message about the failed execution of the process.
@@ -1144,7 +1412,7 @@ class Logger(BasicLogger):
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local recording settings
+		:param local_settings: Dictionary of local entering settings
 		"""
 		if local_settings is None:
 			local_settings = {}

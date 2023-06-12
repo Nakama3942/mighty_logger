@@ -1,5 +1,6 @@
 """
-A module with a list of environment options in which the modules work.
+A module with a list of environment options in which the modules work
+and entry types that can be passed to an entry in Progress bar.
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
@@ -17,11 +18,17 @@ limitations under the License.
 """
 
 class LogEnvironments:
+	"""
+	Environments of Logger.
+	"""
 	CONSOLE = 'console'
 	HTML = 'html'
 
 class TypesEntries:
-	# for note_process()
+	"""
+	Entries types of Logger.
+	Use for Logger.note_process().
+	"""
 	DEBUG = 'debug'
 	DEBUG_PERFORMANCE = 'debug_performance'
 	PERFORMANCE = 'performance'

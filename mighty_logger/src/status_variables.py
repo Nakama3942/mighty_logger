@@ -1,5 +1,5 @@
 """
-Module with implementation of entry status messages.
+A module with implementation of entry status messages.
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 

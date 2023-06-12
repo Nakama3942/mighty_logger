@@ -1,5 +1,5 @@
 """
-Module with implementation of colors and their formatter functions.
+A module with implementation of colors and their formatter functions.
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
