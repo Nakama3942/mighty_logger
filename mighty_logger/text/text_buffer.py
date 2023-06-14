@@ -62,11 +62,11 @@ class BasicTextBuffer(Singleton, TextBufferType):
 		with open(name_file, "w", encoding="utf-8") as text_buffer_file:
 			if clean:
 				text_buffer_file.write(
-					'<pre>' + self._text_buffer[0] + '\n' + '\n'.join(self._text_buffer[1:]) + '<pre>'
+					'<pre>' + self._text_buffer[0] + '\n' + '\n'.join(self._text_buffer[1:]) + '</pre>'
 				)
 			else:
 				text_buffer_file.write(
-					'<pre>' + self._text_buffer[0] + ''.join(self._text_buffer[1:]) + '<pre>'
+					'<pre>' + self._text_buffer[0] + ''.join(self._text_buffer[1:]) + '</pre>'
 				)
 
 	def update_console(self) -> None:

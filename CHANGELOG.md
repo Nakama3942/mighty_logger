@@ -395,3 +395,45 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - Added template status messages with the ability to specify your own status message.
 
 ---
+
+## v0.6.0 (14.06.2023)
+
+#### Documenting:
+- Updated documentation;
+- Wrote the actual README.md, DATA.md and APPLYING.md (which corresponds to the current version).
+
+#### Enhancements:
+- Implemented Processes (an abstract concept that appears to be a new functionality):
+	- Added new entry types:
+		- empty (available[^available]);
+		- resolved (available[^available]);
+		- unresolved (available[^available]);
+		- initiation (hidden[^hidden]; auto[^auto]);
+		- achievement (hidden[^hidden]; manual[^manual]);
+		- milestone (hidden[^hidden]; manual[^manual]);
+		- ~~progress~~ ->
+			- indefinite_progress (hidden[^hidden]; auto[^auto]);
+			- definite_progress (hidden[^hidden]; auto[^auto]);
+		- success (available[^available]) -> (hidden[^hidden]; auto[^auto]);
+        - fail (available[^available]) -> (hidden[^hidden]; auto[^auto]);
+	- Added new *control* methods:
+		- `Logger.start_indefinite_process()` - starts an indefinite Process;
+		- `Logger.start_definite_process()` - starts a definite Process;
+		- `Logger.progress_rise()` - sets the percentage of completion of the Process;
+		- `Logger.note_process()` - adds an entry to the Process;
+		- `Logger.stop_process()` - terminates the Process;
+	- Added animations for Processes;
+	- Added enum `TypesEntries` for `Logger.note_process()`;
+- Added extraction of strings from the buffer by the `pop()` method;
+- Beautifully decorated the code in the Logger class;
+- Expanded icon set (for new entries).
+
+[^available]: Can be used not only in Processes, but also in a regular Logger
+
+[^hidden]: Can only be used in Processes, cannot call an entry from the Logger
+
+[^auto]: Available only to Logger
+
+[^manual]: Available to the programmer
+
+---

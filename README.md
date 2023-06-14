@@ -82,7 +82,7 @@ Any information to the output can be turned off (according to the default, every
 - [x] v0.4.0 - Buffer update (added text buffer)
 - [x] v0.5.0 - Unifying update (console and HTML are combined into one class)
 - [x] v0.5.1 - Hints update (added status message templates and hint symbols (icons) near log entries status)
-- [ ] v0.6.0 - Progress update (added start of some log entries in threads (process))
+- [x] v0.6.0 - Progress update (added start of some log entries in threads (process))
 - [ ] v0.6.1 - Animation update (added animations in processes)
 - [ ] v0.7.0 - "Buffer improvement" update (added buffer clearing and loading)
 - [ ] v0.7.1 - Conversion update (added conversion from Console type to HTML and vice versa)
@@ -140,8 +140,10 @@ if __name__ == "__main__":
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
 
-> <span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $███████████████^████@███████:██████████:█████:█████████:█████</span></span><br>
-> <span style='background-color: #;'><span style='color: #b0e0e6;'>-?entry> </span><span style='color: #da70d6;'>*2023-06-08 14:01:39.423493 </span>💬 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Hooray </span><span style='color: #afeeee;'>@MESSAGE - </span><span style='color: #b0e0e6;'>Hello world!</span></span><br>
+<pre>
+<span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $███████████████^████@███████:██████████:█████:█████████:█████</span></span>
+<span style='background-color: #;'><span style='color: #b0e0e6;'>-?entry>         </span><span style='color: #da70d6;'>*2023-06-08 14:01:39.423493 </span>💬 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Hooray </span><span style='color: #afeeee;'>@MESSAGE - </span><span style='color: #b0e0e6;'>Hello world!</span></span>
+</pre>
 
 See the APPLYING.md file for more details.
 

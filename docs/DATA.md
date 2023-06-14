@@ -35,9 +35,9 @@ The library stores various important data for use that you may need to know whil
 	- unresolved (v0.6.0)
 - Process (&)
 	- initiation (v0.6.0)
-	- progress (v0.6.0)
-    - achievement (v0.6.0)
-    - milestone (v0.6.0)
+	- process (v0.6.0)
+	- achievement (v0.6.0)
+	- milestone (v0.6.0)
 	- success
 	- fail
 
@@ -54,13 +54,13 @@ The library stores various important data for use that you may need to know whil
 	- global_background (the only one available that can be changed during operation)
 - Local:
 	- bold
-    - italic
-    - invert (ignored in HTML)
-    - time_local_entry
-    - status_local_entry
-    - status_message_local_entry
-    - status_type_local_entry
-    - message_local_entry
+	- italic
+	- invert (ignored in HTML)
+	- time_local_entry
+	- status_local_entry
+	- status_message_local_entry
+	- status_type_local_entry
+	- message_local_entry
 
 ###### Status message patterns:
 - `StatusMessagePatterns.completed()`
