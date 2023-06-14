@@ -35,7 +35,7 @@ limitations under the License.
 ---
 -->
 
-## v0.0.1 (13.03.2023)
+## Alpha-release v0.0.1 (13.03.2023)
 
 #### Release
 The library implements the formation of a beautifully formatted colored text, similar to a log, which has all the necessary information:
@@ -52,7 +52,10 @@ Any information to the output can be turned off (according to the standard, ever
 
 ---
 
-## <span style='color: #ff3333;'>v0.0.2 (14.03.2023)</span>
+## Little update v0.0.2 (16.03.2023)
+
+#### Bug Fixes:
+- Fixed some typos.
 
 #### Enhancements:
 - Added new colors:
@@ -67,27 +70,11 @@ Any information to the output can be turned off (according to the standard, ever
 	- FAIL();
 	- START_PROCESS(); *stub - not implemented*
 	- STOP_PROCESS(). *stub - not implemented*
-
----
-
-## <span style='color: #ff3333;'>v0.0.3 (14.03.2023)</span>
-
-#### Bug Fixes:
-- Fixed some typos.
-
-#### Enhancements:
 - Added some links to PyPi.
 
 ---
 
-## v0.0.4 (16.03.2023)
-
-#### Bug Fixes:
-- An error in the LoggerQ.INFO() method that accessed an unregistered color (a typo in the name of the color: instead of OCEANBLUE and DARKOCEANBLUE - OKEANBLUE and DARKOKEANBLUE, respectively). Do not use v0.0.2 and v0.0.3!
-
----
-
-## <span style='color: #ff3333;'>v0.0.5 (17.03.2023)</span>
+## Types update v0.0.3 (17.03.2023)
 
 #### Documenting:
 - The LoggerQ class is fully documented.
@@ -130,21 +117,7 @@ Any information to the output can be turned off (according to the standard, ever
 
 ---
 
-## <span style='color: #ff3333;'>v0.0.6 (17.03.2023)</span>
-
-#### Bug Fixes:
-- I renamed the color VIOLET to BLUEVIOLET, and in the code I still refer to VIOLET. Fixed this bug.
-
----
-
-## v0.0.7 (17.03.2023)
-
-#### Bug Fixes:
-- I renamed the color RED to FIREBRICK, and in the code I still refer to RED. Fixed this bug.
-
----
-
-## <span style='color: #ff3333;'>v0.0.8 (25.03.2023)</span>
+## Color update v0.0.4 (25.03.2023)
 
 #### Bug Fixes:
 - Found and fixed several minor bugs.
@@ -204,7 +177,7 @@ Any information to the output can be turned off (according to the standard, ever
 
 ---
 
-## v0.1.0 (26.03.2023)
+## First official release v0.1.0 (26.03.2023)
 
 #### Bug Fixes:
 - Fixed a bug that occurs when passing arguments to the LoggerQ constructor;
@@ -220,7 +193,7 @@ Any information to the output can be turned off (according to the standard, ever
 
 ---
 
-## v0.2.0 (29.03.2023)
+## Structural update v0.2.0 (29.03.2023)
 
 #### Documentation:
 - Documented all new functionality;
@@ -242,7 +215,7 @@ Any information to the output can be turned off (according to the standard, ever
 
 ---
 
-## v0.2.1 (31.03.2023)
+## Tests and protections v0.2.1 (31.03.2023)
 
 #### Bug Fixes:
 - Fixed old calls to Singleton and BasicLogger to new _Singleton and _BasicLogger in HtmlColorSetInitQ, LoggerQ, AnsiColorSetInit and Logger classes;
@@ -277,7 +250,7 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 ---
 
-## v0.3.0 (05.04.2023)
+## Background update v0.3.0 (05.04.2023)
 
 #### Documenting:
 - Updated documentation;
@@ -304,7 +277,7 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 ---
 
-## v0.4.0 (09.04.2023)
+## Buffer update v0.4.0 (09.04.2023)
 
 #### Documenting:
 - Split README.md, cutting DATA.md and APPLYING.md out of it;
@@ -325,7 +298,7 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 ---
 
-## v0.5.0-dev (10.04.2023)
+## Dev-Unifying update v0.5.0-dev (10.04.2023)
 
 #### Enhancements:
 - _html_initialized_data() attached to _initialized_data();
@@ -337,7 +310,7 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 ---
 
-## v0.5.0-pre (10.04.2023)
+## Pre-Unifying update v0.5.0-pre (10.04.2023)
 
 #### Documenting:
 - Updated annotation of modules and packages.
@@ -354,7 +327,7 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 ---
 
-## v0.5.0 (13.04.2023)
+## Unifying update v0.5.0 (13.04.2023)
 
 #### Bug Fixes:
 - Fixed TypeError in the message() method (because its name began to intersect with the setting responsible for displaying the message entry);
@@ -381,7 +354,7 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 ---
 
-## v0.5.1 (08.06.2023)
+## Hints update v0.5.1 (08.06.2023)
 
 #### Bug Fixes:
 - Removed line breaks in HTML, since Qt's append() method adds a line break on its own; this way lists of HTML records will be displayed correctly in Qt (no unnecessary breaks), but when saving the file, you can choose whether to add line breaks between entries or not.
@@ -396,7 +369,7 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 ---
 
-## v0.6.0 (14.06.2023)
+## Progress update v0.6.0 (14.06.2023)
 
 #### Documenting:
 - Updated documentation;
