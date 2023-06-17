@@ -2,6 +2,7 @@ from time import sleep
 
 from mighty_logger import Logger
 from mighty_logger.src import TypesEntries
+from mighty_logger.text import IndefiniteAnimations, DefiniteAnimations
 
 if __name__ == "__main__":
 	logger = Logger(program_name="Installer", console_width=115, status_message_global_entry=False)
@@ -9,7 +10,7 @@ if __name__ == "__main__":
 	logger.message(message_text="Program installation started")
 
 	sleep(1)
-	logger.start_indefinite_process(message_text="File upload")
+	logger.start_indefinite_process(animation=IndefiniteAnimations.Star, message_text="File upload")
 	sleep(2)
 	logger.note_process(entry_type=TypesEntries.ACHIEVEMENT, message_text="Files downloaded")
 	sleep(3)
@@ -19,7 +20,7 @@ if __name__ == "__main__":
 	logger.warning(message_text="Newer version found")
 
 	sleep(1)
-	logger.start_definite_process(message_text="Installing files")
+	logger.start_definite_process(progress_bar=DefiniteAnimations.Dots, message_text="Installing files")
 	sleep(0.6)
 	logger.progress_rise(3)
 	sleep(0.4)

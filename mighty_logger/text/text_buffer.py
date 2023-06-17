@@ -121,12 +121,14 @@ class TextBuffer(Singleton, TextBufferType):
 			self._text_buffer[number_string] = f"{message}"
 
 	def pop(self, number_string: int = -1) -> str:
-		self._buffer_size -= 1
+		excess_console_string = len(re.sub(r"\033\[.*?m", "", self._text_buffer[-1])) // self.width
+		self._buffer_size -= 1 + excess_console_string
 		last = self._text_buffer.pop(number_string)
 		return last
 
 	def remove(self, number_string: int = -1) -> None:
-		self._buffer_size -= 1
+		excess_console_string = len(re.sub(r"\033\[.*?m", "", self._text_buffer[-1])) // self.width
+		self._buffer_size -= 1 + excess_console_string
 		self._text_buffer.pop(number_string)
 
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:

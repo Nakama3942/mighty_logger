@@ -20,89 +20,388 @@ limitations under the License.
 """
 
 class BasicAnimationType:
-    """
-    Basic wrapper class for animations type.
-    """
-    def __init__(self, animation: list):
-        self.__animation: list = animation
+	"""
+	Basic wrapper class for animations type.
+	"""
+	def __init__(self, animation: list):
+		self.__animation: list = animation
 
-    @property
-    def animation(self) -> list:
-        return self.__animation
+	@property
+	def animation(self) -> list:
+		return self.__animation
 
 class IndefiniteAnimationType(BasicAnimationType):
-    """
-    Wrapper class for indefinite animations type.
-    """
-    ...
+	"""
+	Wrapper class for indefinite animations type.
+	"""
+	...
 
 class DefiniteAnimationType(BasicAnimationType):
-    """
-    Wrapper class for definite animations type.
-    """
-    ...
+	"""
+	Wrapper class for definite animations type.
+	"""
+	...
 
 class IndefiniteAnimations:
-    """
-    The class with sets indefinite animations.
-    """
-    Dots = IndefiniteAnimationType(['.  ', '.. ', '...'])
-    Wave = IndefiniteAnimationType([
-        '⸳·⸳․․․․․',
-        '․⸳·⸳․․․․',
-        '․․⸳·⸳․․․',
-        '․․․⸳·⸳․․',
-        '․․․․⸳·⸳․',
-        '․․․․․⸳·⸳',
-        '⸳․․․․․⸳·',
-        '·⸳․․․․․⸳'
-    ])
-    WaveAutoReverse = IndefiniteAnimationType([
-        '⸳·⸳․․․․․',
-        '․⸳·⸳․․․․',
-        '․․⸳·⸳․․․',
-        '․․․⸳·⸳․․',
-        '․․․․⸳·⸳․',
-        '․․․․․⸳·⸳',
-        '․․․․⸳·⸳․',
-        '․․․⸳·⸳․․',
-        '․․⸳·⸳․․․',
-        '․⸳·⸳․․․․'
-    ])
-    Clock1 = IndefiniteAnimationType(['⌏', '⌎', '⌌', '⌍'])
-    Clock2 = IndefiniteAnimationType(['◴', '◷', '◶', '◵'])
-    Clock3 = IndefiniteAnimationType(['◴   ', ' ◷  ', '  ◶ ', '   ◵', '  ◶ ', ' ◷  '])
-    Circle = IndefiniteAnimationType(['◜ ', ' ◝', ' ◞', '◟ '])
-    KnightRider = IndefiniteAnimationType(['▪▪▫▫▫▫▫', '▪▪▪▫▫▫▫', '▫▪▪▪▫▫▫', '▫▫▪▪▪▫▫', '▫▫▫▪▪▪▫', '▫▫▫▫▪▪▪', '▫▫▫▫▫▪▪'])
-    KnightRiderAutoReverse = IndefiniteAnimationType([
-        '▪▫▫▫▫▫▫', '▪▪▫▫▫▫▫', '▪▪▪▫▫▫▫', '▫▪▪▪▫▫▫', '▫▫▪▪▪▫▫', '▫▫▫▪▪▪▫', '▫▫▫▫▪▪▪', '▫▫▫▫▫▪▪',
-        '▫▫▫▫▫▫▪', '▫▫▫▫▫▪▪', '▫▫▫▫▪▪▪', '▫▫▫▪▪▪▫', '▫▫▪▪▪▫▫', '▫▪▪▪▫▫▫', '▪▪▪▫▫▫▫', '▪▪▫▫▫▫▫'
-    ])
-    Blocks1 = IndefiniteAnimationType(['▖', '▗', '▝', '▘'])
-    Blocks2 = IndefiniteAnimationType(['▚', '▞'])
-    Blocks3 = IndefiniteAnimationType(['▟', '▙', '▛', '▜'])
-    Blocks4 = IndefiniteAnimationType(['▖', '▗', '▝', '▘', '▚', '▞', '▟', '▙', '▛', '▜', '█'])
-    BlocksAutoReverse = IndefiniteAnimationType(['▖', '▗', '▝', '▘', '▚', '▞', '▟', '▙', '▛', '▜', '█', '▜', '▛', '▙', '▟', '▞', '▚', '▘', '▝', '▗'])
-    Line = IndefiniteAnimationType(['▓▓▒▒▒▒▒▒', '▓▓▓▒▒▒▒▒', '▒▓▓▓▒▒▒▒', '▒▒▓▓▓▒▒▒', '▒▒▒▓▓▓▒▒', '▒▒▒▒▓▓▓▒', '▒▒▒▒▒▓▓▓', '▒▒▒▒▒▒▓▓', '▓▒▒▒▒▒▒▓'])
-    LineAutoReverse = IndefiniteAnimationType([
-        '▓▒▒▒▒▒▒▒', '▓▓▒▒▒▒▒▒', '▓▓▓▒▒▒▒▒', '▒▓▓▓▒▒▒▒', '▒▒▓▓▓▒▒▒', '▒▒▒▓▓▓▒▒', '▒▒▒▒▓▓▓▒', '▒▒▒▒▒▓▓▓', '▒▒▒▒▒▒▓▓',
-        '▒▒▒▒▒▒▒▓', '▒▒▒▒▒▒▓▓', '▒▒▒▒▒▓▓▓', '▒▒▒▒▓▓▓▒', '▒▒▒▓▓▓▒▒', '▒▒▓▓▓▒▒▒', '▒▓▓▓▒▒▒▒', '▓▓▓▒▒▒▒▒', '▓▓▒▒▒▒▒▒'
-    ])
-    BlockVerticalFill = IndefiniteAnimationType(['▁', '▂', '▃', '▅', '▆', '▇'])
-    BlockVerticalFillAutoReverse = IndefiniteAnimationType([
-        '▁', '▂', '▃', '▅', '▆',
-        '▇', '▆', '▅', '▃', '▂'
-    ])
-    BlockHorizontalFillAutoReverse = IndefiniteAnimationType([
-        '▏', '▎', '▍', '▋', '▊',
-        '▉', '▊', '▋', '▍', '▎'
-    ])
+	"""
+	The class with sets indefinite animations.
+	"""
+	Dots = IndefiniteAnimationType([
+		'.       ',
+		'..      ',
+		'...     ',
+		'....    ',
+		'.....   ',
+		'......  ',
+		'....... ',
+		'........'
+	])
+	Wave = IndefiniteAnimationType([
+		'⸳·⸳․․․․․',
+		'․⸳·⸳․․․․',
+		'․․⸳·⸳․․․',
+		'․․․⸳·⸳․․',
+		'․․․․⸳·⸳․',
+		'․․․․․⸳·⸳',
+		'⸳․․․․․⸳·',
+		'·⸳․․․․․⸳'
+	])
+	WaveAutoReverse = IndefiniteAnimationType([
+		'⸳·⸳․․․․․',
+		'․⸳·⸳․․․․',
+		'․․⸳·⸳․․․',
+		'․․․⸳·⸳․․',
+		'․․․․⸳·⸳․',
+		'․․․․․⸳·⸳',
+		'․․․․⸳·⸳․',
+		'․․․⸳·⸳․․',
+		'․․⸳·⸳․․․',
+		'․⸳·⸳․․․․'
+	])
+	Star = IndefiniteAnimationType([
+		'*       ',
+		' *      ',
+		'  *     ',
+		'   *    ',
+		'    *   ',
+		'     *  ',
+		'      * ',
+		'       *'
+	])
+	StarAutoReverse = IndefiniteAnimationType([
+		'*       ',
+		' *      ',
+		'  *     ',
+		'   *    ',
+		'    *   ',
+		'     *  ',
+		'      * ',
+		'       *',
+		'      * ',
+		'     *  ',
+		'    *   ',
+		'   *    ',
+		'  *     ',
+		' *      '
+	])
+	StarHorizontalFill = IndefiniteAnimationType([
+		'........',
+		'*.......',
+		'**......',
+		'***.....',
+		'****....',
+		'*****...',
+		'******..',
+		'*******.',
+		'********'
+	])
+	StarHorizontalFillAutoReverse = IndefiniteAnimationType([
+		'........',
+		'*.......',
+		'**......',
+		'***.....',
+		'****....',
+		'*****...',
+		'******..',
+		'*******.',
+		'********',
+		'*******.',
+		'******..',
+		'*****...',
+		'****....',
+		'***.....',
+		'**......',
+		'*.......'
+	])
+	Sunrise = IndefiniteAnimationType([
+		'________',
+		'___/\___',
+		'__/**\__',
+		'_/****\_',
+		'/******\\',
+		'********',
+		'········'
+	])
+	Sunset = IndefiniteAnimationType([
+		'********',
+		'\******/',
+		'_\****/_',
+		'__\**/__',
+		'___\/___',
+		'________',
+		'········'
+	])
+	SunriseSunset = IndefiniteAnimationType([
+		'________',
+		'___/\___',
+		'__/**\__',
+		'_/****\_',
+		'/******\\',
+		'********',
+		'········',
+		'********',
+		'\******/',
+		'_\****/_',
+		'__\**/__',
+		'___\/___'
+	])
+	Clock1 = IndefiniteAnimationType([
+		' ⌏      ',
+		' ⌎      ',
+		' ⌌      ',
+		' ⌍      '
+	])
+	Clock2 = IndefiniteAnimationType([
+		' ◴      ',
+		' ◷      ',
+		' ◶      ',
+		' ◵      '
+	])
+	Clock3 = IndefiniteAnimationType([
+		'◴        ',
+		' ◷       ',
+		'  ◶      ',
+		'   ◵     ',
+		'    ◴    ',
+		'     ◷   ',
+		'      ◶  ',
+		'       ◵ ',
+		'        ◴',
+		'       ◷ ',
+		'      ◶  ',
+		'     ◵   ',
+		'    ◴    ',
+		'   ◷     ',
+		'  ◶      ',
+		' ◵       '
+	])
+	Circle = IndefiniteAnimationType([
+		' ◜      ',
+		'  ◝     ',
+		'  ◞     ',
+		' ◟      '
+	])
+	KnightRider = IndefiniteAnimationType([
+		'▪▪▫▫▫▫▫▫',
+		'▪▪▪▫▫▫▫▫',
+		'▫▪▪▪▫▫▫▫',
+		'▫▫▪▪▪▫▫▫',
+		'▫▫▫▪▪▪▫▫',
+		'▫▫▫▫▪▪▪▫',
+		'▫▫▫▫▫▪▪▪',
+		'▫▫▫▫▫▫▪▪',
+		'▪▫▫▫▫▫▫▪'])
+	KnightRiderAutoReverse = IndefiniteAnimationType([
+		'▪▫▫▫▫▫▫▫',
+		'▪▪▫▫▫▫▫▫',
+		'▪▪▪▫▫▫▫▫',
+		'▫▪▪▪▫▫▫▫',
+		'▫▫▪▪▪▫▫▫',
+		'▫▫▫▪▪▪▫▫',
+		'▫▫▫▫▪▪▪▫',
+		'▫▫▫▫▫▪▪▪',
+		'▫▫▫▫▫▫▪▪',
+		'▫▫▫▫▫▫▫▪',
+		'▫▫▫▫▫▫▪▪',
+		'▫▫▫▫▫▪▪▪',
+		'▫▫▫▫▪▪▪▫',
+		'▫▫▫▪▪▪▫▫',
+		'▫▫▪▪▪▫▫▫',
+		'▫▪▪▪▫▫▫▫',
+		'▪▪▪▫▫▫▫▫',
+		'▪▪▫▫▫▫▫▫'
+	])
+	Blocks1 = IndefiniteAnimationType([
+		' ▖      ',
+		' ▗      ',
+		' ▝      ',
+		' ▘      '
+	])
+	Blocks2 = IndefiniteAnimationType([
+		' ▚      ',
+		' ▞      '
+	])
+	Blocks3 = IndefiniteAnimationType([
+		' ▟      ',
+		' ▙      ',
+		' ▛      ',
+		' ▜      '
+	])
+	Blocks4 = IndefiniteAnimationType([
+		' ▖      ',
+		' ▗      ',
+		' ▝      ',
+		' ▘      ',
+		' ▚      ',
+		' ▞      ',
+		' ▟      ',
+		' ▙      ',
+		' ▛      ',
+		' ▜      ',
+		' █      '
+	])
+	BlocksAutoReverse = IndefiniteAnimationType([
+		' ▖      ',
+		' ▗      ',
+		' ▝      ',
+		' ▘      ',
+		' ▚      ',
+		' ▞      ',
+		' ▟      ',
+		' ▙      ',
+		' ▛      ',
+		' ▜      ',
+		' █      ',
+		' ▜      ',
+		' ▛      ',
+		' ▙      ',
+		' ▟      ',
+		' ▞      ',
+		' ▚      ',
+		' ▘      ',
+		' ▝      ',
+		' ▗      '
+	])
+	Line = IndefiniteAnimationType([
+		'▓▓▒▒▒▒▒▒',
+		'▓▓▓▒▒▒▒▒',
+		'▒▓▓▓▒▒▒▒',
+		'▒▒▓▓▓▒▒▒',
+		'▒▒▒▓▓▓▒▒',
+		'▒▒▒▒▓▓▓▒',
+		'▒▒▒▒▒▓▓▓',
+		'▒▒▒▒▒▒▓▓',
+		'▓▒▒▒▒▒▒▓'
+	])
+	LineAutoReverse = IndefiniteAnimationType([
+		'▓▒▒▒▒▒▒▒',
+		'▓▓▒▒▒▒▒▒',
+		'▓▓▓▒▒▒▒▒',
+		'▒▓▓▓▒▒▒▒',
+		'▒▒▓▓▓▒▒▒',
+		'▒▒▒▓▓▓▒▒',
+		'▒▒▒▒▓▓▓▒',
+		'▒▒▒▒▒▓▓▓',
+		'▒▒▒▒▒▒▓▓',
+		'▒▒▒▒▒▒▒▓',
+		'▒▒▒▒▒▒▓▓',
+		'▒▒▒▒▒▓▓▓',
+		'▒▒▒▒▓▓▓▒',
+		'▒▒▒▓▓▓▒▒',
+		'▒▒▓▓▓▒▒▒',
+		'▒▓▓▓▒▒▒▒',
+		'▓▓▓▒▒▒▒▒',
+		'▓▓▒▒▒▒▒▒'
+	])
+	BlockVerticalFill = IndefiniteAnimationType([
+		' ▁      ',
+		' ▂      ',
+		' ▃      ',
+		' ▅      ',
+		' ▆      ',
+		' ▇      '
+	])
+	BlockVerticalFillAutoReverse = IndefiniteAnimationType([
+		' ▁      ',
+		' ▂      ',
+		' ▃      ',
+		' ▅      ',
+		' ▆      ',
+		' ▇      ',
+		' ▆      ',
+		' ▅      ',
+		' ▃      ',
+		' ▂      '
+	])
+	BlockHorizontalFillAutoReverse = IndefiniteAnimationType([
+		' ▏      ',
+		' ▎      ',
+		' ▍      ',
+		' ▋      ',
+		' ▊      ',
+		' ▉      ',
+		' ▊      ',
+		' ▋      ',
+		' ▍      ',
+		' ▎      '
+	])
 
 class DefiniteAnimations:
-    """
-    The class with sets definite animations.
-    """
-    Dots = DefiniteAnimationType(['        ', '.       ', '..      ', '...     ', '....    ', '.....   ', '......  ', '....... ', '........'])
-    KnightRider = DefiniteAnimationType(['▫▫▫▫▫▫▫▫', '▪▫▫▫▫▫▫▫', '▪▪▫▫▫▫▫▫', '▪▪▪▫▫▫▫▫', '▪▪▪▪▫▫▫▫', '▪▪▪▪▪▫▫▫', '▪▪▪▪▪▪▫▫', '▪▪▪▪▪▪▪▫', '▪▪▪▪▪▪▪▪'])
-    Line = DefiniteAnimationType(['▒▒▒▒▒▒▒▒', '▓▒▒▒▒▒▒▒', '▓▓▒▒▒▒▒▒', '▓▓▓▒▒▒▒▒', '▓▓▓▓▒▒▒▒', '▓▓▓▓▓▒▒▒', '▓▓▓▓▓▓▒▒', '▓▓▓▓▓▓▓▒', '▓▓▓▓▓▓▓▓'])
-    BlockVerticalFill = DefiniteAnimationType(['        ', '▇       ', '▇▇      ', '▇▇▇     ', '▇▇▇▇    ', '▇▇▇▇▇   ', '▇▇▇▇▇▇  ', '▇▇▇▇▇▇▇ ', '▇▇▇▇▇▇▇▇'])
+	"""
+	The class with sets definite animations.
+	"""
+	Dots = DefiniteAnimationType([
+		'        ',
+		'.       ',
+		'..      ',
+		'...     ',
+		'....    ',
+		'.....   ',
+		'......  ',
+		'....... ',
+		'........'
+	])
+	Star = DefiniteAnimationType([
+		'........',
+		'*.......',
+		'**......',
+		'***.....',
+		'****....',
+		'*****...',
+		'******..',
+		'*******.',
+		'********'
+	])
+	KnightRider = DefiniteAnimationType([
+		'▫▫▫▫▫▫▫▫',
+		'▪▫▫▫▫▫▫▫',
+		'▪▪▫▫▫▫▫▫',
+		'▪▪▪▫▫▫▫▫',
+		'▪▪▪▪▫▫▫▫',
+		'▪▪▪▪▪▫▫▫',
+		'▪▪▪▪▪▪▫▫',
+		'▪▪▪▪▪▪▪▫',
+		'▪▪▪▪▪▪▪▪'
+	])
+	Line = DefiniteAnimationType([
+		'▒▒▒▒▒▒▒▒',
+		'▓▒▒▒▒▒▒▒',
+		'▓▓▒▒▒▒▒▒',
+		'▓▓▓▒▒▒▒▒',
+		'▓▓▓▓▒▒▒▒',
+		'▓▓▓▓▓▒▒▒',
+		'▓▓▓▓▓▓▒▒',
+		'▓▓▓▓▓▓▓▒',
+		'▓▓▓▓▓▓▓▓'
+	])
+	BlockVerticalFill = DefiniteAnimationType([
+		'        ',
+		'█       ',
+		'██      ',
+		'███     ',
+		'████    ',
+		'█████   ',
+		'██████  ',
+		'███████ ',
+		'████████'
+	])

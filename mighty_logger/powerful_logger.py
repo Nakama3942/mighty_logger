@@ -79,7 +79,7 @@ class Logger(BasicLogger):
 			self._environment = log_environment
 			self._progress_rise = 0
 			self._progress_start: datetime | None = None
-			self._progress_time: str = "       "
+			self._progress_time: str = "        "
 			self._progress_interrupt = False
 			self.global_background = global_background
 			self._color_scheme_init()
@@ -1032,7 +1032,7 @@ class Logger(BasicLogger):
 
 		self._progress_start = datetime.now()
 		progress_stop = datetime.now()
-		self._progress_time = str(progress_stop - self._progress_start).split(".")[0]
+		self._progress_time = str(progress_stop - self._progress_start).split(".")[0] + " "
 		func = getattr(self, "_initiation", None)
 		args = {}
 		if status_message != StatusMessageType("..."):
@@ -1121,7 +1121,7 @@ class Logger(BasicLogger):
 
 		self._progress_start = datetime.now()
 		progress_stop = datetime.now()
-		self._progress_time = str(progress_stop - self._progress_start).split(".")[0]
+		self._progress_time = str(progress_stop - self._progress_start).split(".")[0] + " "
 		func = getattr(self, "_initiation", None)
 		args = {}
 		if status_message != StatusMessageType("..."):
@@ -1225,10 +1225,11 @@ class Logger(BasicLogger):
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local entering settings
 		"""
+		sleep(0.001)
 		last = self._buffer.pop()
 
 		progress_stop = datetime.now()
-		self._progress_time = str(progress_stop - self._progress_start).split(".")[0]
+		self._progress_time = str(progress_stop - self._progress_start).split(".")[0] + " "
 		func = getattr(self, entry_type, None)
 		args = {}
 		if status_message != StatusMessageType("..."):
@@ -1265,10 +1266,11 @@ class Logger(BasicLogger):
 		:param local_settings: Dictionary of local entering settings
 		"""
 		self._progress_interrupt = True
+		sleep(0.11)
 		self._buffer.remove()
 
 		progress_stop = datetime.now()
-		self._progress_time = str(progress_stop - self._progress_start).split(".")[0]
+		self._progress_time = str(progress_stop - self._progress_start).split(".")[0] + " "
 		func = getattr(self, "_success", None) if self._progress_rise == 100 else getattr(self, "_fail", None)
 		args = {}
 		if status_message != StatusMessageType("..."):
@@ -1283,7 +1285,7 @@ class Logger(BasicLogger):
 
 		self._progress_rise = 0
 		self._progress_start = None
-		self._progress_time = "       "
+		self._progress_time = "        "
 		self._progress_interrupt = False
 
 	def _initiation(
@@ -1417,7 +1419,6 @@ class Logger(BasicLogger):
 				self._ColorScheme['SUCCESS_BACKGROUND'][local_background],
 			], self._progress_time, self._icon_set.success, status_message.current_status_message, "&SUCCESS", message_text, self._environment, local_settings
 		)
-		sleep(0.11)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
@@ -1452,6 +1453,5 @@ class Logger(BasicLogger):
 				self._ColorScheme['FAIL_BACKGROUND'][local_background],
 			], self._progress_time, self._icon_set.fail, status_message.current_status_message, "&FAIL", message_text, self._environment, local_settings
 		)
-		sleep(0.11)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
