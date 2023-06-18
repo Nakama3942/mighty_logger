@@ -24,6 +24,7 @@ from mighty_logger.basic.basic_logger import BasicLogger
 from mighty_logger.basic.exceptions import ColorException, CombinationException, ReCreationException
 from mighty_logger.basic.text_buffer_type import TextBufferType
 from mighty_logger.src.color_picker import AnsiColor, HexColor, Dec2Ansi, Dec2Hex
+from mighty_logger.src.entry_types import EntryType
 from mighty_logger.src.log_enums import LogEnvironments
 from mighty_logger.src.status_variables import StatusMessageType
 from mighty_logger.text.animation import BasicAnimationType, IndefiniteAnimationType, DefiniteAnimationType, IndefiniteAnimations, DefiniteAnimations
@@ -547,6 +548,47 @@ class Logger(BasicLogger):
 		:param entry: "Empty" entry
 		"""
 		self._buffer << entry
+		if self._environment == LogEnvironments.CONSOLE:
+			self._buffer.update_console()
+
+	def entry(
+		self,
+		*,
+		entry_type: EntryType,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = None,
+		local_settings: dict = None
+	) -> None:
+		"""
+		...
+
+		:param entry_type:
+		:param status_message: Log entry status message
+		:param message_text: Log entry message
+		:param local_background: Display entry with background?
+		:param local_settings: Dictionary of local entering settings
+		"""
+		if local_settings is None:
+			local_settings = {}
+		background = local_background if local_background is not None else self.global_background
+		self._buffer << self._assemble_entry(
+			[
+				self._ColorScheme[entry_type.time_color][background],
+				self._ColorScheme[entry_type.status_color][background],
+				self._ColorScheme[entry_type.status_message_color][background],
+				self._ColorScheme[entry_type.type_color][background],
+				self._ColorScheme[entry_type.message_color][background],
+				self._ColorScheme[entry_type.background_color][background]
+			],
+			self._progress_time,
+			[icon for icon in entry_type.icon if any(getattr(self._icon_set, attr) == icon for attr in dir(self._icon_set))][0],
+			status_message.current_status_message,
+			entry_type.type_name,
+			message_text,
+			self._environment,
+			local_settings
+		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 

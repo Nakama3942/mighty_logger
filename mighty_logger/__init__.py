@@ -19,5 +19,5 @@ limitations under the License.
 from .powerful_logger import Logger
 
 __authot__ = "Kalynovsky 'Nakamura Akira' Valentin"
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 __email__ = "nakama3942@gmail.com"
