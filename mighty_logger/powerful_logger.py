@@ -1526,7 +1526,8 @@ class Logger(BasicLogger):
 		local_settings: dict = None
 	) -> None:
 		"""
-		...
+		Information logging of starting Timer:
+		Used to notify the start of the Timer.
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
@@ -1565,7 +1566,8 @@ class Logger(BasicLogger):
 		local_settings: dict = None
 	) -> None:
 		"""
-		...
+		Information logging of mark Timer:
+		Used to notify the mark of the Timer.
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
@@ -1603,7 +1605,8 @@ class Logger(BasicLogger):
 		local_settings: dict = None
 	) -> None:
 		"""
-		...
+		Information logging of stopping Timer:
+		Used to notify the stop of the Timer.
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message

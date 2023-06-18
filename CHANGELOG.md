@@ -410,3 +410,17 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 [^manual]: Available to the programmer
 
 ---
+
+## Progress update v0.6.1 (18.06.2023)
+
+#### Bug Fixes:
+- Fixed a bug where the percentage was changing just before adding a Process entry, and it was completely breaking the output (and a 0.01 second delay was enough to fix it);
+- Fixed a bug that occurs when the last string in the console is removed, which occupies more than 1 line.
+
+#### Documenting:
+- Updated versioning;
+- Updated documentation.
+
+#### Enhancements:
+- Added new animations and worked out the old ones;
+- Added a new category of types: Timer, and 3 entries for it.
