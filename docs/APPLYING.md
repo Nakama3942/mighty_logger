@@ -523,3 +523,11 @@ Log:
 </pre>
 
 *Attention! The program runs for about 40 seconds.*
+
+### Empty entry (available since v0.6.0)
+
+Will be added in v0.9.1.
+
+### Timer (available since v0.6.1)
+
+Will be added in v0.9.1.

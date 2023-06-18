@@ -87,7 +87,7 @@ Any information to the output can be turned off (according to the default, every
 - [x] v0.5.0 - Unifying update (console and HTML are combined into one class)
 - [x] v0.5.1 - Hints update (added status message templates and hint symbols (icons) near log entries status)
 - [x] v0.6.0 - Progress update (added start of some log entries in threads (process))
-- [ ] v0.6.1 - Animation update (added animations in processes)
+- [x] v0.6.1 - Animation update (added animations in processes)
 - [ ] v0.7.0 - "Buffer improvement" update (added buffer clearing and loading)
 - [ ] v0.7.1 - Conversion update (added conversion from Console type to HTML and vice versa)
 - [ ] v0.7.2 - Search update (added search by log entry types)
@@ -139,8 +139,8 @@ from mighty_logger import Logger
 from mighty_logger.src import StatusMessagePatterns
 
 if __name__ == "__main__":
-    logger = Logger(program_name="Test", console_width=115)
-    logger.message(status_message=StatusMessagePatterns.custom("Hooray"), message_text="Hello world!")
+	logger = Logger(program_name="Test", console_width=115)
+	logger.message(status_message=StatusMessagePatterns.custom("Hooray"), message_text="Hello world!")
 ```
 
 The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
@@ -175,14 +175,14 @@ All functionality of the library has been tested by me, but if you have problems
 ## Authors
 
 <table align="center" style="border-width: 10; border-style: ridge">
-    <tr>
-        <td align="center"><a href="https://github.com/Nakama3942"><img src="https://avatars.githubusercontent.com/u/73797846?s=400&u=a9b7688ac521d739825d7003a5bd599aab74cb76&v=4" width="150px;" alt=""/><br /><sub><b>Kalynovsky Valentin</b></sub></a><sub><br />"Ideological inspirer and Author"</sub></td>
-        <!--<td></td>-->
-    </tr>
+	<tr>
+		<td align="center"><a href="https://github.com/Nakama3942"><img src="https://avatars.githubusercontent.com/u/73797846?s=400&u=a9b7688ac521d739825d7003a5bd599aab74cb76&v=4" width="150px;" alt=""/><br /><sub><b>Kalynovsky Valentin</b></sub></a><sub><br />"Ideological inspirer and Author"</sub></td>
+		<!--<td></td>-->
+	</tr>
 <!--
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
 -->
 </table>

@@ -13,7 +13,7 @@ The library stores various important data for use that you may need to know whil
 
 ###### Entry types (and icon in set):
 - No category
-	- empty
+	- empty (v0.6.0)
 - Debugging (%)
 	- debug
 	- debug_performance
@@ -115,6 +115,45 @@ The library stores various important data for use that you may need to know whil
 - `StatusMessagePatterns.closed()`
 - `StatusMessagePatterns.empty()`
 - `StatusMessagePatterns.custom("")`
+
+###### Animations:
+- Indefinite Animations
+	- Dots
+	- Wave
+	- WaveAutoReverse
+	- Star (v0.6.1)
+	- StarAutoReverse (v0.6.1)
+	- StarHorizontalFill (v0.6.1)
+	- StarHorizontalFillAutoReverse (v0.6.1)
+	- Arrow (v0.6.1)
+	- ArrowAutoReverse (v0.6.1)
+	- Sunrise (v0.6.1)
+	- Sunset (v0.6.1)
+	- SunriseSunset (v0.6.1)
+	- Clock1
+	- Clock2
+	- Clock3
+	- Circle
+	- KnightRider
+	- KnightRiderAutoReverse
+	- Blocks1
+	- Blocks2
+	- Blocks3
+	- Blocks4
+	- BlocksAutoReverse
+	- Line
+	- LineAutoReverse
+	- BlockVerticalFill
+	- BlockVerticalFillAutoReverse
+	- BlockHorizontalFillAutoReverse
+	- SuperSpace (v0.6.1)
+- Definite Animations
+	- Dots
+	- Star (v0.6.1)
+	- Arrow (v0.6.1)
+	- KnightRider
+	- Line
+	- BlockVerticalFill
 <!--
 ###### Searching:
 - ? - entry (no)
@@ -127,7 +166,6 @@ The library stores various important data for use that you may need to know whil
 - & - type: Process
 - ^ - type: Timer
 - $ - free
-- ^ - free
 -->
 ###### X11 color table:
 - Red category:
@@ -365,12 +403,42 @@ The library stores various important data for use that you may need to know whil
 | TYPE_CRITICAL                     | FIREBRICK         | DARKSALMON       |
 | CRITICAL_MESSAGE                  | DARKRED           | LIGHTSALMON      |
 | CRITICAL_BACKGROUND               | -                 | MAROON           |
+| RESOLVED_TIME                     | ORCHID            | LAVENDERBLUSH    |
+| RESOLVED_STATUS                   | ORANGE            | CHARTREUSE       |
+| RESOLVED_STATUS_MESSAGE           | DARKORANGE        | LAWNGREEN        |
+| TYPE_RESOLVED                     | GREEN             | PALEGREEN        |
+| RESOLVED_MESSAGE                  | DARKGREEN         | LIGHTGREEN       |
+| RESOLVED_BACKGROUND               | -                 | DARKGREEN        |
+| UNRESOLVED_TIME                   | ORCHID            | LAVENDERBLUSH    |
+| UNRESOLVED_STATUS                 | ORANGE            | ORANGE           |
+| UNRESOLVED_STATUS_MESSAGE         | DARKORANGE        | DARKORANGE       |
+| TYPE_UNRESOLVED                   | FIREBRICK         | YELLOW           |
+| UNRESOLVED_MESSAGE                | DARKRED           | DARKYELLOW       |
+| UNRESOLVED_BACKGROUND             | -                 | DARKRED          |
+| INITIATION_TIME                   | ORCHID            | LAVENDERBLUSH    |
+| INITIATION_STATUS                 | ORANGE            | CHARTREUSE       |
+| INITIATION_STATUS_MESSAGE         | DARKORANGE        | LAWNGREEN        |
+| TYPE_INITIATION                   | GREEN             | PALEGREEN        |
+| INITIATION_MESSAGE                | DARKGREEN         | LIGHTGREEN       |
+| INITIATION_BACKGROUND             | -                 | DARKGREEN        |
 | PROGRESS_TIME                     | ORCHID            | PURPLE           |
 | PROGRESS_STATUS                   | ORANGE            | DARKRED          |
 | PROGRESS_STATUS_MESSAGE           | DARKORANGE        | MAROON           |
 | TYPE_PROGRESS                     | LIGHTSKYBLUE      | NAVY             |
 | PROGRESS_MESSAGE                  | SKYBLUE           | MIDNIGHTBLUE     |
 | PROGRESS_BACKGROUND               | -                 | SKYBLUE          |
+| ACHIEVEMENT_TIME                  | ORCHID            | DARKMAGENTA      |
+| ACHIEVEMENT_STATUS                | ORANGE            | DARKRED          |
+| ACHIEVEMENT_STATUS_MESSAGE        | DARKORANGE        | MAROON           |
+| TYPE_ACHIEVEMENT                  | YELLOW            | NAVY             |
+| ACHIEVEMENT_MESSAGE               | DARKYELLOW        | MIDNIGHTBLUE     |
+| ACHIEVEMENT_BACKGROUND            | -                 | DARKYELLOW       |
+| MILESTONE_TIME                    | ORCHID            | LAVENDERBLUSH    |
+| MILESTONE_STATUS                  | ORANGE            | CHARTREUSE       |
+| MILESTONE_STATUS_MESSAGE          | DARKORANGE        | LAWNGREEN        |
+| TYPE_MILESTONE                    | GREEN             | PALEGREEN        |
+| MILESTONE_MESSAGE                 | DARKGREEN         | LIGHTGREEN       |
+| MILESTONE_BACKGROUND              | -                 | DARKGREEN        |
 | SUCCESS_TIME                      | ORCHID            | LAVENDERBLUSH    |
 | SUCCESS_STATUS                    | ORANGE            | CHARTREUSE       |
 | SUCCESS_STATUS_MESSAGE            | DARKORANGE        | LAWNGREEN        |
@@ -383,6 +451,24 @@ The library stores various important data for use that you may need to know whil
 | TYPE_FAIL                         | FIREBRICK         | YELLOW           |
 | FAIL_MESSAGE                      | DARKRED           | DARKYELLOW       |
 | FAIL_BACKGROUND                   | -                 | DARKRED          |
+| START_TIMER_TIME                  | ORCHID            | LAVENDERBLUSH    |
+| START_TIMER_STATUS                | ORANGE            | CHARTREUSE       |
+| START_TIMER_STATUS_MESSAGE        | DARKORANGE        | LAWNGREEN        |
+| TYPE_START_TIMER                  | SEAGREEN          | PALEGREEN        |
+| START_TIMER_MESSAGE               | FORESTGREEN       | LIGHTGREEN       |
+| START_TIMER_BACKGROUND            | -                 | FORESTGREEN      |
+| TIMER_MARK_TIME                   | ORCHID            | DARKMAGENTA      |
+| TIMER_MARK_STATUS                 | ORANGE            | DARKRED          |
+| TIMER_MARK_STATUS_MESSAGE         | DARKORANGE        | MAROON           |
+| TYPE_TIMER_MARK                   | KHAKI             | SIENNA           |
+| TIMER_MARK_MESSAGE                | DARKKHAKI         | SADDLEBROWN      |
+| TIMER_MARK_BACKGROUND             | -                 | DARKKHAKI        |
+| STOP_TIMER_TIME                   | ORCHID            | PURPLE           |
+| STOP_TIMER_STATUS                 | ORANGE            | DARKRED          |
+| STOP_TIMER_STATUS_MESSAGE         | DARKORANGE        | MAROON           |
+| TYPE_STOP_TIMER                   | LIGHTSKYBLUE      | NAVY             |
+| STOP_TIMER_MESSAGE                | SKYBLUE           | MIDNIGHTBLUE     |
+| STOP_TIMER_BACKGROUND             | -                 | SKYBLUE          |
 
 ###### Tree of ANSI escape code:
 - reset
