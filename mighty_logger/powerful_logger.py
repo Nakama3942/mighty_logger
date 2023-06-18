@@ -81,6 +81,7 @@ class Logger(BasicLogger):
 			self._progress_start: datetime | None = None
 			self._progress_time: str = "        "
 			self._progress_interrupt = False
+			self._start_timer_value: datetime | None = None
 			self.global_background = global_background
 			self._color_scheme_init()
 			if self._environment == LogEnvironments.CONSOLE:
@@ -262,6 +263,27 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_FAIL'] = [AnsiColor('FIREBRICK', "foreground"), AnsiColor('YELLOW', "foreground")]
 				self._ColorScheme['FAIL_MESSAGE'] = [AnsiColor('DARKRED', "foreground"), AnsiColor('DARKYELLOW', "foreground")]
 				self._ColorScheme['FAIL_BACKGROUND'] = ["", AnsiColor('DARKRED', "background")]
+				# START_TIMER colors
+				self._ColorScheme['START_TIMER_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")]
+				self._ColorScheme['START_TIMER_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")]
+				self._ColorScheme['START_TIMER_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")]
+				self._ColorScheme['TYPE_START_TIMER'] = [AnsiColor('SEAGREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")]
+				self._ColorScheme['START_TIMER_MESSAGE'] = [AnsiColor('FORESTGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")]
+				self._ColorScheme['START_TIMER_BACKGROUND'] = ["", AnsiColor('FORESTGREEN', "background")]
+				# TIMER_MARK colors
+				self._ColorScheme['TIMER_MARK_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
+				self._ColorScheme['TIMER_MARK_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+				self._ColorScheme['TIMER_MARK_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+				self._ColorScheme['TYPE_TIMER_MARK'] = [AnsiColor('KHAKI', "foreground"), AnsiColor('SIENNA', "foreground")]
+				self._ColorScheme['TIMER_MARK_MESSAGE'] = [AnsiColor('DARKKHAKI', "foreground"), AnsiColor('SADDLEBROWN', "foreground")]
+				self._ColorScheme['TIMER_MARK_BACKGROUND'] = ["", AnsiColor('DARKKHAKI', "background")]
+				# STOP_TIMER colors
+				self._ColorScheme['STOP_TIMER_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")]
+				self._ColorScheme['STOP_TIMER_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
+				self._ColorScheme['STOP_TIMER_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
+				self._ColorScheme['TYPE_STOP_TIMER'] = [AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")]
+				self._ColorScheme['STOP_TIMER_MESSAGE'] = [AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
+				self._ColorScheme['STOP_TIMER_BACKGROUND'] = ["", AnsiColor('SKYBLUE', "background")]
 			case LogEnvironments.HTML:
 				self._ColorScheme['INITIAL_COLOR'] = [HexColor('GOLD'), HexColor('INDIGO')]
 				self._ColorScheme['INITIAL_BACKGROUND'] = ["", HexColor('GOLD')]
@@ -412,6 +434,27 @@ class Logger(BasicLogger):
 				self._ColorScheme['TYPE_FAIL'] = [HexColor('FIREBRICK'), HexColor('YELLOW')]
 				self._ColorScheme['FAIL_MESSAGE'] = [HexColor('DARKRED'), HexColor('DARKYELLOW')]
 				self._ColorScheme['FAIL_BACKGROUND'] = ["", HexColor('DARKRED')]
+				# START_TIMER colors
+				self._ColorScheme['START_TIMER_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+				self._ColorScheme['START_TIMER_STATUS'] = [HexColor('ORANGE'), HexColor('CHARTREUSE')]
+				self._ColorScheme['START_TIMER_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+				self._ColorScheme['TYPE_START_TIMER'] = [HexColor('SEAGREEN'), HexColor('PALEGREEN')]
+				self._ColorScheme['START_TIMER_MESSAGE'] = [HexColor('FORESTGREEN'), HexColor('LIGHTGREEN')]
+				self._ColorScheme['START_TIMER_BACKGROUND'] = ["", HexColor('FORESTGREEN')]
+				# TIMER_MARK colors
+				self._ColorScheme['TIMER_MARK_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+				self._ColorScheme['TIMER_MARK_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+				self._ColorScheme['TIMER_MARK_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+				self._ColorScheme['TYPE_TIMER_MARK'] = [HexColor('KHAKI'), HexColor('SIENNA')]
+				self._ColorScheme['TIMER_MARK_MESSAGE'] = [HexColor('DARKKHAKI'), HexColor('SADDLEBROWN')]
+				self._ColorScheme['TIMER_MARK_BACKGROUND'] = ["", HexColor('DARKKHAKI')]
+				# STOP_TIMER colors
+				self._ColorScheme['STOP_TIMER_TIME'] = [HexColor('ORCHID'), HexColor('PURPLE')]
+				self._ColorScheme['STOP_TIMER_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
+				self._ColorScheme['STOP_TIMER_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
+				self._ColorScheme['TYPE_STOP_TIMER'] = [HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
+				self._ColorScheme['STOP_TIMER_MESSAGE'] = [HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
+				self._ColorScheme['STOP_TIMER_BACKGROUND'] = ["", HexColor('SKYBLUE')]
 
 	def _initial_log(self) -> None:
 		"""
@@ -483,6 +526,12 @@ class Logger(BasicLogger):
 		return self._buffer
 
 	#todo v0.7.1 сделать конвертер из Console в HTML и наоборот
+
+	# ######################################################################################## #
+	#                                                                                          #
+	#                                    Entering to Logger                                    #
+	#                                                                                          #
+	# ######################################################################################## #
 
 	def empty(
 		self,
@@ -1004,6 +1053,12 @@ class Logger(BasicLogger):
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
+	# ######################################################################################## #
+	#                                                                                          #
+	#                                  Entering to Processes                                   #
+	#                                                                                          #
+	# ######################################################################################## #
+
 	def start_indefinite_process(
 		self,
 		*,
@@ -1032,7 +1087,7 @@ class Logger(BasicLogger):
 
 		self._progress_start = datetime.now()
 		progress_stop = datetime.now()
-		self._progress_time = str(progress_stop - self._progress_start).split(".")[0] + " "
+		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		func = getattr(self, "_initiation", None)
 		args = {}
 		if status_message != StatusMessageType("..."):
@@ -1121,7 +1176,7 @@ class Logger(BasicLogger):
 
 		self._progress_start = datetime.now()
 		progress_stop = datetime.now()
-		self._progress_time = str(progress_stop - self._progress_start).split(".")[0] + " "
+		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		func = getattr(self, "_initiation", None)
 		args = {}
 		if status_message != StatusMessageType("..."):
@@ -1229,7 +1284,7 @@ class Logger(BasicLogger):
 		last = self._buffer.pop()
 
 		progress_stop = datetime.now()
-		self._progress_time = str(progress_stop - self._progress_start).split(".")[0] + " "
+		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		func = getattr(self, entry_type, None)
 		args = {}
 		if status_message != StatusMessageType("..."):
@@ -1270,7 +1325,7 @@ class Logger(BasicLogger):
 		self._buffer.remove()
 
 		progress_stop = datetime.now()
-		self._progress_time = str(progress_stop - self._progress_start).split(".")[0] + " "
+		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		func = getattr(self, "_success", None) if self._progress_rise == 100 else getattr(self, "_fail", None)
 		args = {}
 		if status_message != StatusMessageType("..."):
@@ -1455,3 +1510,126 @@ class Logger(BasicLogger):
 		)
 		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
+
+	# ######################################################################################## #
+	#                                                                                          #
+	#                                     Entering to Timer                                    #
+	#                                                                                          #
+	# ######################################################################################## #
+
+	def start_timer(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
+		"""
+		...
+
+		:param status_message: Log entry status message
+		:param message_text: Log entry message
+		:param local_background: Display entry with background?
+		:param local_settings: Dictionary of local entering settings
+		"""
+		self._start_timer_value = datetime.now()
+		stop_timer_value = datetime.now()
+		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
+
+		if local_settings is None:
+			local_settings = {}
+		if not 'italic' in local_settings:
+			local_settings["italic"] = True
+		self._buffer << self._assemble_entry(
+			[
+				self._ColorScheme['START_TIMER_TIME'][local_background],
+				self._ColorScheme['START_TIMER_STATUS'][local_background],
+				self._ColorScheme['START_TIMER_STATUS_MESSAGE'][local_background],
+				self._ColorScheme['TYPE_START_TIMER'][local_background],
+				self._ColorScheme['START_TIMER_MESSAGE'][local_background],
+				self._ColorScheme['START_TIMER_BACKGROUND'][local_background],
+			], self._progress_time, self._icon_set.start_timer, status_message.current_status_message, "^START TIMER", message_text, self._environment, local_settings
+		)
+		if self._environment == LogEnvironments.CONSOLE:
+			self._buffer.update_console()
+
+		self._progress_time = "        "
+
+	def timer_mark(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
+		"""
+		...
+
+		:param status_message: Log entry status message
+		:param message_text: Log entry message
+		:param local_background: Display entry with background?
+		:param local_settings: Dictionary of local entering settings
+		"""
+		stop_timer_value = datetime.now()
+		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
+
+		if local_settings is None:
+			local_settings = {}
+		if not 'italic' in local_settings:
+			local_settings["italic"] = True
+		self._buffer << self._assemble_entry(
+			[
+				self._ColorScheme['TIMER_MARK_TIME'][local_background],
+				self._ColorScheme['TIMER_MARK_STATUS'][local_background],
+				self._ColorScheme['TIMER_MARK_STATUS_MESSAGE'][local_background],
+				self._ColorScheme['TYPE_TIMER_MARK'][local_background],
+				self._ColorScheme['TIMER_MARK_MESSAGE'][local_background],
+				self._ColorScheme['TIMER_MARK_BACKGROUND'][local_background],
+			], self._progress_time, self._icon_set.timer_mark, status_message.current_status_message, "^TIMER MARK", message_text, self._environment, local_settings
+		)
+		if self._environment == LogEnvironments.CONSOLE:
+			self._buffer.update_console()
+
+		self._progress_time = "        "
+
+	def stop_timer(
+		self,
+		*,
+		status_message: StatusMessageType = StatusMessageType("..."),
+		message_text: str = "...",
+		local_background: bool = True,
+		local_settings: dict = None
+	) -> None:
+		"""
+		...
+
+		:param status_message: Log entry status message
+		:param message_text: Log entry message
+		:param local_background: Display entry with background?
+		:param local_settings: Dictionary of local entering settings
+		"""
+		stop_timer_value = datetime.now()
+		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
+
+
+		if local_settings is None:
+			local_settings = {}
+		if not 'italic' in local_settings:
+			local_settings["italic"] = True
+		self._buffer << self._assemble_entry(
+			[
+				self._ColorScheme['STOP_TIMER_TIME'][local_background],
+				self._ColorScheme['STOP_TIMER_STATUS'][local_background],
+				self._ColorScheme['STOP_TIMER_STATUS_MESSAGE'][local_background],
+				self._ColorScheme['TYPE_STOP_TIMER'][local_background],
+				self._ColorScheme['STOP_TIMER_MESSAGE'][local_background],
+				self._ColorScheme['STOP_TIMER_BACKGROUND'][local_background],
+			], self._progress_time, self._icon_set.stop_timer, status_message.current_status_message, "^STOP TIMER", message_text, self._environment, local_settings
+		)
+		if self._environment == LogEnvironments.CONSOLE:
+			self._buffer.update_console()
+
+		self._start_timer_value = None
+		self._progress_time = "        "

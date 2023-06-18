@@ -41,6 +41,9 @@ class IconSetType:
 	milestone = ''
 	success = ''
 	fail = ''
+	start_timer = ''
+	timer_mark = ''
+	stop_timer = ''
 
 class EmptyIconSet(IconSetType):
 	...
@@ -70,6 +73,9 @@ class IconSet1(IconSetType):
 	milestone = '🔖'
 	success = '✔️'
 	fail = '❌'
+	start_timer = '⏰'
+	timer_mark = '⌚'
+	stop_timer = '⏲️'
 
 class IconSet2(IconSetType):
 	"""
@@ -96,6 +102,9 @@ class IconSet2(IconSetType):
 	milestone = '🔖'
 	success = '🎉'
 	fail = '🚫'
+	start_timer = '🕑'
+	timer_mark = '🕕'
+	stop_timer = '🕙'
 
 class IconSet3(IconSetType):
 	"""
@@ -122,6 +131,9 @@ class IconSet3(IconSetType):
 	milestone = '🎯'
 	success = '👍'
 	fail = '👎'
+	start_timer = '🟩'
+	timer_mark = '🟨'
+	stop_timer = '🟪'
 
 class IconSet4(IconSetType):
 	"""
@@ -148,3 +160,6 @@ class IconSet4(IconSetType):
 	milestone = '🗺️'
 	success = '✅'
 	fail = '❎'
+	start_timer = '⏳'
+	timer_mark = '⏱️'
+	stop_timer = '⌛'

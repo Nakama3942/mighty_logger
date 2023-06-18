@@ -46,3 +46,6 @@ class TypesEntries:
 	UNRESOLVED = 'unresolved'
 	ACHIEVEMENT = '_achievement'
 	MILESTONE = '_milestone'
+	START_TIMER = 'start_timer'
+	TIMER_MARK = 'timer_mark'
+	STOP_TIMER = 'stop_timer'

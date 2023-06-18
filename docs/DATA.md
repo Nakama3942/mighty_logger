@@ -40,6 +40,10 @@ The library stores various important data for use that you may need to know whil
 	- milestone (v0.6.0)
 	- success
 	- fail
+- Timer (^)
+	- start_timer (v0.6.1)
+	- timer_mark (v0.6.1)
+	- stop_timer (v0.6.1)
 
 ###### Settings:
 - Global:
@@ -121,6 +125,7 @@ The library stores various important data for use that you may need to know whil
 - @ - type: Message
 - ! - type: Error
 - & - type: Process
+- ^ - type: Timer
 - $ - free
 - ^ - free
 -->

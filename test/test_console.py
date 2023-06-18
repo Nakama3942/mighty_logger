@@ -8,6 +8,7 @@ if __name__ == "__main__":
 	logger = Logger(program_name="Installer", console_width=115, status_message_global_entry=False)
 
 	logger.message(message_text="Program installation started")
+	logger.start_timer(message_text="Timer started")
 
 	sleep(1)
 	logger.start_indefinite_process(animation=IndefiniteAnimations.Star, message_text="File upload")
@@ -18,6 +19,7 @@ if __name__ == "__main__":
 	logger.stop_process(message_text="Files unzipped")
 
 	logger.warning(message_text="Newer version found")
+	logger.timer_mark(message_text="Timer mark", local_background=False)
 
 	sleep(1)
 	logger.start_definite_process(progress_bar=DefiniteAnimations.Dots, message_text="Installing files")
@@ -44,6 +46,7 @@ if __name__ == "__main__":
 	logger.note_process(entry_type=TypesEntries.MILESTONE, message_text="Files prepared")
 	sleep(3.7)
 	logger.progress_rise(76)
+	logger.note_process(entry_type=TypesEntries.TIMER_MARK, message_text="Timer mark")
 	sleep(1.5)
 	logger.progress_rise(77)
 	sleep(1.4)
@@ -76,5 +79,7 @@ if __name__ == "__main__":
 	logger.progress_rise(100)
 	sleep(1.3)
 	logger.stop_process(message_text="Program installed")
+
+	logger.stop_timer(message_text="Timer completed")
 
 	logger.buffer().save("log.txt")
