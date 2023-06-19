@@ -21,8 +21,8 @@ class LogEnvironments:
 	"""
 	Environments of Logger.
 	"""
-	CONSOLE = 'console'
-	HTML = 'html'
+	CONSOLE = False
+	HTML = True
 
 class TypesEntries:
 	"""

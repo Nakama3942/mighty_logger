@@ -34,7 +34,7 @@ class BasicLogger(Singleton):
 	def _initialized_data(
 		self,
 		colors: list[str, str],
-		env: str
+		env: bool
 	) -> str:
 		"""
 		A method that assemble an entry of system initialized data.
@@ -42,7 +42,7 @@ class BasicLogger(Singleton):
 		:param colors: Color string list of initialized data
 		:return: a string with initialized data
 		"""
-		if env == LogEnvironments.HTML:
+		if env:
 			return (
 					f"<span style='background-color: #{colors[1]};'>" +
 					f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +
@@ -73,7 +73,7 @@ class BasicLogger(Singleton):
 		status_message_text: str,
 		message_type: str,
 		message_text: str,
-		env: str,
+		env: bool,
 		local_settings: dict
 	) -> str:
 		"""
@@ -97,7 +97,7 @@ class BasicLogger(Singleton):
 		status_message_entry = local_settings['status_message_local_entry'] if 'status_message_local_entry' in local_settings else self._settings['status_message_global_entry']
 		status_type_entry = local_settings['status_type_local_entry'] if 'status_type_local_entry' in local_settings else self._settings['status_type_global_entry']
 		message_entry = local_settings['message_local_entry'] if 'message_local_entry' in local_settings else self._settings['message_global_entry']
-		if env == LogEnvironments.HTML:
+		if env:
 			return (
 					(f"<b>" if bold else "") +
 					(f"<i>" if italic else "") +

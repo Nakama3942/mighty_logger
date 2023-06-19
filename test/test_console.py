@@ -7,7 +7,21 @@ from mighty_logger.text import IndefiniteAnimations, DefiniteAnimations
 if __name__ == "__main__":
 	logger = Logger(program_name="Installer", console_width=115, status_message_global_entry=False)
 
+	logger.entry(entry_type=EntryTypes.debug)
 	logger.entry(entry_type=EntryTypes.debug_performance)
+	logger.entry(entry_type=EntryTypes.performance)
+	logger.entry(entry_type=EntryTypes.event)
+	logger.entry(entry_type=EntryTypes.audit)
+	logger.entry(entry_type=EntryTypes.metrics)
+	logger.entry(entry_type=EntryTypes.user)
+	logger.entry(entry_type=EntryTypes.message)
+	logger.entry(entry_type=EntryTypes.info)
+	logger.entry(entry_type=EntryTypes.notice)
+	logger.entry(entry_type=EntryTypes.warning)
+	logger.entry(entry_type=EntryTypes.error)
+	logger.entry(entry_type=EntryTypes.critical)
+	logger.entry(entry_type=EntryTypes.resolved)
+	logger.entry(entry_type=EntryTypes.unresolved)
 
 	# logger.message(message_text="Program installation started")
 	# logger.start_timer(message_text="Timer started")
