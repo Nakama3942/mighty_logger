@@ -24,7 +24,7 @@ from mighty_logger.basic.basic_logger import BasicLogger
 from mighty_logger.basic.exceptions import ColorException, CombinationException, ReCreationException
 from mighty_logger.basic.text_buffer_type import TextBufferType
 from mighty_logger.src.color_picker import AnsiColor, HexColor, Dec2Ansi, Dec2Hex
-from mighty_logger.src.entry_types import EntryType
+from mighty_logger.src.entry_types import EntryType, ServiceLogger, ServiceProcessEntryTypes, ServiceTimerEntryTypes
 from mighty_logger.src.log_enums import LogEnvironments
 from mighty_logger.src.status_variables import StatusMessageType
 from mighty_logger.text.animation import BasicAnimationType, IndefiniteAnimationType, DefiniteAnimationType, IndefiniteAnimations, DefiniteAnimations
@@ -63,7 +63,7 @@ class Logger(BasicLogger):
 		global_invert_font: bool = False,
 		global_background: bool = False,
 	) -> None:
-		if not hasattr(self, "_ColorScheme"):
+		if not hasattr(self, "_environment"):
 			super().__init__(program_name)
 			self._animation: BasicAnimationType = BasicAnimationType([])
 			self._icon_set = 1 if 4 < icon_set < 1 else icon_set
@@ -75,7 +75,6 @@ class Logger(BasicLogger):
 			self._settings["status_message_global_entry"] = status_message_global_entry
 			self._settings["status_type_global_entry"] = status_type_global_entry
 			self._settings["message_global_entry"] = message_global_entry
-			self._ColorScheme: dict = {}
 			self._environment = log_environment
 			self._progress_rise = 0
 			self._progress_start: datetime | None = None
@@ -83,7 +82,6 @@ class Logger(BasicLogger):
 			self._progress_interrupt = False
 			self._start_timer_value: datetime | None = None
 			self.global_background = global_background
-			self._color_scheme_init()
 			if self._environment:
 				if BasicTextBuffer._instance is not None:
 					self._buffer = BasicTextBuffer._instance
@@ -108,367 +106,19 @@ class Logger(BasicLogger):
 		else:
 			raise ReCreationException("Logger class object already created")
 
-	def _color_scheme_init(self) -> None:
-		"""
-		Sets the colors of the logger.
-		"""
-		match self._environment:
-			case LogEnvironments.CONSOLE:
-				self._ColorScheme['INITIAL_COLOR'] = [AnsiColor('GOLD', "foreground"), AnsiColor('INDIGO', "foreground")]
-				self._ColorScheme['INITIAL_BACKGROUND'] = ["", AnsiColor('GOLD', "background")]
-				# # DEBUG colors
-				# self._ColorScheme['DEBUG_TIME'] =
-				# self._ColorScheme['DEBUG_STATUS'] =
-				# self._ColorScheme['DEBUG_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_DEBUG'] =
-				# self._ColorScheme['DEBUG_MESSAGE'] =
-				# self._ColorScheme['DEBUG_BACKGROUND'] =
-				# # DEBUG_PERFORMANCE colors
-				# self._ColorScheme['DEBUG_PERFORMANCE_TIME'] =
-				# self._ColorScheme['DEBUG_PERFORMANCE_STATUS'] =
-				# self._ColorScheme['DEBUG_PERFORMANCE_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_DEBUG_PERFORMANCE'] =
-				# self._ColorScheme['DEBUG_PERFORMANCE_MESSAGE'] =
-				# self._ColorScheme['DEBUG_PERFORMANCE_BACKGROUND'] =
-				# # PERFORMANCE colors
-				# self._ColorScheme['PERFORMANCE_TIME'] =
-				# self._ColorScheme['PERFORMANCE_STATUS'] =
-				# self._ColorScheme['PERFORMANCE_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_PERFORMANCE'] =
-				# self._ColorScheme['PERFORMANCE_MESSAGE'] =
-				# self._ColorScheme['PERFORMANCE_BACKGROUND'] =
-				# # EVENT colors
-				# self._ColorScheme['EVENT_TIME'] =
-				# self._ColorScheme['EVENT_STATUS'] =
-				# self._ColorScheme['EVENT_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_EVENT'] =
-				# self._ColorScheme['EVENT_MESSAGE'] =
-				# self._ColorScheme['EVENT_BACKGROUND'] =
-				# # AUDIT colors
-				# self._ColorScheme['AUDIT_TIME'] =
-				# self._ColorScheme['AUDIT_STATUS'] =
-				# self._ColorScheme['AUDIT_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_AUDIT'] =
-				# self._ColorScheme['AUDIT_MESSAGE'] =
-				# self._ColorScheme['AUDIT_BACKGROUND'] =
-				# # METRICS colors
-				# self._ColorScheme['METRICS_TIME'] =
-				# self._ColorScheme['METRICS_STATUS'] =
-				# self._ColorScheme['METRICS_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_METRICS'] =
-				# self._ColorScheme['METRICS_MESSAGE'] =
-				# self._ColorScheme['METRICS_BACKGROUND'] =
-				# # USER colors
-				# self._ColorScheme['USER_TIME'] =
-				# self._ColorScheme['USER_STATUS'] =
-				# self._ColorScheme['USER_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_USER'] =
-				# self._ColorScheme['USER_MESSAGE'] =
-				# self._ColorScheme['USER_BACKGROUND'] =
-				# # MESSAGE colors
-				# self._ColorScheme['MESSAGE_TIME'] =
-				# self._ColorScheme['MESSAGE_STATUS'] =
-				# self._ColorScheme['MESSAGE_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_MESSAGE'] =
-				# self._ColorScheme['MESSAGE_MESSAGE'] =
-				# self._ColorScheme['MESSAGE_BACKGROUND'] =
-				# # INFO colors
-				# self._ColorScheme['INFO_TIME'] =
-				# self._ColorScheme['INFO_STATUS'] =
-				# self._ColorScheme['INFO_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_INFO'] =
-				# self._ColorScheme['INFO_MESSAGE'] =
-				# self._ColorScheme['INFO_BACKGROUND'] =
-				# # NOTICE colors
-				# self._ColorScheme['NOTICE_TIME'] =
-				# self._ColorScheme['NOTICE_STATUS'] =
-				# self._ColorScheme['NOTICE_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_NOTICE'] =
-				# self._ColorScheme['NOTICE_MESSAGE'] =
-				# self._ColorScheme['NOTICE_BACKGROUND'] =
-				# # WARNING colors
-				# self._ColorScheme['WARNING_TIME'] =
-				# self._ColorScheme['WARNING_STATUS'] =
-				# self._ColorScheme['WARNING_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_WARNING'] =
-				# self._ColorScheme['WARNING_MESSAGE'] =
-				# self._ColorScheme['WARNING_BACKGROUND'] =
-				# # ERROR colors
-				# self._ColorScheme['ERROR_TIME'] =
-				# self._ColorScheme['ERROR_STATUS'] =
-				# self._ColorScheme['ERROR_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_ERROR'] =
-				# self._ColorScheme['ERROR_MESSAGE'] =
-				# self._ColorScheme['ERROR_BACKGROUND'] =
-				# # CRITICAL colors
-				# self._ColorScheme['CRITICAL_TIME'] =
-				# self._ColorScheme['CRITICAL_STATUS'] =
-				# self._ColorScheme['CRITICAL_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_CRITICAL'] =
-				# self._ColorScheme['CRITICAL_MESSAGE'] =
-				# self._ColorScheme['CRITICAL_BACKGROUND'] =
-				# # RESOLVED colors
-				# self._ColorScheme['RESOLVED_TIME'] =
-				# self._ColorScheme['RESOLVED_STATUS'] =
-				# self._ColorScheme['RESOLVED_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_RESOLVED'] =
-				# self._ColorScheme['RESOLVED_MESSAGE'] =
-				# self._ColorScheme['RESOLVED_BACKGROUND'] =
-				# # UNRESOLVED colors
-				# self._ColorScheme['UNRESOLVED_TIME'] =
-				# self._ColorScheme['UNRESOLVED_STATUS'] =
-				# self._ColorScheme['UNRESOLVED_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_UNRESOLVED'] =
-				# self._ColorScheme['UNRESOLVED_MESSAGE'] =
-				# self._ColorScheme['UNRESOLVED_BACKGROUND'] =
-				# INITIATION colors
-				self._ColorScheme['INITIATION_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")]
-				self._ColorScheme['INITIATION_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")]
-				self._ColorScheme['INITIATION_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")]
-				self._ColorScheme['TYPE_INITIATION'] = [AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")]
-				self._ColorScheme['INITIATION_MESSAGE'] = [AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")]
-				self._ColorScheme['INITIATION_BACKGROUND'] = ["", AnsiColor('DARKGREEN', "background")]
-				# PROGRESS colors
-				self._ColorScheme['PROGRESS_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")]
-				self._ColorScheme['PROGRESS_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-				self._ColorScheme['PROGRESS_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-				self._ColorScheme['TYPE_PROGRESS'] = [AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")]
-				self._ColorScheme['PROGRESS_MESSAGE'] = [AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-				self._ColorScheme['PROGRESS_BACKGROUND'] = ["", AnsiColor('SKYBLUE', "background")]
-				# ACHIEVEMENT colors
-				self._ColorScheme['ACHIEVEMENT_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-				self._ColorScheme['ACHIEVEMENT_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-				self._ColorScheme['ACHIEVEMENT_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-				self._ColorScheme['TYPE_ACHIEVEMENT'] = [AnsiColor('YELLOW', "foreground"), AnsiColor('NAVY', "foreground")]
-				self._ColorScheme['ACHIEVEMENT_MESSAGE'] = [AnsiColor('DARKYELLOW', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-				self._ColorScheme['ACHIEVEMENT_BACKGROUND'] = ["", AnsiColor('DARKYELLOW', "background")]
-				# MILESTONE colors
-				self._ColorScheme['MILESTONE_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")]
-				self._ColorScheme['MILESTONE_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")]
-				self._ColorScheme['MILESTONE_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")]
-				self._ColorScheme['TYPE_MILESTONE'] = [AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")]
-				self._ColorScheme['MILESTONE_MESSAGE'] = [AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")]
-				self._ColorScheme['MILESTONE_BACKGROUND'] = ["", AnsiColor('DARKGREEN', "background")]
-				# SUCCESS colors
-				self._ColorScheme['SUCCESS_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")]
-				self._ColorScheme['SUCCESS_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")]
-				self._ColorScheme['SUCCESS_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")]
-				self._ColorScheme['TYPE_SUCCESS'] = [AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")]
-				self._ColorScheme['SUCCESS_MESSAGE'] = [AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")]
-				self._ColorScheme['SUCCESS_BACKGROUND'] = ["", AnsiColor('DARKGREEN', "background")]
-				# FAIL colors
-				self._ColorScheme['FAIL_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")]
-				self._ColorScheme['FAIL_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")]
-				self._ColorScheme['FAIL_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")]
-				self._ColorScheme['TYPE_FAIL'] = [AnsiColor('FIREBRICK', "foreground"), AnsiColor('YELLOW', "foreground")]
-				self._ColorScheme['FAIL_MESSAGE'] = [AnsiColor('DARKRED', "foreground"), AnsiColor('DARKYELLOW', "foreground")]
-				self._ColorScheme['FAIL_BACKGROUND'] = ["", AnsiColor('DARKRED', "background")]
-				# START_TIMER colors
-				self._ColorScheme['START_TIMER_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")]
-				self._ColorScheme['START_TIMER_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")]
-				self._ColorScheme['START_TIMER_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")]
-				self._ColorScheme['TYPE_START_TIMER'] = [AnsiColor('SEAGREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")]
-				self._ColorScheme['START_TIMER_MESSAGE'] = [AnsiColor('FORESTGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")]
-				self._ColorScheme['START_TIMER_BACKGROUND'] = ["", AnsiColor('FORESTGREEN', "background")]
-				# TIMER_MARK colors
-				self._ColorScheme['TIMER_MARK_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")]
-				self._ColorScheme['TIMER_MARK_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-				self._ColorScheme['TIMER_MARK_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-				self._ColorScheme['TYPE_TIMER_MARK'] = [AnsiColor('KHAKI', "foreground"), AnsiColor('SIENNA', "foreground")]
-				self._ColorScheme['TIMER_MARK_MESSAGE'] = [AnsiColor('DARKKHAKI', "foreground"), AnsiColor('SADDLEBROWN', "foreground")]
-				self._ColorScheme['TIMER_MARK_BACKGROUND'] = ["", AnsiColor('DARKKHAKI', "background")]
-				# STOP_TIMER colors
-				self._ColorScheme['STOP_TIMER_TIME'] = [AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")]
-				self._ColorScheme['STOP_TIMER_STATUS'] = [AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")]
-				self._ColorScheme['STOP_TIMER_STATUS_MESSAGE'] = [AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")]
-				self._ColorScheme['TYPE_STOP_TIMER'] = [AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")]
-				self._ColorScheme['STOP_TIMER_MESSAGE'] = [AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")]
-				self._ColorScheme['STOP_TIMER_BACKGROUND'] = ["", AnsiColor('SKYBLUE', "background")]
-			case LogEnvironments.HTML:
-				self._ColorScheme['INITIAL_COLOR'] = [HexColor('GOLD'), HexColor('INDIGO')]
-				self._ColorScheme['INITIAL_BACKGROUND'] = ["", HexColor('GOLD')]
-				# # DEBUG colors
-				# self._ColorScheme['DEBUG_TIME'] =
-				# self._ColorScheme['DEBUG_STATUS'] =
-				# self._ColorScheme['DEBUG_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_DEBUG'] =
-				# self._ColorScheme['DEBUG_MESSAGE'] =
-				# self._ColorScheme['DEBUG_BACKGROUND'] =
-				# # DEBUG_PERFORMANCE colors
-				# self._ColorScheme['DEBUG_PERFORMANCE_TIME'] =
-				# self._ColorScheme['DEBUG_PERFORMANCE_STATUS'] =
-				# self._ColorScheme['DEBUG_PERFORMANCE_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_DEBUG_PERFORMANCE'] =
-				# self._ColorScheme['DEBUG_PERFORMANCE_MESSAGE'] =
-				# self._ColorScheme['DEBUG_PERFORMANCE_BACKGROUND'] =
-				# # PERFORMANCE colors
-				# self._ColorScheme['PERFORMANCE_TIME'] =
-				# self._ColorScheme['PERFORMANCE_STATUS'] =
-				# self._ColorScheme['PERFORMANCE_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_PERFORMANCE'] =
-				# self._ColorScheme['PERFORMANCE_MESSAGE'] =
-				# self._ColorScheme['PERFORMANCE_BACKGROUND'] =
-				# # EVENT colors
-				# self._ColorScheme['EVENT_TIME'] =
-				# self._ColorScheme['EVENT_STATUS'] =
-				# self._ColorScheme['EVENT_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_EVENT'] =
-				# self._ColorScheme['EVENT_MESSAGE'] =
-				# self._ColorScheme['EVENT_BACKGROUND'] =
-				# # AUDIT colors
-				# self._ColorScheme['AUDIT_TIME'] =
-				# self._ColorScheme['AUDIT_STATUS'] =
-				# self._ColorScheme['AUDIT_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_AUDIT'] =
-				# self._ColorScheme['AUDIT_MESSAGE'] =
-				# self._ColorScheme['AUDIT_BACKGROUND'] =
-				# # METRICS colors
-				# self._ColorScheme['METRICS_TIME'] =
-				# self._ColorScheme['METRICS_STATUS'] =
-				# self._ColorScheme['METRICS_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_METRICS'] =
-				# self._ColorScheme['METRICS_MESSAGE'] =
-				# self._ColorScheme['METRICS_BACKGROUND'] =
-				# # USER colors
-				# self._ColorScheme['USER_TIME'] =
-				# self._ColorScheme['USER_STATUS'] =
-				# self._ColorScheme['USER_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_USER'] =
-				# self._ColorScheme['USER_MESSAGE'] =
-				# self._ColorScheme['USER_BACKGROUND'] =
-				# # MESSAGE colors
-				# self._ColorScheme['MESSAGE_TIME'] =
-				# self._ColorScheme['MESSAGE_STATUS'] =
-				# self._ColorScheme['MESSAGE_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_MESSAGE'] =
-				# self._ColorScheme['MESSAGE_MESSAGE'] =
-				# self._ColorScheme['MESSAGE_BACKGROUND'] =
-				# # INFO colors
-				# self._ColorScheme['INFO_TIME'] =
-				# self._ColorScheme['INFO_STATUS'] =
-				# self._ColorScheme['INFO_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_INFO'] =
-				# self._ColorScheme['INFO_MESSAGE'] =
-				# self._ColorScheme['INFO_BACKGROUND'] =
-				# # NOTICE colors
-				# self._ColorScheme['NOTICE_TIME'] =
-				# self._ColorScheme['NOTICE_STATUS'] =
-				# self._ColorScheme['NOTICE_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_NOTICE'] =
-				# self._ColorScheme['NOTICE_MESSAGE'] =
-				# self._ColorScheme['NOTICE_BACKGROUND'] =
-				# # WARNING colors
-				# self._ColorScheme['WARNING_TIME'] =
-				# self._ColorScheme['WARNING_STATUS'] =
-				# self._ColorScheme['WARNING_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_WARNING'] =
-				# self._ColorScheme['WARNING_MESSAGE'] =
-				# self._ColorScheme['WARNING_BACKGROUND'] =
-				# # ERROR colors
-				# self._ColorScheme['ERROR_TIME'] =
-				# self._ColorScheme['ERROR_STATUS'] =
-				# self._ColorScheme['ERROR_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_ERROR'] =
-				# self._ColorScheme['ERROR_MESSAGE'] =
-				# self._ColorScheme['ERROR_BACKGROUND'] =
-				# # CRITICAL colors
-				# self._ColorScheme['CRITICAL_TIME'] =
-				# self._ColorScheme['CRITICAL_STATUS'] =
-				# self._ColorScheme['CRITICAL_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_CRITICAL'] =
-				# self._ColorScheme['CRITICAL_MESSAGE'] =
-				# self._ColorScheme['CRITICAL_BACKGROUND'] =
-				# # RESOLVED colors
-				# self._ColorScheme['RESOLVED_TIME'] =
-				# self._ColorScheme['RESOLVED_STATUS'] =
-				# self._ColorScheme['RESOLVED_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_RESOLVED'] =
-				# self._ColorScheme['RESOLVED_MESSAGE'] =
-				# self._ColorScheme['RESOLVED_BACKGROUND'] =
-				# # UNRESOLVED colors
-				# self._ColorScheme['UNRESOLVED_TIME'] =
-				# self._ColorScheme['UNRESOLVED_STATUS'] =
-				# self._ColorScheme['UNRESOLVED_STATUS_MESSAGE'] =
-				# self._ColorScheme['TYPE_UNRESOLVED'] =
-				# self._ColorScheme['UNRESOLVED_MESSAGE'] =
-				# self._ColorScheme['UNRESOLVED_BACKGROUND'] =
-				# INITIATION colors
-				self._ColorScheme['INITIATION_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
-				self._ColorScheme['INITIATION_STATUS'] = [HexColor('ORANGE'), HexColor('CHARTREUSE')]
-				self._ColorScheme['INITIATION_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
-				self._ColorScheme['TYPE_INITIATION'] = [HexColor('GREEN'), HexColor('PALEGREEN')]
-				self._ColorScheme['INITIATION_MESSAGE'] = [HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
-				self._ColorScheme['INITIATION_BACKGROUND'] = ["", HexColor('DARKGREEN')]
-				# PROGRESS colors
-				self._ColorScheme['PROGRESS_TIME'] = [HexColor('ORCHID'), HexColor('PURPLE')]
-				self._ColorScheme['PROGRESS_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-				self._ColorScheme['PROGRESS_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-				self._ColorScheme['TYPE_PROGRESS'] = [HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
-				self._ColorScheme['PROGRESS_MESSAGE'] = [HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
-				self._ColorScheme['PROGRESS_BACKGROUND'] = ["", HexColor('SKYBLUE')]
-				# ACHIEVEMENT colors
-				self._ColorScheme['ACHIEVEMENT_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-				self._ColorScheme['ACHIEVEMENT_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-				self._ColorScheme['ACHIEVEMENT_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-				self._ColorScheme['TYPE_ACHIEVEMENT'] = [HexColor('YELLOW'), HexColor('NAVY')]
-				self._ColorScheme['ACHIEVEMENT_MESSAGE'] = [HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')]
-				self._ColorScheme['ACHIEVEMENT_BACKGROUND'] = ["", HexColor('DARKYELLOW')]
-				# MILESTONE colors
-				self._ColorScheme['MILESTONE_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
-				self._ColorScheme['MILESTONE_STATUS'] = [HexColor('ORANGE'), HexColor('CHARTREUSE')]
-				self._ColorScheme['MILESTONE_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
-				self._ColorScheme['TYPE_MILESTONE'] = [HexColor('GREEN'), HexColor('PALEGREEN')]
-				self._ColorScheme['MILESTONE_MESSAGE'] = [HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
-				self._ColorScheme['MILESTONE_BACKGROUND'] = ["", HexColor('DARKGREEN')]
-				# SUCCESS colors
-				self._ColorScheme['SUCCESS_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
-				self._ColorScheme['SUCCESS_STATUS'] = [HexColor('ORANGE'), HexColor('CHARTREUSE')]
-				self._ColorScheme['SUCCESS_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
-				self._ColorScheme['TYPE_SUCCESS'] = [HexColor('GREEN'), HexColor('PALEGREEN')]
-				self._ColorScheme['SUCCESS_MESSAGE'] = [HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
-				self._ColorScheme['SUCCESS_BACKGROUND'] = ["", HexColor('DARKGREEN')]
-				# FAIL colors
-				self._ColorScheme['FAIL_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
-				self._ColorScheme['FAIL_STATUS'] = [HexColor('ORANGE'), HexColor('ORANGE')]
-				self._ColorScheme['FAIL_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('DARKORANGE')]
-				self._ColorScheme['TYPE_FAIL'] = [HexColor('FIREBRICK'), HexColor('YELLOW')]
-				self._ColorScheme['FAIL_MESSAGE'] = [HexColor('DARKRED'), HexColor('DARKYELLOW')]
-				self._ColorScheme['FAIL_BACKGROUND'] = ["", HexColor('DARKRED')]
-				# START_TIMER colors
-				self._ColorScheme['START_TIMER_TIME'] = [HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
-				self._ColorScheme['START_TIMER_STATUS'] = [HexColor('ORANGE'), HexColor('CHARTREUSE')]
-				self._ColorScheme['START_TIMER_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
-				self._ColorScheme['TYPE_START_TIMER'] = [HexColor('SEAGREEN'), HexColor('PALEGREEN')]
-				self._ColorScheme['START_TIMER_MESSAGE'] = [HexColor('FORESTGREEN'), HexColor('LIGHTGREEN')]
-				self._ColorScheme['START_TIMER_BACKGROUND'] = ["", HexColor('FORESTGREEN')]
-				# TIMER_MARK colors
-				self._ColorScheme['TIMER_MARK_TIME'] = [HexColor('ORCHID'), HexColor('DARKMAGENTA')]
-				self._ColorScheme['TIMER_MARK_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-				self._ColorScheme['TIMER_MARK_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-				self._ColorScheme['TYPE_TIMER_MARK'] = [HexColor('KHAKI'), HexColor('SIENNA')]
-				self._ColorScheme['TIMER_MARK_MESSAGE'] = [HexColor('DARKKHAKI'), HexColor('SADDLEBROWN')]
-				self._ColorScheme['TIMER_MARK_BACKGROUND'] = ["", HexColor('DARKKHAKI')]
-				# STOP_TIMER colors
-				self._ColorScheme['STOP_TIMER_TIME'] = [HexColor('ORCHID'), HexColor('PURPLE')]
-				self._ColorScheme['STOP_TIMER_STATUS'] = [HexColor('ORANGE'), HexColor('DARKRED')]
-				self._ColorScheme['STOP_TIMER_STATUS_MESSAGE'] = [HexColor('DARKORANGE'), HexColor('MAROON')]
-				self._ColorScheme['TYPE_STOP_TIMER'] = [HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
-				self._ColorScheme['STOP_TIMER_MESSAGE'] = [HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
-				self._ColorScheme['STOP_TIMER_BACKGROUND'] = ["", HexColor('SKYBLUE')]
-
 	def _initial_log(self) -> None:
 		"""
 		Displays initialized information.
 		"""
-		if self._environment == LogEnvironments.HTML:
+		if self._environment:
 			self._buffer << "<body style='background-color: #000000; color: #ffffff;'>"
 		self._buffer << self._initialized_data(
 			[
-				self._ColorScheme['INITIAL_COLOR'][self.global_background],
-				self._ColorScheme['INITIAL_BACKGROUND'][self.global_background]
+				ServiceLogger.initial[0][self._environment][self.global_background],
+				ServiceLogger.initial[1][self._environment][self.global_background]
 			], self._environment
 		)
-		if self._environment == LogEnvironments.CONSOLE:
+		if not self._environment:
 			self._buffer.update_console()
 
 	def set_icons(self, icon_set: int) -> None:
@@ -509,11 +159,11 @@ class Logger(BasicLogger):
 		"""
 		if logger_color_name in self._ColorScheme:
 			if background and not foreground:
-				self._ColorScheme[logger_color_name][1] = Dec2Ansi(color_value, "background") if self._environment == LogEnvironments.CONSOLE else Dec2Hex(color_value)
+				self._ColorScheme[logger_color_name][1] = Dec2Ansi(color_value, "background") if not self._environment else Dec2Hex(color_value)
 			elif background and foreground:
-				self._ColorScheme[logger_color_name][1] = Dec2Ansi(color_value, "foreground") if self._environment == LogEnvironments.CONSOLE else Dec2Hex(color_value)
+				self._ColorScheme[logger_color_name][1] = Dec2Ansi(color_value, "foreground") if not self._environment else Dec2Hex(color_value)
 			elif not background and foreground:
-				self._ColorScheme[logger_color_name][0] = Dec2Ansi(color_value, "foreground") if self._environment == LogEnvironments.CONSOLE else Dec2Hex(color_value)
+				self._ColorScheme[logger_color_name][0] = Dec2Ansi(color_value, "foreground") if not self._environment else Dec2Hex(color_value)
 			else:
 				raise CombinationException("False-False combination of foreground-background flags not possible")
 		else:
@@ -550,7 +200,7 @@ class Logger(BasicLogger):
 		:param entry: "Empty" entry
 		"""
 		self._buffer << entry
-		if self._environment == LogEnvironments.CONSOLE:
+		if not self._environment:
 			self._buffer.update_console()
 
 	def entry(
@@ -591,511 +241,8 @@ class Logger(BasicLogger):
 			self._environment,
 			local_settings
 		)
-		if self._environment == LogEnvironments.CONSOLE:
+		if not self._environment:
 			self._buffer.update_console()
-
-	# def debug(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = None,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Debugging information logging:
-	# 	Can be used to log entry any information while debugging an application.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['DEBUG_TIME'][background],
-	# 			self._ColorScheme['DEBUG_STATUS'][background],
-	# 			self._ColorScheme['DEBUG_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_DEBUG'][background],
-	# 			self._ColorScheme['DEBUG_MESSAGE'][background],
-	# 			self._ColorScheme['DEBUG_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.debug, status_message.current_status_message, "%DEBUG", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def debug_performance(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = None,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Performance debugging information logging:
-	# 	Can be used to log entry the execution time of operations or other
-	# 	performance information while the application is being debugged.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['DEBUG_PERFORMANCE_TIME'][background],
-	# 			self._ColorScheme['DEBUG_PERFORMANCE_STATUS'][background],
-	# 			self._ColorScheme['DEBUG_PERFORMANCE_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_DEBUG_PERFORMANCE'][background],
-	# 			self._ColorScheme['DEBUG_PERFORMANCE_MESSAGE'][background],
-	# 			self._ColorScheme['DEBUG_PERFORMANCE_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.debug_performance, status_message.current_status_message, "%DEBUG PERFORMANCE", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def performance(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = None,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Performance information logging:
-	# 	Can be used to log entry the execution time of operations or
-	# 	other application performance information.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['PERFORMANCE_TIME'][background],
-	# 			self._ColorScheme['PERFORMANCE_STATUS'][background],
-	# 			self._ColorScheme['PERFORMANCE_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_PERFORMANCE'][background],
-	# 			self._ColorScheme['PERFORMANCE_MESSAGE'][background],
-	# 			self._ColorScheme['PERFORMANCE_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.performance, status_message.current_status_message, "%PERFORMANCE", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def event(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = None,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Event information logging:
-	# 	Can be used to log entry specific events in the application,
-	# 	such as button presses or mouse cursor movements.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['EVENT_TIME'][background],
-	# 			self._ColorScheme['EVENT_STATUS'][background],
-	# 			self._ColorScheme['EVENT_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_EVENT'][background],
-	# 			self._ColorScheme['EVENT_MESSAGE'][background],
-	# 			self._ColorScheme['EVENT_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.event, status_message.current_status_message, "~EVENT", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def audit(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = None,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Audit information logging:
-	# 	Can be used to log entry changes in the system, such as creating or
-	# 	deleting users, as well as changes in security settings.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['AUDIT_TIME'][background],
-	# 			self._ColorScheme['AUDIT_STATUS'][background],
-	# 			self._ColorScheme['AUDIT_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_AUDIT'][background],
-	# 			self._ColorScheme['AUDIT_MESSAGE'][background],
-	# 			self._ColorScheme['AUDIT_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.audit, status_message.current_status_message, "~AUDIT", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def metrics(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = None,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Metrics information logging:
-	# 	Can be used to log entry metrics to track application performance and identify issues.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['METRICS_TIME'][background],
-	# 			self._ColorScheme['METRICS_STATUS'][background],
-	# 			self._ColorScheme['METRICS_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_METRICS'][background],
-	# 			self._ColorScheme['METRICS_MESSAGE'][background],
-	# 			self._ColorScheme['METRICS_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.metrics, status_message.current_status_message, "~METRICS", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def user(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = None,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	User information logging:
-	# 	Can be used to log entry custom logs to store additional information
-	# 	that may be useful for diagnosing problems.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['USER_TIME'][background],
-	# 			self._ColorScheme['USER_STATUS'][background],
-	# 			self._ColorScheme['USER_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_USER'][background],
-	# 			self._ColorScheme['USER_MESSAGE'][background],
-	# 			self._ColorScheme['USER_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.user, status_message.current_status_message, "~USER", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def message(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = None,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Message information logging:
-	# 	Can be used for the usual output of ordinary messages about the program's operation.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['MESSAGE_TIME'][background],
-	# 			self._ColorScheme['MESSAGE_STATUS'][background],
-	# 			self._ColorScheme['MESSAGE_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_MESSAGE'][background],
-	# 			self._ColorScheme['MESSAGE_MESSAGE'][background],
-	# 			self._ColorScheme['MESSAGE_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.message, status_message.current_status_message, "@MESSAGE", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def info(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = None,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Default information logging:
-	# 	Can be used to log entry messages with specific content about the operation of the program.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['INFO_TIME'][background],
-	# 			self._ColorScheme['INFO_STATUS'][background],
-	# 			self._ColorScheme['INFO_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_INFO'][background],
-	# 			self._ColorScheme['INFO_MESSAGE'][background],
-	# 			self._ColorScheme['INFO_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.info, status_message.current_status_message, "@INFO", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def notice(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = None,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Notice information logging:
-	# 	Can be used to flag important events that might be missed with a normal logging level.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['NOTICE_TIME'][background],
-	# 			self._ColorScheme['NOTICE_STATUS'][background],
-	# 			self._ColorScheme['NOTICE_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_NOTICE'][background],
-	# 			self._ColorScheme['NOTICE_MESSAGE'][background],
-	# 			self._ColorScheme['NOTICE_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.notice, status_message.current_status_message, "@NOTICE", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def warning(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = True,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Warning information logging:
-	# 	Can be used to log entry warnings that the program may work with unpredictable results.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['WARNING_TIME'][local_background],
-	# 			self._ColorScheme['WARNING_STATUS'][local_background],
-	# 			self._ColorScheme['WARNING_STATUS_MESSAGE'][local_background],
-	# 			self._ColorScheme['TYPE_WARNING'][local_background],
-	# 			self._ColorScheme['WARNING_MESSAGE'][local_background],
-	# 			self._ColorScheme['WARNING_BACKGROUND'][local_background],
-	# 		], self._progress_time, self._icon_set.warning, status_message.current_status_message, "!WARNING", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def error(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = True,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Error information logging:
-	# 	Used to log entry errors and crashes in the program.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['ERROR_TIME'][local_background],
-	# 			self._ColorScheme['ERROR_STATUS'][local_background],
-	# 			self._ColorScheme['ERROR_STATUS_MESSAGE'][local_background],
-	# 			self._ColorScheme['TYPE_ERROR'][local_background],
-	# 			self._ColorScheme['ERROR_MESSAGE'][local_background],
-	# 			self._ColorScheme['ERROR_BACKGROUND'][local_background],
-	# 		], self._progress_time, self._icon_set.error, status_message.current_status_message, "!!ERROR", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def critical(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = True,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Critical error information logging:
-	# 	Used to log entry for critical and unpredictable program failures.
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	if not 'bold' in local_settings:
-	# 		local_settings["bold"] = True
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['CRITICAL_TIME'][local_background],
-	# 			self._ColorScheme['CRITICAL_STATUS'][local_background],
-	# 			self._ColorScheme['CRITICAL_STATUS_MESSAGE'][local_background],
-	# 			self._ColorScheme['TYPE_CRITICAL'][local_background],
-	# 			self._ColorScheme['CRITICAL_MESSAGE'][local_background],
-	# 			self._ColorScheme['CRITICAL_BACKGROUND'][local_background],
-	# 		], self._progress_time, self._icon_set.critical, status_message.current_status_message, "!!!@CRITICAL", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def resolved(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = True,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Resolved information logging:
-	# 	Used to log entry resolved solutions to problems and errors.
-	# 	\n
-	# 	Since v0.6.0
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['RESOLVED_TIME'][background],
-	# 			self._ColorScheme['RESOLVED_STATUS'][background],
-	# 			self._ColorScheme['RESOLVED_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_RESOLVED'][background],
-	# 			self._ColorScheme['RESOLVED_MESSAGE'][background],
-	# 			self._ColorScheme['RESOLVED_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.resolved, status_message.current_status_message, "!RESOLVED", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
-
-	# def unresolved(
-	# 	self,
-	# 	*,
-	# 	status_message: StatusMessageType = StatusMessageType("..."),
-	# 	message_text: str = "...",
-	# 	local_background: bool = True,
-	# 	local_settings: dict = None
-	# ) -> None:
-	# 	"""
-	# 	Unresolved information logging:
-	# 	Used to log entry unresolved solutions to problems and errors.
-	# 	\n
-	# 	Since v0.6.0
-	#
-	# 	:param status_message: Log entry status message
-	# 	:param message_text: Log entry message
-	# 	:param local_background: Display entry with background?
-	# 	:param local_settings: Dictionary of local entering settings
-	# 	"""
-	# 	if local_settings is None:
-	# 		local_settings = {}
-	# 	background = local_background if local_background is not None else self.global_background
-	# 	self._buffer << self._assemble_entry(
-	# 		[
-	# 			self._ColorScheme['UNRESOLVED_TIME'][background],
-	# 			self._ColorScheme['UNRESOLVED_STATUS'][background],
-	# 			self._ColorScheme['UNRESOLVED_STATUS_MESSAGE'][background],
-	# 			self._ColorScheme['TYPE_UNRESOLVED'][background],
-	# 			self._ColorScheme['UNRESOLVED_MESSAGE'][background],
-	# 			self._ColorScheme['UNRESOLVED_BACKGROUND'][background],
-	# 		], self._progress_time, self._icon_set.unresolved, status_message.current_status_message, "!UNRESOLVED", message_text, self._environment, local_settings
-	# 	)
-	# 	if self._environment == LogEnvironments.CONSOLE:
-	# 		self._buffer.update_console()
 
 	# ######################################################################################## #
 	#                                                                                          #
@@ -1132,7 +279,6 @@ class Logger(BasicLogger):
 		self._progress_start = datetime.now()
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
-		func = getattr(self, "_initiation", None)
 		args = {}
 		if status_message != StatusMessageType("..."):
 			args['status_message'] = status_message
@@ -1142,7 +288,7 @@ class Logger(BasicLogger):
 			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
-		func(**args)
+		self.entry(entry_type=ServiceProcessEntryTypes.initiation, **args)
 
 		thread = Thread(target=self._indefinite_progress, kwargs=args)
 		thread.start()
@@ -1152,7 +298,7 @@ class Logger(BasicLogger):
 		*,
 		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
-		local_background: bool = True,
+		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -1171,25 +317,33 @@ class Logger(BasicLogger):
 			local_settings = {}
 		animation_index = 0
 		self._buffer << "."
-		if self._environment == LogEnvironments.CONSOLE:
+		if not self._environment:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			animation_item = self._animation.animation[animation_index]
+			background = local_background if local_background is not None else self.global_background
 			self._buffer.get_data()[-1] = self._assemble_entry(
 				[
-					self._ColorScheme['PROGRESS_TIME'][local_background],
-					self._ColorScheme['PROGRESS_STATUS'][local_background],
-					self._ColorScheme['PROGRESS_STATUS_MESSAGE'][local_background],
-					self._ColorScheme['TYPE_PROGRESS'][local_background],
-					self._ColorScheme['PROGRESS_MESSAGE'][local_background],
-					self._ColorScheme['PROGRESS_BACKGROUND'][local_background],
-				], animation_item, self._icon_set.process, status_message.current_status_message, "&PROGRESS", message_text, self._environment, local_settings
+					ServiceProcessEntryTypes.process.time_color[self._environment][background],
+					ServiceProcessEntryTypes.process.status_color[self._environment][background],
+					ServiceProcessEntryTypes.process.status_message_color[self._environment][background],
+					ServiceProcessEntryTypes.process.type_color[self._environment][background],
+					ServiceProcessEntryTypes.process.message_color[self._environment][background],
+					ServiceProcessEntryTypes.process.background_color[self._environment][background]
+				],
+				animation_item,
+				ServiceProcessEntryTypes.process.icon[self._icon_set],
+				status_message.current_status_message,
+				ServiceProcessEntryTypes.process.type_name,
+				message_text,
+				self._environment,
+				local_settings
 			)
 			animation_index = (animation_index + 1) % len(self._animation.animation)
-			if self._environment == LogEnvironments.CONSOLE:
+			if not self._environment:
 				self._buffer.update_entry()
 			sleep(0.1)
-		if self._environment == LogEnvironments.CONSOLE:
+		if not self._environment:
 			self._buffer.update_console()
 
 	def start_definite_process(
@@ -1221,7 +375,6 @@ class Logger(BasicLogger):
 		self._progress_start = datetime.now()
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
-		func = getattr(self, "_initiation", None)
 		args = {}
 		if status_message != StatusMessageType("..."):
 			args['status_message'] = status_message
@@ -1231,7 +384,7 @@ class Logger(BasicLogger):
 			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
-		func(**args)
+		self.entry(entry_type=ServiceProcessEntryTypes.initiation, **args)
 
 		thread = Thread(target=self._definite_progress, kwargs=args)
 		thread.start()
@@ -1241,7 +394,7 @@ class Logger(BasicLogger):
 		*,
 		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
-		local_background: bool = True,
+		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -1260,7 +413,7 @@ class Logger(BasicLogger):
 			local_settings = {}
 		old_progress_rise = 0
 		self._buffer << "."
-		if self._environment == LogEnvironments.CONSOLE:
+		if not self._environment:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			if old_progress_rise == self._progress_rise:
@@ -1268,20 +421,28 @@ class Logger(BasicLogger):
 			else:
 				old_progress_rise = self._progress_rise
 				animation_item = f"{self._animation.animation[(self._progress_rise // 15) + (2 if self._progress_rise == 100 else 1)]} - {self._progress_rise} %"
+				background = local_background if local_background is not None else self.global_background
 				self._buffer.get_data()[-1] = self._assemble_entry(
 					[
-						self._ColorScheme['PROGRESS_TIME'][local_background],
-						self._ColorScheme['PROGRESS_STATUS'][local_background],
-						self._ColorScheme['PROGRESS_STATUS_MESSAGE'][local_background],
-						self._ColorScheme['TYPE_PROGRESS'][local_background],
-						self._ColorScheme['PROGRESS_MESSAGE'][local_background],
-						self._ColorScheme['PROGRESS_BACKGROUND'][local_background],
-					], animation_item, self._icon_set.process, status_message.current_status_message, "&PROGRESS", message_text, self._environment, local_settings
+						ServiceProcessEntryTypes.process.time_color[self._environment][background],
+						ServiceProcessEntryTypes.process.status_color[self._environment][background],
+						ServiceProcessEntryTypes.process.status_message_color[self._environment][background],
+						ServiceProcessEntryTypes.process.type_color[self._environment][background],
+						ServiceProcessEntryTypes.process.message_color[self._environment][background],
+						ServiceProcessEntryTypes.process.background_color[self._environment][background]
+					],
+					animation_item,
+					ServiceProcessEntryTypes.process.icon[self._icon_set],
+					status_message.current_status_message,
+					ServiceProcessEntryTypes.process.type_name,
+					message_text,
+					self._environment,
+					local_settings
 				)
-				if self._environment == LogEnvironments.CONSOLE:
+				if not self._environment:
 					self._buffer.update_entry()
 			sleep(0.1)
-		if self._environment == LogEnvironments.CONSOLE:
+		if not self._environment:
 			self._buffer.update_console()
 
 	def progress_rise(self, percent: int) -> None:
@@ -1300,7 +461,7 @@ class Logger(BasicLogger):
 	def note_process(
 		self,
 		*,
-		entry_type: str,
+		entry_type: EntryType,
 		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
 		local_background: bool = None,
@@ -1329,7 +490,6 @@ class Logger(BasicLogger):
 
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
-		func = getattr(self, entry_type, None)
 		args = {}
 		if status_message != StatusMessageType("..."):
 			args['status_message'] = status_message
@@ -1339,7 +499,7 @@ class Logger(BasicLogger):
 			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
-		func(**args)
+		self.entry(entry_type=entry_type, **args)
 
 		self.empty(entry=last)
 
@@ -1370,7 +530,6 @@ class Logger(BasicLogger):
 
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
-		func = getattr(self, "_success", None) if self._progress_rise == 100 else getattr(self, "_fail", None)
 		args = {}
 		if status_message != StatusMessageType("..."):
 			args['status_message'] = status_message
@@ -1380,180 +539,15 @@ class Logger(BasicLogger):
 			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
-		func(**args)
+		self.entry(
+			entry_type=ServiceProcessEntryTypes.success if self._progress_rise == 100 else ServiceProcessEntryTypes.fail,
+			**args
+		)
 
 		self._progress_rise = 0
 		self._progress_start = None
 		self._progress_time = "        "
 		self._progress_interrupt = False
-
-	def _initiation(
-		self,
-		*,
-		status_message: StatusMessageType = StatusMessageType("..."),
-		message_text: str = "...",
-		local_background: bool = True,
-		local_settings: dict = None
-	) -> None:
-		"""
-		Initiation information logging:
-		Used to explain the running process.
-
-		:param status_message: Log entry status message
-		:param message_text: Log entry message
-		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local entering settings
-		"""
-		if local_settings is None:
-			local_settings = {}
-		if not 'italic' in local_settings:
-			local_settings["italic"] = True
-		self._buffer << self._assemble_entry(
-			[
-				self._ColorScheme['INITIATION_TIME'][local_background],
-				self._ColorScheme['INITIATION_STATUS'][local_background],
-				self._ColorScheme['INITIATION_STATUS_MESSAGE'][local_background],
-				self._ColorScheme['TYPE_INITIATION'][local_background],
-				self._ColorScheme['INITIATION_MESSAGE'][local_background],
-				self._ColorScheme['INITIATION_BACKGROUND'][local_background],
-			], self._progress_time, self._icon_set.initiation, status_message.current_status_message, "&INITIATION", message_text, self._environment, local_settings
-		)
-		if self._environment == LogEnvironments.CONSOLE:
-			self._buffer.update_console()
-
-	def _achievement(
-		self,
-		*,
-		status_message: StatusMessageType = StatusMessageType("..."),
-		message_text: str = "...",
-		local_background: bool = True,
-		local_settings: dict = None
-	) -> None:
-		"""
-		Achievement information logging:
-		Used to log entry the achievements gained while executing a process.
-
-		:param status_message: Log entry status message
-		:param message_text: Log entry message
-		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local entering settings
-		"""
-		if local_settings is None:
-			local_settings = {}
-		background = local_background if local_background is not None else self.global_background
-		self._buffer << self._assemble_entry(
-			[
-				self._ColorScheme['ACHIEVEMENT_TIME'][background],
-				self._ColorScheme['ACHIEVEMENT_STATUS'][background],
-				self._ColorScheme['ACHIEVEMENT_STATUS_MESSAGE'][background],
-				self._ColorScheme['TYPE_ACHIEVEMENT'][background],
-				self._ColorScheme['ACHIEVEMENT_MESSAGE'][background],
-				self._ColorScheme['ACHIEVEMENT_BACKGROUND'][background],
-			], self._progress_time, self._icon_set.achievement, status_message.current_status_message, "&ACHIEVEMENT", message_text, self._environment, local_settings
-		)
-		if self._environment == LogEnvironments.CONSOLE:
-			self._buffer.update_console()
-
-	def _milestone(
-		self,
-		*,
-		status_message: StatusMessageType = StatusMessageType("..."),
-		message_text: str = "...",
-		local_background: bool = True,
-		local_settings: dict = None
-	) -> None:
-		"""
-		Milestone information logging:
-		Used to log entry the milestones gained while executing a process.
-
-		:param status_message: Log entry status message
-		:param message_text: Log entry message
-		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local entering settings
-		"""
-		if local_settings is None:
-			local_settings = {}
-		background = local_background if local_background is not None else self.global_background
-		self._buffer << self._assemble_entry(
-			[
-				self._ColorScheme['MILESTONE_TIME'][background],
-				self._ColorScheme['MILESTONE_STATUS'][background],
-				self._ColorScheme['MILESTONE_STATUS_MESSAGE'][background],
-				self._ColorScheme['TYPE_MILESTONE'][background],
-				self._ColorScheme['MILESTONE_MESSAGE'][background],
-				self._ColorScheme['MILESTONE_BACKGROUND'][background],
-			], self._progress_time, self._icon_set.milestone, status_message.current_status_message, "&MILESTONE", message_text, self._environment, local_settings
-		)
-		if self._environment == LogEnvironments.CONSOLE:
-			self._buffer.update_console()
-
-	def _success(
-		self,
-		*,
-		status_message: StatusMessageType = StatusMessageType("..."),
-		message_text: str = "...",
-		local_background: bool = True,
-		local_settings: dict = None
-	) -> None:
-		"""
-		Success information logging:
-		Used to log entry a message about the success of the process.
-
-		:param status_message: Log entry status message
-		:param message_text: Log entry message
-		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local entering settings
-		"""
-		if local_settings is None:
-			local_settings = {}
-		if not 'italic' in local_settings:
-			local_settings["italic"] = True
-		self._buffer << self._assemble_entry(
-			[
-				self._ColorScheme['SUCCESS_TIME'][local_background],
-				self._ColorScheme['SUCCESS_STATUS'][local_background],
-				self._ColorScheme['SUCCESS_STATUS_MESSAGE'][local_background],
-				self._ColorScheme['TYPE_SUCCESS'][local_background],
-				self._ColorScheme['SUCCESS_MESSAGE'][local_background],
-				self._ColorScheme['SUCCESS_BACKGROUND'][local_background],
-			], self._progress_time, self._icon_set.success, status_message.current_status_message, "&SUCCESS", message_text, self._environment, local_settings
-		)
-		if self._environment == LogEnvironments.CONSOLE:
-			self._buffer.update_console()
-
-	def _fail(
-		self,
-		*,
-		status_message: StatusMessageType = StatusMessageType("..."),
-		message_text: str = "...",
-		local_background: bool = True,
-		local_settings: dict = None
-	) -> None:
-		"""
-		Fail information logging:
-		Used to log entry a message about the failed execution of the process.
-
-		:param status_message: Log entry status message
-		:param message_text: Log entry message
-		:param local_background: Display entry with background?
-		:param local_settings: Dictionary of local entering settings
-		"""
-		if local_settings is None:
-			local_settings = {}
-		if not 'italic' in local_settings:
-			local_settings["italic"] = True
-		self._buffer << self._assemble_entry(
-			[
-				self._ColorScheme['FAIL_TIME'][local_background],
-				self._ColorScheme['FAIL_STATUS'][local_background],
-				self._ColorScheme['FAIL_STATUS_MESSAGE'][local_background],
-				self._ColorScheme['TYPE_FAIL'][local_background],
-				self._ColorScheme['FAIL_MESSAGE'][local_background],
-				self._ColorScheme['FAIL_BACKGROUND'][local_background],
-			], self._progress_time, self._icon_set.fail, status_message.current_status_message, "&FAIL", message_text, self._environment, local_settings
-		)
-		if self._environment == LogEnvironments.CONSOLE:
-			self._buffer.update_console()
 
 	# ######################################################################################## #
 	#                                                                                          #
@@ -1566,12 +560,11 @@ class Logger(BasicLogger):
 		*,
 		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
-		local_background: bool = True,
+		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
-		Information logging of starting Timer:
-		Used to notify the start of the Timer.
+		...
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
@@ -1582,22 +575,16 @@ class Logger(BasicLogger):
 		stop_timer_value = datetime.now()
 		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
 
-		if local_settings is None:
-			local_settings = {}
-		if not 'italic' in local_settings:
-			local_settings["italic"] = True
-		self._buffer << self._assemble_entry(
-			[
-				self._ColorScheme['START_TIMER_TIME'][local_background],
-				self._ColorScheme['START_TIMER_STATUS'][local_background],
-				self._ColorScheme['START_TIMER_STATUS_MESSAGE'][local_background],
-				self._ColorScheme['TYPE_START_TIMER'][local_background],
-				self._ColorScheme['START_TIMER_MESSAGE'][local_background],
-				self._ColorScheme['START_TIMER_BACKGROUND'][local_background],
-			], self._progress_time, self._icon_set.start_timer, status_message.current_status_message, "^START TIMER", message_text, self._environment, local_settings
-		)
-		if self._environment == LogEnvironments.CONSOLE:
-			self._buffer.update_console()
+		args = {}
+		if status_message != StatusMessageType("..."):
+			args['status_message'] = status_message
+		if message_text != "...":
+			args['message_text'] = message_text
+		if local_background is not None:
+			args['local_background'] = local_background
+		if local_settings is not None:
+			args['local_settings'] = local_settings
+		self.entry(entry_type=ServiceTimerEntryTypes.start_timer, **args)
 
 		self._progress_time = "        "
 
@@ -1606,12 +593,11 @@ class Logger(BasicLogger):
 		*,
 		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
-		local_background: bool = True,
+		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
-		Information logging of mark Timer:
-		Used to notify the mark of the Timer.
+		...
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
@@ -1621,22 +607,16 @@ class Logger(BasicLogger):
 		stop_timer_value = datetime.now()
 		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
 
-		if local_settings is None:
-			local_settings = {}
-		if not 'italic' in local_settings:
-			local_settings["italic"] = True
-		self._buffer << self._assemble_entry(
-			[
-				self._ColorScheme['TIMER_MARK_TIME'][local_background],
-				self._ColorScheme['TIMER_MARK_STATUS'][local_background],
-				self._ColorScheme['TIMER_MARK_STATUS_MESSAGE'][local_background],
-				self._ColorScheme['TYPE_TIMER_MARK'][local_background],
-				self._ColorScheme['TIMER_MARK_MESSAGE'][local_background],
-				self._ColorScheme['TIMER_MARK_BACKGROUND'][local_background],
-			], self._progress_time, self._icon_set.timer_mark, status_message.current_status_message, "^TIMER MARK", message_text, self._environment, local_settings
-		)
-		if self._environment == LogEnvironments.CONSOLE:
-			self._buffer.update_console()
+		args = {}
+		if status_message != StatusMessageType("..."):
+			args['status_message'] = status_message
+		if message_text != "...":
+			args['message_text'] = message_text
+		if local_background is not None:
+			args['local_background'] = local_background
+		if local_settings is not None:
+			args['local_settings'] = local_settings
+		self.entry(entry_type=ServiceTimerEntryTypes.timer_mark, **args)
 
 		self._progress_time = "        "
 
@@ -1645,12 +625,11 @@ class Logger(BasicLogger):
 		*,
 		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
-		local_background: bool = True,
+		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
-		Information logging of stopping Timer:
-		Used to notify the stop of the Timer.
+		...
 
 		:param status_message: Log entry status message
 		:param message_text: Log entry message
@@ -1660,23 +639,16 @@ class Logger(BasicLogger):
 		stop_timer_value = datetime.now()
 		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
 
-
-		if local_settings is None:
-			local_settings = {}
-		if not 'italic' in local_settings:
-			local_settings["italic"] = True
-		self._buffer << self._assemble_entry(
-			[
-				self._ColorScheme['STOP_TIMER_TIME'][local_background],
-				self._ColorScheme['STOP_TIMER_STATUS'][local_background],
-				self._ColorScheme['STOP_TIMER_STATUS_MESSAGE'][local_background],
-				self._ColorScheme['TYPE_STOP_TIMER'][local_background],
-				self._ColorScheme['STOP_TIMER_MESSAGE'][local_background],
-				self._ColorScheme['STOP_TIMER_BACKGROUND'][local_background],
-			], self._progress_time, self._icon_set.stop_timer, status_message.current_status_message, "^STOP TIMER", message_text, self._environment, local_settings
-		)
-		if self._environment == LogEnvironments.CONSOLE:
-			self._buffer.update_console()
+		args = {}
+		if status_message != StatusMessageType("..."):
+			args['status_message'] = status_message
+		if message_text != "...":
+			args['message_text'] = message_text
+		if local_background is not None:
+			args['local_background'] = local_background
+		if local_settings is not None:
+			args['local_settings'] = local_settings
+		self.entry(entry_type=ServiceTimerEntryTypes.stop_timer, **args)
 
 		self._start_timer_value = None
 		self._progress_time = "        "

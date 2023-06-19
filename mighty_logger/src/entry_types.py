@@ -17,7 +17,6 @@ limitations under the License.
 """
 
 from mighty_logger.src.color_picker import AnsiColor, HexColor
-from mighty_logger.text.icon_set import IconSetType
 
 class EntryType:
 	def __init__(
@@ -72,7 +71,18 @@ class EntryType:
 	def icon(self) -> list:
 		return self.__icon
 
-class EntryTypes:
+class ServiceLogger:
+	initial = [
+		[
+			[AnsiColor('GOLD', "foreground"), AnsiColor('INDIGO', "foreground")],
+			[HexColor('GOLD'), HexColor('INDIGO')]
+		], [
+			["", AnsiColor('GOLD', "background")],
+			["", HexColor('GOLD')]
+		]
+	]
+
+class LoggerEntryTypes:
 	debug = EntryType(
 		"%DEBUG",
 		[
@@ -96,6 +106,10 @@ class EntryTypes:
 		],
 		['🐛', '🐞', '🚧', '🔬']
 	)
+	"""
+	Debugging information logging:
+	Can be used to log entry any information while debugging an application.
+	"""
 	debug_performance = EntryType(
 		"%DEBUG PERFORMANCE",
 		[
@@ -119,6 +133,11 @@ class EntryTypes:
 		],
 		['⏱️', '⌛️', '🔍', '📈']
 	)
+	"""
+	Performance debugging information logging:
+	Can be used to log entry the execution time of operations or other
+	performance information while the application is being debugged.
+	"""
 	performance = EntryType(
 		"%PERFORMANCE",
 		[
@@ -142,6 +161,11 @@ class EntryTypes:
 		],
 		['⏱️', '🚀', '📊', '⚡️']
 	)
+	"""
+	Performance information logging:
+	Can be used to log entry the execution time of operations or
+	other application performance information.
+	"""
 	event = EntryType(
 		"~EVENT",
 		[
@@ -165,6 +189,11 @@ class EntryTypes:
 		],
 		['🔔', '🎉', '📣', '🚨']
 	)
+	"""
+	Event information logging:
+	Can be used to log entry specific events in the application,
+	such as button presses or mouse cursor movements.
+	"""
 	audit = EntryType(
 		"~AUDIT",
 		[
@@ -188,6 +217,11 @@ class EntryTypes:
 		],
 		['🔍', '🔒', '📋', '🔐']
 	)
+	"""
+	Audit information logging:
+	Can be used to log entry changes in the system, such as creating or
+	deleting users, as well as changes in security settings.
+	"""
 	metrics = EntryType(
 		"~METRICS",
 		[
@@ -211,6 +245,10 @@ class EntryTypes:
 		],
 		['📊', '📈', '📉', '📄']
 	)
+	"""
+	Metrics information logging:
+	Can be used to log entry metrics to track application performance and identify issues.
+	"""
 	user = EntryType(
 		"~USER",
 		[
@@ -234,6 +272,11 @@ class EntryTypes:
 		],
 		['👤', '👥', '🙋‍♂️', '🙋‍♀️']
 	)
+	"""
+	User information logging:
+	Can be used to log entry custom logs to store additional information
+	that may be useful for diagnosing problems.
+	"""
 	message = EntryType(
 		"@MESSAGE",
 		[
@@ -257,6 +300,10 @@ class EntryTypes:
 		],
 		['💬', '📝', '🗒️', '📨']
 	)
+	"""
+	Message information logging:
+	Can be used for the usual output of ordinary messages about the program's operation.
+	"""
 	info = EntryType(
 		"@INFO",
 		[
@@ -280,6 +327,10 @@ class EntryTypes:
 		],
 		['ℹ️', '🔍', '📌', '🔔']
 	)
+	"""
+	Default information logging:
+	Can be used to log entry messages with specific content about the operation of the program.
+	"""
 	notice = EntryType(
 		"@NOTICE",
 		[
@@ -303,6 +354,10 @@ class EntryTypes:
 		],
 		['📌', '📎', '🔖', '🚩']
 	)
+	"""
+	Notice information logging:
+	Can be used to flag important events that might be missed with a normal logging level.
+	"""
 	warning = EntryType(
 		"!WARNING",
 		[
@@ -326,6 +381,10 @@ class EntryTypes:
 		],
 		['⚠️', '⚡️', '⛔️', '⚠️']
 	)
+	"""
+	Warning information logging:
+	Can be used to log entry warnings that the program may work with unpredictable results.
+	"""
 	error = EntryType(
 		"!!ERROR",
 		[
@@ -349,6 +408,10 @@ class EntryTypes:
 		],
 		['❌', '🚫', '💔', '🔺']
 	)
+	"""
+	Error information logging:
+	Used to log entry errors and crashes in the program.
+	"""
 	critical = EntryType(
 		"!!!@CRITICAL",
 		[
@@ -372,6 +435,10 @@ class EntryTypes:
 		],
 		['🔥', '🚨', '⛔️', '🚒']
 	)
+	"""
+	Critical error information logging:
+	Used to log entry for critical and unpredictable program failures.
+	"""
 	resolved = EntryType(
 		"!RESOLVED",
 		[
@@ -395,6 +462,12 @@ class EntryTypes:
 		],
 		['✅', '❗', '🟦', '🟢']
 	)
+	"""
+	Resolved information logging:
+	Used to log entry resolved solutions to problems and errors.
+	\n
+	Since v0.6.0
+	"""
 	unresolved = EntryType(
 		"!UNRESOLVED",
 		[
@@ -418,3 +491,257 @@ class EntryTypes:
 		],
 		['❎', '❓', '🟥', '🔴']
 	)
+	"""
+	Unresolved information logging:
+	Used to log entry unresolved solutions to problems and errors.
+	\n
+	Since v0.6.0
+	"""
+
+class ProcessEntryTypes:
+	achievement = EntryType(
+		"&ACHIEVEMENT",
+		[
+			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+		], [
+			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
+			[HexColor('ORANGE'), HexColor('DARKRED')]
+		], [
+			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
+			[HexColor('DARKORANGE'), HexColor('MAROON')]
+		], [
+			[AnsiColor('YELLOW', "foreground"), AnsiColor('NAVY', "foreground")],
+			[HexColor('YELLOW'), HexColor('NAVY')]
+		], [
+			[AnsiColor('DARKYELLOW', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
+			[HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')]
+		], [
+			["", AnsiColor('DARKYELLOW', "background")],
+			["", HexColor('DARKYELLOW')]
+		],
+		['🏆', '🏆', '🌟', '🎖️']
+	)
+	"""
+	Achievement information logging:
+	Used to log entry the achievements gained while executing a process.
+	"""
+	milestone = EntryType(
+		"&MILESTONE",
+		[
+			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+		], [
+			[AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")],
+			[HexColor('ORANGE'), HexColor('CHARTREUSE')]
+		], [
+			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")],
+			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+		], [
+			[AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")],
+			[HexColor('GREEN'), HexColor('PALEGREEN')]
+		], [
+			[AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")],
+			[HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
+		], [
+			["", AnsiColor('DARKGREEN', "background")],
+			["", HexColor('DARKGREEN')]
+		],
+		['🔖', '🔖', '🎯', '🗺️']
+	)
+	"""
+	Milestone information logging:
+	Used to log entry the milestones gained while executing a process.
+	"""
+
+class ServiceProcessEntryTypes:
+	initiation = EntryType(
+		"&INITIATION",
+		[
+			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+		], [
+			[AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")],
+			[HexColor('ORANGE'), HexColor('CHARTREUSE')]
+		], [
+			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")],
+			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+		], [
+			[AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")],
+			[HexColor('GREEN'), HexColor('PALEGREEN')]
+		], [
+			[AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")],
+			[HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
+		], [
+			["", AnsiColor('DARKGREEN', "background")],
+			["", HexColor('DARKGREEN')]
+		],
+		['🚀', '🚀', '🔥', '🔧']
+	)
+	"""
+	Initiation information logging:
+	Used to explain the running process.
+	"""
+	process = EntryType(
+		"&PROGRESS",
+		[
+			[AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")],
+			[HexColor('ORCHID'), HexColor('PURPLE')]
+		], [
+			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
+			[HexColor('ORANGE'), HexColor('DARKRED')]
+		], [
+			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
+			[HexColor('DARKORANGE'), HexColor('MAROON')]
+		], [
+			[AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")],
+			[HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
+		], [
+			[AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
+			[HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
+		], [
+			["", AnsiColor('SKYBLUE', "background")],
+			["", HexColor('SKYBLUE')]
+		],
+		['⏳', '🔄', '⚙️', '🕰️']
+	)
+	"""
+	...
+	"""
+	success = EntryType(
+		"&SUCCESS",
+		[
+			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+		], [
+			[AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")],
+			[HexColor('ORANGE'), HexColor('CHARTREUSE')]
+		], [
+			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")],
+			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+		], [
+			[AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")],
+			[HexColor('GREEN'), HexColor('PALEGREEN')]
+		], [
+			[AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")],
+			[HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
+		], [
+			["", AnsiColor('DARKGREEN', "background")],
+			["", HexColor('DARKGREEN')]
+		],
+		['✔️', '🎉', '👍', '✅']
+	)
+	"""
+	Success information logging:
+	Used to log entry a message about the success of the process.
+	"""
+	fail = EntryType(
+		"&FAIL",
+		[
+			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+		], [
+			[AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")],
+			[HexColor('ORANGE'), HexColor('ORANGE')]
+		], [
+			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")],
+			[HexColor('DARKORANGE'), HexColor('DARKORANGE')]
+		], [
+			[AnsiColor('FIREBRICK', "foreground"), AnsiColor('YELLOW', "foreground")],
+			[HexColor('FIREBRICK'), HexColor('YELLOW')]
+		], [
+			[AnsiColor('DARKRED', "foreground"), AnsiColor('DARKYELLOW', "foreground")],
+			[HexColor('DARKRED'), HexColor('DARKYELLOW')]
+		], [
+			["", AnsiColor('DARKRED', "background")],
+			["", HexColor('DARKRED')]
+		],
+		['❌', '🚫', '👎', '❎']
+	)
+	"""
+	Fail information logging:
+	Used to log entry a message about the failed execution of the process.
+	"""
+
+class ServiceTimerEntryTypes:
+	start_timer = EntryType(
+		"^START TIMER",
+		[
+			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+		], [
+			[AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")],
+			[HexColor('ORANGE'), HexColor('CHARTREUSE')]
+		], [
+			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")],
+			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+		], [
+			[AnsiColor('SEAGREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")],
+			[HexColor('SEAGREEN'), HexColor('PALEGREEN')]
+		], [
+			[AnsiColor('FORESTGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")],
+			[HexColor('FORESTGREEN'), HexColor('LIGHTGREEN')]
+		], [
+			["", AnsiColor('FORESTGREEN', "background")],
+			["", HexColor('FORESTGREEN')]
+		],
+		['⏰', '🕑', '🟩', '⏳']
+	)
+	"""
+	Information logging of starting Timer:
+	Used to notify the start of the Timer.
+	"""
+	timer_mark = EntryType(
+		"^TIMER MARK",
+		[
+			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+		], [
+			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
+			[HexColor('ORANGE'), HexColor('DARKRED')]
+		], [
+			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
+			[HexColor('DARKORANGE'), HexColor('MAROON')]
+		], [
+			[AnsiColor('KHAKI', "foreground"), AnsiColor('SIENNA', "foreground")],
+			[HexColor('KHAKI'), HexColor('SIENNA')]
+		], [
+			[AnsiColor('DARKKHAKI', "foreground"), AnsiColor('SADDLEBROWN', "foreground")],
+			[HexColor('DARKKHAKI'), HexColor('SADDLEBROWN')]
+		], [
+			["", AnsiColor('DARKKHAKI', "background")],
+			["", HexColor('DARKKHAKI')]
+		],
+		['⌚', '🕕', '🟨', '⏱️']
+	)
+	"""
+	Information logging of mark Timer:
+	Used to notify the mark of the Timer.
+	"""
+	stop_timer = EntryType(
+		"^STOP TIMER",
+		[
+			[AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")],
+			[HexColor('ORCHID'), HexColor('PURPLE')]
+		], [
+			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
+			[HexColor('ORANGE'), HexColor('DARKRED')]
+		], [
+			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
+			[HexColor('DARKORANGE'), HexColor('MAROON')]
+		], [
+			[AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")],
+			[HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
+		], [
+			[AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
+			[HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
+		], [
+			["", AnsiColor('SKYBLUE', "background")],
+			["", HexColor('SKYBLUE')]
+		],
+		['⏲️', '🕙', '🟪', '⌛']
+	)
+	"""
+	Information logging of stopping Timer:
+	Used to notify the stop of the Timer.
+	"""

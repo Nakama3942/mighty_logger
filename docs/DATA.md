@@ -14,25 +14,26 @@ The library stores various important data for use that you may need to know whil
 ###### Entry types (and icon in set):
 - No category
 	- empty (v0.6.0)
-- Debugging (%)
-	- debug
-	- debug_performance
-	- performance
-- Event (~)
-	- event
-	- audit
-	- metrics
-	- user
-- Message (@)
-	- message
-	- info
-	- notice
-- Error (!)
-	- warning
-	- error
-	- critical
-	- resolved (v0.6.0)
-	- unresolved (v0.6.0)
+- Logger:
+	- Debugging (%)
+		- debug
+		- debug_performance
+		- performance
+	- Event (~)
+		- event
+		- audit
+		- metrics
+		- user
+	- Message (@)
+		- message
+		- info
+		- notice
+	- Error (!)
+		- warning
+		- error
+		- critical
+		- resolved (v0.6.0)
+		- unresolved (v0.6.0)
 - Process (&)
 	- initiation (v0.6.0)
 	- process (v0.6.0)
