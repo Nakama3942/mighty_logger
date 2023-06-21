@@ -36,4 +36,5 @@ class LogEnvironments:
 	CONSOLE = 0
 	HTML = 1
 	PLAIN = 2
-	#MARKDOWN = 3
+	#PLAIN_CONSOLE = 3
+	#MARKDOWN = 4

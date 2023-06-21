@@ -158,6 +158,7 @@ The library stores various important data for use that you may need to know whil
 <!--
 ###### Searching:
 - ? - entry (no)
+- $ - initial string
 - * - time
 - # - status
 - % - type: Debugging
@@ -166,7 +167,6 @@ The library stores various important data for use that you may need to know whil
 - ! - type: Error
 - & - type: Process
 - ^ - type: Timer
-- $ - free
 -->
 ###### X11 color table:
 - Red category:

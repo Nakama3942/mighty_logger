@@ -5,7 +5,7 @@ from mighty_logger.src import LoggerEntryTypes, ProcessEntryTypes, LogEnvironmen
 from mighty_logger.text import IndefiniteAnimations, DefiniteAnimations
 
 if __name__ == "__main__":
-	logger = Logger(program_name="Installer", log_environment=LogEnvironments.PLAIN, console_width=115, status_message_global_entry=False)
+	logger = Logger(program_name="Installer", console_width=115, status_message_global_entry=False)
 
 	logger.start_timer(message_text="Timer started")
 	logger.entry(entry_type=LoggerEntryTypes.message, message_text="Program installation started")

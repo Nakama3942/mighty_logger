@@ -21,9 +21,8 @@ from time import sleep
 from datetime import datetime
 
 from mighty_logger.basic.basic_logger import BasicLogger
-from mighty_logger.basic.exceptions import ColorException, CombinationException, ReCreationException
+from mighty_logger.basic.exceptions import ReCreationException
 from mighty_logger.basic.text_buffer_type import TextBufferType
-from mighty_logger.src.color_picker import AnsiColor, HexColor, Dec2Ansi, Dec2Hex
 from mighty_logger.src.entry_types import EntryType, ServiceLogger, ServiceProcessEntryTypes, ServiceTimerEntryTypes
 from mighty_logger.src.log_enums import LogEnvironments
 from mighty_logger.src.status_variables import StatusMessageType
