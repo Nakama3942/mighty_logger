@@ -17,35 +17,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+# class Environment:
+# 	...
+#
+# class LogEnvironments:
+# 	"""
+# 	Environments of Logger.
+# 	"""
+# 	CONSOLE = Environment(0)
+# 	HTML = Environment(1)
+# 	PLAIN = Environment(2)
+# 	MARKDOWN = Environment(3)
+
 class LogEnvironments:
 	"""
 	Environments of Logger.
 	"""
-	CONSOLE = False
-	HTML = True
-
-class TypesEntries:
-	"""
-	Entries types of Logger.
-	Use for Logger.note_process().
-	"""
-	DEBUG = 'debug'
-	DEBUG_PERFORMANCE = 'debug_performance'
-	PERFORMANCE = 'performance'
-	EVENT = 'event'
-	AUDIT = 'audit'
-	METRICS = 'metrics'
-	USER = 'user'
-	MESSAGE = 'message'
-	INFO = 'info'
-	NOTICE = 'notice'
-	WARNING = 'warning'
-	ERROR = 'error'
-	CRITICAL = 'critical'
-	RESOLVED = 'resolved'
-	UNRESOLVED = 'unresolved'
-	ACHIEVEMENT = '_achievement'
-	MILESTONE = '_milestone'
-	START_TIMER = 'start_timer'
-	TIMER_MARK = 'timer_mark'
-	STOP_TIMER = 'stop_timer'
+	CONSOLE = 0
+	HTML = 1
+	PLAIN = 2
+	#MARKDOWN = 3

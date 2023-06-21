@@ -50,7 +50,7 @@ class Logger(BasicLogger):
 		self,
 		*,
 		program_name: str = "Unknown",
-		log_environment: bool = LogEnvironments.CONSOLE,
+		log_environment: int = LogEnvironments.CONSOLE,
 		console_width: int = 60,
 		icon_set: int = 1,
 		time_global_entry: bool = True,
@@ -82,26 +82,36 @@ class Logger(BasicLogger):
 			self._progress_interrupt = False
 			self._start_timer_value: datetime | None = None
 			self.global_background = global_background
-			if self._environment:
-				if BasicTextBuffer._instance is not None:
-					self._buffer = BasicTextBuffer._instance
-					self.notice(
-						message_text="An existing logger was taken into use",
-						status_message=StatusMessageType("Note"),
-						local_settings={"italic": True}
-					)
-				else:
-					self._buffer = BasicTextBuffer()
-			else:
-				if TextBuffer._instance is not None:
-					self._buffer = TextBuffer._instance
-					self.notice(
-						message_text="An existing logger was taken into use",
-						status_message=StatusMessageType("Note"),
-						local_settings={"italic": True}
-					)
-				else:
-					self._buffer = TextBuffer(console_width)
+			match self._environment:
+				case LogEnvironments.CONSOLE:
+					if TextBuffer._instance is not None:
+						self._buffer = TextBuffer._instance
+						self.notice(
+							message_text="An existing logger was taken into use",
+							status_message=StatusMessageType("Note"),
+							local_settings={"italic": True}
+						)
+					else:
+						self._buffer = TextBuffer(console_width)
+				case LogEnvironments.HTML:
+					if BasicTextBuffer._instance is not None:
+						self._buffer = BasicTextBuffer._instance
+						self.notice(
+							message_text="An existing logger was taken into use",
+							status_message=StatusMessageType("Note"),
+							local_settings={"italic": True}
+						)
+					else:
+						self._buffer = BasicTextBuffer()
+				case LogEnvironments.PLAIN:
+					if BasicTextBuffer._instance is not None:
+						self._buffer = BasicTextBuffer._instance
+						self.notice(
+							message_text="An existing logger was taken into use",
+							status_message=StatusMessageType("Note")
+						)
+					else:
+						self._buffer = BasicTextBuffer()
 			self._initial_log()
 		else:
 			raise ReCreationException("Logger class object already created")
@@ -110,7 +120,7 @@ class Logger(BasicLogger):
 		"""
 		Displays initialized information.
 		"""
-		if self._environment:
+		if self._environment == LogEnvironments.HTML:
 			self._buffer << "<body style='background-color: #000000; color: #ffffff;'>"
 		self._buffer << self._initialized_data(
 			[
@@ -118,7 +128,7 @@ class Logger(BasicLogger):
 				ServiceLogger.initial[1][self._environment][self.global_background]
 			], self._environment
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def set_icons(self, icon_set: int) -> None:
@@ -131,43 +141,6 @@ class Logger(BasicLogger):
 			...
 		else:
 			self._icon_set = icon_set
-
-	def set_color(
-		self,
-		*,
-		logger_color_name: str,
-		color_value: list[int, int, int],
-		foreground: bool = True,
-		background: bool = False
-	) -> None:
-		"""
-		A method that sets the ANSI escape code color in the color table of the logger.
-		May throw a ColorException if the given color is not in the table.
-		The logger color table stores the following keys: see /docs/DATA.md/"Logger Color Scheme".\n
-		Boolean flags: If foreground is set to True, then the color of the foreground text will change
-		with/without a background (it all depends on the background flag). If in this case background
-		is set to False (the standard combination of arguments) - then the color of the specifically
-		front text that is displayed without a background changes, otherwise it changes the color
-		of the specifically front text that is displayed with a background. If the foreground is set
-		to False with background set to True, the background itself will change. The last combination,
-		when both arguments are False, is an impossible combination that throws a CombinationException.
-
-		:param logger_color_name: Color name in logger color table
-		:param color_value: Color value in RGB
-		:param foreground: Change foreground text color with/without background?
-		:param background: Change background color?
-		"""
-		if logger_color_name in self._ColorScheme:
-			if background and not foreground:
-				self._ColorScheme[logger_color_name][1] = Dec2Ansi(color_value, "background") if not self._environment else Dec2Hex(color_value)
-			elif background and foreground:
-				self._ColorScheme[logger_color_name][1] = Dec2Ansi(color_value, "foreground") if not self._environment else Dec2Hex(color_value)
-			elif not background and foreground:
-				self._ColorScheme[logger_color_name][0] = Dec2Ansi(color_value, "foreground") if not self._environment else Dec2Hex(color_value)
-			else:
-				raise CombinationException("False-False combination of foreground-background flags not possible")
-		else:
-			raise ColorException("This color is not in the dictionary")
 
 	def buffer(self) -> TextBufferType:
 		"""
@@ -200,7 +173,7 @@ class Logger(BasicLogger):
 		:param entry: "Empty" entry
 		"""
 		self._buffer << entry
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def entry(
@@ -241,7 +214,7 @@ class Logger(BasicLogger):
 			self._environment,
 			local_settings
 		)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	# ######################################################################################## #
@@ -317,7 +290,7 @@ class Logger(BasicLogger):
 			local_settings = {}
 		animation_index = 0
 		self._buffer << "."
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			animation_item = self._animation.animation[animation_index]
@@ -340,10 +313,10 @@ class Logger(BasicLogger):
 				local_settings
 			)
 			animation_index = (animation_index + 1) % len(self._animation.animation)
-			if not self._environment:
+			if self._environment == LogEnvironments.CONSOLE:
 				self._buffer.update_entry()
 			sleep(0.1)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def start_definite_process(
@@ -413,7 +386,7 @@ class Logger(BasicLogger):
 			local_settings = {}
 		old_progress_rise = 0
 		self._buffer << "."
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			if old_progress_rise == self._progress_rise:
@@ -439,10 +412,10 @@ class Logger(BasicLogger):
 					self._environment,
 					local_settings
 				)
-				if not self._environment:
+				if self._environment == LogEnvironments.CONSOLE:
 					self._buffer.update_entry()
 			sleep(0.1)
-		if not self._environment:
+		if self._environment == LogEnvironments.CONSOLE:
 			self._buffer.update_console()
 
 	def progress_rise(self, percent: int) -> None:

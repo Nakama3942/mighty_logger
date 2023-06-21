@@ -75,10 +75,12 @@ class ServiceLogger:
 	initial = [
 		[
 			[AnsiColor('GOLD', "foreground"), AnsiColor('INDIGO', "foreground")],
-			[HexColor('GOLD'), HexColor('INDIGO')]
+			[HexColor('GOLD'), HexColor('INDIGO')],
+			["", ""]
 		], [
 			["", AnsiColor('GOLD', "background")],
-			["", HexColor('GOLD')]
+			["", HexColor('GOLD')],
+			["", ""]
 		]
 	]
 
@@ -87,22 +89,28 @@ class LoggerEntryTypes:
 		"%DEBUG",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('BURLYWOOD', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('BURLYWOOD'), HexColor('NAVY')]
+			[HexColor('BURLYWOOD'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('TAN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('TAN'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('TAN'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('TAN', "background")],
-			["", HexColor('TAN')]
+			["", HexColor('TAN')],
+			["", ""]
 		],
 		['🐛', '🐞', '🚧', '🔬']
 	)
@@ -114,22 +122,28 @@ class LoggerEntryTypes:
 		"%DEBUG PERFORMANCE",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('NAVAJOWHITE', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('NAVAJOWHITE'), HexColor('NAVY')]
+			[HexColor('NAVAJOWHITE'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('WHEAT', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('WHEAT'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('WHEAT'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('WHEAT', "background")],
-			["", HexColor('WHEAT')]
+			["", HexColor('WHEAT')],
+			["", ""]
 		],
 		['⏱️', '⌛️', '🔍', '📈']
 	)
@@ -142,22 +156,28 @@ class LoggerEntryTypes:
 		"%PERFORMANCE",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('BLANCHEDALMOND', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('BLANCHEDALMOND'), HexColor('NAVY')]
+			[HexColor('BLANCHEDALMOND'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('BISQUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('BISQUE'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('BISQUE'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('BISQUE', "background")],
-			["", HexColor('BISQUE')]
+			["", HexColor('BISQUE')],
+			["", ""]
 		],
 		['⏱️', '🚀', '📊', '⚡️']
 	)
@@ -170,22 +190,28 @@ class LoggerEntryTypes:
 		"~EVENT",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('GREENYELLOW', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('GREENYELLOW'), HexColor('NAVY')]
+			[HexColor('GREENYELLOW'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('YELLOWGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('YELLOWGREEN'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('YELLOWGREEN'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('YELLOWGREEN', "background")],
-			["", HexColor('YELLOWGREEN')]
+			["", HexColor('YELLOWGREEN')],
+			["", ""]
 		],
 		['🔔', '🎉', '📣', '🚨']
 	)
@@ -198,22 +224,28 @@ class LoggerEntryTypes:
 		"~AUDIT",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('MEDIUMSPRINGGREEN', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('MEDIUMSPRINGGREEN'), HexColor('NAVY')]
+			[HexColor('MEDIUMSPRINGGREEN'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('SPRINGGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('SPRINGGREEN'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('SPRINGGREEN'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('SPRINGGREEN', "background")],
-			["", HexColor('SPRINGGREEN')]
+			["", HexColor('SPRINGGREEN')],
+			["", ""]
 		],
 		['🔍', '🔒', '📋', '🔐']
 	)
@@ -226,22 +258,28 @@ class LoggerEntryTypes:
 		"~METRICS",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('PALEGREEN', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('PALEGREEN'), HexColor('NAVY')]
+			[HexColor('PALEGREEN'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('LIGHTGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('LIGHTGREEN'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('LIGHTGREEN'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('LIGHTGREEN', "background")],
-			["", HexColor('LIGHTGREEN')]
+			["", HexColor('LIGHTGREEN')],
+			["", ""]
 		],
 		['📊', '📈', '📉', '📄']
 	)
@@ -253,22 +291,28 @@ class LoggerEntryTypes:
 		"~USER",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('CHARTREUSE', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('CHARTREUSE'), HexColor('NAVY')]
+			[HexColor('CHARTREUSE'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('LAWNGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('LAWNGREEN'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('LAWNGREEN'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('LAWNGREEN', "background")],
-			["", HexColor('LAWNGREEN')]
+			["", HexColor('LAWNGREEN')],
+			["", ""]
 		],
 		['👤', '👥', '🙋‍♂️', '🙋‍♀️']
 	)
@@ -281,22 +325,28 @@ class LoggerEntryTypes:
 		"@MESSAGE",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('PALETURQUOISE', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('PALETURQUOISE'), HexColor('NAVY')]
+			[HexColor('PALETURQUOISE'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('POWDERBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('POWDERBLUE'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('POWDERBLUE'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('POWDERBLUE', "background")],
-			["", HexColor('POWDERBLUE')]
+			["", HexColor('POWDERBLUE')],
+			["", ""]
 		],
 		['💬', '📝', '🗒️', '📨']
 	)
@@ -308,22 +358,28 @@ class LoggerEntryTypes:
 		"@INFO",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
+			[HexColor('LIGHTSKYBLUE'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('SKYBLUE', "background")],
-			["", HexColor('SKYBLUE')]
+			["", HexColor('SKYBLUE')],
+			["", ""]
 		],
 		['ℹ️', '🔍', '📌', '🔔']
 	)
@@ -335,22 +391,28 @@ class LoggerEntryTypes:
 		"@NOTICE",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('LIGHTBLUE', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('LIGHTBLUE'), HexColor('NAVY')]
+			[HexColor('LIGHTBLUE'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('LIGHTSTEELBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('LIGHTSTEELBLUE'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('LIGHTSTEELBLUE'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('LIGHTSTEELBLUE', "background")],
-			["", HexColor('LIGHTSTEELBLUE')]
+			["", HexColor('LIGHTSTEELBLUE')],
+			["", ""]
 		],
 		['📌', '📎', '🔖', '🚩']
 	)
@@ -362,22 +424,28 @@ class LoggerEntryTypes:
 		"!WARNING",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('YELLOW', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('YELLOW'), HexColor('NAVY')]
+			[HexColor('YELLOW'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('DARKYELLOW', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('DARKYELLOW', "background")],
-			["", HexColor('DARKYELLOW')]
+			["", HexColor('DARKYELLOW')],
+			["", ""]
 		],
 		['⚠️', '⚡️', '⛔️', '⚠️']
 	)
@@ -389,22 +457,28 @@ class LoggerEntryTypes:
 		"!!ERROR",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('PLUM', "foreground")],
-			[HexColor('ORCHID'), HexColor('PLUM')]
+			[HexColor('ORCHID'), HexColor('PLUM')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")],
-			[HexColor('ORANGE'), HexColor('ORANGE')]
+			[HexColor('ORANGE'), HexColor('ORANGE')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('DARKORANGE')]
+			[HexColor('DARKORANGE'), HexColor('DARKORANGE')],
+			["", ""]
 		], [
 			[AnsiColor('FIREBRICK', "foreground"), AnsiColor('GAINSBORO', "foreground")],
-			[HexColor('FIREBRICK'), HexColor('GAINSBORO')]
+			[HexColor('FIREBRICK'), HexColor('GAINSBORO')],
+			["", ""]
 		], [
 			[AnsiColor('DARKRED', "foreground"), AnsiColor('LIGHTGRAY', "foreground")],
-			[HexColor('DARKRED'), HexColor('LIGHTGRAY')]
+			[HexColor('DARKRED'), HexColor('LIGHTGRAY')],
+			["", ""]
 		], [
 			["", AnsiColor('DARKRED', "background")],
-			["", HexColor('DARKRED')]
+			["", HexColor('DARKRED')],
+			["", ""]
 		],
 		['❌', '🚫', '💔', '🔺']
 	)
@@ -416,22 +490,28 @@ class LoggerEntryTypes:
 		"!!!@CRITICAL",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('PLUM', "foreground")],
-			[HexColor('ORCHID'), HexColor('PLUM')]
+			[HexColor('ORCHID'), HexColor('PLUM')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")],
-			[HexColor('ORANGE'), HexColor('ORANGE')]
+			[HexColor('ORANGE'), HexColor('ORANGE')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('DARKORANGE')]
+			[HexColor('DARKORANGE'), HexColor('DARKORANGE')],
+			["", ""]
 		], [
 			[AnsiColor('FIREBRICK', "foreground"), AnsiColor('DARKSALMON', "foreground")],
-			[HexColor('FIREBRICK'), HexColor('DARKSALMON')]
+			[HexColor('FIREBRICK'), HexColor('DARKSALMON')],
+			["", ""]
 		], [
 			[AnsiColor('DARKRED', "foreground"), AnsiColor('LIGHTSALMON', "foreground")],
-			[HexColor('DARKRED'), HexColor('LIGHTSALMON')]
+			[HexColor('DARKRED'), HexColor('LIGHTSALMON')],
+			["", ""]
 		], [
 			["", AnsiColor('MAROON', "background")],
-			["", HexColor('MAROON')]
+			["", HexColor('MAROON')],
+			["", ""]
 		],
 		['🔥', '🚨', '⛔️', '🚒']
 	)
@@ -443,22 +523,28 @@ class LoggerEntryTypes:
 		"!RESOLVED",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
-			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")],
-			[HexColor('ORANGE'), HexColor('CHARTREUSE')]
+			[HexColor('ORANGE'), HexColor('CHARTREUSE')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')],
+			["", ""]
 		], [
 			[AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")],
-			[HexColor('GREEN'), HexColor('PALEGREEN')]
+			[HexColor('GREEN'), HexColor('PALEGREEN')],
+			["", ""]
 		], [
 			[AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")],
-			[HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
+			[HexColor('DARKGREEN'), HexColor('LIGHTGREEN')],
+			["", ""]
 		], [
 			["", AnsiColor('DARKGREEN', "background")],
-			["", HexColor('DARKGREEN')]
+			["", HexColor('DARKGREEN')],
+			["", ""]
 		],
 		['✅', '❗', '🟦', '🟢']
 	)
@@ -472,22 +558,28 @@ class LoggerEntryTypes:
 		"!UNRESOLVED",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
-			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")],
-			[HexColor('ORANGE'), HexColor('ORANGE')]
+			[HexColor('ORANGE'), HexColor('ORANGE')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('DARKORANGE')]
+			[HexColor('DARKORANGE'), HexColor('DARKORANGE')],
+			["", ""]
 		], [
 			[AnsiColor('FIREBRICK', "foreground"), AnsiColor('YELLOW', "foreground")],
-			[HexColor('FIREBRICK'), HexColor('YELLOW')]
+			[HexColor('FIREBRICK'), HexColor('YELLOW')],
+			["", ""]
 		], [
 			[AnsiColor('DARKRED', "foreground"), AnsiColor('DARKYELLOW', "foreground")],
-			[HexColor('DARKRED'), HexColor('DARKYELLOW')]
+			[HexColor('DARKRED'), HexColor('DARKYELLOW')],
+			["", ""]
 		], [
 			["", AnsiColor('DARKRED', "background")],
-			["", HexColor('DARKRED')]
+			["", HexColor('DARKRED')],
+			["", ""]
 		],
 		['❎', '❓', '🟥', '🔴']
 	)
@@ -503,22 +595,28 @@ class ProcessEntryTypes:
 		"&ACHIEVEMENT",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('YELLOW', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('YELLOW'), HexColor('NAVY')]
+			[HexColor('YELLOW'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('DARKYELLOW', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('DARKYELLOW', "background")],
-			["", HexColor('DARKYELLOW')]
+			["", HexColor('DARKYELLOW')],
+			["", ""]
 		],
 		['🏆', '🏆', '🌟', '🎖️']
 	)
@@ -530,22 +628,28 @@ class ProcessEntryTypes:
 		"&MILESTONE",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
-			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")],
-			[HexColor('ORANGE'), HexColor('CHARTREUSE')]
+			[HexColor('ORANGE'), HexColor('CHARTREUSE')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')],
+			["", ""]
 		], [
 			[AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")],
-			[HexColor('GREEN'), HexColor('PALEGREEN')]
+			[HexColor('GREEN'), HexColor('PALEGREEN')],
+			["", ""]
 		], [
 			[AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")],
-			[HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
+			[HexColor('DARKGREEN'), HexColor('LIGHTGREEN')],
+			["", ""]
 		], [
 			["", AnsiColor('DARKGREEN', "background")],
-			["", HexColor('DARKGREEN')]
+			["", HexColor('DARKGREEN')],
+			["", ""]
 		],
 		['🔖', '🔖', '🎯', '🗺️']
 	)
@@ -559,22 +663,28 @@ class ServiceProcessEntryTypes:
 		"&INITIATION",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
-			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")],
-			[HexColor('ORANGE'), HexColor('CHARTREUSE')]
+			[HexColor('ORANGE'), HexColor('CHARTREUSE')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')],
+			["", ""]
 		], [
 			[AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")],
-			[HexColor('GREEN'), HexColor('PALEGREEN')]
+			[HexColor('GREEN'), HexColor('PALEGREEN')],
+			["", ""]
 		], [
 			[AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")],
-			[HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
+			[HexColor('DARKGREEN'), HexColor('LIGHTGREEN')],
+			["", ""]
 		], [
 			["", AnsiColor('DARKGREEN', "background")],
-			["", HexColor('DARKGREEN')]
+			["", HexColor('DARKGREEN')],
+			["", ""]
 		],
 		['🚀', '🚀', '🔥', '🔧']
 	)
@@ -586,22 +696,28 @@ class ServiceProcessEntryTypes:
 		"&PROGRESS",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")],
-			[HexColor('ORCHID'), HexColor('PURPLE')]
+			[HexColor('ORCHID'), HexColor('PURPLE')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
+			[HexColor('LIGHTSKYBLUE'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('SKYBLUE', "background")],
-			["", HexColor('SKYBLUE')]
+			["", HexColor('SKYBLUE')],
+			["", ""]
 		],
 		['⏳', '🔄', '⚙️', '🕰️']
 	)
@@ -612,22 +728,28 @@ class ServiceProcessEntryTypes:
 		"&SUCCESS",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
-			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")],
-			[HexColor('ORANGE'), HexColor('CHARTREUSE')]
+			[HexColor('ORANGE'), HexColor('CHARTREUSE')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')],
+			["", ""]
 		], [
 			[AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")],
-			[HexColor('GREEN'), HexColor('PALEGREEN')]
+			[HexColor('GREEN'), HexColor('PALEGREEN')],
+			["", ""]
 		], [
 			[AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")],
-			[HexColor('DARKGREEN'), HexColor('LIGHTGREEN')]
+			[HexColor('DARKGREEN'), HexColor('LIGHTGREEN')],
+			["", ""]
 		], [
 			["", AnsiColor('DARKGREEN', "background")],
-			["", HexColor('DARKGREEN')]
+			["", HexColor('DARKGREEN')],
+			["", ""]
 		],
 		['✔️', '🎉', '👍', '✅']
 	)
@@ -639,22 +761,28 @@ class ServiceProcessEntryTypes:
 		"&FAIL",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
-			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")],
-			[HexColor('ORANGE'), HexColor('ORANGE')]
+			[HexColor('ORANGE'), HexColor('ORANGE')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('DARKORANGE')]
+			[HexColor('DARKORANGE'), HexColor('DARKORANGE')],
+			["", ""]
 		], [
 			[AnsiColor('FIREBRICK', "foreground"), AnsiColor('YELLOW', "foreground")],
-			[HexColor('FIREBRICK'), HexColor('YELLOW')]
+			[HexColor('FIREBRICK'), HexColor('YELLOW')],
+			["", ""]
 		], [
 			[AnsiColor('DARKRED', "foreground"), AnsiColor('DARKYELLOW', "foreground")],
-			[HexColor('DARKRED'), HexColor('DARKYELLOW')]
+			[HexColor('DARKRED'), HexColor('DARKYELLOW')],
+			["", ""]
 		], [
 			["", AnsiColor('DARKRED', "background")],
-			["", HexColor('DARKRED')]
+			["", HexColor('DARKRED')],
+			["", ""]
 		],
 		['❌', '🚫', '👎', '❎']
 	)
@@ -668,22 +796,28 @@ class ServiceTimerEntryTypes:
 		"^START TIMER",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")],
-			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')]
+			[HexColor('ORCHID'), HexColor('LAVENDERBLUSH')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")],
-			[HexColor('ORANGE'), HexColor('CHARTREUSE')]
+			[HexColor('ORANGE'), HexColor('CHARTREUSE')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')]
+			[HexColor('DARKORANGE'), HexColor('LAWNGREEN')],
+			["", ""]
 		], [
 			[AnsiColor('SEAGREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")],
-			[HexColor('SEAGREEN'), HexColor('PALEGREEN')]
+			[HexColor('SEAGREEN'), HexColor('PALEGREEN')],
+			["", ""]
 		], [
 			[AnsiColor('FORESTGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")],
-			[HexColor('FORESTGREEN'), HexColor('LIGHTGREEN')]
+			[HexColor('FORESTGREEN'), HexColor('LIGHTGREEN')],
+			["", ""]
 		], [
 			["", AnsiColor('FORESTGREEN', "background")],
-			["", HexColor('FORESTGREEN')]
+			["", HexColor('FORESTGREEN')],
+			["", ""]
 		],
 		['⏰', '🕑', '🟩', '⏳']
 	)
@@ -695,22 +829,28 @@ class ServiceTimerEntryTypes:
 		"^TIMER MARK",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")],
-			[HexColor('ORCHID'), HexColor('DARKMAGENTA')]
+			[HexColor('ORCHID'), HexColor('DARKMAGENTA')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('KHAKI', "foreground"), AnsiColor('SIENNA', "foreground")],
-			[HexColor('KHAKI'), HexColor('SIENNA')]
+			[HexColor('KHAKI'), HexColor('SIENNA')],
+			["", ""]
 		], [
 			[AnsiColor('DARKKHAKI', "foreground"), AnsiColor('SADDLEBROWN', "foreground")],
-			[HexColor('DARKKHAKI'), HexColor('SADDLEBROWN')]
+			[HexColor('DARKKHAKI'), HexColor('SADDLEBROWN')],
+			["", ""]
 		], [
 			["", AnsiColor('DARKKHAKI', "background")],
-			["", HexColor('DARKKHAKI')]
+			["", HexColor('DARKKHAKI')],
+			["", ""]
 		],
 		['⌚', '🕕', '🟨', '⏱️']
 	)
@@ -722,22 +862,28 @@ class ServiceTimerEntryTypes:
 		"^STOP TIMER",
 		[
 			[AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")],
-			[HexColor('ORCHID'), HexColor('PURPLE')]
+			[HexColor('ORCHID'), HexColor('PURPLE')],
+			["", ""]
 		], [
 			[AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")],
-			[HexColor('ORANGE'), HexColor('DARKRED')]
+			[HexColor('ORANGE'), HexColor('DARKRED')],
+			["", ""]
 		], [
 			[AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")],
-			[HexColor('DARKORANGE'), HexColor('MAROON')]
+			[HexColor('DARKORANGE'), HexColor('MAROON')],
+			["", ""]
 		], [
 			[AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")],
-			[HexColor('LIGHTSKYBLUE'), HexColor('NAVY')]
+			[HexColor('LIGHTSKYBLUE'), HexColor('NAVY')],
+			["", ""]
 		], [
 			[AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")],
-			[HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')]
+			[HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')],
+			["", ""]
 		], [
 			["", AnsiColor('SKYBLUE', "background")],
-			["", HexColor('SKYBLUE')]
+			["", HexColor('SKYBLUE')],
+			["", ""]
 		],
 		['⏲️', '🕙', '🟪', '⌛']
 	)

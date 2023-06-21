@@ -34,7 +34,7 @@ class BasicLogger(Singleton):
 	def _initialized_data(
 		self,
 		colors: list[str, str],
-		env: bool
+		env: int
 	) -> str:
 		"""
 		A method that assemble an entry of system initialized data.
@@ -42,28 +42,38 @@ class BasicLogger(Singleton):
 		:param colors: Color string list of initialized data
 		:return: a string with initialized data
 		"""
-		if env:
-			return (
-					f"<span style='background-color: #{colors[1]};'>" +
-					f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +
-					f"${platform.node()}^{os.getlogin()}" +
-					f"@{platform.system()}" +
-					f":{platform.version()}" +
-					":{}:{}".format(*platform.architecture()) +
-					f":{platform.machine()}" +
-					f"</span></span>"
-			)
-		else:
-			return (
+		match env:
+			case LogEnvironments.CONSOLE:
+				return (
 					f"{colors[1]}" +
 					f"{colors[0]}-{self._program_name}?entry> " +
-					f"${platform.node()}^{os.getlogin()}" +
-					f"@{platform.system()}" +
+					f"${platform.node()}:{os.getlogin()}" +
+					f":{platform.system()}" +
 					f":{platform.version()}" +
 					":{}:{}".format(*platform.architecture()) +
 					f":{platform.machine()}" +
 					f"{GetAnsiFormat('reset/on')}"
-			)
+				)
+			case LogEnvironments.HTML:
+				return (
+					f"<span style='background-color: #{colors[1]};'>" +
+					f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +
+					f"${platform.node()}:{os.getlogin()}" +
+					f":{platform.system()}" +
+					f":{platform.version()}" +
+					":{}:{}".format(*platform.architecture()) +
+					f":{platform.machine()}" +
+					f"</span></span>"
+				)
+			case LogEnvironments.PLAIN:
+				return (
+					f"-{self._program_name}?entry> " +
+					f"${platform.node()}:{os.getlogin()}" +
+					f":{platform.system()}" +
+					f":{platform.version()}" +
+					":{}:{}".format(*platform.architecture()) +
+					f":{platform.machine()}"
+				)
 
 	def _assemble_entry(
 		self,
@@ -73,7 +83,7 @@ class BasicLogger(Singleton):
 		status_message_text: str,
 		message_type: str,
 		message_text: str,
-		env: bool,
+		env: int,
 		local_settings: dict
 	) -> str:
 		"""
@@ -97,23 +107,10 @@ class BasicLogger(Singleton):
 		status_message_entry = local_settings['status_message_local_entry'] if 'status_message_local_entry' in local_settings else self._settings['status_message_global_entry']
 		status_type_entry = local_settings['status_type_local_entry'] if 'status_type_local_entry' in local_settings else self._settings['status_type_global_entry']
 		message_entry = local_settings['message_local_entry'] if 'message_local_entry' in local_settings else self._settings['message_global_entry']
-		if env:
-			return (
-					(f"<b>" if bold else "") +
-					(f"<i>" if italic else "") +
-					f"<span style='background-color: #{colors[5]};'>" +
-					f"<span style='color: #{colors[4]};'>-?entry> {animation} </span>" +
-					(f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
-					f"<div style='display: inline-block; white-space: pre; tab-size: 4'>{icon} </div>" +
-					(f"<span style='color: #{colors[1]};'>#STATUS: </span>" if status_entry else "") +
-					(f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if status_message_entry else "") +
-					(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if status_type_entry else "") +
-					(f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if message_entry else "") +
-					(f"</i>" if italic else "") +
-					(f"</b>" if bold else "")
-			)
-		else:
-			return (
+
+		match env:
+			case LogEnvironments.CONSOLE:
+				return (
 					(f"{GetAnsiFormat('bold/on')}" if bold else "") +
 					(f"{GetAnsiFormat('italic/on')}" if italic else "") +
 					(f"{GetAnsiFormat('invert/on')}" if invert else "") +
@@ -126,4 +123,29 @@ class BasicLogger(Singleton):
 					(f"{colors[3]}{message_type} - " if status_type_entry else "") +
 					(f"{colors[4]}{message_text}" if message_entry else "") +
 					f"{GetAnsiFormat('reset/on')}"
-			)
+				)
+			case LogEnvironments.HTML:
+				return (
+					(f"<b>" if bold else "") +
+					(f"<i>" if italic else "") +
+					f"<span style='background-color: #{colors[5]};'>" +
+					f"<span style='color: #{colors[4]};'>-?entry> {animation} </span>" +
+					(f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
+					f"{icon} " +
+					(f"<span style='color: #{colors[1]};'>#STATUS: </span>" if status_entry else "") +
+					(f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if status_message_entry else "") +
+					(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if status_type_entry else "") +
+					(f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if message_entry else "") +
+					(f"</i>" if italic else "") +
+					(f"</b>" if bold else "")
+				)
+			case LogEnvironments.PLAIN:
+				return (
+					f"-?entry> {animation} " +
+					(f"*{datetime.datetime.now()} " if time_entry else "") +
+					f"{icon} " +
+					(f"#STATUS: " if status_entry else "") +
+					(f"{status_message_text} " if status_message_entry else "") +
+					(f"{message_type} - " if status_type_entry else "") +
+					(f"{message_text}" if message_entry else "")
+				)

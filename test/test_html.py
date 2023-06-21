@@ -1,28 +1,28 @@
 from time import sleep
 
 from mighty_logger import Logger
-from mighty_logger.src import LogEnvironments, TypesEntries
+from mighty_logger.src import LoggerEntryTypes, ProcessEntryTypes, LogEnvironments
 from mighty_logger.text import IndefiniteAnimations, DefiniteAnimations
 
 if __name__ == "__main__":
 	logger = Logger(program_name="Test", log_environment=LogEnvironments.HTML, status_message_global_entry=False)
 
-	logger.message(message_text="Program installation started")
 	logger.start_timer(message_text="Timer started")
+	logger.entry(entry_type=LoggerEntryTypes.message, message_text="Program installation started")
 
 	sleep(1)
-	logger.start_indefinite_process(animation=IndefiniteAnimations.Star, message_text="File upload")
+	logger.start_indefinite_process(animation=IndefiniteAnimations.SuperSpace, message_text="File upload")
 	sleep(2)
-	logger.note_process(entry_type=TypesEntries.ACHIEVEMENT, message_text="Files downloaded")
+	logger.note_process(entry_type=ProcessEntryTypes.achievement, message_text="Files downloaded")
 	sleep(3)
 	logger.progress_rise(100)
 	logger.stop_process(message_text="Files unzipped")
 
-	logger.warning(message_text="Newer version found")
-	logger.timer_mark(message_text="Timer mark", local_background=False)
+	logger.entry(entry_type=LoggerEntryTypes.warning, message_text="Newer version found")
+	logger.timer_mark(message_text="Timer mark")
 
 	sleep(1)
-	logger.start_definite_process(progress_bar=DefiniteAnimations.Dots, message_text="Installing files")
+	logger.start_definite_process(progress_bar=DefiniteAnimations.Arrow, message_text="Installing files")
 	sleep(0.6)
 	logger.progress_rise(3)
 	sleep(0.4)
@@ -43,10 +43,9 @@ if __name__ == "__main__":
 	logger.progress_rise(46)
 	sleep(1.1)
 	logger.progress_rise(47)
-	logger.note_process(entry_type=TypesEntries.MILESTONE, message_text="Files prepared")
+	logger.note_process(entry_type=ProcessEntryTypes.milestone, message_text="Files prepared")
 	sleep(3.7)
 	logger.progress_rise(76)
-	logger.note_process(entry_type=TypesEntries.TIMER_MARK, message_text="Timer mark")
 	sleep(1.5)
 	logger.progress_rise(77)
 	sleep(1.4)
@@ -58,9 +57,9 @@ if __name__ == "__main__":
 	sleep(1.3)
 	logger.progress_rise(85)
 	sleep(0.8)
-	logger.note_process(entry_type=TypesEntries.ERROR, message_text="Incompatibility found")
+	logger.note_process(entry_type=LoggerEntryTypes.error, message_text="Incompatibility found")
 	sleep(1.3)
-	logger.note_process(entry_type=TypesEntries.RESOLVED, message_text="Incompatibility eliminated")
+	logger.note_process(entry_type=LoggerEntryTypes.resolved, message_text="Incompatibility eliminated")
 	sleep(1.1)
 	logger.progress_rise(86)
 	sleep(0.6)
