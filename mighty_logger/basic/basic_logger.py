@@ -18,9 +18,10 @@ limitations under the License.
 
 import datetime, platform, os, random
 
+from mighty_logger.basic.lib_types import EnvironmentType
 from mighty_logger.basic.patterns import Singleton
 from mighty_logger.src.ansi_format import GetAnsiFormat
-from mighty_logger.src.environments import EnvironmentType, LogEnvironments
+from mighty_logger.src.environments import LogEnvironments
 
 class BasicLogger(Singleton):
 	def __init__(

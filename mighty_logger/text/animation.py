@@ -19,28 +19,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-class BasicAnimationType:
-	"""
-	Basic wrapper class for animations type.
-	"""
-	def __init__(self, animation: list):
-		self.__animation: list = animation
-
-	@property
-	def animation(self) -> list:
-		return self.__animation
-
-class IndefiniteAnimationType(BasicAnimationType):
-	"""
-	Wrapper class for indefinite animations type.
-	"""
-	...
-
-class DefiniteAnimationType(BasicAnimationType):
-	"""
-	Wrapper class for definite animations type.
-	"""
-	...
+from mighty_logger.basic.lib_types import IndefiniteAnimationType, DefiniteAnimationType
 
 class IndefiniteAnimations:
 	"""

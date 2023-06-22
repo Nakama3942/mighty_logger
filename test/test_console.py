@@ -81,4 +81,4 @@ if __name__ == "__main__":
 
 	logger.stop_timer(message_text="Timer completed")
 
-	logger.buffer().save("log.txt", False)
+	logger.buffer().save("log.txt")

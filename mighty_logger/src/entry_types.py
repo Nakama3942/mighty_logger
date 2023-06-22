@@ -16,61 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+from mighty_logger.basic.lib_types import EntryType
 from mighty_logger.src.color_picker import AnsiColor, HexColor
-
-class EntryType:
-	def __init__(
-		self,
-		*,
-		type_name: str,
-		time_color: tuple,
-		status_color: tuple,
-		status_message_color: tuple,
-		type_color: tuple,
-		message_color: tuple,
-		background_color: tuple,
-		icon: tuple
-	) -> None:
-		self.__type_name: str = type_name
-		self.__time_color: tuple = time_color
-		self.__status_color: tuple = status_color
-		self.__status_message_color: tuple = status_message_color
-		self.__type_color: tuple = type_color
-		self.__message_color: tuple = message_color
-		self.__background_color: tuple = background_color
-		self.__icon: tuple = icon
-
-	@property
-	def type_name(self) -> str:
-		return self.__type_name
-
-	@property
-	def time_color(self) -> tuple:
-		return self.__time_color
-
-	@property
-	def status_color(self) -> tuple:
-		return self.__status_color
-
-	@property
-	def status_message_color(self) -> tuple:
-		return self.__status_message_color
-
-	@property
-	def type_color(self) -> tuple:
-		return self.__type_color
-
-	@property
-	def message_color(self) -> tuple:
-		return self.__message_color
-
-	@property
-	def background_color(self) -> tuple:
-		return self.__background_color
-
-	@property
-	def icon(self) -> tuple:
-		return self.__icon
 
 class ServiceLogger:
 	initial = (

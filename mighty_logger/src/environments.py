@@ -17,13 +17,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-class EnvironmentType:
-	def __init__(self, environment_name: str) -> None:
-		self.__environment_name: str = environment_name
-
-	@property
-	def environment_name(self) -> str:
-		return self.__environment_name
+from mighty_logger.basic.lib_types import EnvironmentType
 
 class LogEnvironments:
 	"""

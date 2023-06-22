@@ -22,11 +22,16 @@ from datetime import datetime
 
 from mighty_logger.basic.basic_logger import BasicLogger
 from mighty_logger.basic.exceptions import ReCreationException
+from mighty_logger.basic.lib_types import EntryType,\
+	EnvironmentType,\
+	StatusMessageType,\
+	BasicAnimationType,\
+	IndefiniteAnimationType,\
+	DefiniteAnimationType
 from mighty_logger.basic.text_buffer_type import TextBufferType
-from mighty_logger.src.entry_types import EntryType, ServiceLogger, ServiceProcessEntryTypes, ServiceTimerEntryTypes
-from mighty_logger.src.environments import EnvironmentType, LogEnvironments
-from mighty_logger.src.status_variables import StatusMessageType
-from mighty_logger.text.animation import BasicAnimationType, IndefiniteAnimationType, DefiniteAnimationType, IndefiniteAnimations, DefiniteAnimations
+from mighty_logger.src.entry_types import ServiceLogger, ServiceProcessEntryTypes, ServiceTimerEntryTypes
+from mighty_logger.src.environments import LogEnvironments
+from mighty_logger.text.animation import IndefiniteAnimations, DefiniteAnimations
 from mighty_logger.text.text_buffer import BasicTextBuffer, TextBuffer
 
 class Logger(BasicLogger):

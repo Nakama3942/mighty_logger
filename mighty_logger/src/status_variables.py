@@ -16,16 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-class StatusMessageType:
-	"""
-	Wrapper class for status message.
-	"""
-	def __init__(self, message: str):
-		self.__current_status_message: str = message
-
-	@property
-	def current_status_message(self) -> str:
-		return self.__current_status_message
+from mighty_logger.basic.lib_types import StatusMessageType
 
 class StatusMessagePatterns:
 	"""
