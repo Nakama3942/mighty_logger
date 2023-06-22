@@ -24,7 +24,7 @@ from mighty_logger.basic.basic_logger import BasicLogger
 from mighty_logger.basic.exceptions import ReCreationException
 from mighty_logger.basic.text_buffer_type import TextBufferType
 from mighty_logger.src.entry_types import EntryType, ServiceLogger, ServiceProcessEntryTypes, ServiceTimerEntryTypes
-from mighty_logger.src.log_enums import LogEnvironments
+from mighty_logger.src.environments import EnvironmentType, LogEnvironments
 from mighty_logger.src.status_variables import StatusMessageType
 from mighty_logger.text.animation import BasicAnimationType, IndefiniteAnimationType, DefiniteAnimationType, IndefiniteAnimations, DefiniteAnimations
 from mighty_logger.text.text_buffer import BasicTextBuffer, TextBuffer
@@ -49,7 +49,7 @@ class Logger(BasicLogger):
 		self,
 		*,
 		program_name: str = "Unknown",
-		log_environment: int = LogEnvironments.CONSOLE,
+		log_environment: EnvironmentType = LogEnvironments.CONSOLE,
 		console_width: int = 60,
 		icon_set: int = 1,
 		time_global_entry: bool = True,
@@ -81,8 +81,8 @@ class Logger(BasicLogger):
 			self._progress_interrupt = False
 			self._start_timer_value: datetime | None = None
 			self.global_background = global_background
-			match self._environment:
-				case LogEnvironments.CONSOLE:
+			match self._environment.environment_name:
+				case LogEnvironments.CONSOLE.environment_name:
 					if TextBuffer._instance is not None:
 						self._buffer = TextBuffer._instance
 						self.notice(
@@ -92,7 +92,7 @@ class Logger(BasicLogger):
 						)
 					else:
 						self._buffer = TextBuffer(console_width)
-				case LogEnvironments.HTML:
+				case LogEnvironments.HTML.environment_name:
 					if BasicTextBuffer._instance is not None:
 						self._buffer = BasicTextBuffer._instance
 						self.notice(
@@ -102,7 +102,7 @@ class Logger(BasicLogger):
 						)
 					else:
 						self._buffer = BasicTextBuffer()
-				case LogEnvironments.PLAIN:
+				case LogEnvironments.PLAIN.environment_name:
 					if BasicTextBuffer._instance is not None:
 						self._buffer = BasicTextBuffer._instance
 						self.notice(
@@ -119,12 +119,12 @@ class Logger(BasicLogger):
 		"""
 		Displays initialized information.
 		"""
-		if self._environment == LogEnvironments.HTML:
+		if self._environment.environment_name == LogEnvironments.HTML.environment_name:
 			self._buffer << "<body style='background-color: #000000; color: #ffffff;'>"
 		self._buffer << self._initialized_data(
 			[
-				ServiceLogger.initial[0][self._environment][self.global_background],
-				ServiceLogger.initial[1][self._environment][self.global_background]
+				ServiceLogger.initial[0][int(self._environment.environment_name)][self.global_background],
+				ServiceLogger.initial[1][int(self._environment.environment_name)][self.global_background]
 			], self._environment
 		)
 		if self._environment == LogEnvironments.CONSOLE:
@@ -172,7 +172,7 @@ class Logger(BasicLogger):
 		:param entry: "Empty" entry
 		"""
 		self._buffer << entry
-		if self._environment == LogEnvironments.CONSOLE:
+		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
 			self._buffer.update_console()
 
 	def entry(
@@ -198,12 +198,12 @@ class Logger(BasicLogger):
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
-				entry_type.time_color[self._environment][background],
-				entry_type.status_color[self._environment][background],
-				entry_type.status_message_color[self._environment][background],
-				entry_type.type_color[self._environment][background],
-				entry_type.message_color[self._environment][background],
-				entry_type.background_color[self._environment][background]
+				entry_type.time_color[int(self._environment.environment_name)][background],
+				entry_type.status_color[int(self._environment.environment_name)][background],
+				entry_type.status_message_color[int(self._environment.environment_name)][background],
+				entry_type.type_color[int(self._environment.environment_name)][background],
+				entry_type.message_color[int(self._environment.environment_name)][background],
+				entry_type.background_color[int(self._environment.environment_name)][background]
 			],
 			self._progress_time,
 			entry_type.icon[self._icon_set],
@@ -213,7 +213,7 @@ class Logger(BasicLogger):
 			self._environment,
 			local_settings
 		)
-		if self._environment == LogEnvironments.CONSOLE:
+		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
 			self._buffer.update_console()
 
 	# ######################################################################################## #
@@ -289,19 +289,19 @@ class Logger(BasicLogger):
 			local_settings = {}
 		animation_index = 0
 		self._buffer << "."
-		if self._environment == LogEnvironments.CONSOLE:
+		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			animation_item = self._animation.animation[animation_index]
 			background = local_background if local_background is not None else self.global_background
 			self._buffer.get_data()[-1] = self._assemble_entry(
 				[
-					ServiceProcessEntryTypes.process.time_color[self._environment][background],
-					ServiceProcessEntryTypes.process.status_color[self._environment][background],
-					ServiceProcessEntryTypes.process.status_message_color[self._environment][background],
-					ServiceProcessEntryTypes.process.type_color[self._environment][background],
-					ServiceProcessEntryTypes.process.message_color[self._environment][background],
-					ServiceProcessEntryTypes.process.background_color[self._environment][background]
+					ServiceProcessEntryTypes.process.time_color[int(self._environment.environment_name)][background],
+					ServiceProcessEntryTypes.process.status_color[int(self._environment.environment_name)][background],
+					ServiceProcessEntryTypes.process.status_message_color[int(self._environment.environment_name)][background],
+					ServiceProcessEntryTypes.process.type_color[int(self._environment.environment_name)][background],
+					ServiceProcessEntryTypes.process.message_color[int(self._environment.environment_name)][background],
+					ServiceProcessEntryTypes.process.background_color[int(self._environment.environment_name)][background]
 				],
 				animation_item,
 				ServiceProcessEntryTypes.process.icon[self._icon_set],
@@ -312,10 +312,10 @@ class Logger(BasicLogger):
 				local_settings
 			)
 			animation_index = (animation_index + 1) % len(self._animation.animation)
-			if self._environment == LogEnvironments.CONSOLE:
+			if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
 				self._buffer.update_entry()
 			sleep(0.1)
-		if self._environment == LogEnvironments.CONSOLE:
+		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
 			self._buffer.update_console()
 
 	def start_definite_process(
@@ -385,7 +385,7 @@ class Logger(BasicLogger):
 			local_settings = {}
 		old_progress_rise = 0
 		self._buffer << "."
-		if self._environment == LogEnvironments.CONSOLE:
+		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			if old_progress_rise == self._progress_rise:
@@ -396,12 +396,12 @@ class Logger(BasicLogger):
 				background = local_background if local_background is not None else self.global_background
 				self._buffer.get_data()[-1] = self._assemble_entry(
 					[
-						ServiceProcessEntryTypes.process.time_color[self._environment][background],
-						ServiceProcessEntryTypes.process.status_color[self._environment][background],
-						ServiceProcessEntryTypes.process.status_message_color[self._environment][background],
-						ServiceProcessEntryTypes.process.type_color[self._environment][background],
-						ServiceProcessEntryTypes.process.message_color[self._environment][background],
-						ServiceProcessEntryTypes.process.background_color[self._environment][background]
+						ServiceProcessEntryTypes.process.time_color[int(self._environment.environment_name)][background],
+						ServiceProcessEntryTypes.process.status_color[int(self._environment.environment_name)][background],
+						ServiceProcessEntryTypes.process.status_message_color[int(self._environment.environment_name)][background],
+						ServiceProcessEntryTypes.process.type_color[int(self._environment.environment_name)][background],
+						ServiceProcessEntryTypes.process.message_color[int(self._environment.environment_name)][background],
+						ServiceProcessEntryTypes.process.background_color[int(self._environment.environment_name)][background]
 					],
 					animation_item,
 					ServiceProcessEntryTypes.process.icon[self._icon_set],
@@ -411,10 +411,10 @@ class Logger(BasicLogger):
 					self._environment,
 					local_settings
 				)
-				if self._environment == LogEnvironments.CONSOLE:
+				if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
 					self._buffer.update_entry()
 			sleep(0.1)
-		if self._environment == LogEnvironments.CONSOLE:
+		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
 			self._buffer.update_console()
 
 	def progress_rise(self, percent: int) -> None:

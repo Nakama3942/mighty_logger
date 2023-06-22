@@ -20,7 +20,7 @@ import datetime, platform, os, random
 
 from mighty_logger.basic.patterns import Singleton
 from mighty_logger.src.ansi_format import GetAnsiFormat
-from mighty_logger.src.log_enums import LogEnvironments
+from mighty_logger.src.environments import EnvironmentType, LogEnvironments
 
 class BasicLogger(Singleton):
 	def __init__(
@@ -34,7 +34,7 @@ class BasicLogger(Singleton):
 	def _initialized_data(
 		self,
 		colors: list[str, str],
-		env: int
+		env: EnvironmentType
 	) -> str:
 		"""
 		A method that assemble an entry of system initialized data.
@@ -42,8 +42,8 @@ class BasicLogger(Singleton):
 		:param colors: Color string list of initialized data
 		:return: a string with initialized data
 		"""
-		match env:
-			case LogEnvironments.CONSOLE:
+		match env.environment_name:
+			case LogEnvironments.CONSOLE.environment_name:
 				return (
 					f"{colors[1]}" +
 					f"{colors[0]}-{self._program_name}?entry> " +
@@ -54,7 +54,7 @@ class BasicLogger(Singleton):
 					f":{platform.machine()}" +
 					f"{GetAnsiFormat('reset/on')}"
 				)
-			case LogEnvironments.HTML:
+			case LogEnvironments.HTML.environment_name:
 				return (
 					f"<span style='background-color: #{colors[1]};'>" +
 					f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +
@@ -65,7 +65,7 @@ class BasicLogger(Singleton):
 					f":{platform.machine()}" +
 					f"</span></span>"
 				)
-			case LogEnvironments.PLAIN:
+			case LogEnvironments.PLAIN.environment_name:
 				return (
 					f"-{self._program_name}?entry> " +
 					f"${platform.node()}:{os.getlogin()}" +
@@ -83,7 +83,7 @@ class BasicLogger(Singleton):
 		status_message_text: str,
 		message_type: str,
 		message_text: str,
-		env: int,
+		env: EnvironmentType,
 		local_settings: dict
 	) -> str:
 		"""
@@ -108,8 +108,8 @@ class BasicLogger(Singleton):
 		status_type_entry = local_settings['status_type_local_entry'] if 'status_type_local_entry' in local_settings else self._settings['status_type_global_entry']
 		message_entry = local_settings['message_local_entry'] if 'message_local_entry' in local_settings else self._settings['message_global_entry']
 
-		match env:
-			case LogEnvironments.CONSOLE:
+		match env.environment_name:
+			case LogEnvironments.CONSOLE.environment_name:
 				return (
 					(f"{GetAnsiFormat('bold/on')}" if bold else "") +
 					(f"{GetAnsiFormat('italic/on')}" if italic else "") +
@@ -124,7 +124,7 @@ class BasicLogger(Singleton):
 					(f"{colors[4]}{message_text}" if message_entry else "") +
 					f"{GetAnsiFormat('reset/on')}"
 				)
-			case LogEnvironments.HTML:
+			case LogEnvironments.HTML.environment_name:
 				return (
 					(f"<b>" if bold else "") +
 					(f"<i>" if italic else "") +
@@ -139,7 +139,7 @@ class BasicLogger(Singleton):
 					(f"</i>" if italic else "") +
 					(f"</b>" if bold else "")
 				)
-			case LogEnvironments.PLAIN:
+			case LogEnvironments.PLAIN.environment_name:
 				return (
 					f"-?entry> {animation} " +
 					(f"*{datetime.datetime.now()} " if time_entry else "") +

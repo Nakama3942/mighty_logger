@@ -17,24 +17,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# class Environment:
-# 	...
-#
-# class LogEnvironments:
-# 	"""
-# 	Environments of Logger.
-# 	"""
-# 	CONSOLE = Environment(0)
-# 	HTML = Environment(1)
-# 	PLAIN = Environment(2)
-# 	MARKDOWN = Environment(3)
+class EnvironmentType:
+	def __init__(self, environment_name: str) -> None:
+		self.__environment_name: str = environment_name
+
+	@property
+	def environment_name(self) -> str:
+		return self.__environment_name
 
 class LogEnvironments:
 	"""
 	Environments of Logger.
 	"""
-	CONSOLE = 0
-	HTML = 1
-	PLAIN = 2
-	#PLAIN_CONSOLE = 3
-	#MARKDOWN = 4
+	CONSOLE = EnvironmentType("0")
+	HTML = EnvironmentType("1")
+	PLAIN = EnvironmentType("2")
+	# PLAIN_CONSOLE = EnvironmentType("3")
+	# MARKDOWN = EnvironmentType("4")
