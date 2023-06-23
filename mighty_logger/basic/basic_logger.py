@@ -29,9 +29,9 @@ class BasicLogger(Singleton):
 		program_name: str,
 		env: EnvironmentType
 	) -> None:
-		self._ID = random.randint(1000000, 9999999)
-		self._program_name = program_name
-		self._environment = env
+		self._ID: int = random.randint(1000000, 9999999)
+		self._program_name: str = program_name
+		self._environment: EnvironmentType = env
 		self._settings: dict = {}
 
 	def _initialized_data(

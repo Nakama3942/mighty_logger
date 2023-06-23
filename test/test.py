@@ -5,7 +5,8 @@ from mighty_logger.src import LoggerEntryTypes, ProcessEntryTypes, LogEnvironmen
 from mighty_logger.text import IndefiniteAnimations, DefiniteAnimations
 
 if __name__ == "__main__":
-	logger = Logger(program_name="Installer", log_environment=LogEnvironments.CONSOLE, console_width=115, status_message_global_entry=False)
+	logger = Logger(program_name="Installer", log_environment=LogEnvironments.MARKDOWN, console_width=115, status_message_global_entry=False)
+	logger.publish_author()
 
 	logger.start_timer(message_text="Timer started")
 	logger.entry(entry_type=LoggerEntryTypes.message, message_text="Program installation started")
@@ -20,6 +21,10 @@ if __name__ == "__main__":
 
 	logger.entry(entry_type=LoggerEntryTypes.warning, message_text="Newer version found")
 	logger.timer_mark(message_text="Timer mark")
+
+	logger.separator()
+
+	data = logger.input_simulation("Enter password: ")
 
 	sleep(1)
 	logger.start_definite_process(progress_bar=DefiniteAnimations.Arrow, message_text="Installing files")
@@ -80,5 +85,6 @@ if __name__ == "__main__":
 	logger.stop_process(message_text="Program installed")
 
 	logger.stop_timer(message_text="Timer completed")
+	logger.empty(entry=data)
 
 	logger.buffer().save("log")

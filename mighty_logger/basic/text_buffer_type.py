@@ -108,6 +108,15 @@ class TextBufferType(ABC):
 		raise NotImplementedError("Method save() is not implemented in the base class.")
 
 	@abstractmethod
+	def input(self, input_text: str) -> str:
+		"""
+		...
+
+		:param input_text:
+		"""
+		raise NotImplementedError("Method input() is not implemented in the base class.")
+
+	@abstractmethod
 	def update_console(self) -> None:
 		"""
 		Refreshes the console, erasing output text and outputting an updated buffer.

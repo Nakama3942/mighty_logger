@@ -80,6 +80,9 @@ class BasicTextBuffer(Singleton, TextBufferType):
 				with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
 					text_buffer_file.write('\n'.join(self._text_buffer))
 
+	def input(self, input_text: str) -> str:
+		return input(f"\r{input_text}")
+
 	def update_console(self) -> None:
 		super().update_console()
 
@@ -143,24 +146,29 @@ class TextBuffer(Singleton, TextBufferType):
 		self._text_buffer.pop(number_string)
 
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
-			match self._environment.environment_name:
-				case LogEnvironments.CONSOLE.environment_name:
-					if clean:
-						with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
-							for item in self._text_buffer:
-								text_buffer_file.write("{}\n".format(re.sub(r"\033\[.*?m", "", item)))
-					else:
-						with open(f"{name_file}.contxt", "w", encoding="utf-8") as text_buffer_file:
-							text_buffer_file.write('\n'.join(self._text_buffer))
-				case LogEnvironments.PLAIN_CONSOLE.environment_name:
+		match self._environment.environment_name:
+			case LogEnvironments.CONSOLE.environment_name:
+				if clean:
 					with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
+						for item in self._text_buffer:
+							text_buffer_file.write("{}\n".format(re.sub(r"\033\[.*?m", "", item)))
+				else:
+					with open(f"{name_file}.contxt", "w", encoding="utf-8") as text_buffer_file:
 						text_buffer_file.write('\n'.join(self._text_buffer))
-				case LogEnvironments.HTML.environment_name:
-					raise EnvironmentException("This environment is not supported")
-				case LogEnvironments.MARKDOWN.environment_name:
-					raise EnvironmentException("This environment is not supported")
-				case LogEnvironments.PLAIN.environment_name:
-					raise EnvironmentException("This environment is not supported")
+			case LogEnvironments.PLAIN_CONSOLE.environment_name:
+				with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
+					text_buffer_file.write('\n'.join(self._text_buffer))
+			case LogEnvironments.HTML.environment_name:
+				raise EnvironmentException("This environment is not supported")
+			case LogEnvironments.MARKDOWN.environment_name:
+				raise EnvironmentException("This environment is not supported")
+			case LogEnvironments.PLAIN.environment_name:
+				raise EnvironmentException("This environment is not supported")
+
+	def input(self, input_text: str) -> str:
+		data = input(f"\r{input_text}")
+		sys.stdout.write(f'\033[1A')
+		return data
 
 	def update_console(self) -> None:
 		# todo Translate to thread in a future update

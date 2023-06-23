@@ -17,12 +17,17 @@ limitations under the License.
 """
 
 class EnvironmentType:
-	def __init__(self, environment_name: str) -> None:
+	def __init__(self, environment_name: str, environment_code: int) -> None:
 		self.__environment_name: str = environment_name
+		self.__environment_code: int = environment_code
 
 	@property
 	def environment_name(self) -> str:
 		return self.__environment_name
+
+	@property
+	def environment_code(self) -> int:
+		return self.__environment_code
 
 class EntryType:
 	def __init__(

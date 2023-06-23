@@ -149,8 +149,8 @@ class Logger(BasicLogger):
 			self._buffer << "<body style='background-color: #000000; color: #ffffff;'>"
 		self._buffer << self._initialized_data(
 			[
-				ServiceLogger.initial[0][int(self._environment.environment_name)][self.global_background],
-				ServiceLogger.initial[1][int(self._environment.environment_name)][self.global_background]
+				ServiceLogger.initial[0][self._environment.environment_code][self.global_background],
+				ServiceLogger.initial[1][self._environment.environment_code][self.global_background]
 			]
 		)
 		if self._environment.environment_name in [
@@ -176,7 +176,67 @@ class Logger(BasicLogger):
 		"""
 		return self._buffer
 
-	#todo v0.7.1 сделать конвертер из Console в HTML и наоборот
+	# ######################################################################################## #
+	#                                                                                          #
+	#                                        Publishers                                        #
+	#                                                                                          #
+	# ######################################################################################## #
+
+	def publish_id(self):
+		self.empty(entry=f"Logger ID is {str(self._ID)}")
+
+	def publish_program_name(self):
+		self.empty(entry=f"Program name which logging is {self._program_name}")
+
+	def publish_environment(self):
+		self.empty(entry=f"Logger environment is {self._environment.environment_name}")
+
+	def publish_global_settings(self):
+		self.empty(entry="Global settings:")
+		self.empty(entry=f"    Bold font is set to {str(self._settings['global_bold_font'])};")
+		self.empty(entry=f"    Italic font is set to {str(self._settings['global_italic_font'])};")
+		self.empty(entry=f"    Invert font is set to {str(self._settings['global_invert_font'])};")
+		self.empty(entry=f"    Printing of the time in the entry is set to {str(self._settings['time_global_entry'])},")
+		self.empty(entry=f"    Printing of the status in the entry is set to {str(self._settings['status_global_entry'])},")
+		self.empty(entry=f"    Printing of the status message in the entry is set to {str(self._settings['status_message_global_entry'])},")
+		self.empty(entry=f"    Printing of the type of entry is set to {str(self._settings['status_type_global_entry'])},")
+		self.empty(entry=f"    Printing of the message of entry is set to {str(self._settings['message_global_entry'])};")
+
+	def publish_author(self):
+		self.empty(entry=f"Developed by Kalynovsky Valentin © 2023")
+
+	def publish_license(self):
+		self.empty(entry=f"LICENSE")
+		self.empty(entry=f"    Copyright © 2023 Kalynovsky Valentin. All rights reserved.")
+		self.empty(entry=f"    Licensed under the Apache License, Version 2.0 (the 'License');")
+		self.empty(entry=f"    you may not use this file except in compliance with the License.")
+		self.empty(entry=f"    You may obtain a copy of the License at")
+		self.empty(entry=f"        http://www.apache.org/licenses/LICENSE-2.0")
+		self.empty(entry=f"    Unless required by applicable law or agreed to in writing, software")
+		self.empty(entry=f"    distributed under the License is distributed on an 'AS IS' BASIS,")
+		self.empty(entry=f"    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.")
+		self.empty(entry=f"    See the License for the specific language governing permissions and")
+		self.empty(entry=f"    limitations under the License.")
+
+	def separator(self):
+		self.empty(entry=f"{'-' * 80}")
+
+	# ######################################################################################## #
+	#                                                                                          #
+	#                                    Inputter of Logger                                    #
+	#                                                                                          #
+	# ######################################################################################## #
+
+	def input_simulation(self, input_text: str) -> str:
+		self._buffer << "."
+		if self._environment.environment_name in [
+			LogEnvironments.CONSOLE.environment_name,
+			LogEnvironments.PLAIN_CONSOLE.environment_name
+		]:
+			self._buffer.update_console()
+		data = self._buffer.input(input_text)
+		self._buffer.replace(-1, f"{input_text}{data}")
+		return data
 
 	# ######################################################################################## #
 	#                                                                                          #
@@ -227,12 +287,12 @@ class Logger(BasicLogger):
 		background = local_background if local_background is not None else self.global_background
 		self._buffer << self._assemble_entry(
 			[
-				entry_type.time_color[int(self._environment.environment_name)][background],
-				entry_type.status_color[int(self._environment.environment_name)][background],
-				entry_type.status_message_color[int(self._environment.environment_name)][background],
-				entry_type.type_color[int(self._environment.environment_name)][background],
-				entry_type.message_color[int(self._environment.environment_name)][background],
-				entry_type.background_color[int(self._environment.environment_name)][background]
+				entry_type.time_color[self._environment.environment_code][background],
+				entry_type.status_color[self._environment.environment_code][background],
+				entry_type.status_message_color[self._environment.environment_code][background],
+				entry_type.type_color[self._environment.environment_code][background],
+				entry_type.message_color[self._environment.environment_code][background],
+				entry_type.background_color[self._environment.environment_code][background]
 			],
 			self._progress_time,
 			entry_type.icon[self._icon_set],
@@ -330,12 +390,12 @@ class Logger(BasicLogger):
 			background = local_background if local_background is not None else self.global_background
 			self._buffer.get_data()[-1] = self._assemble_entry(
 				[
-					ServiceProcessEntryTypes.process.time_color[int(self._environment.environment_name)][background],
-					ServiceProcessEntryTypes.process.status_color[int(self._environment.environment_name)][background],
-					ServiceProcessEntryTypes.process.status_message_color[int(self._environment.environment_name)][background],
-					ServiceProcessEntryTypes.process.type_color[int(self._environment.environment_name)][background],
-					ServiceProcessEntryTypes.process.message_color[int(self._environment.environment_name)][background],
-					ServiceProcessEntryTypes.process.background_color[int(self._environment.environment_name)][background]
+					ServiceProcessEntryTypes.process.time_color[self._environment.environment_code][background],
+					ServiceProcessEntryTypes.process.status_color[self._environment.environment_code][background],
+					ServiceProcessEntryTypes.process.status_message_color[self._environment.environment_code][background],
+					ServiceProcessEntryTypes.process.type_color[self._environment.environment_code][background],
+					ServiceProcessEntryTypes.process.message_color[self._environment.environment_code][background],
+					ServiceProcessEntryTypes.process.background_color[self._environment.environment_code][background]
 				],
 				animation_item,
 				ServiceProcessEntryTypes.process.icon[self._icon_set],
@@ -438,12 +498,12 @@ class Logger(BasicLogger):
 				background = local_background if local_background is not None else self.global_background
 				self._buffer.get_data()[-1] = self._assemble_entry(
 					[
-						ServiceProcessEntryTypes.process.time_color[int(self._environment.environment_name)][background],
-						ServiceProcessEntryTypes.process.status_color[int(self._environment.environment_name)][background],
-						ServiceProcessEntryTypes.process.status_message_color[int(self._environment.environment_name)][background],
-						ServiceProcessEntryTypes.process.type_color[int(self._environment.environment_name)][background],
-						ServiceProcessEntryTypes.process.message_color[int(self._environment.environment_name)][background],
-						ServiceProcessEntryTypes.process.background_color[int(self._environment.environment_name)][background]
+						ServiceProcessEntryTypes.process.time_color[self._environment.environment_code][background],
+						ServiceProcessEntryTypes.process.status_color[self._environment.environment_code][background],
+						ServiceProcessEntryTypes.process.status_message_color[self._environment.environment_code][background],
+						ServiceProcessEntryTypes.process.type_color[self._environment.environment_code][background],
+						ServiceProcessEntryTypes.process.message_color[self._environment.environment_code][background],
+						ServiceProcessEntryTypes.process.background_color[self._environment.environment_code][background]
 					],
 					animation_item,
 					ServiceProcessEntryTypes.process.icon[self._icon_set],
