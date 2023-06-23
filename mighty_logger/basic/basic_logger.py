@@ -27,15 +27,16 @@ class BasicLogger(Singleton):
 	def __init__(
 		self,
 		program_name: str,
+		env: EnvironmentType
 	) -> None:
-		self._program_name = program_name
-		self._settings: dict = {}
 		self._ID = random.randint(1000000, 9999999)
+		self._program_name = program_name
+		self._environment = env
+		self._settings: dict = {}
 
 	def _initialized_data(
 		self,
 		colors: list[str, str],
-		env: EnvironmentType
 	) -> str:
 		"""
 		A method that assemble an entry of system initialized data.
@@ -43,7 +44,7 @@ class BasicLogger(Singleton):
 		:param colors: Color string list of initialized data
 		:return: a string with initialized data
 		"""
-		match env.environment_name:
+		match self._environment.environment_name:
 			case LogEnvironments.CONSOLE.environment_name:
 				return (
 					f"{colors[1]}" +
@@ -55,7 +56,28 @@ class BasicLogger(Singleton):
 					f":{platform.machine()}" +
 					f"{GetAnsiFormat('reset/on')}"
 				)
+			case LogEnvironments.PLAIN_CONSOLE.environment_name:
+				return (
+					f"-{self._program_name}?entry> " +
+					f"${platform.node()}:{os.getlogin()}" +
+					f":{platform.system()}" +
+					f":{platform.version()}" +
+					":{}:{}".format(*platform.architecture()) +
+					f":{platform.machine()}" +
+					f"{GetAnsiFormat('reset/on')}"
+				)
 			case LogEnvironments.HTML.environment_name:
+				return (
+					f"<span style='background-color: #{colors[1]};'>" +
+					f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +
+					f"${platform.node()}:{os.getlogin()}" +
+					f":{platform.system()}" +
+					f":{platform.version()}" +
+					":{}:{}".format(*platform.architecture()) +
+					f":{platform.machine()}" +
+					f"</span></span>"
+				)
+			case LogEnvironments.MARKDOWN.environment_name:
 				return (
 					f"<span style='background-color: #{colors[1]};'>" +
 					f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +
@@ -84,7 +106,6 @@ class BasicLogger(Singleton):
 		status_message_text: str,
 		message_type: str,
 		message_text: str,
-		env: EnvironmentType,
 		local_settings: dict
 	) -> str:
 		"""
@@ -96,7 +117,6 @@ class BasicLogger(Singleton):
 		:param status_message_text: Status message
 		:param message_type: Entry type
 		:param message_text: Entry message
-		:param env: For what environment is the string formed?
 		:param local_settings: Settings for the string of the current entry
 		:return: the formed entry string
 		"""
@@ -109,7 +129,7 @@ class BasicLogger(Singleton):
 		status_type_entry = local_settings['status_type_local_entry'] if 'status_type_local_entry' in local_settings else self._settings['status_type_global_entry']
 		message_entry = local_settings['message_local_entry'] if 'message_local_entry' in local_settings else self._settings['message_global_entry']
 
-		match env.environment_name:
+		match self._environment.environment_name:
 			case LogEnvironments.CONSOLE.environment_name:
 				return (
 					(f"{GetAnsiFormat('bold/on')}" if bold else "") +
@@ -125,6 +145,16 @@ class BasicLogger(Singleton):
 					(f"{colors[4]}{message_text}" if message_entry else "") +
 					f"{GetAnsiFormat('reset/on')}"
 				)
+			case LogEnvironments.PLAIN_CONSOLE.environment_name:
+				return (
+					f"-?entry> {animation} " +
+					(f"*{datetime.datetime.now()} " if time_entry else "") +
+					f"{icon} " +
+					(f"#STATUS: " if status_entry else "") +
+					(f"{status_message_text} " if status_message_entry else "") +
+					(f"{message_type} - " if status_type_entry else "") +
+					(f"{message_text}" if message_entry else "")
+				)
 			case LogEnvironments.HTML.environment_name:
 				return (
 					(f"<b>" if bold else "") +
@@ -139,6 +169,21 @@ class BasicLogger(Singleton):
 					(f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if message_entry else "") +
 					(f"</i>" if italic else "") +
 					(f"</b>" if bold else "")
+				)
+			case LogEnvironments.MARKDOWN.environment_name:
+				return (
+						(f"<b>" if bold else "") +
+						(f"<i>" if italic else "") +
+						f"<span style='background-color: #{colors[5]};'>" +
+						f"<span style='color: #{colors[4]};'>-?entry> {animation} </span>" +
+						(f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
+						f"{icon} " +
+						(f"<span style='color: #{colors[1]};'>#STATUS: </span>" if status_entry else "") +
+						(f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if status_message_entry else "") +
+						(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if status_type_entry else "") +
+						(f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if message_entry else "") +
+						(f"</i>" if italic else "") +
+						(f"</b>" if bold else "")
 				)
 			case LogEnvironments.PLAIN.environment_name:
 				return (

@@ -18,9 +18,11 @@ limitations under the License.
 
 import sys, re
 
-from mighty_logger.basic.exceptions import ReCreationException
+from mighty_logger.basic.exceptions import ReCreationException, EnvironmentException
+from mighty_logger.basic.lib_types import EnvironmentType
 from mighty_logger.basic.patterns import Singleton
 from mighty_logger.basic.text_buffer_type import TextBufferType
+from mighty_logger.src.environments import LogEnvironments
 
 class BasicTextBuffer(Singleton, TextBufferType):
 	"""
@@ -28,9 +30,9 @@ class BasicTextBuffer(Singleton, TextBufferType):
 	to be used in conjunction with HTML, but this is optional.
 	"""
 
-	def __init__(self) -> None:
+	def __init__(self, env: EnvironmentType) -> None:
 		if not hasattr(self, "_text_buffer"):
-			super().__init__()
+			super().__init__(env)
 		else:
 			raise ReCreationException("BasicTextBuffer class object already created")
 
@@ -59,13 +61,24 @@ class BasicTextBuffer(Singleton, TextBufferType):
 		self._text_buffer.pop(number_string)
 
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
-		with open(name_file, "w", encoding="utf-8") as text_buffer_file:
-			if clean:
-				text_buffer_file.write(
-					'<pre>' + '\n'.join(self._text_buffer) + '</pre>'
-				)
-			else:
-				text_buffer_file.write('\n'.join(self._text_buffer))
+		match self._environment.environment_name:
+			case LogEnvironments.CONSOLE.environment_name:
+				raise EnvironmentException("This environment is not supported")
+			case LogEnvironments.PLAIN_CONSOLE.environment_name:
+				raise EnvironmentException("This environment is not supported")
+			case LogEnvironments.HTML.environment_name:
+				with open(f"{name_file}.html", "w", encoding="utf-8") as text_buffer_file:
+					text_buffer_file.write(
+						'<pre>' + self._text_buffer[0] + '\n'.join(self._text_buffer[1:]) + '</body></pre>'
+					)
+			case LogEnvironments.MARKDOWN.environment_name:
+				with open(f"{name_file}.md", "w", encoding="utf-8") as text_buffer_file:
+					text_buffer_file.write(
+						'<pre>' + self._text_buffer[0] + '\n'.join(self._text_buffer[1:]) + '</body></pre>'
+					)
+			case LogEnvironments.PLAIN.environment_name:
+				with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
+					text_buffer_file.write('\n'.join(self._text_buffer))
 
 	def update_console(self) -> None:
 		super().update_console()
@@ -81,9 +94,9 @@ class TextBuffer(Singleton, TextBufferType):
 	that are only found in the console.
 	"""
 
-	def __init__(self, console_width: int = 60) -> None:
+	def __init__(self, env: EnvironmentType, console_width: int = 60) -> None:
 		if not hasattr(self, "_text_buffer"):
-			super().__init__()
+			super().__init__(env)
 			self._cursor_string: int = 0
 			self._buffer_size: int = 0
 			self.width = console_width
@@ -130,12 +143,24 @@ class TextBuffer(Singleton, TextBufferType):
 		self._text_buffer.pop(number_string)
 
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
-		with open(name_file, "w", encoding="utf-8") as text_buffer_file:
-			if clean:
-				for item in self._text_buffer:
-					text_buffer_file.write("{}\n".format(re.sub(r"\033\[.*?m", "", item)))
-			else:
-				text_buffer_file.write('\n'.join(self._text_buffer))
+			match self._environment.environment_name:
+				case LogEnvironments.CONSOLE.environment_name:
+					if clean:
+						with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
+							for item in self._text_buffer:
+								text_buffer_file.write("{}\n".format(re.sub(r"\033\[.*?m", "", item)))
+					else:
+						with open(f"{name_file}.contxt", "w", encoding="utf-8") as text_buffer_file:
+							text_buffer_file.write('\n'.join(self._text_buffer))
+				case LogEnvironments.PLAIN_CONSOLE.environment_name:
+					with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
+						text_buffer_file.write('\n'.join(self._text_buffer))
+				case LogEnvironments.HTML.environment_name:
+					raise EnvironmentException("This environment is not supported")
+				case LogEnvironments.MARKDOWN.environment_name:
+					raise EnvironmentException("This environment is not supported")
+				case LogEnvironments.PLAIN.environment_name:
+					raise EnvironmentException("This environment is not supported")
 
 	def update_console(self) -> None:
 		# todo Translate to thread in a future update

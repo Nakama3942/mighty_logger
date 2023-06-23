@@ -24,7 +24,7 @@ class LogEnvironments:
 	Environments of Logger.
 	"""
 	CONSOLE = EnvironmentType("0")
-	HTML = EnvironmentType("1")
-	PLAIN = EnvironmentType("2")
-	# PLAIN_CONSOLE = EnvironmentType("3")
-	# MARKDOWN = EnvironmentType("4")
+	PLAIN_CONSOLE = EnvironmentType("1")
+	HTML = EnvironmentType("2")
+	MARKDOWN = EnvironmentType("3")
+	PLAIN = EnvironmentType("4")

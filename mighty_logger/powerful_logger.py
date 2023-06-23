@@ -54,7 +54,7 @@ class Logger(BasicLogger):
 		self,
 		*,
 		program_name: str = "Unknown",
-		log_environment: EnvironmentType = LogEnvironments.CONSOLE,
+		log_environment: EnvironmentType = LogEnvironments.PLAIN,
 		console_width: int = 60,
 		icon_set: int = 1,
 		time_global_entry: bool = True,
@@ -68,9 +68,9 @@ class Logger(BasicLogger):
 		global_background: bool = False,
 	) -> None:
 		if not hasattr(self, "_environment"):
-			super().__init__(program_name)
+			super().__init__(program_name, log_environment)
 			self._animation: BasicAnimationType = BasicAnimationType([])
-			self._icon_set = 1 if 4 < icon_set < 1 else icon_set
+			self._icon_set = icon_set if 0 < icon_set < 5 else 1
 			self._settings["global_bold_font"] = global_bold_font
 			self._settings["global_italic_font"] = global_italic_font
 			self._settings["global_invert_font"] = global_invert_font
@@ -79,7 +79,6 @@ class Logger(BasicLogger):
 			self._settings["status_message_global_entry"] = status_message_global_entry
 			self._settings["status_type_global_entry"] = status_type_global_entry
 			self._settings["message_global_entry"] = message_global_entry
-			self._environment = log_environment
 			self._progress_rise = 0
 			self._progress_start: datetime | None = None
 			self._progress_time: str = "        "
@@ -96,7 +95,16 @@ class Logger(BasicLogger):
 							local_settings={"italic": True}
 						)
 					else:
-						self._buffer = TextBuffer(console_width)
+						self._buffer = TextBuffer(self._environment, console_width)
+				case LogEnvironments.PLAIN_CONSOLE.environment_name:
+					if TextBuffer._instance is not None:
+						self._buffer = TextBuffer._instance
+						self.notice(
+							message_text="An existing logger was taken into use",
+							status_message=StatusMessageType("Note"),
+						)
+					else:
+						self._buffer = TextBuffer(self._environment, console_width)
 				case LogEnvironments.HTML.environment_name:
 					if BasicTextBuffer._instance is not None:
 						self._buffer = BasicTextBuffer._instance
@@ -106,7 +114,17 @@ class Logger(BasicLogger):
 							local_settings={"italic": True}
 						)
 					else:
-						self._buffer = BasicTextBuffer()
+						self._buffer = BasicTextBuffer(self._environment)
+				case LogEnvironments.MARKDOWN.environment_name:
+					if BasicTextBuffer._instance is not None:
+						self._buffer = BasicTextBuffer._instance
+						self.notice(
+							message_text="An existing logger was taken into use",
+							status_message=StatusMessageType("Note"),
+							local_settings={"italic": True}
+						)
+					else:
+						self._buffer = BasicTextBuffer(self._environment)
 				case LogEnvironments.PLAIN.environment_name:
 					if BasicTextBuffer._instance is not None:
 						self._buffer = BasicTextBuffer._instance
@@ -115,7 +133,7 @@ class Logger(BasicLogger):
 							status_message=StatusMessageType("Note")
 						)
 					else:
-						self._buffer = BasicTextBuffer()
+						self._buffer = BasicTextBuffer(self._environment)
 			self._initial_log()
 		else:
 			raise ReCreationException("Logger class object already created")
@@ -124,15 +142,21 @@ class Logger(BasicLogger):
 		"""
 		Displays initialized information.
 		"""
-		if self._environment.environment_name == LogEnvironments.HTML.environment_name:
+		if self._environment.environment_name in [
+			LogEnvironments.HTML.environment_name,
+			LogEnvironments.MARKDOWN.environment_name
+		]:
 			self._buffer << "<body style='background-color: #000000; color: #ffffff;'>"
 		self._buffer << self._initialized_data(
 			[
 				ServiceLogger.initial[0][int(self._environment.environment_name)][self.global_background],
 				ServiceLogger.initial[1][int(self._environment.environment_name)][self.global_background]
-			], self._environment
+			]
 		)
-		if self._environment == LogEnvironments.CONSOLE:
+		if self._environment.environment_name in [
+			LogEnvironments.CONSOLE.environment_name,
+			LogEnvironments.PLAIN_CONSOLE.environment_name
+		]:
 			self._buffer.update_console()
 
 	def set_icons(self, icon_set: int) -> None:
@@ -141,10 +165,7 @@ class Logger(BasicLogger):
 
 		:param icon_set: Icon set to use
 		"""
-		if 4 < icon_set < 1:
-			...
-		else:
-			self._icon_set = icon_set
+		self._icon_set = icon_set if 0 < icon_set < 5 else 1
 
 	def buffer(self) -> TextBufferType:
 		"""
@@ -177,7 +198,10 @@ class Logger(BasicLogger):
 		:param entry: "Empty" entry
 		"""
 		self._buffer << entry
-		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
+		if self._environment.environment_name in [
+			LogEnvironments.CONSOLE.environment_name,
+			LogEnvironments.PLAIN_CONSOLE.environment_name
+		]:
 			self._buffer.update_console()
 
 	def entry(
@@ -215,10 +239,12 @@ class Logger(BasicLogger):
 			status_message.current_status_message,
 			entry_type.type_name,
 			message_text,
-			self._environment,
 			local_settings
 		)
-		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
+		if self._environment.environment_name in [
+			LogEnvironments.CONSOLE.environment_name,
+			LogEnvironments.PLAIN_CONSOLE.environment_name
+		]:
 			self._buffer.update_console()
 
 	# ######################################################################################## #
@@ -294,7 +320,10 @@ class Logger(BasicLogger):
 			local_settings = {}
 		animation_index = 0
 		self._buffer << "."
-		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
+		if self._environment.environment_name in [
+			LogEnvironments.CONSOLE.environment_name,
+			LogEnvironments.PLAIN_CONSOLE.environment_name
+		]:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			animation_item = self._animation.animation[animation_index]
@@ -313,14 +342,19 @@ class Logger(BasicLogger):
 				status_message.current_status_message,
 				ServiceProcessEntryTypes.process.type_name,
 				message_text,
-				self._environment,
 				local_settings
 			)
 			animation_index = (animation_index + 1) % len(self._animation.animation)
-			if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
+			if self._environment.environment_name in [
+				LogEnvironments.CONSOLE.environment_name,
+				LogEnvironments.PLAIN_CONSOLE.environment_name
+			]:
 				self._buffer.update_entry()
 			sleep(0.1)
-		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
+		if self._environment.environment_name in [
+			LogEnvironments.CONSOLE.environment_name,
+			LogEnvironments.PLAIN_CONSOLE.environment_name
+		]:
 			self._buffer.update_console()
 
 	def start_definite_process(
@@ -390,7 +424,10 @@ class Logger(BasicLogger):
 			local_settings = {}
 		old_progress_rise = 0
 		self._buffer << "."
-		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
+		if self._environment.environment_name in [
+			LogEnvironments.CONSOLE.environment_name,
+			LogEnvironments.PLAIN_CONSOLE.environment_name
+		]:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			if old_progress_rise == self._progress_rise:
@@ -413,13 +450,18 @@ class Logger(BasicLogger):
 					status_message.current_status_message,
 					ServiceProcessEntryTypes.process.type_name,
 					message_text,
-					self._environment,
 					local_settings
 				)
-				if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
+				if self._environment.environment_name in [
+					LogEnvironments.CONSOLE.environment_name,
+					LogEnvironments.PLAIN_CONSOLE.environment_name
+				]:
 					self._buffer.update_entry()
 			sleep(0.1)
-		if self._environment.environment_name == LogEnvironments.CONSOLE.environment_name:
+		if self._environment.environment_name in [
+			LogEnvironments.CONSOLE.environment_name,
+			LogEnvironments.PLAIN_CONSOLE.environment_name
+		]:
 			self._buffer.update_console()
 
 	def progress_rise(self, percent: int) -> None:

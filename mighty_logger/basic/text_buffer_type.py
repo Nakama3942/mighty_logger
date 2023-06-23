@@ -18,9 +18,12 @@ limitations under the License.
 
 from abc import ABC, abstractmethod
 
+from mighty_logger.basic.lib_types import EnvironmentType
+
 class TextBufferType(ABC):
-	def __init__(self) -> None:
+	def __init__(self, env: EnvironmentType) -> None:
 		self._text_buffer: list[str] = []
+		self._environment: EnvironmentType = env
 
 	def __lshift__(self, entry: str) -> None:
 		"""

@@ -45,3 +45,13 @@ class ReCreationException(BaseException):
 
 	def __str__(self):
 		return self.message
+
+class EnvironmentException(BaseException):
+	"""
+	The exception that is thrown when on environmental errors.
+	"""
+	def __init__(self, message):
+		self.message = message
+
+	def __str__(self):
+		return self.message

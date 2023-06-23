@@ -23,10 +23,14 @@ class ServiceLogger:
 	initial = (
 		(
 			(AnsiColor('GOLD', "foreground"), AnsiColor('INDIGO', "foreground")),
+			("", ""),
+			(HexColor('GOLD'), HexColor('INDIGO')),
 			(HexColor('GOLD'), HexColor('INDIGO')),
 			("", "")
 		), (
 			("", AnsiColor('GOLD', "background")),
+			("", ""),
+			("", HexColor('GOLD')),
 			("", HexColor('GOLD')),
 			("", "")
 		)
@@ -37,31 +41,43 @@ class LoggerEntryTypes:
 		type_name="%DEBUG",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('BURLYWOOD', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('BURLYWOOD'), HexColor('NAVY')),
 			(HexColor('BURLYWOOD'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('TAN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('TAN'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('TAN'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('TAN', "background")),
+			("", ""),
+			("", HexColor('TAN')),
 			("", HexColor('TAN')),
 			("", "")
 		),
@@ -75,31 +91,43 @@ class LoggerEntryTypes:
 		type_name="%DEBUG PERFORMANCE",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('NAVAJOWHITE', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('NAVAJOWHITE'), HexColor('NAVY')),
 			(HexColor('NAVAJOWHITE'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('WHEAT', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('WHEAT'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('WHEAT'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('WHEAT', "background")),
+			("", ""),
+			("", HexColor('WHEAT')),
 			("", HexColor('WHEAT')),
 			("", "")
 		),
@@ -114,31 +142,43 @@ class LoggerEntryTypes:
 		type_name="%PERFORMANCE",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('BLANCHEDALMOND', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('BLANCHEDALMOND'), HexColor('NAVY')),
 			(HexColor('BLANCHEDALMOND'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('BISQUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('BISQUE'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('BISQUE'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('BISQUE', "background")),
+			("", ""),
+			("", HexColor('BISQUE')),
 			("", HexColor('BISQUE')),
 			("", "")
 		),
@@ -153,31 +193,43 @@ class LoggerEntryTypes:
 		type_name="~EVENT",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('GREENYELLOW', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('GREENYELLOW'), HexColor('NAVY')),
 			(HexColor('GREENYELLOW'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('YELLOWGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('YELLOWGREEN'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('YELLOWGREEN'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('YELLOWGREEN', "background")),
+			("", ""),
+			("", HexColor('YELLOWGREEN')),
 			("", HexColor('YELLOWGREEN')),
 			("", "")
 		),
@@ -192,31 +244,43 @@ class LoggerEntryTypes:
 		type_name="~AUDIT",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('MEDIUMSPRINGGREEN', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('MEDIUMSPRINGGREEN'), HexColor('NAVY')),
 			(HexColor('MEDIUMSPRINGGREEN'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('SPRINGGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('SPRINGGREEN'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('SPRINGGREEN'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('SPRINGGREEN', "background")),
+			("", ""),
+			("", HexColor('SPRINGGREEN')),
 			("", HexColor('SPRINGGREEN')),
 			("", "")
 		),
@@ -231,31 +295,43 @@ class LoggerEntryTypes:
 		type_name="~METRICS",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('PALEGREEN', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('PALEGREEN'), HexColor('NAVY')),
 			(HexColor('PALEGREEN'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('LIGHTGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('LIGHTGREEN'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('LIGHTGREEN'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('LIGHTGREEN', "background")),
+			("", ""),
+			("", HexColor('LIGHTGREEN')),
 			("", HexColor('LIGHTGREEN')),
 			("", "")
 		),
@@ -269,31 +345,43 @@ class LoggerEntryTypes:
 		type_name="~USER",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('CHARTREUSE', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('CHARTREUSE'), HexColor('NAVY')),
 			(HexColor('CHARTREUSE'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('LAWNGREEN', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('LAWNGREEN'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('LAWNGREEN'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('LAWNGREEN', "background")),
+			("", ""),
+			("", HexColor('LAWNGREEN')),
 			("", HexColor('LAWNGREEN')),
 			("", "")
 		),
@@ -308,31 +396,43 @@ class LoggerEntryTypes:
 		type_name="@MESSAGE",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('PALETURQUOISE', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('PALETURQUOISE'), HexColor('NAVY')),
 			(HexColor('PALETURQUOISE'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('POWDERBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('POWDERBLUE'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('POWDERBLUE'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('POWDERBLUE', "background")),
+			("", ""),
+			("", HexColor('POWDERBLUE')),
 			("", HexColor('POWDERBLUE')),
 			("", "")
 		),
@@ -346,31 +446,43 @@ class LoggerEntryTypes:
 		type_name="@INFO",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('LIGHTSKYBLUE'), HexColor('NAVY')),
 			(HexColor('LIGHTSKYBLUE'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('SKYBLUE', "background")),
+			("", ""),
+			("", HexColor('SKYBLUE')),
 			("", HexColor('SKYBLUE')),
 			("", "")
 		),
@@ -384,31 +496,43 @@ class LoggerEntryTypes:
 		type_name="@NOTICE",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('LIGHTBLUE', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('LIGHTBLUE'), HexColor('NAVY')),
 			(HexColor('LIGHTBLUE'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('LIGHTSTEELBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('LIGHTSTEELBLUE'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('LIGHTSTEELBLUE'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('LIGHTSTEELBLUE', "background")),
+			("", ""),
+			("", HexColor('LIGHTSTEELBLUE')),
 			("", HexColor('LIGHTSTEELBLUE')),
 			("", "")
 		),
@@ -422,31 +546,43 @@ class LoggerEntryTypes:
 		type_name="!WARNING",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('YELLOW', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('YELLOW'), HexColor('NAVY')),
 			(HexColor('YELLOW'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('DARKYELLOW', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('DARKYELLOW', "background")),
+			("", ""),
+			("", HexColor('DARKYELLOW')),
 			("", HexColor('DARKYELLOW')),
 			("", "")
 		),
@@ -460,31 +596,43 @@ class LoggerEntryTypes:
 		type_name="!!ERROR",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('PLUM', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('PLUM')),
 			(HexColor('ORCHID'), HexColor('PLUM')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('ORANGE')),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('FIREBRICK', "foreground"), AnsiColor('GAINSBORO', "foreground")),
+			("", ""),
+			(HexColor('FIREBRICK'), HexColor('GAINSBORO')),
 			(HexColor('FIREBRICK'), HexColor('GAINSBORO')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('DARKRED', "foreground"), AnsiColor('LIGHTGRAY', "foreground")),
+			("", ""),
+			(HexColor('DARKRED'), HexColor('LIGHTGRAY')),
 			(HexColor('DARKRED'), HexColor('LIGHTGRAY')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('DARKRED', "background")),
+			("", ""),
+			("", HexColor('DARKRED')),
 			("", HexColor('DARKRED')),
 			("", "")
 		),
@@ -498,31 +646,43 @@ class LoggerEntryTypes:
 		type_name="!!!@CRITICAL",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('PLUM', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('PLUM')),
 			(HexColor('ORCHID'), HexColor('PLUM')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('ORANGE')),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('FIREBRICK', "foreground"), AnsiColor('DARKSALMON', "foreground")),
+			("", ""),
+			(HexColor('FIREBRICK'), HexColor('DARKSALMON')),
 			(HexColor('FIREBRICK'), HexColor('DARKSALMON')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('DARKRED', "foreground"), AnsiColor('LIGHTSALMON', "foreground")),
+			("", ""),
+			(HexColor('DARKRED'), HexColor('LIGHTSALMON')),
 			(HexColor('DARKRED'), HexColor('LIGHTSALMON')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('MAROON', "background")),
+			("", ""),
+			("", HexColor('MAROON')),
 			("", HexColor('MAROON')),
 			("", "")
 		),
@@ -536,31 +696,43 @@ class LoggerEntryTypes:
 		type_name="!RESOLVED",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")),
+			("", ""),
+			(HexColor('GREEN'), HexColor('PALEGREEN')),
 			(HexColor('GREEN'), HexColor('PALEGREEN')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")),
+			("", ""),
+			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
 			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('DARKGREEN', "background")),
+			("", ""),
+			("", HexColor('DARKGREEN')),
 			("", HexColor('DARKGREEN')),
 			("", "")
 		),
@@ -576,31 +748,43 @@ class LoggerEntryTypes:
 		type_name="!UNRESOLVED",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('ORANGE')),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('FIREBRICK', "foreground"), AnsiColor('YELLOW', "foreground")),
+			("", ""),
+			(HexColor('FIREBRICK'), HexColor('YELLOW')),
 			(HexColor('FIREBRICK'), HexColor('YELLOW')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('DARKRED', "foreground"), AnsiColor('DARKYELLOW', "foreground")),
+			("", ""),
+			(HexColor('DARKRED'), HexColor('DARKYELLOW')),
 			(HexColor('DARKRED'), HexColor('DARKYELLOW')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('DARKRED', "background")),
+			("", ""),
+			("", HexColor('DARKRED')),
 			("", HexColor('DARKRED')),
 			("", "")
 		),
@@ -618,31 +802,43 @@ class ProcessEntryTypes:
 		type_name="&ACHIEVEMENT",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('YELLOW', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('YELLOW'), HexColor('NAVY')),
 			(HexColor('YELLOW'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('DARKYELLOW', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('DARKYELLOW', "background")),
+			("", ""),
+			("", HexColor('DARKYELLOW')),
 			("", HexColor('DARKYELLOW')),
 			("", "")
 		),
@@ -656,31 +852,43 @@ class ProcessEntryTypes:
 		type_name="&MILESTONE",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")),
+			("", ""),
+			(HexColor('GREEN'), HexColor('PALEGREEN')),
 			(HexColor('GREEN'), HexColor('PALEGREEN')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")),
+			("", ""),
+			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
 			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('DARKGREEN', "background")),
+			("", ""),
+			("", HexColor('DARKGREEN')),
 			("", HexColor('DARKGREEN')),
 			("", "")
 		),
@@ -696,31 +904,43 @@ class ServiceProcessEntryTypes:
 		type_name="&INITIATION",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")),
+			("", ""),
+			(HexColor('GREEN'), HexColor('PALEGREEN')),
 			(HexColor('GREEN'), HexColor('PALEGREEN')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")),
+			("", ""),
+			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
 			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('DARKGREEN', "background")),
+			("", ""),
+			("", HexColor('DARKGREEN')),
 			("", HexColor('DARKGREEN')),
 			("", "")
 		),
@@ -734,31 +954,43 @@ class ServiceProcessEntryTypes:
 		type_name="&PROGRESS",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('PURPLE')),
 			(HexColor('ORCHID'), HexColor('PURPLE')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('LIGHTSKYBLUE'), HexColor('NAVY')),
 			(HexColor('LIGHTSKYBLUE'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('SKYBLUE', "background")),
+			("", ""),
+			("", HexColor('SKYBLUE')),
 			("", HexColor('SKYBLUE')),
 			("", "")
 		),
@@ -771,31 +1003,43 @@ class ServiceProcessEntryTypes:
 		type_name="&SUCCESS",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")),
+			("", ""),
+			(HexColor('GREEN'), HexColor('PALEGREEN')),
 			(HexColor('GREEN'), HexColor('PALEGREEN')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")),
+			("", ""),
+			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
 			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('DARKGREEN', "background")),
+			("", ""),
+			("", HexColor('DARKGREEN')),
 			("", HexColor('DARKGREEN')),
 			("", "")
 		),
@@ -809,31 +1053,43 @@ class ServiceProcessEntryTypes:
 		type_name="&FAIL",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('ORANGE')),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('FIREBRICK', "foreground"), AnsiColor('YELLOW', "foreground")),
+			("", ""),
+			(HexColor('FIREBRICK'), HexColor('YELLOW')),
 			(HexColor('FIREBRICK'), HexColor('YELLOW')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('DARKRED', "foreground"), AnsiColor('DARKYELLOW', "foreground")),
+			("", ""),
+			(HexColor('DARKRED'), HexColor('DARKYELLOW')),
 			(HexColor('DARKRED'), HexColor('DARKYELLOW')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('DARKRED', "background")),
+			("", ""),
+			("", HexColor('DARKRED')),
 			("", HexColor('DARKRED')),
 			("", "")
 		),
@@ -849,31 +1105,43 @@ class ServiceTimerEntryTypes:
 		type_name="^START TIMER",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('SEAGREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")),
+			("", ""),
+			(HexColor('SEAGREEN'), HexColor('PALEGREEN')),
 			(HexColor('SEAGREEN'), HexColor('PALEGREEN')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('FORESTGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")),
+			("", ""),
+			(HexColor('FORESTGREEN'), HexColor('LIGHTGREEN')),
 			(HexColor('FORESTGREEN'), HexColor('LIGHTGREEN')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('FORESTGREEN', "background")),
+			("", ""),
+			("", HexColor('FORESTGREEN')),
 			("", HexColor('FORESTGREEN')),
 			("", "")
 		),
@@ -887,31 +1155,43 @@ class ServiceTimerEntryTypes:
 		type_name="^TIMER MARK",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('KHAKI', "foreground"), AnsiColor('SIENNA', "foreground")),
+			("", ""),
+			(HexColor('KHAKI'), HexColor('SIENNA')),
 			(HexColor('KHAKI'), HexColor('SIENNA')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('DARKKHAKI', "foreground"), AnsiColor('SADDLEBROWN', "foreground")),
+			("", ""),
+			(HexColor('DARKKHAKI'), HexColor('SADDLEBROWN')),
 			(HexColor('DARKKHAKI'), HexColor('SADDLEBROWN')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('DARKKHAKI', "background")),
+			("", ""),
+			("", HexColor('DARKKHAKI')),
 			("", HexColor('DARKKHAKI')),
 			("", "")
 		),
@@ -925,31 +1205,43 @@ class ServiceTimerEntryTypes:
 		type_name="^STOP TIMER",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('PURPLE')),
 			(HexColor('ORCHID'), HexColor('PURPLE')),
 			("", "")
 		),
 		status_color=(
 			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			("", "")
 		),
 		status_message_color=(
 			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
+			("", ""),
+			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
 			(AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('LIGHTSKYBLUE'), HexColor('NAVY')),
 			(HexColor('LIGHTSKYBLUE'), HexColor('NAVY')),
 			("", "")
 		),
 		message_color=(
 			(AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')),
 			(HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')),
 			("", "")
 		),
 		background_color=(
 			("", AnsiColor('SKYBLUE', "background")),
+			("", ""),
+			("", HexColor('SKYBLUE')),
 			("", HexColor('SKYBLUE')),
 			("", "")
 		),
