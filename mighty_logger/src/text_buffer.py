@@ -16,6 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+# todo при сохранении с очисткой сохранять только те строки, которые начинаются символом "-"
+
 import sys, re
 
 from mighty_logger.basic.exceptions import ReCreationException, EnvironmentException
@@ -60,6 +62,10 @@ class BasicTextBuffer(Singleton, TextBufferType):
 	def remove(self, number_string: int = -1) -> None:
 		self._text_buffer.pop(number_string)
 
+	def clear(self) -> None:
+		# todo
+		pass
+
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
 		match self._environment.environment_name:
 			case LogEnvironments.CONSOLE.environment_name:
@@ -79,6 +85,10 @@ class BasicTextBuffer(Singleton, TextBufferType):
 			case LogEnvironments.PLAIN.environment_name:
 				with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
 					text_buffer_file.write('\n'.join(self._text_buffer))
+
+	def load(self) -> None:
+		# todo
+		pass
 
 	def input(self, input_text: str) -> str:
 		return input(f"\r{input_text}")
@@ -145,6 +155,10 @@ class TextBuffer(Singleton, TextBufferType):
 		self._buffer_size -= 1 + excess_console_string
 		self._text_buffer.pop(number_string)
 
+	def clear(self) -> None:
+		# todo
+		pass
+
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
 		match self._environment.environment_name:
 			case LogEnvironments.CONSOLE.environment_name:
@@ -169,6 +183,10 @@ class TextBuffer(Singleton, TextBufferType):
 		data = input(f"\r{input_text}")
 		sys.stdout.write(f'\033[1A')
 		return data
+
+	def load(self) -> None:
+		# todo
+		pass
 
 	def update_console(self) -> None:
 		# todo Translate to thread in a future update

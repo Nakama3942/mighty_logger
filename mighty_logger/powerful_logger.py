@@ -142,10 +142,7 @@ class Logger(BasicLogger):
 		"""
 		Displays initialized information.
 		"""
-		if self._environment.environment_name in [
-			LogEnvironments.HTML.environment_name,
-			LogEnvironments.MARKDOWN.environment_name
-		]:
+		if self._environment.weak_environment:
 			self._buffer << "<body style='background-color: #000000; color: #ffffff;'>"
 		self._buffer << self._initialized_data(
 			[
@@ -153,10 +150,7 @@ class Logger(BasicLogger):
 				ServiceLogger.initial[1][self._environment.environment_code][self.global_background]
 			]
 		)
-		if self._environment.environment_name in [
-			LogEnvironments.CONSOLE.environment_name,
-			LogEnvironments.PLAIN_CONSOLE.environment_name
-		]:
+		if self._environment.updatable:
 			self._buffer.update_console()
 
 	def set_icons(self, icon_set: int) -> None:
@@ -229,10 +223,7 @@ class Logger(BasicLogger):
 
 	def input_simulation(self, input_text: str) -> str:
 		self._buffer << "."
-		if self._environment.environment_name in [
-			LogEnvironments.CONSOLE.environment_name,
-			LogEnvironments.PLAIN_CONSOLE.environment_name
-		]:
+		if self._environment.updatable:
 			self._buffer.update_console()
 		data = self._buffer.input(input_text)
 		self._buffer.replace(-1, f"{input_text}{data}")
@@ -258,10 +249,7 @@ class Logger(BasicLogger):
 		:param entry: "Empty" entry
 		"""
 		self._buffer << entry
-		if self._environment.environment_name in [
-			LogEnvironments.CONSOLE.environment_name,
-			LogEnvironments.PLAIN_CONSOLE.environment_name
-		]:
+		if self._environment.updatable:
 			self._buffer.update_console()
 
 	def entry(
@@ -301,10 +289,7 @@ class Logger(BasicLogger):
 			message_text,
 			local_settings
 		)
-		if self._environment.environment_name in [
-			LogEnvironments.CONSOLE.environment_name,
-			LogEnvironments.PLAIN_CONSOLE.environment_name
-		]:
+		if self._environment.updatable:
 			self._buffer.update_console()
 
 	# ######################################################################################## #
@@ -380,10 +365,7 @@ class Logger(BasicLogger):
 			local_settings = {}
 		animation_index = 0
 		self._buffer << "."
-		if self._environment.environment_name in [
-			LogEnvironments.CONSOLE.environment_name,
-			LogEnvironments.PLAIN_CONSOLE.environment_name
-		]:
+		if self._environment.updatable:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			animation_item = self._animation.animation[animation_index]
@@ -405,16 +387,10 @@ class Logger(BasicLogger):
 				local_settings
 			)
 			animation_index = (animation_index + 1) % len(self._animation.animation)
-			if self._environment.environment_name in [
-				LogEnvironments.CONSOLE.environment_name,
-				LogEnvironments.PLAIN_CONSOLE.environment_name
-			]:
+			if self._environment.updatable:
 				self._buffer.update_entry()
 			sleep(0.1)
-		if self._environment.environment_name in [
-			LogEnvironments.CONSOLE.environment_name,
-			LogEnvironments.PLAIN_CONSOLE.environment_name
-		]:
+		if self._environment.updatable:
 			self._buffer.update_console()
 
 	def start_definite_process(
@@ -484,10 +460,7 @@ class Logger(BasicLogger):
 			local_settings = {}
 		old_progress_rise = 0
 		self._buffer << "."
-		if self._environment.environment_name in [
-			LogEnvironments.CONSOLE.environment_name,
-			LogEnvironments.PLAIN_CONSOLE.environment_name
-		]:
+		if self._environment.updatable:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			if old_progress_rise == self._progress_rise:
@@ -512,16 +485,10 @@ class Logger(BasicLogger):
 					message_text,
 					local_settings
 				)
-				if self._environment.environment_name in [
-					LogEnvironments.CONSOLE.environment_name,
-					LogEnvironments.PLAIN_CONSOLE.environment_name
-				]:
+				if self._environment.updatable:
 					self._buffer.update_entry()
 			sleep(0.1)
-		if self._environment.environment_name in [
-			LogEnvironments.CONSOLE.environment_name,
-			LogEnvironments.PLAIN_CONSOLE.environment_name
-		]:
+		if self._environment.updatable:
 			self._buffer.update_console()
 
 	def progress_rise(self, percent: int) -> None:

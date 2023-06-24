@@ -1,5 +1,5 @@
 """
-...
+... NoneEnvironment
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
@@ -17,9 +17,17 @@ limitations under the License.
 """
 
 class EnvironmentType:
-	def __init__(self, environment_name: str, environment_code: int) -> None:
+	def __init__(
+		self,
+		environment_name: str,
+		environment_code: int,
+		updatable: bool,
+		weak_environment: bool
+	) -> None:
 		self.__environment_name: str = environment_name
 		self.__environment_code: int = environment_code
+		self.__updatable: bool = updatable
+		self.__weak_environment: bool = weak_environment
 
 	@property
 	def environment_name(self) -> str:
@@ -28,6 +36,14 @@ class EnvironmentType:
 	@property
 	def environment_code(self) -> int:
 		return self.__environment_code
+
+	@property
+	def updatable(self) -> int:
+		return self.__updatable
+
+	@property
+	def weak_environment(self) -> int:
+		return self.__weak_environment
 
 class EntryType:
 	def __init__(

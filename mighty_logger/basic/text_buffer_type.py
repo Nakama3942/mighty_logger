@@ -98,6 +98,13 @@ class TextBufferType(ABC):
 		raise NotImplementedError("Method remove() is not implemented in the base class.")
 
 	@abstractmethod
+	def clear(self) -> None:
+		"""
+		...
+		"""
+		raise NotImplementedError("Method clear() is not implemented in the base class.")
+
+	@abstractmethod
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
 		"""
 		Saves the text of the buffer to a file.
@@ -106,6 +113,13 @@ class TextBufferType(ABC):
 		:param clean: Saving should be done in Plain text?
 		"""
 		raise NotImplementedError("Method save() is not implemented in the base class.")
+
+	@abstractmethod
+	def load(self) -> None:
+		"""
+		...
+		"""
+		raise NotImplementedError("Method load() is not implemented in the base class.")
 
 	@abstractmethod
 	def input(self, input_text: str) -> str:
@@ -130,5 +144,3 @@ class TextBufferType(ABC):
 		Used (mostly) by the Progress bar (that is Progress string).
 		"""
 		raise NotImplementedError("Method update_entry() is not implemented in the base class.")
-
-	# todo v0.7.0 abstractmethod remove(), clear(), -open_save() or load()-
