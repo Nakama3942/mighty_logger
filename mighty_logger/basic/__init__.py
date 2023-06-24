@@ -16,7 +16,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .basic_logger import BasicLogger
-from .exceptions import ColorException, CombinationException, ReCreationException
+from .exceptions import ColorException, ReCreationException, EnvironmentException
 from .patterns import Singleton
-from .text_buffer_type import TextBufferType

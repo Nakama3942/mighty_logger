@@ -29,12 +29,12 @@ with open("README.md", "r", encoding='utf-8') as readme_file:
 
 setup(
     name="mighty_logger",
-    version="0.6.1",
+    version="0.7.0",
 
     author="Kalynovsky 'Nakamura Akira' Valentin",
     author_email="nakama3942@gmail.com",
 
-    description="Powerful functional logger with support for qt programming",
+    description="Powerful functional logger",
     long_description=readme,
     long_description_content_type="text/markdown",
 
@@ -44,7 +44,6 @@ setup(
 
     packages=[
         'mighty_logger',
-        'mighty_logger.text',
         'mighty_logger.src',
         'mighty_logger.basic'
     ],

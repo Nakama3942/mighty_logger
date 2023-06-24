@@ -26,16 +26,6 @@ class ColorException(BaseException):
 	def __str__(self):
 		return self.message
 
-class CombinationException(BaseException):
-	"""
-	An exception that is thrown when composing impossible combinations of boolean flags.
-	"""
-	def __init__(self, message):
-		self.message = message
-
-	def __str__(self):
-		return self.message
-
 class ReCreationException(BaseException):
 	"""
 	The exception that is thrown when an object of the Singleton class is re-created.

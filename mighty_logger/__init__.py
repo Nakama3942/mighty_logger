@@ -20,5 +20,5 @@ from .powerful_logger import Logger
 from .simple_logger import SimpleLogger
 
 __authot__ = "Kalynovsky 'Nakamura Akira' Valentin"
-__version__ = "0.6.1"
+__version__ = "0.7.0"
 __email__ = "nakama3942@gmail.com"

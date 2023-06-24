@@ -29,10 +29,10 @@ from mighty_logger.basic.lib_types import EntryType,\
 	IndefiniteAnimationType,\
 	DefiniteAnimationType
 from mighty_logger.basic.text_buffer_type import TextBufferType
+from mighty_logger.src.animation import IndefiniteAnimations, DefiniteAnimations
 from mighty_logger.src.entry_types import ServiceLogger, ServiceProcessEntryTypes, ServiceTimerEntryTypes
 from mighty_logger.src.environments import LogEnvironments
-from mighty_logger.text.animation import IndefiniteAnimations, DefiniteAnimations
-from mighty_logger.text.text_buffer import BasicTextBuffer, TextBuffer
+from mighty_logger.src.text_buffer import BasicTextBuffer, TextBuffer
 
 class Logger(BasicLogger):
 	"""

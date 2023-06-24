@@ -16,6 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+from .animation import IndefiniteAnimations, DefiniteAnimations
 from .ansi_format import GetAnsiFormat
 from .color_picker import DecColor,\
 	HexColor,\
@@ -29,3 +30,4 @@ from .color_picker import DecColor,\
 from .entry_types import LoggerEntryTypes, ProcessEntryTypes
 from .environments import LogEnvironments
 from .status_variables import StatusMessagePatterns
+from .text_buffer import BasicTextBuffer, TextBuffer
