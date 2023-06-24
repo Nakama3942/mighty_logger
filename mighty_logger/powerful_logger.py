@@ -182,16 +182,16 @@ class Logger(BasicLogger):
 	#                                                                                          #
 	# ######################################################################################## #
 
-	def publish_id(self):
+	def publish_id(self) -> None:
 		self.empty(entry=f"Logger ID is {str(self._ID)}")
 
-	def publish_program_name(self):
+	def publish_program_name(self) -> None:
 		self.empty(entry=f"Program name which logging is {self._program_name}")
 
-	def publish_environment(self):
+	def publish_environment(self) -> None:
 		self.empty(entry=f"Logger environment is {self._environment.environment_name}")
 
-	def publish_global_settings(self):
+	def publish_global_settings(self) -> None:
 		self.empty(entry="Global settings:")
 		self.empty(entry=f"    Bold font is set to {str(self._settings['global_bold_font'])};")
 		self.empty(entry=f"    Italic font is set to {str(self._settings['global_italic_font'])};")
@@ -202,23 +202,23 @@ class Logger(BasicLogger):
 		self.empty(entry=f"    Printing of the type of entry is set to {str(self._settings['status_type_global_entry'])},")
 		self.empty(entry=f"    Printing of the message of entry is set to {str(self._settings['message_global_entry'])};")
 
-	def publish_author(self):
-		self.empty(entry=f"Developed by Kalynovsky Valentin © 2023")
+	def publish_author(self) -> None:
+		self.empty(entry="Developed by Kalynovsky Valentin © 2023")
 
-	def publish_license(self):
-		self.empty(entry=f"LICENSE")
-		self.empty(entry=f"    Copyright © 2023 Kalynovsky Valentin. All rights reserved.")
-		self.empty(entry=f"    Licensed under the Apache License, Version 2.0 (the 'License');")
-		self.empty(entry=f"    you may not use this file except in compliance with the License.")
-		self.empty(entry=f"    You may obtain a copy of the License at")
-		self.empty(entry=f"        http://www.apache.org/licenses/LICENSE-2.0")
-		self.empty(entry=f"    Unless required by applicable law or agreed to in writing, software")
-		self.empty(entry=f"    distributed under the License is distributed on an 'AS IS' BASIS,")
-		self.empty(entry=f"    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.")
-		self.empty(entry=f"    See the License for the specific language governing permissions and")
-		self.empty(entry=f"    limitations under the License.")
+	def publish_license(self) -> None:
+		self.empty(entry="LICENSE")
+		self.empty(entry="    Copyright © 2023 Kalynovsky Valentin. All rights reserved.")
+		self.empty(entry="    Licensed under the Apache License, Version 2.0 (the 'License');")
+		self.empty(entry="    you may not use this file except in compliance with the License.")
+		self.empty(entry="    You may obtain a copy of the License at")
+		self.empty(entry="        http://www.apache.org/licenses/LICENSE-2.0")
+		self.empty(entry="    Unless required by applicable law or agreed to in writing, software")
+		self.empty(entry="    distributed under the License is distributed on an 'AS IS' BASIS,")
+		self.empty(entry="    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.")
+		self.empty(entry="    See the License for the specific language governing permissions and")
+		self.empty(entry="    limitations under the License.")
 
-	def separator(self):
+	def separator(self) -> None:
 		self.empty(entry=f"{'-' * 80}")
 
 	# ######################################################################################## #
