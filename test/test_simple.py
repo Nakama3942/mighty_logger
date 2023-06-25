@@ -6,7 +6,7 @@ from mighty_logger.src import LogEnvironments
 # todo сделать проверку, что произойдёт, если сначала создать обычный Логгер
 
 if __name__ == "__main__":
-	logger = SimpleLogger("Installer", LogEnvironments.CONSOLE, 115)
+	logger = SimpleLogger("Installer", LogEnvironments.PLAIN, 115)
 	sleep(1)
 	logger.message("Program installation started")
 	sleep(1)
@@ -22,7 +22,7 @@ if __name__ == "__main__":
 	sleep(1)
 	logger.print(data)
 	sleep(1)
-	logger.save("log", False)
+	logger.save("log", True)
 	sleep(1)
 	logger.debug("la la la")
 	sleep(1)

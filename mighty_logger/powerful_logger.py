@@ -260,12 +260,12 @@ class Logger(BasicLogger):
 		if self._environment.updatable:
 			self._buffer.update_console()
 
-	def savy(self, name_file: str = "buffer", clean: bool = True) -> None:
+	def savy(self, name_file: str, clean: bool) -> None:
 		self._buffer.save(name_file, clean)
 		if self._environment.updatable:
 			self._buffer.update_console()
 
-	def loady(self, name_file: str = "buffer") -> None:
+	def loady(self, name_file: str) -> None:
 		self._buffer.load(name_file)
 		if self._environment.updatable:
 			self._buffer.update_console()

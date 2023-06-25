@@ -39,7 +39,7 @@ class TextBufferType(ABC):
 
 		:param entry: The name of the file where you want to save the buffer
 		"""
-		self.save(entry)
+		self.save(entry, True)
 
 	def get_data(self) -> list:
 		"""
@@ -105,7 +105,7 @@ class TextBufferType(ABC):
 		raise NotImplementedError("Method clear() is not implemented in the base class.")
 
 	@abstractmethod
-	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
+	def save(self, name_file: str, clean: bool) -> None:
 		"""
 		Saves the text of the buffer to a file.
 
@@ -115,7 +115,7 @@ class TextBufferType(ABC):
 		raise NotImplementedError("Method save() is not implemented in the base class.")
 
 	@abstractmethod
-	def load(self, name_file: str = "buffer") -> None:
+	def load(self, name_file: str) -> None:
 		"""
 		...
 		"""

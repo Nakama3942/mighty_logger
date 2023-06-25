@@ -16,8 +16,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# todo при сохранении с очисткой сохранять только те строки, которые начинаются символом "-"
-
 import sys, re
 
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
@@ -65,7 +63,7 @@ class BasicTextBuffer(Singleton, TextBufferType):
 	def clear(self) -> None:
 		self._text_buffer.clear()
 
-	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
+	def save(self, name_file: str, clean: bool) -> None:
 		match self._environment.environment_name:
 			case LogEnvironments.CONSOLE.environment_name:
 				raise EnvironmentException("This environment is not supported")
@@ -73,19 +71,24 @@ class BasicTextBuffer(Singleton, TextBufferType):
 				raise EnvironmentException("This environment is not supported")
 			case LogEnvironments.HTML.environment_name:
 				with open(f"{name_file}.html", "w", encoding="utf-8") as text_buffer_file:
-					text_buffer_file.write(
-						'<pre>' + self._text_buffer[0] + '\n'.join(self._text_buffer[1:]) + '</body></pre>'
-					)
+					if clean:
+						text_buffer_file.write('<pre>' + self._text_buffer[0] + '\n'.join([entry for entry in self._text_buffer[1:] if re.sub(r"<.*?>", "", entry).startswith("-")]) + '</body></pre>')
+					else:
+						text_buffer_file.write('<pre>' + self._text_buffer[0] + '\n'.join(self._text_buffer[1:]) + '</body></pre>')
 			case LogEnvironments.MARKDOWN.environment_name:
 				with open(f"{name_file}.md", "w", encoding="utf-8") as text_buffer_file:
-					text_buffer_file.write(
-						'<pre>' + self._text_buffer[0] + '\n'.join(self._text_buffer[1:]) + '</body></pre>'
-					)
+					if clean:
+						text_buffer_file.write('<pre>' + self._text_buffer[0] + '\n'.join([entry for entry in self._text_buffer[1:] if re.sub(r"<.*?>", "", entry).startswith("-")]) + '</body></pre>')
+					else:
+						text_buffer_file.write('<pre>' + self._text_buffer[0] + '\n'.join(self._text_buffer[1:]) + '</body></pre>')
 			case LogEnvironments.PLAIN.environment_name:
 				with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
-					text_buffer_file.write('\n'.join(self._text_buffer))
+					if clean:
+						text_buffer_file.write('\n'.join([entry for entry in self._text_buffer if entry.startswith("-")]))
+					else:
+						text_buffer_file.write('\n'.join(self._text_buffer))
 
-	def load(self, name_file: str = "buffer") -> None:
+	def load(self, name_file: str) -> None:
 		match self._environment.environment_name:
 			case LogEnvironments.CONSOLE.environment_name:
 				raise EnvironmentException("This environment is not supported")
@@ -187,19 +190,20 @@ class TextBuffer(Singleton, TextBufferType):
 		self._buffer_size = 0
 		self._cursor_string = 0
 
-	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
+	def save(self, name_file: str, clean: bool) -> None:
 		match self._environment.environment_name:
 			case LogEnvironments.CONSOLE.environment_name:
-				if clean:
-					with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
-						for item in self._text_buffer:
-							text_buffer_file.write("{}\n".format(re.sub(r"\033\[.*?m", "", item)))
-				else:
-					with open(f"{name_file}.contxt", "w", encoding="utf-8") as text_buffer_file:
+				with open(f"{name_file}.contxt", "w", encoding="utf-8") as text_buffer_file:
+					if clean:
+						text_buffer_file.write('\n'.join([entry for entry in self._text_buffer if re.sub(r"\033\[.*?m", "", entry).startswith("-")]))
+					else:
 						text_buffer_file.write('\n'.join(self._text_buffer))
 			case LogEnvironments.PLAIN_CONSOLE.environment_name:
 				with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
-					text_buffer_file.write('\n'.join(self._text_buffer))
+					if clean:
+						text_buffer_file.write('\n'.join([entry for entry in self._text_buffer if entry.startswith("-")]))
+					else:
+						text_buffer_file.write('\n'.join(self._text_buffer))
 			case LogEnvironments.HTML.environment_name:
 				raise EnvironmentException("This environment is not supported")
 			case LogEnvironments.MARKDOWN.environment_name:
@@ -207,7 +211,7 @@ class TextBuffer(Singleton, TextBufferType):
 			case LogEnvironments.PLAIN.environment_name:
 				raise EnvironmentException("This environment is not supported")
 
-	def load(self, name_file: str = "buffer") -> None:
+	def load(self, name_file: str) -> None:
 		match self._environment.environment_name:
 			case LogEnvironments.CONSOLE.environment_name:
 				with open(f"{name_file}.contxt", "r", encoding="utf-8") as text_buffer_file:
@@ -234,7 +238,6 @@ class TextBuffer(Singleton, TextBufferType):
 		return data
 
 	def update_console(self) -> None:
-		# todo Translate to thread in a future update
 		if self._cursor_string == 0:
 			sys.stdout.write(f'\r\033[K')
 		else:
@@ -244,7 +247,6 @@ class TextBuffer(Singleton, TextBufferType):
 		self._cursor_string = self._buffer_size - 1
 
 	def update_entry(self) -> None:
-		# todo Translate to thread in a future update
 		sys.stdout.write(f'\r')
 		sys.stdout.write(self._text_buffer[-1])
 		sys.stdout.flush()  # Clearing the output buffer so that the changes are displayed immediately
