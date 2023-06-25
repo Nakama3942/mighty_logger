@@ -1,6 +1,5 @@
 """
-A module with a list of environment options in which the modules work
-and entry types that can be passed to an entry in Progress bar.
+...
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
@@ -17,14 +16,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from mighty_logger.basic.lib_types.environment_type import EnvironmentType
+class StatusMessageType:
+	"""
+	Wrapper class for status message.
+	"""
+	def __init__(self, message: str):
+		self.__current_status_message: str = message
 
-class LogEnvironments:
-	"""
-	Environments of Logger.
-	"""
-	CONSOLE = EnvironmentType("CONSOLE", 0, True, False)
-	PLAIN_CONSOLE = EnvironmentType("PLAIN_CONSOLE", 1, True, False)
-	HTML = EnvironmentType("HTML", 2, False, True)
-	MARKDOWN = EnvironmentType("MARKDOWN", 3, False, True)
-	PLAIN = EnvironmentType("PLAIN", 4, False, False)
+	@property
+	def current_status_message(self) -> str:
+		return self.__current_status_message

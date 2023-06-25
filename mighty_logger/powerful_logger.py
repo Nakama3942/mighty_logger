@@ -20,15 +20,15 @@ from threading import Thread
 from time import sleep
 from datetime import datetime
 
-from mighty_logger.basic.basic_logger import BasicLogger
-from mighty_logger.basic.exceptions import ReCreationException
-from mighty_logger.basic.lib_types import EntryType,\
-	EnvironmentType,\
-	StatusMessageType,\
-	BasicAnimationType,\
+from mighty_logger.basic.lib_types.animation_type import BasicAnimationType,\
 	IndefiniteAnimationType,\
 	DefiniteAnimationType
-from mighty_logger.basic.text_buffer_type import TextBufferType
+from mighty_logger.basic.lib_types.entry_type import EntryType
+from mighty_logger.basic.lib_types.environment_type import EnvironmentType
+from mighty_logger.basic.lib_types.status_message_type import StatusMessageType
+from mighty_logger.basic.lib_types.text_buffer_type import TextBufferType
+from mighty_logger.basic.basic_logger import BasicLogger
+from mighty_logger.basic.exceptions import ReCreationException
 from mighty_logger.src.animation import IndefiniteAnimations, DefiniteAnimations
 from mighty_logger.src.entry_types import ServiceLogger, ServiceProcessEntryTypes, ServiceTimerEntryTypes
 from mighty_logger.src.environments import LogEnvironments

@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from mighty_logger.basic.lib_types import EnvironmentType
+from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.src.entry_types import LoggerEntryTypes, ServiceProcessEntryTypes
 from mighty_logger.src.environments import LogEnvironments
 from mighty_logger import Logger

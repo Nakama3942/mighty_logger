@@ -1,5 +1,5 @@
 """
-... NoneEnvironment
+...
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
@@ -15,35 +15,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-
-class EnvironmentType:
-	def __init__(
-		self,
-		environment_name: str,
-		environment_code: int,
-		updatable: bool,
-		weak_environment: bool
-	) -> None:
-		self.__environment_name: str = environment_name
-		self.__environment_code: int = environment_code
-		self.__updatable: bool = updatable
-		self.__weak_environment: bool = weak_environment
-
-	@property
-	def environment_name(self) -> str:
-		return self.__environment_name
-
-	@property
-	def environment_code(self) -> int:
-		return self.__environment_code
-
-	@property
-	def updatable(self) -> int:
-		return self.__updatable
-
-	@property
-	def weak_environment(self) -> int:
-		return self.__weak_environment
 
 class EntryType:
 	def __init__(
@@ -98,37 +69,3 @@ class EntryType:
 	@property
 	def icon(self) -> tuple:
 		return self.__icon
-
-class StatusMessageType:
-	"""
-	Wrapper class for status message.
-	"""
-	def __init__(self, message: str):
-		self.__current_status_message: str = message
-
-	@property
-	def current_status_message(self) -> str:
-		return self.__current_status_message
-
-class BasicAnimationType:
-	"""
-	Basic wrapper class for animations type.
-	"""
-	def __init__(self, animation: list):
-		self.__animation: list = animation
-
-	@property
-	def animation(self) -> list:
-		return self.__animation
-
-class IndefiniteAnimationType(BasicAnimationType):
-	"""
-	Wrapper class for indefinite animations type.
-	"""
-	...
-
-class DefiniteAnimationType(BasicAnimationType):
-	"""
-	Wrapper class for definite animations type.
-	"""
-	...

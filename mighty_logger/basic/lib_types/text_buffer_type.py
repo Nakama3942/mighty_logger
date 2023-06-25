@@ -18,7 +18,7 @@ limitations under the License.
 
 from abc import ABC, abstractmethod
 
-from mighty_logger.basic.lib_types import EnvironmentType
+from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 
 class TextBufferType(ABC):
 	def __init__(self, env: EnvironmentType) -> None:

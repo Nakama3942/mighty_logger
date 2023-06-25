@@ -19,7 +19,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from mighty_logger.basic.lib_types import IndefiniteAnimationType, DefiniteAnimationType
+from mighty_logger.basic.lib_types.animation_type import IndefiniteAnimationType, DefiniteAnimationType
 
 class IndefiniteAnimations:
 	"""

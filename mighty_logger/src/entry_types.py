@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from mighty_logger.basic.lib_types import EntryType
+from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.src.color_picker import AnsiColor, HexColor
 
 class ServiceLogger:
