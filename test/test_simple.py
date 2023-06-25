@@ -1,12 +1,37 @@
+from time import sleep
+
 from mighty_logger import SimpleLogger
+from mighty_logger.src import LogEnvironments
+
+# todo сделать проверку, что произойдёт, если сначала создать обычный Логгер
 
 if __name__ == "__main__":
-	logger = SimpleLogger("Installer")
+	logger = SimpleLogger("Installer", LogEnvironments.CONSOLE, 115)
+	sleep(1)
 	logger.message("Program installation started")
+	sleep(1)
 	logger.warning("Newer version found")
+	sleep(1)
 	logger.separator()
+	sleep(1)
 	data = logger.input("Enter password: ")
+	sleep(1)
 	logger.error("Incompatibility found")
+	sleep(1)
 	logger.fail("Program not installed")
+	sleep(1)
 	logger.print(data)
-	logger.get_buffer().save("log")
+	sleep(1)
+	logger.save("log", False)
+	sleep(1)
+	logger.debug("la la la")
+	sleep(1)
+	logger.load("log")
+	sleep(1)
+	logger.debug("bla bla bla")
+	sleep(1)
+	logger.get_logger().extractly(2)
+	sleep(1)
+	logger.debug("String has deleted")
+	sleep(1)
+	logger.print(logger.get_logger().catchy(1))

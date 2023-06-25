@@ -31,7 +31,7 @@ class TextBufferType(ABC):
 
 		:param entry: The line to be added
 		"""
-		self.append(f"{entry}")
+		self.append(entry)
 
 	def __rshift__(self, entry: str) -> None:
 		"""
@@ -86,7 +86,7 @@ class TextBufferType(ABC):
 
 		:param number_string: The string to be removed from the buffer
 		"""
-		raise NotImplementedError("Method remove() is not implemented in the base class.")
+		raise NotImplementedError("Method pop() is not implemented in the base class.")
 
 	@abstractmethod
 	def remove(self, number_string: int = -1) -> None:
@@ -115,7 +115,7 @@ class TextBufferType(ABC):
 		raise NotImplementedError("Method save() is not implemented in the base class.")
 
 	@abstractmethod
-	def load(self) -> None:
+	def load(self, name_file: str = "buffer") -> None:
 		"""
 		...
 		"""

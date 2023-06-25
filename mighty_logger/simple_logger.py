@@ -17,7 +17,6 @@ limitations under the License.
 """
 
 from mighty_logger.basic.lib_types import EnvironmentType
-from mighty_logger.basic.text_buffer_type import TextBufferType
 from mighty_logger.src.entry_types import LoggerEntryTypes, ServiceProcessEntryTypes
 from mighty_logger.src.environments import LogEnvironments
 from mighty_logger import Logger
@@ -30,23 +29,31 @@ class SimpleLogger:
 	def __init__(
 		self,
 		program_name: str = "Unknown",
-		environment: EnvironmentType = LogEnvironments.HTML
+		environment: EnvironmentType = LogEnvironments.HTML,
+		console_width: int = 60
 	):
 		self.__logger = Logger(
 			program_name=program_name,
 			log_environment=environment,
+			console_width=console_width,
 			status_global_entry=False,
 			status_message_global_entry=False
 		)
 
-	def get_buffer(self) -> TextBufferType:
-		return self.__logger.buffer()
+	def get_logger(self) -> Logger:
+		return self.__logger
 
 	def print(self, printing_text: str) -> None:
 		self.__logger.empty(entry=printing_text)
 
 	def input(self, printing_text: str) -> str:
-		return self.__logger.input_simulation(printing_text)
+		return self.__logger.getty(printing_text)
+
+	def save(self, name_file: str, clean: bool = True) -> None:
+		self.__logger.savy(name_file, clean)
+
+	def load(self, name_file: str) -> None:
+		self.__logger.loady(name_file)
 
 	def separator(self) -> None:
 		self.__logger.separator()

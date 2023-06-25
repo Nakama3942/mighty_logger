@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
 	logger.separator()
 
-	data = logger.input_simulation("Enter password: ")
+	data = logger.getty("Enter password: ")
 
 	sleep(1)
 	logger.start_definite_process(progress_bar=DefiniteAnimations.Arrow, message_text="Installing files")
@@ -86,4 +86,4 @@ if __name__ == "__main__":
 	logger.stop_timer(message_text="Timer completed")
 	logger.empty(entry=data)
 
-	logger.buffer().save("log")
+	logger.savy("log")

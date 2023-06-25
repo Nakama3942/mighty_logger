@@ -63,8 +63,7 @@ class BasicTextBuffer(Singleton, TextBufferType):
 		self._text_buffer.pop(number_string)
 
 	def clear(self) -> None:
-		# todo
-		pass
+		self._text_buffer.clear()
 
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
 		match self._environment.environment_name:
@@ -86,9 +85,32 @@ class BasicTextBuffer(Singleton, TextBufferType):
 				with open(f"{name_file}.txt", "w", encoding="utf-8") as text_buffer_file:
 					text_buffer_file.write('\n'.join(self._text_buffer))
 
-	def load(self) -> None:
-		# todo
-		pass
+	def load(self, name_file: str = "buffer") -> None:
+		match self._environment.environment_name:
+			case LogEnvironments.CONSOLE.environment_name:
+				raise EnvironmentException("This environment is not supported")
+			case LogEnvironments.PLAIN_CONSOLE.environment_name:
+				raise EnvironmentException("This environment is not supported")
+			case LogEnvironments.HTML.environment_name:
+				with open(f"{name_file}.html", "r", encoding="utf-8") as text_buffer_file:
+					self.clear()
+					self._text_buffer = text_buffer_file.read()\
+						.replace("<pre>", "")\
+						.replace("</body></pre>", "")\
+						.replace("><", ">\n<", 1)\
+						.split("\n")
+			case LogEnvironments.MARKDOWN.environment_name:
+				with open(f"{name_file}.md", "r", encoding="utf-8") as text_buffer_file:
+					self.clear()
+					self._text_buffer = text_buffer_file.read()\
+						.replace("<pre>", "")\
+						.replace("</body></pre>", "")\
+						.replace("><", ">\n<", 1)\
+						.split("\n")
+			case LogEnvironments.PLAIN.environment_name:
+				with open(f"{name_file}.txt", "r", encoding="utf-8") as text_buffer_file:
+					self.clear()
+					self._text_buffer = text_buffer_file.read().split("\n")
 
 	def input(self, input_text: str) -> str:
 		return input(f"\r{input_text}")
@@ -156,8 +178,14 @@ class TextBuffer(Singleton, TextBufferType):
 		self._text_buffer.pop(number_string)
 
 	def clear(self) -> None:
-		# todo
-		pass
+		if self._cursor_string == 0:
+			sys.stdout.write(f'\r\033[K')
+		else:
+			sys.stdout.write(f'\033[{self._cursor_string}A\r\033[J')
+		self._text_buffer.clear()
+		sys.stdout.flush()  # Clearing the output buffer so that the changes are displayed immediately
+		self._buffer_size = 0
+		self._cursor_string = 0
 
 	def save(self, name_file: str = "buffer", clean: bool = True) -> None:
 		match self._environment.environment_name:
@@ -179,14 +207,31 @@ class TextBuffer(Singleton, TextBufferType):
 			case LogEnvironments.PLAIN.environment_name:
 				raise EnvironmentException("This environment is not supported")
 
+	def load(self, name_file: str = "buffer") -> None:
+		match self._environment.environment_name:
+			case LogEnvironments.CONSOLE.environment_name:
+				with open(f"{name_file}.contxt", "r", encoding="utf-8") as text_buffer_file:
+					self.clear()
+					data = text_buffer_file.read().split("\n")
+					for entry in data:
+						self.append(entry)
+			case LogEnvironments.PLAIN_CONSOLE.environment_name:
+				with open(f"{name_file}.txt", "r", encoding="utf-8") as text_buffer_file:
+					self.clear()
+					data = text_buffer_file.read().split("\n")
+					for entry in data:
+						self.append(entry)
+			case LogEnvironments.HTML.environment_name:
+				raise EnvironmentException("This environment is not supported")
+			case LogEnvironments.MARKDOWN.environment_name:
+				raise EnvironmentException("This environment is not supported")
+			case LogEnvironments.PLAIN.environment_name:
+				raise EnvironmentException("This environment is not supported")
+
 	def input(self, input_text: str) -> str:
 		data = input(f"\r{input_text}")
 		sys.stdout.write(f'\033[1A')
 		return data
-
-	def load(self) -> None:
-		# todo
-		pass
 
 	def update_console(self) -> None:
 		# todo Translate to thread in a future update
