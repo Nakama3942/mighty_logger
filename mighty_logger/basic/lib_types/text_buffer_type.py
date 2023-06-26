@@ -16,11 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from abc import ABC, abstractmethod
-
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 
-class TextBufferType(ABC):
+class TextBufferType:
 	def __init__(self, env: EnvironmentType) -> None:
 		self._text_buffer: list[str] = []
 		self._environment: EnvironmentType = env
@@ -49,7 +47,6 @@ class TextBufferType(ABC):
 		"""
 		return self._text_buffer
 
-	@abstractmethod
 	def append(self, message: str) -> None:
 		"""
 		Adds a string to the end of the text buffer.
@@ -58,7 +55,6 @@ class TextBufferType(ABC):
 		"""
 		raise NotImplementedError("Method append() is not implemented in the base class.")
 
-	@abstractmethod
 	def insert(self, number_string: int, message: str) -> None:
 		"""
 		Adds a string to the middle of the text buffer at the specified position.
@@ -68,7 +64,6 @@ class TextBufferType(ABC):
 		"""
 		raise NotImplementedError("Method insert() is not implemented in the base class.")
 
-	@abstractmethod
 	def replace(self, number_string: int, message: str) -> None:
 		"""
 		Replaces a specific string in a text buffer. If there is no such string, the method
@@ -79,7 +74,6 @@ class TextBufferType(ABC):
 		"""
 		raise NotImplementedError("Method replace() is not implemented in the base class.")
 
-	@abstractmethod
 	def pop(self, number_string: int = -1) -> str:
 		"""
 		Removes and returns the specified string from the buffer.
@@ -88,7 +82,6 @@ class TextBufferType(ABC):
 		"""
 		raise NotImplementedError("Method pop() is not implemented in the base class.")
 
-	@abstractmethod
 	def remove(self, number_string: int = -1) -> None:
 		"""
 		Deletes without returning the specified string from the buffer.
@@ -97,14 +90,12 @@ class TextBufferType(ABC):
 		"""
 		raise NotImplementedError("Method remove() is not implemented in the base class.")
 
-	@abstractmethod
 	def clear(self) -> None:
 		"""
 		...
 		"""
 		raise NotImplementedError("Method clear() is not implemented in the base class.")
 
-	@abstractmethod
 	def save(self, name_file: str, clean: bool) -> None:
 		"""
 		Saves the text of the buffer to a file.
@@ -114,14 +105,12 @@ class TextBufferType(ABC):
 		"""
 		raise NotImplementedError("Method save() is not implemented in the base class.")
 
-	@abstractmethod
 	def load(self, name_file: str) -> None:
 		"""
 		...
 		"""
 		raise NotImplementedError("Method load() is not implemented in the base class.")
 
-	@abstractmethod
 	def input(self, input_text: str) -> str:
 		"""
 		...
@@ -130,14 +119,12 @@ class TextBufferType(ABC):
 		"""
 		raise NotImplementedError("Method input() is not implemented in the base class.")
 
-	@abstractmethod
 	def update_console(self) -> None:
 		"""
 		Refreshes the console, erasing output text and outputting an updated buffer.
 		"""
 		raise NotImplementedError("Method update_console() is not implemented in the base class.")
 
-	@abstractmethod
 	def update_entry(self) -> None:
 		"""
 		Rewrites the last line of output after updating the last line of the buffer.

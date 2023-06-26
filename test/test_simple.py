@@ -3,8 +3,6 @@ from time import sleep
 from mighty_logger import SimpleLogger
 from mighty_logger.src import LogEnvironments
 
-# todo сделать проверку, что произойдёт, если сначала создать обычный Логгер
-
 if __name__ == "__main__":
 	logger = SimpleLogger("Installer", LogEnvironments.PLAIN, 115)
 	sleep(1)

@@ -28,9 +28,9 @@ from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.basic.lib_types.status_message_type import StatusMessageType
 from mighty_logger.basic.lib_types.text_buffer_type import TextBufferType
 from mighty_logger.basic.basic_logger import BasicLogger
-from mighty_logger.basic.exceptions import ReCreationException
+from mighty_logger.basic.exceptions import ReCreationException, InitException
 from mighty_logger.src.animation import IndefiniteAnimations, DefiniteAnimations
-from mighty_logger.src.entry_types import ServiceLogger, ServiceProcessEntryTypes, ServiceTimerEntryTypes
+from mighty_logger.src.entry_types import ServiceLogger, LoggerEntryTypes, ServiceProcessEntryTypes, ServiceTimerEntryTypes
 from mighty_logger.src.environments import LogEnvironments
 from mighty_logger.src.text_buffer import BasicTextBuffer, TextBuffer
 
@@ -85,58 +85,35 @@ class Logger(BasicLogger):
 			self._progress_interrupt = False
 			self._start_timer_value: datetime | None = None
 			self.global_background = global_background
-			match self._environment.environment_name:
-				case LogEnvironments.CONSOLE.environment_name:
-					if TextBuffer._instance is not None:
-						self._buffer = TextBuffer._instance
-						self.notice(
-							message_text="An existing logger was taken into use",
-							status_message=StatusMessageType("Note"),
-							local_settings={"italic": True}
-						)
-					else:
-						self._buffer = TextBuffer(self._environment, console_width)
-				case LogEnvironments.PLAIN_CONSOLE.environment_name:
-					if TextBuffer._instance is not None:
-						self._buffer = TextBuffer._instance
-						self.notice(
-							message_text="An existing logger was taken into use",
-							status_message=StatusMessageType("Note"),
-						)
-					else:
-						self._buffer = TextBuffer(self._environment, console_width)
-				case LogEnvironments.HTML.environment_name:
-					if BasicTextBuffer._instance is not None:
-						self._buffer = BasicTextBuffer._instance
-						self.notice(
-							message_text="An existing logger was taken into use",
-							status_message=StatusMessageType("Note"),
-							local_settings={"italic": True}
-						)
-					else:
-						self._buffer = BasicTextBuffer(self._environment)
-				case LogEnvironments.MARKDOWN.environment_name:
-					if BasicTextBuffer._instance is not None:
-						self._buffer = BasicTextBuffer._instance
-						self.notice(
-							message_text="An existing logger was taken into use",
-							status_message=StatusMessageType("Note"),
-							local_settings={"italic": True}
-						)
-					else:
-						self._buffer = BasicTextBuffer(self._environment)
-				case LogEnvironments.PLAIN.environment_name:
-					if BasicTextBuffer._instance is not None:
-						self._buffer = BasicTextBuffer._instance
-						self.notice(
-							message_text="An existing logger was taken into use",
-							status_message=StatusMessageType("Note")
-						)
-					else:
-						self._buffer = BasicTextBuffer(self._environment)
+			self._buffer: TextBufferType = TextBufferType(log_environment)
+			self._init_buffer(console_width)
 			self._initial_log()
 		else:
 			raise ReCreationException("Logger class object already created")
+
+	def _init_buffer(self, console_width: int):
+		buffer_classes = {
+			LogEnvironments.CONSOLE.environment_name: (TextBuffer, (self._environment, console_width)),
+			LogEnvironments.PLAIN_CONSOLE.environment_name: (TextBuffer, (self._environment, console_width)),
+			LogEnvironments.HTML.environment_name: (BasicTextBuffer, (self._environment,)),
+			LogEnvironments.MARKDOWN.environment_name: (BasicTextBuffer, (self._environment,)),
+			LogEnvironments.PLAIN.environment_name: (BasicTextBuffer, (self._environment,))
+		}
+
+		buffer_class, buffer_args = buffer_classes.get(self._environment.environment_name, (None, None))
+		if buffer_class:
+			if buffer_class._instance is not None:
+				self._buffer = buffer_class._instance
+				self.entry(
+					entry_type=LoggerEntryTypes.notice,
+					message_text="An existing buffer was taken into use",
+					status_message=StatusMessageType("Note"),
+					local_settings={"italic": True} if buffer_class == TextBuffer else None
+				)
+			else:
+				self._buffer = buffer_class(*buffer_args)
+		else:
+			raise InitException("Text buffer initialization error")
 
 	def _initial_log(self) -> None:
 		"""

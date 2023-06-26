@@ -86,4 +86,4 @@ if __name__ == "__main__":
 	logger.stop_timer(message_text="Timer completed")
 	logger.empty(entry=data)
 
-	logger.savy("log")
+	logger.savy("log", False)

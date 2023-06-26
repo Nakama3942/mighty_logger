@@ -29,16 +29,20 @@ class SimpleLogger:
 	def __init__(
 		self,
 		program_name: str = "Unknown",
-		environment: EnvironmentType = LogEnvironments.HTML,
+		environment: EnvironmentType = LogEnvironments.PLAIN,
 		console_width: int = 60
 	):
-		self.__logger = Logger(
-			program_name=program_name,
-			log_environment=environment,
-			console_width=console_width,
-			status_global_entry=False,
-			status_message_global_entry=False
-		)
+		if Logger._instance is not None:
+			self.__logger = Logger._instance
+			self.notice("An existing logger was taken into use")
+		else:
+			self.__logger = Logger(
+				program_name=program_name,
+				log_environment=environment,
+				console_width=console_width,
+				status_global_entry=False,
+				status_message_global_entry=False
+			)
 
 	def get_logger(self) -> Logger:
 		return self.__logger
