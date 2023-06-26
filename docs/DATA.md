@@ -1,6 +1,8 @@
 ## Data
 The library stores various important data for use that you may need to know while using the library.
 
+ATTENTION!!! OUTDATED MATERIAL! RELEVANCE - v0.6.1! WILL BE OVERWRITTEN IN v0.9.1!
+
 #### Content
 - [Data](#data)
 	- [Content](#content)

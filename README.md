@@ -88,9 +88,8 @@ Any information to the output can be turned off (according to the default, every
 - [x] v0.5.1 - Hints update (added status message templates and hint symbols (icons) near log entries status)
 - [x] v0.6.0 - Progress update (added start of some log entries in threads (process))
 - [x] v0.6.1 - Animation update (added animations in processes)
-- [ ] v0.7.0 - "Buffer improvement" update (added buffer clearing and loading)
-- [ ] v0.7.1 - Conversion update (added conversion from Console type to HTML and vice versa)
-- [ ] v0.7.2 - Search update (added search by log entry types)
+- [x] v0.7.0 - "Buffer improvement" update (buffer development completed and entry type system reworked)
+- [ ] v0.7.1 - Search update (added search by log entry types)
 - [ ] v0.8.0 - Export update (added conversion to different types, such as csv, pdf, etc.)
 - [ ] v0.9.0 - Extension update (made wheel format and instruction of toml)
 - [ ] v0.9.1 - Documenting update (all updates since v0.7.0 are documented; updated old documentation; documentation site generation added)
@@ -131,6 +130,8 @@ pip install mighty_logger
 ```
 
 ## Usage
+
+ATTENTION!!! OUTDATED MATERIAL! RELEVANCE - v0.6.1! WILL BE OVERWRITTEN IN v0.9.1!
 
 This is the simplest example of using the library:
 

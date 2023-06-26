@@ -1,6 +1,8 @@
 ## Applying
 Instructions for using the library for practical purposes.
 
+ATTENTION!!! OUTDATED MATERIAL! RELEVANCE - v0.6.1! WILL BE OVERWRITTEN IN v0.9.1!
+
 #### Content
 - [Applying](#applying)
 	- [Content](#content)

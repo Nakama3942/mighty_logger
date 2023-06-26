@@ -424,3 +424,56 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 #### Enhancements:
 - Added new animations and worked out the old ones;
 - Added a new category of types: Timer, and 3 entries for it.
+
+---
+
+## "Buffer improvement" update v0.7.0 (26.06.2023)
+
+#### Enhancements:
+- All entry types were merged into one `entry()` method, and all type differences were moved to the `LoggerEntryTypes` (available), `ProcessEntryTypes` (available), `ServiceProcessEntryTypes` (not available), `ServiceTimerEntryTypes` (not available) classes;
+- Due to the acquired complexity, a simplified version of the Logger was written - SimpleLogger, where all the cut Logger methods, such as `debug`, `message`, etc., were transferred;
+- Removed the ability to create custom icon sets (and removed the icon set module);
+- The ability to change the color of entries has been removed (now it is impossible to change the color scheme at all due to the new improved data storage system for entry types);
+- Added new type `EnvironmentType`;
+- Added new Logger environments:
+	- `PLAIN_CONSOLE`;
+	- `MARKDOWN`;
+	- `PLAIN`;
+- All types (classes) created for use within the library have been redefined from their original modules into the new `basic.lib_types` package;
+- Animations and Text buffers module moved to `src` package;
+- Removed emptied package `text`;
+- Removed `CombinationException`;
+- Added `EnvironmentException` and `InitException`;
+- Buffer updated:
+	- Added Buffer input implementation (because after creating a Logger object, you can't use the standard Python `print()`, `input()` and other functions that can affect console output when using the `CONSOLE` environment and the new `PLAIN_CONSOLE`) - now there is not only output in console, but also input (`input()` method in Buffer);
+	- Updated the `save()` method of the Text buffer (now the `clean` argument is important for any environment, since the Buffer of Logger can store not only log entries, which allows the `empty()` method, which is a standard `print()` in the library);
+	- The implementation of the `remove()` method in the buffer is complete;
+	- Added `clear()` and `load()` methods;
+	- `TextBufferType` is no longer an abstract class like other types-class;
+	- Buffer development completed;
+- Added methods-publishers in the Logger, which display certain information about the Logger in the logs:
+	- `publish_id()` publishes the generated Logger ID;
+	- `publish_program_name()` publishes the name of the program whose work is being logged;
+	- `publish_environment()` publishes the environment in which the Logger works;
+	- `publish_global_settings()` publishes global Logger settings;
+	- `publish_author()` publishes the author of the library;
+	- `publish_license()` publishes a library license;
+	- `separator()` adds a separator in the form of a line of eighty dashes;
+- Added wrapper methods in Logger for Buffer methods:
+	- `Logger.addy()`[^strange] - `TextBufferType.insert()`;
+	- `Logger.modify()`[^strange] - `TextBufferType.replace()`;
+	- `Logger.catchy()`[^strange] - `TextBufferType.pop()`;
+	- `Logger.extractly()`[^strange] - `TextBufferType.remove()`;
+	- `Logger.clearly()`[^strange] - `TextBufferType.clear()`;
+	- `Logger.savy()`[^strange] - `TextBufferType.save()`;
+	- `Logger.loady()`[^strange] - `TextBufferType.load()`;
+	- `Logger.getty()`[^strange] - `TextBufferType.input()`;
+- Of the new wrapper and publisher methods, SimpleLogger implements:
+	- `SimpleLogger.print()` - `Logger.empty()`;
+	- `SimpleLogger.input()` - `Logger.getty()`;
+	- `SimpleLogger.save()` - `Logger.savy()`;
+	- `SimpleLogger.load()` - `Logger.loady()`;
+	- `SimpleLogger.separator()` - `Logger.separator()`;
+- Optimized buffer initialization.
+
+[^strange]: Why such strange names were chosen is a big story here ... Initially, each entry type represented a different method, but in the documentation, the entry was always represented by the word "entry". When the author had to add the `Logger.note_process()` method, there was a need to add lines without forming them (that is, to do a regular `print()` in the Logger, since there was already a functional in the buffer). Since it was thought that such strings would be called "empty", they began to be called "empty". Having already two methods ending in "y", other names were invented for all other Buffer wrapper methods with the main condition - the last letter "y". This was done just for fun. The native language of the author is Ukrainian.
