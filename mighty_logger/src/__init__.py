@@ -29,5 +29,6 @@ from .color_picker import DecColor,\
 	Ansi2Hex
 from .entry_types import LoggerEntryTypes, ProcessEntryTypes
 from .environments import LogEnvironments
+from .sorting_keys import SortingKeys
 from .status_variables import StatusMessagePatterns
 from .text_buffer import BasicTextBuffer, TextBuffer

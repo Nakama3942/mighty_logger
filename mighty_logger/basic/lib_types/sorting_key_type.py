@@ -16,9 +16,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .animation_type import IndefiniteAnimationType, DefiniteAnimationType
-from .entry_type import EntryType
-from .environment_type import EnvironmentType
-from .sorting_key_type import SortingKeyType
-from .status_message_type import StatusMessageType
-from .text_buffer_type import TextBufferType
+class SortingKeyType:
+	def __init__(self, sorting_key: int):
+		self.__sorting_key: int = sorting_key
+
+	@property
+	def sorting_key(self) -> int:
+		return self.__sorting_key

@@ -16,9 +16,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .animation_type import IndefiniteAnimationType, DefiniteAnimationType
-from .entry_type import EntryType
-from .environment_type import EnvironmentType
-from .sorting_key_type import SortingKeyType
-from .status_message_type import StatusMessageType
-from .text_buffer_type import TextBufferType
+from mighty_logger.basic.lib_types.sorting_key_type import SortingKeyType
+
+class SortingKeys:
+	SORT_ON_TIME = SortingKeyType(0)
+	SORT_ON_TIME_WITH_REVERSE = SortingKeyType(1)
+	SORT_ON_CATEGORY = SortingKeyType(2)
+	SORT_ON_TYPE = SortingKeyType(3)
