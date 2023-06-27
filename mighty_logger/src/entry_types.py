@@ -1251,3 +1251,29 @@ class ServiceTimerEntryTypes:
 	Information logging of stopping Timer:
 	Used to notify the stop of the Timer.
 	"""
+
+class SelectionTypes:
+	debug = EntryType(type_name="%DEBUG")
+	debug_performance = EntryType(type_name="%DEBUG-PERFORMANCE")
+	performance = EntryType(type_name="%PERFORMANCE")
+	event = EntryType(type_name="~EVENT")
+	audit = EntryType(type_name="~AUDIT")
+	metrics = EntryType(type_name="~METRICS")
+	user = EntryType(type_name="~USER")
+	message = EntryType(type_name="@MESSAGE")
+	info = EntryType(type_name="@INFO")
+	notice = EntryType(type_name="@NOTICE")
+	warning = EntryType(type_name="!WARNING")
+	error = EntryType(type_name="!!ERROR")
+	critical = EntryType(type_name="!!!@CRITICAL")
+	resolved = EntryType(type_name="!RESOLVED")
+	unresolved = EntryType(type_name="!UNRESOLVED")
+	achievement = EntryType(type_name="&ACHIEVEMENT")
+	milestone = EntryType(type_name="&MILESTONE")
+	initiation = EntryType(type_name="&INITIATION")
+	process = EntryType(type_name="&PROGRESS")
+	success = EntryType(type_name="&SUCCESS")
+	fail = EntryType(type_name="&FAIL")
+	start_timer = EntryType(type_name="^START-TIMER")
+	timer_mark = EntryType(type_name="^TIMER-MARK")
+	stop_timer = EntryType(type_name="^STOP-TIMER")

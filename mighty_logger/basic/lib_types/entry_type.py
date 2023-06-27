@@ -21,13 +21,13 @@ class EntryType:
 		self,
 		*,
 		type_name: str,
-		time_color: tuple,
-		status_color: tuple,
-		status_message_color: tuple,
-		type_color: tuple,
-		message_color: tuple,
-		background_color: tuple,
-		icon: tuple
+		time_color: tuple = (),
+		status_color: tuple = (),
+		status_message_color: tuple = (),
+		type_color: tuple = (),
+		message_color: tuple = (),
+		background_color: tuple = (),
+		icon: tuple = ()
 	) -> None:
 		self.__type_name: str = type_name
 		self.__time_color: tuple = time_color

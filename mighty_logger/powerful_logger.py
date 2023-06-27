@@ -264,7 +264,7 @@ class Logger(BasicLogger):
 	#                                                                                          #
 	# ######################################################################################## #
 
-	def sort(self, key: SortingKeyType = SortingKeys.SORT_ON_TYPE):
+	def sort(self, key: SortingKeyType) -> None:
 		sorter = Modifier(self._buffer.get_data().copy(), self._environment)
 		sorter.sort(key)
 		sorted_buffer = sorter.entries
@@ -272,7 +272,7 @@ class Logger(BasicLogger):
 		for entry in sorted_buffer:
 			self.empty(entry)
 
-	def sort_with_save(self, key: SortingKeyType = SortingKeys.SORT_ON_TYPE):
+	def sort_with_save(self, key: SortingKeyType) -> None:
 		original = self._buffer.get_data().copy()
 		sorter = Modifier(self._buffer.get_data(), self._environment)
 		sorter.sort(key)
@@ -280,7 +280,7 @@ class Logger(BasicLogger):
 		self._buffer.get_data().clear()
 		self._buffer.get_data().extend(original)
 
-	def search(self, keyword: str, empty: bool = False):
+	def search(self, keyword: str, empty: bool = False) -> None:
 		searcher = Modifier(self._buffer.get_data().copy(), self._environment)
 		searcher.search(keyword, empty)
 		searched_buffer = searcher.entries
@@ -288,11 +288,27 @@ class Logger(BasicLogger):
 		for entry in searched_buffer:
 			self.empty(entry)
 
-	def search_with_save(self, keyword: str, empty: bool = False):
+	def search_with_save(self, keyword: str, empty: bool = False) -> None:
 		original = self._buffer.get_data().copy()
 		searcher = Modifier(self._buffer.get_data(), self._environment)
 		searcher.search(keyword, empty)
 		self._buffer.save("searched_logs", False)
+		self._buffer.get_data().clear()
+		self._buffer.get_data().extend(original)
+
+	def select(self, entry_type: EntryType) -> None:
+		selector = Modifier(self._buffer.get_data().copy(), self._environment)
+		selector.select(entry_type)
+		selected_buffer = selector.entries
+		self.clearly()
+		for entry in selected_buffer:
+			self.empty(entry)
+
+	def select_with_save(self, entry_type: EntryType) -> None:
+		original = self._buffer.get_data().copy()
+		selector = Modifier(self._buffer.get_data(), self._environment)
+		selector.select(entry_type)
+		self._buffer.save("selected_logs", False)
 		self._buffer.get_data().clear()
 		self._buffer.get_data().extend(original)
 

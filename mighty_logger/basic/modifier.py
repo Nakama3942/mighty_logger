@@ -18,16 +18,16 @@ limitations under the License.
 
 import re
 
+from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.basic.lib_types.sorting_key_type import SortingKeyType
 from mighty_logger.src.environments import LogEnvironments
-from mighty_logger.src.sorting_keys import SortingKeys
 
 class Modifier:
 	def __init__(
 		self,
 		entries: list[str],
-		environment: EnvironmentType = LogEnvironments.CONSOLE
+		environment: EnvironmentType
 	):
 		self.__category_order = {
 			"%": 0,
@@ -70,7 +70,7 @@ class Modifier:
 	def entries(self) -> list[str]:
 		return self.__entries
 
-	def sort(self, key: SortingKeyType = SortingKeys.SORT_ON_TYPE) -> None:
+	def sort(self, key: SortingKeyType) -> None:
 		cleared_entry = ""
 		sorting_entries = []
 		count_separators = 0
@@ -118,7 +118,7 @@ class Modifier:
 		self.__entries[2:2] = sorted_entries
 		self.__entries.append("--------------------------------------------------------------------------------")
 
-	def search(self, keyword: str, empty: bool = False):
+	def search(self, keyword: str, empty: bool = False) -> None:
 		cleared_entry = ""
 		searching_entries = []
 		count_separators = 0
@@ -158,4 +158,33 @@ class Modifier:
 
 		self.__entries.append("------------------------------Systematized entries------------------------------")
 		self.__entries.extend(searched_entries)
+		self.__entries.append("--------------------------------------------------------------------------------")
+
+	def select(self, entry_type: EntryType) -> None:
+		cleared_entry = ""
+		selected_entries = []
+		count_excess = 0
+
+		for index, entry in enumerate(self.__entries[1:]):
+			match self.__env.environment_name:
+				case LogEnvironments.CONSOLE.environment_name:
+					cleared_entry = re.sub(r"\033\[.*?m", "", entry)
+				case LogEnvironments.PLAIN_CONSOLE.environment_name:
+					cleared_entry = entry
+				case LogEnvironments.HTML.environment_name:
+					cleared_entry = re.sub(r"<.*?>", "", entry)
+				case LogEnvironments.MARKDOWN.environment_name:
+					cleared_entry = re.sub(r"<.*?>", "", entry)
+				case LogEnvironments.PLAIN.environment_name:
+					cleared_entry = entry
+			if cleared_entry.startswith("-?"):
+				parts = cleared_entry.split("*")[1].split()
+				if parts[4] == entry_type.type_name:
+					selected_entries.append(self.__entries.pop(index + 1 - len(selected_entries) - count_excess))
+					continue
+			self.__entries.pop(index + 1 - len(selected_entries) - count_excess)
+			count_excess += 1
+
+		self.__entries.append("--------------------------------Selected entries--------------------------------")
+		self.__entries.extend(selected_entries)
 		self.__entries.append("--------------------------------------------------------------------------------")
