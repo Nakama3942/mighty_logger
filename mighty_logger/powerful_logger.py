@@ -284,19 +284,12 @@ class Logger(BasicLogger):
 		background = local_background if local_background is not None else self.global_background
 		self.empty(
 			self._assemble_entry(
-				[
-					entry_type.time_color[self._environment.environment_code][background],
-					entry_type.status_color[self._environment.environment_code][background],
-					entry_type.status_message_color[self._environment.environment_code][background],
-					entry_type.type_color[self._environment.environment_code][background],
-					entry_type.message_color[self._environment.environment_code][background],
-					entry_type.background_color[self._environment.environment_code][background]
-				],
+				entry_type,
+				self._icon_set,
 				self._progress_time,
-				entry_type.icon[self._icon_set],
 				status_message.current_status_message,
-				entry_type.type_name,
 				message_text,
+				background,
 				local_settings
 			)
 		)
@@ -380,19 +373,12 @@ class Logger(BasicLogger):
 			animation_item = self._animation.animation[animation_index]
 			background = local_background if local_background is not None else self.global_background
 			self._buffer.get_data()[-1] = self._assemble_entry(
-				[
-					ServiceProcessEntryTypes.process.time_color[self._environment.environment_code][background],
-					ServiceProcessEntryTypes.process.status_color[self._environment.environment_code][background],
-					ServiceProcessEntryTypes.process.status_message_color[self._environment.environment_code][background],
-					ServiceProcessEntryTypes.process.type_color[self._environment.environment_code][background],
-					ServiceProcessEntryTypes.process.message_color[self._environment.environment_code][background],
-					ServiceProcessEntryTypes.process.background_color[self._environment.environment_code][background]
-				],
+				ServiceProcessEntryTypes.process,
+				self._icon_set,
 				animation_item,
-				ServiceProcessEntryTypes.process.icon[self._icon_set],
 				status_message.current_status_message,
-				ServiceProcessEntryTypes.process.type_name,
 				message_text,
+				background,
 				local_settings
 			)
 			animation_index = (animation_index + 1) % len(self._animation.animation)
@@ -479,19 +465,12 @@ class Logger(BasicLogger):
 				animation_item = f"{self._animation.animation[(self._progress_rise // 15) + (2 if self._progress_rise == 100 else 1)]} - {self._progress_rise} %"
 				background = local_background if local_background is not None else self.global_background
 				self._buffer.get_data()[-1] = self._assemble_entry(
-					[
-						ServiceProcessEntryTypes.process.time_color[self._environment.environment_code][background],
-						ServiceProcessEntryTypes.process.status_color[self._environment.environment_code][background],
-						ServiceProcessEntryTypes.process.status_message_color[self._environment.environment_code][background],
-						ServiceProcessEntryTypes.process.type_color[self._environment.environment_code][background],
-						ServiceProcessEntryTypes.process.message_color[self._environment.environment_code][background],
-						ServiceProcessEntryTypes.process.background_color[self._environment.environment_code][background]
-					],
+					ServiceProcessEntryTypes.process,
+					self._icon_set,
 					animation_item,
-					ServiceProcessEntryTypes.process.icon[self._icon_set],
 					status_message.current_status_message,
-					ServiceProcessEntryTypes.process.type_name,
 					message_text,
+					background,
 					local_settings
 				)
 				if self._environment.updatable:

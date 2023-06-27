@@ -88,7 +88,7 @@ class LoggerEntryTypes:
 	Can be used to log entry any information while debugging an application.
 	"""
 	debug_performance = EntryType(
-		type_name="%DEBUG PERFORMANCE",
+		type_name="%DEBUG-PERFORMANCE",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -1102,7 +1102,7 @@ class ServiceProcessEntryTypes:
 
 class ServiceTimerEntryTypes:
 	start_timer = EntryType(
-		type_name="^START TIMER",
+		type_name="^START-TIMER",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
 			("", ""),
@@ -1152,7 +1152,7 @@ class ServiceTimerEntryTypes:
 	Used to notify the start of the Timer.
 	"""
 	timer_mark = EntryType(
-		type_name="^TIMER MARK",
+		type_name="^TIMER-MARK",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -1202,7 +1202,7 @@ class ServiceTimerEntryTypes:
 	Used to notify the mark of the Timer.
 	"""
 	stop_timer = EntryType(
-		type_name="^STOP TIMER",
+		type_name="^STOP-TIMER",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")),
 			("", ""),

@@ -18,6 +18,7 @@ limitations under the License.
 
 import datetime, platform, os, random
 
+from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.basic.patterns import Singleton
 from mighty_logger.src.ansi_format import GetAnsiFormat
@@ -100,12 +101,12 @@ class BasicLogger(Singleton):
 
 	def _assemble_entry(
 		self,
-		colors: list[str, str, str, str, str, str],
+		entry_type: EntryType,
+		icon_set: int,
 		animation: str,
-		icon: str,
 		status_message_text: str,
-		message_type: str,
 		message_text: str,
+		entry_background: bool,
 		local_settings: dict
 	) -> str:
 		"""
@@ -135,38 +136,38 @@ class BasicLogger(Singleton):
 					(f"{GetAnsiFormat('bold/on')}" if bold else "") +
 					(f"{GetAnsiFormat('italic/on')}" if italic else "") +
 					(f"{GetAnsiFormat('invert/on')}" if invert else "") +
-					f"{colors[5]}" +
-					f"{colors[4]}-?entry> {animation} " +
-					(f"{colors[0]}*{datetime.datetime.now()} " if time_entry else "") +
-					f"{icon} " +
-					(f"{colors[1]}#STATUS: " if status_entry else "") +
-					(f"{colors[2]}{status_message_text} " if status_message_entry else "") +
-					(f"{colors[3]}{message_type} - " if status_type_entry else "") +
-					(f"{colors[4]}{message_text}" if message_entry else "") +
+					f"{entry_type.background_color[self._environment.environment_code][entry_background]}" +
+					f"{entry_type.message_color[self._environment.environment_code][entry_background]}-?entry> {animation} " +
+					(f"{entry_type.time_color[self._environment.environment_code][entry_background]}*{datetime.datetime.now()} " if time_entry else "") +
+					f"{entry_type.icon[icon_set]} " +
+					(f"{entry_type.status_color[self._environment.environment_code][entry_background]}#STATUS: " if status_entry else "") +
+					(f"{entry_type.status_message_color[self._environment.environment_code][entry_background]}{status_message_text} " if status_message_entry else "") +
+					(f"{entry_type.type_color[self._environment.environment_code][entry_background]}{entry_type.type_name} - " if status_type_entry else "") +
+					(f"{entry_type.message_color[self._environment.environment_code][entry_background]}{message_text}" if message_entry else "") +
 					f"{GetAnsiFormat('reset/on')}"
 				)
 			case LogEnvironments.PLAIN_CONSOLE.environment_name:
 				return (
 					f"-?entry> {animation} " +
 					(f"*{datetime.datetime.now()} " if time_entry else "") +
-					f"{icon} " +
+					f"{entry_type.icon[icon_set]} " +
 					(f"#STATUS: " if status_entry else "") +
 					(f"{status_message_text} " if status_message_entry else "") +
-					(f"{message_type} - " if status_type_entry else "") +
+					(f"{entry_type.type_name} - " if status_type_entry else "") +
 					(f"{message_text}" if message_entry else "")
 				)
 			case LogEnvironments.HTML.environment_name:
 				return (
 					(f"<b>" if bold else "") +
 					(f"<i>" if italic else "") +
-					f"<span style='background-color: #{colors[5]};'>" +
-					f"<span style='color: #{colors[4]};'>-?entry> {animation} </span>" +
-					(f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
-					f"{icon} " +
-					(f"<span style='color: #{colors[1]};'>#STATUS: </span>" if status_entry else "") +
-					(f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if status_message_entry else "") +
-					(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if status_type_entry else "") +
-					(f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if message_entry else "") +
+					f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][entry_background]};'>" +
+					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>-?entry> {animation} </span>" +
+					(f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
+					f"{entry_type.icon[icon_set]} " +
+					(f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" if status_entry else "") +
+					(f"<span style='color: #{entry_type.status_message_color[self._environment.environment_code][entry_background]};'>{status_message_text} </span>" if status_message_entry else "") +
+					(f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_name} - </span>" if status_type_entry else "") +
+					(f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" if message_entry else "") +
 					(f"</i>" if italic else "") +
 					(f"</b>" if bold else "")
 				)
@@ -174,14 +175,14 @@ class BasicLogger(Singleton):
 				return (
 						(f"<b>" if bold else "") +
 						(f"<i>" if italic else "") +
-						f"<span style='background-color: #{colors[5]};'>" +
-						f"<span style='color: #{colors[4]};'>-?entry> {animation} </span>" +
-						(f"<span style='color: #{colors[0]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
-						f"{icon} " +
-						(f"<span style='color: #{colors[1]};'>#STATUS: </span>" if status_entry else "") +
-						(f"<span style='color: #{colors[2]};'>{status_message_text} </span>" if status_message_entry else "") +
-						(f"<span style='color: #{colors[3]};'>{message_type} - </span>" if status_type_entry else "") +
-						(f"<span style='color: #{colors[4]};'>{message_text}</span></span>" if message_entry else "") +
+						f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][entry_background]};'>" +
+						f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>-?entry> {animation} </span>" +
+						(f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
+						f"{entry_type.icon[icon_set]} " +
+						(f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" if status_entry else "") +
+						(f"<span style='color: #{entry_type.status_message_color[self._environment.environment_code][entry_background]};'>{status_message_text} </span>" if status_message_entry else "") +
+						(f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_name} - </span>" if status_type_entry else "") +
+						(f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" if message_entry else "") +
 						(f"</i>" if italic else "") +
 						(f"</b>" if bold else "")
 				)
@@ -189,9 +190,9 @@ class BasicLogger(Singleton):
 				return (
 					f"-?entry> {animation} " +
 					(f"*{datetime.datetime.now()} " if time_entry else "") +
-					f"{icon} " +
+					f"{entry_type.icon[icon_set]} " +
 					(f"#STATUS: " if status_entry else "") +
 					(f"{status_message_text} " if status_message_entry else "") +
-					(f"{message_type} - " if status_type_entry else "") +
+					(f"{entry_type.type_name} - " if status_type_entry else "") +
 					(f"{message_text}" if message_entry else "")
 				)

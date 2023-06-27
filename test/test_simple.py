@@ -4,7 +4,7 @@ from mighty_logger import SimpleLogger
 from mighty_logger.src import LogEnvironments
 
 if __name__ == "__main__":
-	logger = SimpleLogger("Installer", LogEnvironments.PLAIN, 115)
+	logger = SimpleLogger("Installer", LogEnvironments.CONSOLE, 115)
 	sleep(1)
 	logger.message("Program installation started")
 	sleep(1)
@@ -20,7 +20,7 @@ if __name__ == "__main__":
 	sleep(1)
 	logger.print(data)
 	sleep(1)
-	logger.save("log", True)
+	logger.save("log", False)
 	sleep(1)
 	logger.debug("la la la")
 	sleep(1)
@@ -33,3 +33,4 @@ if __name__ == "__main__":
 	logger.debug("String has deleted")
 	sleep(1)
 	logger.print(logger.get_logger().catchy(1))
+	logger.save("log", False)
