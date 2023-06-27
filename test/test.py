@@ -1,10 +1,10 @@
 from time import sleep
 
-from mighty_logger import Logger
+from mighty_logger import MightyLogger
 from mighty_logger.src import LoggerEntryTypes, ProcessEntryTypes, LogEnvironments, IndefiniteAnimations, DefiniteAnimations, SortingKeys, SelectionTypes
 
 if __name__ == "__main__":
-	logger = Logger(program_name="Installer", log_environment=LogEnvironments.CONSOLE, console_width=115, status_message_global_entry=False)
+	logger = MightyLogger(program_name="Installer", log_environment=LogEnvironments.CONSOLE, console_width=115, status_message_global_entry=False)
 	logger.publish_author()
 
 	logger.start_timer(message_text="Timer started")

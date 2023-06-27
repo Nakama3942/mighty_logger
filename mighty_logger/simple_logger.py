@@ -19,9 +19,9 @@ limitations under the License.
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.src.entry_types import LoggerEntryTypes, ServiceProcessEntryTypes
 from mighty_logger.src.environments import LogEnvironments
-from mighty_logger import Logger
+from mighty_logger.powerful_logger import MightyLogger
 
-class SimpleLogger:
+class Logger:
 	"""
 	...
 	"""
@@ -32,11 +32,11 @@ class SimpleLogger:
 		environment: EnvironmentType = LogEnvironments.PLAIN,
 		console_width: int = 60
 	):
-		if Logger._instance is not None:
-			self.__logger = Logger._instance
+		if MightyLogger._instance is not None:
+			self.__logger = MightyLogger._instance
 			self.notice("An existing logger was taken into use")
 		else:
-			self.__logger = Logger(
+			self.__logger = MightyLogger(
 				program_name=program_name,
 				log_environment=environment,
 				console_width=console_width,
@@ -44,23 +44,23 @@ class SimpleLogger:
 				status_message_global_entry=False
 			)
 
-	def get_logger(self) -> Logger:
+	def might(self) -> MightyLogger:
 		return self.__logger
 
-	def print(self, printing_text: str) -> None:
-		self.__logger.empty(entry=printing_text)
-
-	def input(self, printing_text: str) -> str:
-		return self.__logger.getty(printing_text)
-
-	def save(self, name_file: str, clean: bool = True) -> None:
-		self.__logger.savy(name_file, clean)
-
-	def load(self, name_file: str) -> None:
-		self.__logger.loady(name_file)
-
-	def separator(self) -> None:
-		self.__logger.separator()
+	# def print(self, printing_text: str) -> None:
+	# 	self.__logger.empty(entry=printing_text)
+	#
+	# def input(self, printing_text: str) -> str:
+	# 	return self.__logger.getty(printing_text)
+	#
+	# def save(self, name_file: str, clean: bool = True) -> None:
+	# 	self.__logger.savy(name_file, clean)
+	#
+	# def load(self, name_file: str) -> None:
+	# 	self.__logger.loady(name_file)
+	#
+	# def separator(self) -> None:
+	# 	self.__logger.separator()
 
 	def debug(self, message_text: str = "...") -> None:
 		"""

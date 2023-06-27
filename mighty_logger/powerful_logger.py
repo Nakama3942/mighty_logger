@@ -37,7 +37,7 @@ from mighty_logger.src.environments import LogEnvironments
 from mighty_logger.src.sorting_keys import SortingKeys
 from mighty_logger.src.text_buffer import BasicTextBuffer, TextBuffer
 
-class Logger(BasicLogger):
+class MightyLogger(BasicLogger):
 	"""
 	The Logger class is a class that implements the functionality
 	of logging the work of software in different directions.\n
