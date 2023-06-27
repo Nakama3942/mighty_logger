@@ -118,11 +118,47 @@ class Modifier:
 		self.__entries[2:2] = sorted_entries
 		self.__entries.append("--------------------------------------------------------------------------------")
 
-	def search(self):
-		pass
+	def search(self, keyword: str):
+		cleared_entry = ""
+		searching_entries = []
+		count_separators = 0
 
-	def convert(self):
-		pass
+		for index, entry in enumerate(self.__entries[1:]):
+			match self.__env.environment_name:
+				case LogEnvironments.CONSOLE.environment_name:
+					cleared_entry = re.sub(r"\033\[.*?m", "", entry)
+				case LogEnvironments.PLAIN_CONSOLE.environment_name:
+					cleared_entry = entry
+				case LogEnvironments.HTML.environment_name:
+					cleared_entry = re.sub(r"<.*?>", "", entry)
+				case LogEnvironments.MARKDOWN.environment_name:
+					cleared_entry = re.sub(r"<.*?>", "", entry)
+				case LogEnvironments.PLAIN.environment_name:
+					cleared_entry = entry
+			if cleared_entry.startswith("--"):
+				self.__entries.pop(index + 1 - len(searching_entries) - count_separators)
+				count_separators += 1
+			elif cleared_entry.startswith("-?"):
+				parts = cleared_entry.split(" - ")
+				searching_entries.append([
+					self.__entries.pop(index + 1 - len(searching_entries) - count_separators),
+					" ".join(parts[1:])
+				])
+			else:
+				empty = self.__entries.pop(index + 1 - len(searching_entries) - count_separators)
+				searching_entries.append([empty, empty])
+
+		deleting_entries = 0
+		for index, searching_entry in enumerate(searching_entries):
+			if not keyword in searching_entry[1]:
+				searching_entries.pop(index - deleting_entries)
+				deleting_entries += 1
+
+		searched_entries = [item[0] for item in searching_entries]
+
+		self.__entries.append("------------------------------Systematized entries------------------------------")
+		self.__entries.extend(searched_entries)
+		self.__entries.append("--------------------------------------------------------------------------------")
 
 if __name__ == "__main__":
 	old_logs = [
@@ -137,6 +173,7 @@ if __name__ == "__main__":
 		"\033[38;2;176;224;230m-?entry>          \033[38;2;218;112;214m*2023-06-26 21:00:46.818626 📝 \033[38;2;175;238;238m@MESSAGE - \033[38;2;176;224;230mProgram installation started\033[0m",
 	]
 	mod = Modifier(old_logs, LogEnvironments.CONSOLE)
-	mod.sort(SortingKeys.SORT_ON_TIME)
+	# mod.sort(SortingKeys.SORT_ON_TIME)
+	mod.search("o")
 	new_logs = mod.entries
 	print("\n".join(new_logs))
