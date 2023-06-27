@@ -1,7 +1,7 @@
 from time import sleep
 
 from mighty_logger import Logger
-from mighty_logger.src import LoggerEntryTypes, ProcessEntryTypes, LogEnvironments, IndefiniteAnimations, DefiniteAnimations
+from mighty_logger.src import LoggerEntryTypes, ProcessEntryTypes, LogEnvironments, IndefiniteAnimations, DefiniteAnimations, SortingKeys
 
 if __name__ == "__main__":
 	logger = Logger(program_name="Installer", log_environment=LogEnvironments.CONSOLE, console_width=115, status_message_global_entry=False)
@@ -86,4 +86,10 @@ if __name__ == "__main__":
 	logger.stop_timer(message_text="Timer completed")
 	logger.empty(entry=data)
 
-	logger.savy("log", False)
+	# logger.savy("log", False)
+
+	logger.sort(SortingKeys.SORT_ON_TYPE)
+	# logger.sort_with_save(SortingKeys.SORT_ON_TYPE)
+	# logger.search("o", True)
+	# logger.search_with_save("o", True)
+	logger.entry(entry_type=LoggerEntryTypes.info, message_text="Logger sorted")

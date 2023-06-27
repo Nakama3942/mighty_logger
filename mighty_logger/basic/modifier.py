@@ -88,10 +88,10 @@ class Modifier:
 				case LogEnvironments.PLAIN.environment_name:
 					cleared_entry = entry
 			if cleared_entry.startswith("-?"):
-				parts = cleared_entry.split()
+				parts = cleared_entry.split("*")[1].split()
 				sorting_entries.append([
 					self.__entries.pop(index + 1 - len(sorting_entries) - count_separators),
-					" ".join(parts[1:3]),
+					" ".join(parts[0:2]),
 					parts[4][0],
 					parts[4][1:]
 				])
@@ -118,7 +118,7 @@ class Modifier:
 		self.__entries[2:2] = sorted_entries
 		self.__entries.append("--------------------------------------------------------------------------------")
 
-	def search(self, keyword: str):
+	def search(self, keyword: str, empty: bool = False):
 		cleared_entry = ""
 		searching_entries = []
 		count_separators = 0
@@ -138,42 +138,24 @@ class Modifier:
 			if cleared_entry.startswith("--"):
 				self.__entries.pop(index + 1 - len(searching_entries) - count_separators)
 				count_separators += 1
-			elif cleared_entry.startswith("-?"):
+				continue
+			if cleared_entry.startswith("-?"):
 				parts = cleared_entry.split(" - ")
 				searching_entries.append([
 					self.__entries.pop(index + 1 - len(searching_entries) - count_separators),
 					" ".join(parts[1:])
 				])
-			else:
+				continue
+			if empty:
 				empty = self.__entries.pop(index + 1 - len(searching_entries) - count_separators)
 				searching_entries.append([empty, empty])
+				continue
 
-		deleting_entries = 0
-		for index, searching_entry in enumerate(searching_entries):
-			if not keyword in searching_entry[1]:
-				searching_entries.pop(index - deleting_entries)
-				deleting_entries += 1
-
-		searched_entries = [item[0] for item in searching_entries]
+		searched_entries = []
+		for searching_entry in searching_entries:
+			if keyword in searching_entry[1]:
+				searched_entries.append(searching_entry[0])
 
 		self.__entries.append("------------------------------Systematized entries------------------------------")
 		self.__entries.extend(searched_entries)
 		self.__entries.append("--------------------------------------------------------------------------------")
-
-if __name__ == "__main__":
-	old_logs = [
-		"\033[38;2;255;215;0m-Installer?entry> $DESKTOP-8KG0R64:User:Windows:10.0.19045:64bit:WindowsPE:AMD64\033[0m",
-		"--------------------------------------------------------------------------------",
-		"Enter password: 1234",
-		"\033[38;2;139;0;0m-?entry>          \033[38;2;218;112;214m*2023-06-26 21:00:53.276473 🚫 \033[38;2;178;34;34m!!ERROR - \033[38;2;139;0;0mIncompatibility found\033[0m",
-		"\033[38;2;139;0;0m-?entry>          \033[38;2;218;112;214m*2023-06-26 21:00:54.277457 🚫 \033[38;2;178;34;34m&FAIL - \033[38;2;139;0;0mProgram not installed\033[0m",
-		"1234",
-		"\033[38;2;210;180;140m-?entry>          \033[38;2;218;112;214m*2023-06-26 21:00:59.284448 🐞 \033[38;2;222;184;135m%DEBUG - \033[38;2;210;180;140mbla bla bla\033[0m",
-		"\033[38;2;210;180;140m-?entry>          \033[38;2;218;112;214m*2023-06-26 21:01:01.287537 🐞 \033[38;2;222;184;135m%DEBUG - \033[38;2;210;180;140mString has deleted\033[0m",
-		"\033[38;2;176;224;230m-?entry>          \033[38;2;218;112;214m*2023-06-26 21:00:46.818626 📝 \033[38;2;175;238;238m@MESSAGE - \033[38;2;176;224;230mProgram installation started\033[0m",
-	]
-	mod = Modifier(old_logs, LogEnvironments.CONSOLE)
-	# mod.sort(SortingKeys.SORT_ON_TIME)
-	mod.search("o")
-	new_logs = mod.entries
-	print("\n".join(new_logs))

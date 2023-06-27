@@ -25,13 +25,16 @@ from mighty_logger.basic.lib_types.animation_type import BasicAnimationType,\
 	DefiniteAnimationType
 from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
+from mighty_logger.basic.lib_types.sorting_key_type import SortingKeyType
 from mighty_logger.basic.lib_types.status_message_type import StatusMessageType
 from mighty_logger.basic.lib_types.text_buffer_type import TextBufferType
 from mighty_logger.basic.basic_logger import BasicLogger
 from mighty_logger.basic.exceptions import ReCreationException, InitException
+from mighty_logger.basic.modifier import Modifier
 from mighty_logger.src.animation import IndefiniteAnimations, DefiniteAnimations
 from mighty_logger.src.entry_types import ServiceLogger, LoggerEntryTypes, ServiceProcessEntryTypes, ServiceTimerEntryTypes
 from mighty_logger.src.environments import LogEnvironments
+from mighty_logger.src.sorting_keys import SortingKeys
 from mighty_logger.src.text_buffer import BasicTextBuffer, TextBuffer
 
 class Logger(BasicLogger):
@@ -254,6 +257,44 @@ class Logger(BasicLogger):
 		data = self._buffer.input(input_text)
 		self._buffer.replace(-1, f"{input_text}{data}")
 		return data
+
+	# ######################################################################################## #
+	#                                                                                          #
+	#                                    Modifier of Logger                                    #
+	#                                                                                          #
+	# ######################################################################################## #
+
+	def sort(self, key: SortingKeyType = SortingKeys.SORT_ON_TYPE):
+		sorter = Modifier(self._buffer.get_data().copy(), self._environment)
+		sorter.sort(key)
+		sorted_buffer = sorter.entries
+		self.clearly()
+		for entry in sorted_buffer:
+			self.empty(entry)
+
+	def sort_with_save(self, key: SortingKeyType = SortingKeys.SORT_ON_TYPE):
+		original = self._buffer.get_data().copy()
+		sorter = Modifier(self._buffer.get_data(), self._environment)
+		sorter.sort(key)
+		self._buffer.save("sorted_logs", False)
+		self._buffer.get_data().clear()
+		self._buffer.get_data().extend(original)
+
+	def search(self, keyword: str, empty: bool = False):
+		searcher = Modifier(self._buffer.get_data().copy(), self._environment)
+		searcher.search(keyword, empty)
+		searched_buffer = searcher.entries
+		self.clearly()
+		for entry in searched_buffer:
+			self.empty(entry)
+
+	def search_with_save(self, keyword: str, empty: bool = False):
+		original = self._buffer.get_data().copy()
+		searcher = Modifier(self._buffer.get_data(), self._environment)
+		searcher.search(keyword, empty)
+		self._buffer.save("searched_logs", False)
+		self._buffer.get_data().clear()
+		self._buffer.get_data().extend(original)
 
 	# ######################################################################################## #
 	#                                                                                          #
