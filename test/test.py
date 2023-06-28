@@ -101,4 +101,4 @@ if __name__ == "__main__":
 	# logger.select_with_save(SelectionTypes.initiation)
 	logger.entry(entry_type=LoggerEntryTypes.info, message_text="Logger sorted")
 
-	logger.export_to_csv()
+	logger.export_to_csv("export_logs")

@@ -119,7 +119,7 @@ class Modifier:
 		self.__entries[2:2] = sorted_entries
 		self.__entries.append("--------------------------------------------------------------------------------")
 
-	def search(self, keyword: str, empty: bool = False) -> None:
+	def search(self, keyword: str, empty: bool) -> None:
 		cleared_entry = ""
 		searching_entries = []
 		count_separators = 0

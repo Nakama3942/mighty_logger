@@ -69,8 +69,8 @@ class Exporter:
 				csv_entry.clear()
 				continue
 
-	def save(self):
-		with open("logs.csv", "w", encoding="utf-8") as csv:
+	def save(self, file_name: str):
+		with open(f"{file_name}.csv", "w", encoding="utf-8") as csv:
 			# Write headers (first line) to file
 			headers = self.__csv[0].keys()
 			csv.write(",".join(headers) + "\n")

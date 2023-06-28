@@ -264,15 +264,15 @@ class MightyLogger(BasicLogger):
 		for entry in sorted_buffer:
 			self.empty(entry)
 
-	def sort_with_save(self, key: SortingKeyType) -> None:
+	def sort_with_save(self, key: SortingKeyType, sort_file_name: str) -> None:
 		original = self._buffer.get_data().copy()
 		sorter = Modifier(self._buffer.get_data(), self._environment)
 		sorter.sort(key)
-		self._buffer.save("sorted_logs", False)
+		self._buffer.save(sort_file_name, False)
 		self._buffer.get_data().clear()
 		self._buffer.get_data().extend(original)
 
-	def search(self, keyword: str, empty: bool = False) -> None:
+	def search(self, keyword: str, empty: bool) -> None:
 		searcher = Modifier(self._buffer.get_data().copy(), self._environment)
 		searcher.search(keyword, empty)
 		searched_buffer = searcher.entries
@@ -280,11 +280,11 @@ class MightyLogger(BasicLogger):
 		for entry in searched_buffer:
 			self.empty(entry)
 
-	def search_with_save(self, keyword: str, empty: bool = False) -> None:
+	def search_with_save(self, keyword: str, empty: bool, search_file_name: str) -> None:
 		original = self._buffer.get_data().copy()
 		searcher = Modifier(self._buffer.get_data(), self._environment)
 		searcher.search(keyword, empty)
-		self._buffer.save("searched_logs", False)
+		self._buffer.save(search_file_name, False)
 		self._buffer.get_data().clear()
 		self._buffer.get_data().extend(original)
 
@@ -296,18 +296,18 @@ class MightyLogger(BasicLogger):
 		for entry in selected_buffer:
 			self.empty(entry)
 
-	def select_with_save(self, entry_type: EntryType) -> None:
+	def select_with_save(self, entry_type: EntryType, select_file_name: str) -> None:
 		original = self._buffer.get_data().copy()
 		selector = Modifier(self._buffer.get_data(), self._environment)
 		selector.select(entry_type)
-		self._buffer.save("selected_logs", False)
+		self._buffer.save(select_file_name, False)
 		self._buffer.get_data().clear()
 		self._buffer.get_data().extend(original)
 
-	def export_to_csv(self):
+	def export_to_csv(self, export_file_name: str):
 		exporter = Exporter(self._buffer.get_data(), self._environment)
 		exporter.export_to_csv()
-		exporter.save()
+		exporter.save(export_file_name)
 
 	# ######################################################################################## #
 	#                                                                                          #
