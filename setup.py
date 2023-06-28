@@ -23,7 +23,7 @@ with open("README.md", "r", encoding='utf-8') as readme_file:
 
 setup(
     name="mighty_logger",
-    version="0.7.1",
+    version="0.7.2",
 
     author="Kalynovsky 'Nakamura Akira' Valentin",
     author_email="nakama3942@gmail.com",

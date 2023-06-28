@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .entry_types import LoggerEntryTypes, ProcessEntryTypes, SelectionTypes
+from .entry_types import LoggerEntryTypes, ProcessEntryTypes, SelectionTypes, SelectionCategories
 from .environments import LogEnvironments
 from .sorting_keys import SortingKeys
 from .status_variables import StatusMessagePatterns

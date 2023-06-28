@@ -478,7 +478,9 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 [^strange]: Why such strange names were chosen is a big story here ... Initially, each entry type represented a different method, but in the documentation, the entry was always represented by the word "entry". When the author had to add the `Logger.note_process()` method, there was a need to add lines without forming them (that is, to do a regular `print()` in the Logger, since there was already a functional in the buffer). Since it was thought that such strings would be called "empty", they began to be called "empty". Having already two methods ending in "y", other names were invented for all other Buffer wrapper methods with the main condition - the last letter "y". This was done just for fun. The native language of the author is Ukrainian.
 
-## "Buffer improvement" update v0.7.1 (28.06.2023)
+---
+
+## Modding update v0.7.1 (28.06.2023)
 
 #### Enhancements:
 - Renamed `Logger` to `MightyLogger`;
@@ -508,3 +510,15 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 	- `select_with_save()`;
 - Created a new package src.lib_types_collection and filled with modules entry_types, environments, sorting_keys, status_variables;
 - Renamed `animation` module to `animations`.
+
+---
+
+## Categories update v0.7.2 (28.06.2023)
+
+#### Enhancements:
+- Added a new property to `EntryType` - `type_category`;
+- Added a new list of entry categories `SelectionCategories` for the `Modifier.select()` method;
+- Now, depending on which list element is passed to `Modifier.select()` (`SelectionTypes` or `SelectionCategories`), this method will select entries either by types or by categories;
+- The `powerful_logger` module has been renamed to `mighty_logger`.
+
+---

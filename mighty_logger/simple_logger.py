@@ -19,7 +19,7 @@ limitations under the License.
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.src.lib_types_collection.entry_types import LoggerEntryTypes, ServiceProcessEntryTypes
 from mighty_logger.src.lib_types_collection.environments import LogEnvironments
-from mighty_logger.powerful_logger import MightyLogger
+from mighty_logger.mighty_logger import MightyLogger
 
 class Logger:
 	"""

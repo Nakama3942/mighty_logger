@@ -90,6 +90,7 @@ Any information to the output can be turned off (according to the default, every
 - [x] v0.6.1 - Animation update (added animations in processes)
 - [x] v0.7.0 - "Buffer improvement" update (buffer development completed and entry type system reworked)
 - [x] v0.7.1 - Modding update (buffer modification added - sorting, searching and selecting)
+- [x] v0.7.2 - Categories update (separated the entry category from the type)
 - [ ] v0.8.0 - Export update (added conversion to different types, such as csv, pdf, etc.)
 - [ ] v0.9.0 - Extension update (made wheel format and instruction of toml)
 - [ ] v0.9.1 - Documenting update (all updates since v0.7.0 are documented; updated old documentation; documentation site generation added)

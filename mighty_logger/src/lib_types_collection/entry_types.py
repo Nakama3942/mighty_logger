@@ -38,7 +38,8 @@ class ServiceLogger:
 
 class LoggerEntryTypes:
 	debug = EntryType(
-		type_name="%DEBUG",
+		type_category="%",
+		type_name="DEBUG",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -88,7 +89,8 @@ class LoggerEntryTypes:
 	Can be used to log entry any information while debugging an application.
 	"""
 	debug_performance = EntryType(
-		type_name="%DEBUG-PERFORMANCE",
+		type_category="%",
+		type_name="DEBUG-PERFORMANCE",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -139,7 +141,8 @@ class LoggerEntryTypes:
 	performance information while the application is being debugged.
 	"""
 	performance = EntryType(
-		type_name="%PERFORMANCE",
+		type_category="%",
+		type_name="PERFORMANCE",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -190,7 +193,8 @@ class LoggerEntryTypes:
 	other application performance information.
 	"""
 	event = EntryType(
-		type_name="~EVENT",
+		type_category="~",
+		type_name="EVENT",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -241,7 +245,8 @@ class LoggerEntryTypes:
 	such as button presses or mouse cursor movements.
 	"""
 	audit = EntryType(
-		type_name="~AUDIT",
+		type_category="~",
+		type_name="AUDIT",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -292,7 +297,8 @@ class LoggerEntryTypes:
 	deleting users, as well as changes in security settings.
 	"""
 	metrics = EntryType(
-		type_name="~METRICS",
+		type_category="~",
+		type_name="METRICS",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -342,7 +348,8 @@ class LoggerEntryTypes:
 	Can be used to log entry metrics to track application performance and identify issues.
 	"""
 	user = EntryType(
-		type_name="~USER",
+		type_category="~",
+		type_name="USER",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -393,7 +400,8 @@ class LoggerEntryTypes:
 	that may be useful for diagnosing problems.
 	"""
 	message = EntryType(
-		type_name="@MESSAGE",
+		type_category="@",
+		type_name="MESSAGE",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -443,7 +451,8 @@ class LoggerEntryTypes:
 	Can be used for the usual output of ordinary messages about the program's operation.
 	"""
 	info = EntryType(
-		type_name="@INFO",
+		type_category="@",
+		type_name="INFO",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -493,7 +502,8 @@ class LoggerEntryTypes:
 	Can be used to log entry messages with specific content about the operation of the program.
 	"""
 	notice = EntryType(
-		type_name="@NOTICE",
+		type_category="@",
+		type_name="NOTICE",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -543,7 +553,8 @@ class LoggerEntryTypes:
 	Can be used to flag important events that might be missed with a normal logging level.
 	"""
 	warning = EntryType(
-		type_name="!WARNING",
+		type_category="!",
+		type_name="WARNING",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -593,7 +604,8 @@ class LoggerEntryTypes:
 	Can be used to log entry warnings that the program may work with unpredictable results.
 	"""
 	error = EntryType(
-		type_name="!!ERROR",
+		type_category="!",
+		type_name="!ERROR",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('PLUM', "foreground")),
 			("", ""),
@@ -643,7 +655,8 @@ class LoggerEntryTypes:
 	Used to log entry errors and crashes in the program.
 	"""
 	critical = EntryType(
-		type_name="!!!@CRITICAL",
+		type_category="!",
+		type_name="!!@CRITICAL",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('PLUM', "foreground")),
 			("", ""),
@@ -693,7 +706,8 @@ class LoggerEntryTypes:
 	Used to log entry for critical and unpredictable program failures.
 	"""
 	resolved = EntryType(
-		type_name="!RESOLVED",
+		type_category="!",
+		type_name="RESOLVED",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
 			("", ""),
@@ -745,7 +759,8 @@ class LoggerEntryTypes:
 	Since v0.6.0
 	"""
 	unresolved = EntryType(
-		type_name="!UNRESOLVED",
+		type_category="!",
+		type_name="UNRESOLVED",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
 			("", ""),
@@ -799,7 +814,8 @@ class LoggerEntryTypes:
 
 class ProcessEntryTypes:
 	achievement = EntryType(
-		type_name="&ACHIEVEMENT",
+		type_category="&",
+		type_name="ACHIEVEMENT",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -849,7 +865,8 @@ class ProcessEntryTypes:
 	Used to log entry the achievements gained while executing a process.
 	"""
 	milestone = EntryType(
-		type_name="&MILESTONE",
+		type_category="&",
+		type_name="MILESTONE",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
 			("", ""),
@@ -901,7 +918,8 @@ class ProcessEntryTypes:
 
 class ServiceProcessEntryTypes:
 	initiation = EntryType(
-		type_name="&INITIATION",
+		type_category="&",
+		type_name="INITIATION",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
 			("", ""),
@@ -951,7 +969,8 @@ class ServiceProcessEntryTypes:
 	Used to explain the running process.
 	"""
 	process = EntryType(
-		type_name="&PROGRESS",
+		type_category="&",
+		type_name="PROGRESS",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")),
 			("", ""),
@@ -1000,7 +1019,8 @@ class ServiceProcessEntryTypes:
 	...
 	"""
 	success = EntryType(
-		type_name="&SUCCESS",
+		type_category="&",
+		type_name="SUCCESS",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
 			("", ""),
@@ -1050,7 +1070,8 @@ class ServiceProcessEntryTypes:
 	Used to log entry a message about the success of the process.
 	"""
 	fail = EntryType(
-		type_name="&FAIL",
+		type_category="&",
+		type_name="FAIL",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
 			("", ""),
@@ -1102,7 +1123,8 @@ class ServiceProcessEntryTypes:
 
 class ServiceTimerEntryTypes:
 	start_timer = EntryType(
-		type_name="^START-TIMER",
+		type_category="^",
+		type_name="START-TIMER",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
 			("", ""),
@@ -1152,7 +1174,8 @@ class ServiceTimerEntryTypes:
 	Used to notify the start of the Timer.
 	"""
 	timer_mark = EntryType(
-		type_name="^TIMER-MARK",
+		type_category="^",
+		type_name="TIMER-MARK",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
 			("", ""),
@@ -1202,7 +1225,8 @@ class ServiceTimerEntryTypes:
 	Used to notify the mark of the Timer.
 	"""
 	stop_timer = EntryType(
-		type_name="^STOP-TIMER",
+		type_category="^",
+		type_name="STOP-TIMER",
 		time_color=(
 			(AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")),
 			("", ""),
@@ -1253,27 +1277,35 @@ class ServiceTimerEntryTypes:
 	"""
 
 class SelectionTypes:
-	debug = EntryType(type_name="%DEBUG")
-	debug_performance = EntryType(type_name="%DEBUG-PERFORMANCE")
-	performance = EntryType(type_name="%PERFORMANCE")
-	event = EntryType(type_name="~EVENT")
-	audit = EntryType(type_name="~AUDIT")
-	metrics = EntryType(type_name="~METRICS")
-	user = EntryType(type_name="~USER")
-	message = EntryType(type_name="@MESSAGE")
-	info = EntryType(type_name="@INFO")
-	notice = EntryType(type_name="@NOTICE")
-	warning = EntryType(type_name="!WARNING")
-	error = EntryType(type_name="!!ERROR")
-	critical = EntryType(type_name="!!!@CRITICAL")
-	resolved = EntryType(type_name="!RESOLVED")
-	unresolved = EntryType(type_name="!UNRESOLVED")
-	achievement = EntryType(type_name="&ACHIEVEMENT")
-	milestone = EntryType(type_name="&MILESTONE")
-	initiation = EntryType(type_name="&INITIATION")
-	process = EntryType(type_name="&PROGRESS")
-	success = EntryType(type_name="&SUCCESS")
-	fail = EntryType(type_name="&FAIL")
-	start_timer = EntryType(type_name="^START-TIMER")
-	timer_mark = EntryType(type_name="^TIMER-MARK")
-	stop_timer = EntryType(type_name="^STOP-TIMER")
+	debug = EntryType(type_category="", type_name="DEBUG")
+	debug_performance = EntryType(type_category="", type_name="DEBUG-PERFORMANCE")
+	performance = EntryType(type_category="", type_name="PERFORMANCE")
+	event = EntryType(type_category="", type_name="EVENT")
+	audit = EntryType(type_category="", type_name="AUDIT")
+	metrics = EntryType(type_category="", type_name="METRICS")
+	user = EntryType(type_category="", type_name="USER")
+	message = EntryType(type_category="", type_name="MESSAGE")
+	info = EntryType(type_category="", type_name="INFO")
+	notice = EntryType(type_category="", type_name="NOTICE")
+	warning = EntryType(type_category="", type_name="WARNING")
+	error = EntryType(type_category="", type_name="!ERROR")
+	critical = EntryType(type_category="", type_name="!!@CRITICAL")
+	resolved = EntryType(type_category="", type_name="RESOLVED")
+	unresolved = EntryType(type_category="", type_name="UNRESOLVED")
+	achievement = EntryType(type_category="", type_name="ACHIEVEMENT")
+	milestone = EntryType(type_category="", type_name="MILESTONE")
+	initiation = EntryType(type_category="", type_name="INITIATION")
+	process = EntryType(type_category="", type_name="PROGRESS")
+	success = EntryType(type_category="", type_name="SUCCESS")
+	fail = EntryType(type_category="", type_name="FAIL")
+	start_timer = EntryType(type_category="", type_name="START-TIMER")
+	timer_mark = EntryType(type_category="", type_name="TIMER-MARK")
+	stop_timer = EntryType(type_category="", type_name="STOP-TIMER")
+
+class SelectionCategories:
+	debug = EntryType(type_category="%", type_name="")
+	event = EntryType(type_category="~", type_name="")
+	message = EntryType(type_category="@", type_name="")
+	error = EntryType(type_category="!", type_name="")
+	process = EntryType(type_category="&", type_name="")
+	timer = EntryType(type_category="^", type_name="")

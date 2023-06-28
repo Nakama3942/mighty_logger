@@ -17,33 +17,33 @@ ATTENTION!!! OUTDATED MATERIAL! RELEVANCE - v0.6.1! WILL BE OVERWRITTEN IN v0.9.
 - No category
 	- empty (v0.6.0)
 - Logger:
-	- Debugging (%)
+	- debug (%)
 		- debug
 		- debug_performance
 		- performance
-	- Event (~)
+	- event (~)
 		- event
 		- audit
 		- metrics
 		- user
-	- Message (@)
+	- message (@)
 		- message
 		- info
 		- notice
-	- Error (!)
+	- error (!)
 		- warning
 		- error
 		- critical
 		- resolved (v0.6.0)
 		- unresolved (v0.6.0)
-- Process (&)
+- process (&)
 	- initiation (v0.6.0)
 	- process (v0.6.0)
 	- achievement (v0.6.0)
 	- milestone (v0.6.0)
 	- success
 	- fail
-- Timer (^)
+- timer (^)
 	- start_timer (v0.6.1)
 	- timer_mark (v0.6.1)
 	- stop_timer (v0.6.1)

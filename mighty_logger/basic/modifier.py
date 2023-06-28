@@ -180,9 +180,14 @@ class Modifier:
 					cleared_entry = entry
 			if cleared_entry.startswith("-?"):
 				parts = cleared_entry.split("*")[1].split()
-				if parts[4] == entry_type.type_name:
-					selected_entries.append(self.__entries.pop(index + 1 - len(selected_entries) - count_excess))
-					continue
+				if entry_type.type_category == "":
+					if parts[4][1:] == entry_type.type_name:
+						selected_entries.append(self.__entries.pop(index + 1 - len(selected_entries) - count_excess))
+						continue
+				else:
+					if parts[4][0] == entry_type.type_category:
+						selected_entries.append(self.__entries.pop(index + 1 - len(selected_entries) - count_excess))
+						continue
 			self.__entries.pop(index + 1 - len(selected_entries) - count_excess)
 			count_excess += 1
 

@@ -142,7 +142,7 @@ class BasicLogger(Singleton):
 					f"{entry_type.icon[icon_set]} " +
 					(f"{entry_type.status_color[self._environment.environment_code][entry_background]}#STATUS: " if status_entry else "") +
 					(f"{entry_type.status_message_color[self._environment.environment_code][entry_background]}{status_message_text} " if status_message_entry else "") +
-					(f"{entry_type.type_color[self._environment.environment_code][entry_background]}{entry_type.type_name} - " if status_type_entry else "") +
+					(f"{entry_type.type_color[self._environment.environment_code][entry_background]}{entry_type.type_category}{entry_type.type_name} - " if status_type_entry else "") +
 					(f"{entry_type.message_color[self._environment.environment_code][entry_background]}{message_text}" if message_entry else "") +
 					f"{GetAnsiFormat('reset/on')}"
 				)
@@ -153,7 +153,7 @@ class BasicLogger(Singleton):
 					f"{entry_type.icon[icon_set]} " +
 					(f"#STATUS: " if status_entry else "") +
 					(f"{status_message_text} " if status_message_entry else "") +
-					(f"{entry_type.type_name} - " if status_type_entry else "") +
+					(f"{entry_type.type_category}{entry_type.type_name} - " if status_type_entry else "") +
 					(f"{message_text}" if message_entry else "")
 				)
 			case LogEnvironments.HTML.environment_name:
@@ -166,7 +166,7 @@ class BasicLogger(Singleton):
 					f"{entry_type.icon[icon_set]} " +
 					(f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" if status_entry else "") +
 					(f"<span style='color: #{entry_type.status_message_color[self._environment.environment_code][entry_background]};'>{status_message_text} </span>" if status_message_entry else "") +
-					(f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_name} - </span>" if status_type_entry else "") +
+					(f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" if status_type_entry else "") +
 					(f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" if message_entry else "") +
 					(f"</i>" if italic else "") +
 					(f"</b>" if bold else "")
@@ -181,7 +181,7 @@ class BasicLogger(Singleton):
 						f"{entry_type.icon[icon_set]} " +
 						(f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" if status_entry else "") +
 						(f"<span style='color: #{entry_type.status_message_color[self._environment.environment_code][entry_background]};'>{status_message_text} </span>" if status_message_entry else "") +
-						(f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_name} - </span>" if status_type_entry else "") +
+						(f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" if status_type_entry else "") +
 						(f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" if message_entry else "") +
 						(f"</i>" if italic else "") +
 						(f"</b>" if bold else "")
@@ -193,6 +193,6 @@ class BasicLogger(Singleton):
 					f"{entry_type.icon[icon_set]} " +
 					(f"#STATUS: " if status_entry else "") +
 					(f"{status_message_text} " if status_message_entry else "") +
-					(f"{entry_type.type_name} - " if status_type_entry else "") +
+					(f"{entry_type.type_category}{entry_type.type_name} - " if status_type_entry else "") +
 					(f"{message_text}" if message_entry else "")
 				)

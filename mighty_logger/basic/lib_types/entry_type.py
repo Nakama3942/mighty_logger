@@ -20,6 +20,7 @@ class EntryType:
 	def __init__(
 		self,
 		*,
+		type_category: str,
 		type_name: str,
 		time_color: tuple = (),
 		status_color: tuple = (),
@@ -29,6 +30,7 @@ class EntryType:
 		background_color: tuple = (),
 		icon: tuple = ()
 	) -> None:
+		self.__type_category: str = type_category
 		self.__type_name: str = type_name
 		self.__time_color: tuple = time_color
 		self.__status_color: tuple = status_color
@@ -37,6 +39,10 @@ class EntryType:
 		self.__message_color: tuple = message_color
 		self.__background_color: tuple = background_color
 		self.__icon: tuple = icon
+
+	@property
+	def type_category(self) -> str:
+		return self.__type_category
 
 	@property
 	def type_name(self) -> str:
