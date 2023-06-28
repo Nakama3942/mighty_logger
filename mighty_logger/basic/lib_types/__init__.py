@@ -20,5 +20,4 @@ from .animation_type import IndefiniteAnimationType, DefiniteAnimationType
 from .entry_type import EntryType
 from .environment_type import EnvironmentType
 from .sorting_key_type import SortingKeyType
-from .status_message_type import StatusMessageType
 from .text_buffer_type import TextBufferType

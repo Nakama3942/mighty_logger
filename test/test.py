@@ -9,7 +9,7 @@ from mighty_logger.src.lib_types_collection import LoggerEntryTypes,\
 from mighty_logger.src import IndefiniteAnimations, DefiniteAnimations
 
 if __name__ == "__main__":
-	logger = MightyLogger(program_name="Installer", log_environment=LogEnvironments.CONSOLE, console_width=115, status_message_global_entry=False)
+	logger = MightyLogger(program_name="Installer", log_environment=LogEnvironments.CONSOLE, console_width=115)
 	logger.publish_author()
 
 	logger.start_timer(message_text="Timer started")
@@ -100,3 +100,5 @@ if __name__ == "__main__":
 	# logger.select(SelectionTypes.initiation)
 	# logger.select_with_save(SelectionTypes.initiation)
 	logger.entry(entry_type=LoggerEntryTypes.info, message_text="Logger sorted")
+
+	logger.export_to_csv()

@@ -104,7 +104,6 @@ class BasicLogger(Singleton):
 		entry_type: EntryType,
 		icon_set: int,
 		animation: str,
-		status_message_text: str,
 		message_text: str,
 		entry_background: bool,
 		local_settings: dict
@@ -124,11 +123,6 @@ class BasicLogger(Singleton):
 		bold = local_settings['bold'] if 'bold' in local_settings else self._settings['global_bold_font']
 		italic = local_settings['italic'] if 'italic' in local_settings else self._settings['global_italic_font']
 		invert = local_settings['invert'] if 'invert' in local_settings else self._settings['global_invert_font']
-		time_entry = local_settings['time_local_entry'] if 'time_local_entry' in local_settings else self._settings['time_global_entry']
-		status_entry = local_settings['status_local_entry'] if 'status_local_entry' in local_settings else self._settings['status_global_entry']
-		status_message_entry = local_settings['status_message_local_entry'] if 'status_message_local_entry' in local_settings else self._settings['status_message_global_entry']
-		status_type_entry = local_settings['status_type_local_entry'] if 'status_type_local_entry' in local_settings else self._settings['status_type_global_entry']
-		message_entry = local_settings['message_local_entry'] if 'message_local_entry' in local_settings else self._settings['message_global_entry']
 
 		match self._environment.environment_name:
 			case LogEnvironments.CONSOLE.environment_name:
@@ -138,23 +132,21 @@ class BasicLogger(Singleton):
 					(f"{GetAnsiFormat('invert/on')}" if invert else "") +
 					f"{entry_type.background_color[self._environment.environment_code][entry_background]}" +
 					f"{entry_type.message_color[self._environment.environment_code][entry_background]}-?entry> {animation} " +
-					(f"{entry_type.time_color[self._environment.environment_code][entry_background]}*{datetime.datetime.now()} " if time_entry else "") +
+					f"{entry_type.time_color[self._environment.environment_code][entry_background]}*{datetime.datetime.now()} " +
 					f"{entry_type.icon[icon_set]} " +
-					(f"{entry_type.status_color[self._environment.environment_code][entry_background]}#STATUS: " if status_entry else "") +
-					(f"{entry_type.status_message_color[self._environment.environment_code][entry_background]}{status_message_text} " if status_message_entry else "") +
-					(f"{entry_type.type_color[self._environment.environment_code][entry_background]}{entry_type.type_category}{entry_type.type_name} - " if status_type_entry else "") +
-					(f"{entry_type.message_color[self._environment.environment_code][entry_background]}{message_text}" if message_entry else "") +
+					f"{entry_type.status_color[self._environment.environment_code][entry_background]}#STATUS: " +
+					f"{entry_type.type_color[self._environment.environment_code][entry_background]}{entry_type.type_category}{entry_type.type_name} - " +
+					f"{entry_type.message_color[self._environment.environment_code][entry_background]}{message_text}" +
 					f"{GetAnsiFormat('reset/on')}"
 				)
 			case LogEnvironments.PLAIN_CONSOLE.environment_name:
 				return (
 					f"-?entry> {animation} " +
-					(f"*{datetime.datetime.now()} " if time_entry else "") +
+					f"*{datetime.datetime.now()} " +
 					f"{entry_type.icon[icon_set]} " +
-					(f"#STATUS: " if status_entry else "") +
-					(f"{status_message_text} " if status_message_entry else "") +
-					(f"{entry_type.type_category}{entry_type.type_name} - " if status_type_entry else "") +
-					(f"{message_text}" if message_entry else "")
+					f"#STATUS: " +
+					f"{entry_type.type_category}{entry_type.type_name} - " +
+					f"{message_text}"
 				)
 			case LogEnvironments.HTML.environment_name:
 				return (
@@ -162,12 +154,11 @@ class BasicLogger(Singleton):
 					(f"<i>" if italic else "") +
 					f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][entry_background]};'>" +
 					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>-?entry> {animation} </span>" +
-					(f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
+					f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.datetime.now()} </span>" +
 					f"{entry_type.icon[icon_set]} " +
-					(f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" if status_entry else "") +
-					(f"<span style='color: #{entry_type.status_message_color[self._environment.environment_code][entry_background]};'>{status_message_text} </span>" if status_message_entry else "") +
-					(f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" if status_type_entry else "") +
-					(f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" if message_entry else "") +
+					f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" +
+					f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" +
+					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" +
 					(f"</i>" if italic else "") +
 					(f"</b>" if bold else "")
 				)
@@ -177,22 +168,20 @@ class BasicLogger(Singleton):
 						(f"<i>" if italic else "") +
 						f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][entry_background]};'>" +
 						f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>-?entry> {animation} </span>" +
-						(f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.datetime.now()} </span>" if time_entry else "") +
+						f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.datetime.now()} </span>" +
 						f"{entry_type.icon[icon_set]} " +
-						(f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" if status_entry else "") +
-						(f"<span style='color: #{entry_type.status_message_color[self._environment.environment_code][entry_background]};'>{status_message_text} </span>" if status_message_entry else "") +
-						(f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" if status_type_entry else "") +
-						(f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" if message_entry else "") +
+						f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" +
+						f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" +
+						f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" +
 						(f"</i>" if italic else "") +
 						(f"</b>" if bold else "")
 				)
 			case LogEnvironments.PLAIN.environment_name:
 				return (
 					f"-?entry> {animation} " +
-					(f"*{datetime.datetime.now()} " if time_entry else "") +
+					f"*{datetime.datetime.now()} " +
 					f"{entry_type.icon[icon_set]} " +
-					(f"#STATUS: " if status_entry else "") +
-					(f"{status_message_text} " if status_message_entry else "") +
-					(f"{entry_type.type_category}{entry_type.type_name} - " if status_type_entry else "") +
-					(f"{message_text}" if message_entry else "")
+					f"#STATUS: " if status_entry else "" +
+					f"{entry_type.type_category}{entry_type.type_name} - " +
+					f"{message_text}"
 				)

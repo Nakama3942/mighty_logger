@@ -26,10 +26,10 @@ from mighty_logger.basic.lib_types.animation_type import BasicAnimationType,\
 from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.basic.lib_types.sorting_key_type import SortingKeyType
-from mighty_logger.basic.lib_types.status_message_type import StatusMessageType
 from mighty_logger.basic.lib_types.text_buffer_type import TextBufferType
 from mighty_logger.basic.basic_logger import BasicLogger
 from mighty_logger.basic.exceptions import ReCreationException, InitException
+from mighty_logger.basic.exporter import Exporter
 from mighty_logger.basic.modifier import Modifier
 from mighty_logger.src.lib_types_collection.entry_types import ServiceLogger,\
 	LoggerEntryTypes,\
@@ -63,11 +63,6 @@ class MightyLogger(BasicLogger):
 		log_environment: EnvironmentType = LogEnvironments.PLAIN,
 		console_width: int = 60,
 		icon_set: int = 1,
-		time_global_entry: bool = True,
-		status_global_entry: bool = True,
-		status_message_global_entry: bool = True,
-		status_type_global_entry: bool = True,
-		message_global_entry: bool = True,
 		global_bold_font: bool = False,
 		global_italic_font: bool = False,
 		global_invert_font: bool = False,
@@ -80,11 +75,6 @@ class MightyLogger(BasicLogger):
 			self._settings["global_bold_font"] = global_bold_font
 			self._settings["global_italic_font"] = global_italic_font
 			self._settings["global_invert_font"] = global_invert_font
-			self._settings["time_global_entry"] = time_global_entry
-			self._settings["status_global_entry"] = status_global_entry
-			self._settings["status_message_global_entry"] = status_message_global_entry
-			self._settings["status_type_global_entry"] = status_type_global_entry
-			self._settings["message_global_entry"] = message_global_entry
 			self._progress_rise = 0
 			self._progress_start: datetime | None = None
 			self._progress_time: str = "        "
@@ -113,7 +103,6 @@ class MightyLogger(BasicLogger):
 				self.entry(
 					entry_type=LoggerEntryTypes.notice,
 					message_text="An existing buffer was taken into use",
-					status_message=StatusMessageType("Note"),
 					local_settings={"italic": True} if buffer_class == TextBuffer else None
 				)
 			else:
@@ -315,6 +304,11 @@ class MightyLogger(BasicLogger):
 		self._buffer.get_data().clear()
 		self._buffer.get_data().extend(original)
 
+	def export_to_csv(self):
+		exporter = Exporter(self._buffer.get_data(), self._environment)
+		exporter.export_to_csv()
+		exporter.save()
+
 	# ######################################################################################## #
 	#                                                                                          #
 	#                                    Entering to Logger                                    #
@@ -325,7 +319,6 @@ class MightyLogger(BasicLogger):
 		self,
 		*,
 		entry_type: EntryType,
-		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
@@ -334,7 +327,6 @@ class MightyLogger(BasicLogger):
 		...
 
 		:param entry_type:
-		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local entering settings
@@ -347,7 +339,6 @@ class MightyLogger(BasicLogger):
 				entry_type,
 				self._icon_set,
 				self._progress_time,
-				status_message.current_status_message,
 				message_text,
 				background,
 				local_settings
@@ -364,7 +355,6 @@ class MightyLogger(BasicLogger):
 		self,
 		*,
 		animation: IndefiniteAnimationType = IndefiniteAnimations.Line,
-		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
@@ -379,7 +369,6 @@ class MightyLogger(BasicLogger):
 		Since v0.6.0
 
 		:param animation: The name of the animation that will play in the Progress entry
-		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local entering settings
@@ -390,8 +379,6 @@ class MightyLogger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		args = {}
-		if status_message != StatusMessageType("..."):
-			args['status_message'] = status_message
 		if message_text != "...":
 			args['message_text'] = message_text
 		if local_background is not None:
@@ -406,7 +393,6 @@ class MightyLogger(BasicLogger):
 	def _indefinite_progress(
 		self,
 		*,
-		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
@@ -418,7 +404,6 @@ class MightyLogger(BasicLogger):
 		\n
 		Since v0.6.0
 
-		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local entering settings
@@ -436,7 +421,6 @@ class MightyLogger(BasicLogger):
 				ServiceProcessEntryTypes.process,
 				self._icon_set,
 				animation_item,
-				status_message.current_status_message,
 				message_text,
 				background,
 				local_settings
@@ -452,7 +436,6 @@ class MightyLogger(BasicLogger):
 		self,
 		*,
 		progress_bar: DefiniteAnimationType = DefiniteAnimations.Line,
-		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
@@ -467,7 +450,6 @@ class MightyLogger(BasicLogger):
 		Since v0.6.0
 
 		:param progress_bar: The name of the progress bar that will play in the Progress entry
-		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local entering settings
@@ -478,8 +460,6 @@ class MightyLogger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		args = {}
-		if status_message != StatusMessageType("..."):
-			args['status_message'] = status_message
 		if message_text != "...":
 			args['message_text'] = message_text
 		if local_background is not None:
@@ -494,7 +474,6 @@ class MightyLogger(BasicLogger):
 	def _definite_progress(
 		self,
 		*,
-		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
@@ -506,7 +485,6 @@ class MightyLogger(BasicLogger):
 		\n
 		Since v0.6.0
 
-		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local entering settings
@@ -528,7 +506,6 @@ class MightyLogger(BasicLogger):
 					ServiceProcessEntryTypes.process,
 					self._icon_set,
 					animation_item,
-					status_message.current_status_message,
 					message_text,
 					background,
 					local_settings
@@ -556,7 +533,6 @@ class MightyLogger(BasicLogger):
 		self,
 		*,
 		entry_type: EntryType,
-		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
@@ -574,7 +550,6 @@ class MightyLogger(BasicLogger):
 		Since v0.6.0
 
 		:param entry_type: The type of entry to be entered in the progress history
-		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local entering settings
@@ -585,8 +560,6 @@ class MightyLogger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		args = {}
-		if status_message != StatusMessageType("..."):
-			args['status_message'] = status_message
 		if message_text != "...":
 			args['message_text'] = message_text
 		if local_background is not None:
@@ -600,7 +573,6 @@ class MightyLogger(BasicLogger):
 	def stop_process(
 		self,
 		*,
-		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
@@ -613,7 +585,6 @@ class MightyLogger(BasicLogger):
 		\n
 		Since v0.6.0
 
-		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local entering settings
@@ -625,8 +596,6 @@ class MightyLogger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		args = {}
-		if status_message != StatusMessageType("..."):
-			args['status_message'] = status_message
 		if message_text != "...":
 			args['message_text'] = message_text
 		if local_background is not None:
@@ -652,7 +621,6 @@ class MightyLogger(BasicLogger):
 	def start_timer(
 		self,
 		*,
-		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
@@ -660,7 +628,6 @@ class MightyLogger(BasicLogger):
 		"""
 		...
 
-		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local entering settings
@@ -670,8 +637,6 @@ class MightyLogger(BasicLogger):
 		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
 
 		args = {}
-		if status_message != StatusMessageType("..."):
-			args['status_message'] = status_message
 		if message_text != "...":
 			args['message_text'] = message_text
 		if local_background is not None:
@@ -685,7 +650,6 @@ class MightyLogger(BasicLogger):
 	def timer_mark(
 		self,
 		*,
-		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
@@ -693,7 +657,6 @@ class MightyLogger(BasicLogger):
 		"""
 		...
 
-		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local entering settings
@@ -702,8 +665,6 @@ class MightyLogger(BasicLogger):
 		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
 
 		args = {}
-		if status_message != StatusMessageType("..."):
-			args['status_message'] = status_message
 		if message_text != "...":
 			args['message_text'] = message_text
 		if local_background is not None:
@@ -717,7 +678,6 @@ class MightyLogger(BasicLogger):
 	def stop_timer(
 		self,
 		*,
-		status_message: StatusMessageType = StatusMessageType("..."),
 		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
@@ -725,7 +685,6 @@ class MightyLogger(BasicLogger):
 		"""
 		...
 
-		:param status_message: Log entry status message
 		:param message_text: Log entry message
 		:param local_background: Display entry with background?
 		:param local_settings: Dictionary of local entering settings
@@ -734,8 +693,6 @@ class MightyLogger(BasicLogger):
 		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
 
 		args = {}
-		if status_message != StatusMessageType("..."):
-			args['status_message'] = status_message
 		if message_text != "...":
 			args['message_text'] = message_text
 		if local_background is not None:

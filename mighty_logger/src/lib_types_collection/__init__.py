@@ -19,4 +19,3 @@ limitations under the License.
 from .entry_types import LoggerEntryTypes, ProcessEntryTypes, SelectionTypes, SelectionCategories
 from .environments import LogEnvironments
 from .sorting_keys import SortingKeys
-from .status_variables import StatusMessagePatterns
