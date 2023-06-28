@@ -1,7 +1,12 @@
 from time import sleep
 
 from mighty_logger import MightyLogger
-from mighty_logger.src import LoggerEntryTypes, ProcessEntryTypes, LogEnvironments, IndefiniteAnimations, DefiniteAnimations, SortingKeys, SelectionTypes
+from mighty_logger.src.lib_types_collection import LoggerEntryTypes,\
+	ProcessEntryTypes,\
+	LogEnvironments,\
+	SortingKeys,\
+	SelectionTypes
+from mighty_logger.src import IndefiniteAnimations, DefiniteAnimations
 
 if __name__ == "__main__":
 	logger = MightyLogger(program_name="Installer", log_environment=LogEnvironments.CONSOLE, console_width=115, status_message_global_entry=False)

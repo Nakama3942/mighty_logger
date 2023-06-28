@@ -31,10 +31,13 @@ from mighty_logger.basic.lib_types.text_buffer_type import TextBufferType
 from mighty_logger.basic.basic_logger import BasicLogger
 from mighty_logger.basic.exceptions import ReCreationException, InitException
 from mighty_logger.basic.modifier import Modifier
-from mighty_logger.src.animation import IndefiniteAnimations, DefiniteAnimations
-from mighty_logger.src.entry_types import ServiceLogger, LoggerEntryTypes, ServiceProcessEntryTypes, ServiceTimerEntryTypes
-from mighty_logger.src.environments import LogEnvironments
-from mighty_logger.src.sorting_keys import SortingKeys
+from mighty_logger.src.lib_types_collection.entry_types import ServiceLogger,\
+	LoggerEntryTypes,\
+	ServiceProcessEntryTypes,\
+	ServiceTimerEntryTypes
+from mighty_logger.src.lib_types_collection.environments import LogEnvironments
+from mighty_logger.src.lib_types_collection.sorting_keys import SortingKeys
+from mighty_logger.src.animations import IndefiniteAnimations, DefiniteAnimations
 from mighty_logger.src.text_buffer import BasicTextBuffer, TextBuffer
 
 class MightyLogger(BasicLogger):

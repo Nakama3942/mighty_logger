@@ -21,8 +21,8 @@ import datetime, platform, os, random
 from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.basic.patterns import Singleton
+from mighty_logger.src.lib_types_collection.environments import LogEnvironments
 from mighty_logger.src.ansi_format import GetAnsiFormat
-from mighty_logger.src.environments import LogEnvironments
 
 class BasicLogger(Singleton):
 	def __init__(

@@ -23,7 +23,7 @@ with open("README.md", "r", encoding='utf-8') as readme_file:
 
 setup(
     name="mighty_logger",
-    version="0.7.0",
+    version="0.7.1",
 
     author="Kalynovsky 'Nakamura Akira' Valentin",
     author_email="nakama3942@gmail.com",
@@ -39,6 +39,7 @@ setup(
     packages=[
         'mighty_logger',
         'mighty_logger.src',
+        'mighty_logger.src.lib_types_collection',
         'mighty_logger.basic',
         'mighty_logger.basic.lib_types'
     ],

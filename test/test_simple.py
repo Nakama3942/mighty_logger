@@ -1,7 +1,7 @@
 from time import sleep
 
 from mighty_logger import Logger
-from mighty_logger.src import LogEnvironments
+from mighty_logger.src.lib_types_collection import LogEnvironments
 
 if __name__ == "__main__":
 	logger = Logger("Installer", LogEnvironments.CONSOLE, 115)
