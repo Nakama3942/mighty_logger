@@ -477,3 +477,34 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - Optimized buffer initialization.
 
 [^strange]: Why such strange names were chosen is a big story here ... Initially, each entry type represented a different method, but in the documentation, the entry was always represented by the word "entry". When the author had to add the `Logger.note_process()` method, there was a need to add lines without forming them (that is, to do a regular `print()` in the Logger, since there was already a functional in the buffer). Since it was thought that such strings would be called "empty", they began to be called "empty". Having already two methods ending in "y", other names were invented for all other Buffer wrapper methods with the main condition - the last letter "y". This was done just for fun. The native language of the author is Ukrainian.
+
+## "Buffer improvement" update v0.7.1 (28.06.2023)
+
+#### Enhancements:
+- Renamed `Logger` to `MightyLogger`;
+- Renamed `SimpleLogger` to `Logger`;
+- Renamed `Logger.get_logger()` to `Logger.might()`;
+- Removed methods:
+	- `Logger.print()`;
+	- `Logger.input()`;
+	- `Logger.save()`;
+	- `Logger.load()`;
+	- `Logger.separator()`;
+- Added a new `Modifier` class with:
+	- the `sort()` method for sorting logs by key;
+	- the `search()` method to search for logs that contain a given string in the message;
+	- the `select()` method for selecting logs by type;
+	- the `entries` property, which returns a list;
+- Added a new type `SortingKeyType`;
+- Added a new list of keys `SortingKeys` for the `Modifier.sort()` method;
+- Added a new list of entry types `SelectionTypes` for the `Modifier.select()` method;
+- Reworked the signature of the `BasicLogger._assemble_entry()` method;
+- Added methods to `MightyLogger` that make it easier and more automated to work with the new `Modifier` class:
+	- `sort()`;
+	- `sort_with_save()`;
+	- `search()`;
+	- `search_with_save()`;
+	- `select()`;
+	- `select_with_save()`;
+- Created a new package src.lib_types_collection and filled with modules entry_types, environments, sorting_keys, status_variables;
+- Renamed `animation` module to `animations`.

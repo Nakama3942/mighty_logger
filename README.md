@@ -89,7 +89,7 @@ Any information to the output can be turned off (according to the default, every
 - [x] v0.6.0 - Progress update (added start of some log entries in threads (process))
 - [x] v0.6.1 - Animation update (added animations in processes)
 - [x] v0.7.0 - "Buffer improvement" update (buffer development completed and entry type system reworked)
-- [ ] v0.7.1 - Search update (added search by log entry types)
+- [x] v0.7.1 - Modding update (buffer modification added - sorting, searching and selecting)
 - [ ] v0.8.0 - Export update (added conversion to different types, such as csv, pdf, etc.)
 - [ ] v0.9.0 - Extension update (made wheel format and instruction of toml)
 - [ ] v0.9.1 - Documenting update (all updates since v0.7.0 are documented; updated old documentation; documentation site generation added)
