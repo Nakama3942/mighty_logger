@@ -16,7 +16,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import datetime, platform, os, random
+from random import randint
+import platform
+from os import getlogin
+from datetime import datetime
 
 from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
@@ -31,7 +34,7 @@ class BasicLogger(Singleton):
 		program_name: str,
 		env: EnvironmentType
 	) -> None:
-		self._ID: int = random.randint(1000000, 9999999)
+		self._ID: int = randint(1000000, 9999999)
 		self._program_name: str = program_name
 		self._environment: EnvironmentType = env
 		self._settings: dict = {}
@@ -51,7 +54,7 @@ class BasicLogger(Singleton):
 				return (
 					f"{colors[1]}" +
 					f"{colors[0]}-{self._program_name}?entry> " +
-					f"${platform.node()}:{os.getlogin()}" +
+					f"${platform.node()}:{getlogin()}" +
 					f":{platform.system()}" +
 					f":{platform.version()}" +
 					":{}:{}".format(*platform.architecture()) +
@@ -61,7 +64,7 @@ class BasicLogger(Singleton):
 			case LogEnvironments.PLAIN_CONSOLE.environment_name:
 				return (
 					f"-{self._program_name}?entry> " +
-					f"${platform.node()}:{os.getlogin()}" +
+					f"${platform.node()}:{getlogin()}" +
 					f":{platform.system()}" +
 					f":{platform.version()}" +
 					":{}:{}".format(*platform.architecture()) +
@@ -72,7 +75,7 @@ class BasicLogger(Singleton):
 				return (
 					f"<span style='background-color: #{colors[1]};'>" +
 					f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +
-					f"${platform.node()}:{os.getlogin()}" +
+					f"${platform.node()}:{getlogin()}" +
 					f":{platform.system()}" +
 					f":{platform.version()}" +
 					":{}:{}".format(*platform.architecture()) +
@@ -83,7 +86,7 @@ class BasicLogger(Singleton):
 				return (
 					f"<span style='background-color: #{colors[1]};'>" +
 					f"<span style='color: #{colors[0]};'>-{self._program_name}?entry> " +
-					f"${platform.node()}:{os.getlogin()}" +
+					f"${platform.node()}:{getlogin()}" +
 					f":{platform.system()}" +
 					f":{platform.version()}" +
 					":{}:{}".format(*platform.architecture()) +
@@ -93,7 +96,7 @@ class BasicLogger(Singleton):
 			case LogEnvironments.PLAIN.environment_name:
 				return (
 					f"-{self._program_name}?entry> " +
-					f"${platform.node()}:{os.getlogin()}" +
+					f"${platform.node()}:{getlogin()}" +
 					f":{platform.system()}" +
 					f":{platform.version()}" +
 					":{}:{}".format(*platform.architecture()) +
@@ -136,7 +139,7 @@ class BasicLogger(Singleton):
 					(f"{GetAnsiFormat('invert/on')}" if invert else "") +
 					f"{entry_type.background_color[self._environment.environment_code][entry_background]}" +
 					f"{entry_type.message_color[self._environment.environment_code][entry_background]}-?entry> {animation} " +
-					f"{entry_type.time_color[self._environment.environment_code][entry_background]}*{datetime.datetime.now()} " +
+					f"{entry_type.time_color[self._environment.environment_code][entry_background]}*{datetime.now()} " +
 					f"{entry_type.icon[icon_set]} " +
 					f"{entry_type.status_color[self._environment.environment_code][entry_background]}#STATUS: " +
 					f"{entry_type.type_color[self._environment.environment_code][entry_background]}{entry_type.type_category}{entry_type.type_name} - " +
@@ -146,7 +149,7 @@ class BasicLogger(Singleton):
 			case LogEnvironments.PLAIN_CONSOLE.environment_name:
 				return (
 					f"-?entry> {animation} " +
-					f"*{datetime.datetime.now()} " +
+					f"*{datetime.now()} " +
 					f"{entry_type.icon[icon_set]} " +
 					f"#STATUS: " +
 					f"{entry_type.type_category}{entry_type.type_name} - " +
@@ -158,7 +161,7 @@ class BasicLogger(Singleton):
 					(f"<i>" if italic else "") +
 					f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][entry_background]};'>" +
 					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>-?entry> {animation} </span>" +
-					f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.datetime.now()} </span>" +
+					f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.now()} </span>" +
 					f"{entry_type.icon[icon_set]} " +
 					f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" +
 					f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" +
@@ -172,7 +175,7 @@ class BasicLogger(Singleton):
 					(f"<i>" if italic else "") +
 					f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][entry_background]};'>" +
 					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>-?entry> {animation} </span>" +
-					f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.datetime.now()} </span>" +
+					f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.now()} </span>" +
 					f"{entry_type.icon[icon_set]} " +
 					f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" +
 					f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" +
@@ -183,7 +186,7 @@ class BasicLogger(Singleton):
 			case LogEnvironments.PLAIN.environment_name:
 				return (
 					f"-?entry> {animation} " +
-					f"*{datetime.datetime.now()} " +
+					f"*{datetime.now()} " +
 					f"{entry_type.icon[icon_set]} " +
 					f"#STATUS: " if status_entry else "" +
 					f"{entry_type.type_category}{entry_type.type_name} - " +

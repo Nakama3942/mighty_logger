@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import re
+from re import sub
 
 from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
@@ -79,13 +79,13 @@ class Modifier:
 		for index, entry in enumerate(self.__entries[1:]):
 			match self.__env.environment_name:
 				case LogEnvironments.CONSOLE.environment_name:
-					cleared_entry = re.sub(r"\033\[.*?m", "", entry)
+					cleared_entry = sub(r"\033\[.*?m", "", entry)
 				case LogEnvironments.PLAIN_CONSOLE.environment_name:
 					cleared_entry = entry
 				case LogEnvironments.HTML.environment_name:
-					cleared_entry = re.sub(r"<.*?>", "", entry)
+					cleared_entry = sub(r"<.*?>", "", entry)
 				case LogEnvironments.MARKDOWN.environment_name:
-					cleared_entry = re.sub(r"<.*?>", "", entry)
+					cleared_entry = sub(r"<.*?>", "", entry)
 				case LogEnvironments.PLAIN.environment_name:
 					cleared_entry = entry
 			if cleared_entry.startswith("-?"):
@@ -127,13 +127,13 @@ class Modifier:
 		for index, entry in enumerate(self.__entries[1:]):
 			match self.__env.environment_name:
 				case LogEnvironments.CONSOLE.environment_name:
-					cleared_entry = re.sub(r"\033\[.*?m", "", entry)
+					cleared_entry = sub(r"\033\[.*?m", "", entry)
 				case LogEnvironments.PLAIN_CONSOLE.environment_name:
 					cleared_entry = entry
 				case LogEnvironments.HTML.environment_name:
-					cleared_entry = re.sub(r"<.*?>", "", entry)
+					cleared_entry = sub(r"<.*?>", "", entry)
 				case LogEnvironments.MARKDOWN.environment_name:
-					cleared_entry = re.sub(r"<.*?>", "", entry)
+					cleared_entry = sub(r"<.*?>", "", entry)
 				case LogEnvironments.PLAIN.environment_name:
 					cleared_entry = entry
 			if cleared_entry.startswith("--"):
@@ -169,13 +169,13 @@ class Modifier:
 		for index, entry in enumerate(self.__entries[1:]):
 			match self.__env.environment_name:
 				case LogEnvironments.CONSOLE.environment_name:
-					cleared_entry = re.sub(r"\033\[.*?m", "", entry)
+					cleared_entry = sub(r"\033\[.*?m", "", entry)
 				case LogEnvironments.PLAIN_CONSOLE.environment_name:
 					cleared_entry = entry
 				case LogEnvironments.HTML.environment_name:
-					cleared_entry = re.sub(r"<.*?>", "", entry)
+					cleared_entry = sub(r"<.*?>", "", entry)
 				case LogEnvironments.MARKDOWN.environment_name:
-					cleared_entry = re.sub(r"<.*?>", "", entry)
+					cleared_entry = sub(r"<.*?>", "", entry)
 				case LogEnvironments.PLAIN.environment_name:
 					cleared_entry = entry
 			if cleared_entry.startswith("-?"):

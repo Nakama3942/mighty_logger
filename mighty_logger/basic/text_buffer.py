@@ -16,7 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import sys, re
+from re import sub
+from sys import stdout
 
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.basic.lib_types.text_buffer_type import TextBufferType
@@ -72,13 +73,13 @@ class BasicTextBuffer(Singleton, TextBufferType):
 			case LogEnvironments.HTML.environment_name:
 				with open(f"{name_file}.html", "w", encoding="utf-8") as text_buffer_file:
 					if clean:
-						text_buffer_file.write('<pre>' + self._text_buffer[0] + '\n'.join([entry for entry in self._text_buffer[1:] if re.sub(r"<.*?>", "", entry).startswith("-")]) + '</body></pre>')
+						text_buffer_file.write('<pre>' + self._text_buffer[0] + '\n'.join([entry for entry in self._text_buffer[1:] if sub(r"<.*?>", "", entry).startswith("-")]) + '</body></pre>')
 					else:
 						text_buffer_file.write('<pre>' + self._text_buffer[0] + '\n'.join(self._text_buffer[1:]) + '</body></pre>')
 			case LogEnvironments.MARKDOWN.environment_name:
 				with open(f"{name_file}.md", "w", encoding="utf-8") as text_buffer_file:
 					if clean:
-						text_buffer_file.write('<pre>' + self._text_buffer[0] + '\n'.join([entry for entry in self._text_buffer[1:] if re.sub(r"<.*?>", "", entry).startswith("-")]) + '</body></pre>')
+						text_buffer_file.write('<pre>' + self._text_buffer[0] + '\n'.join([entry for entry in self._text_buffer[1:] if sub(r"<.*?>", "", entry).startswith("-")]) + '</body></pre>')
 					else:
 						text_buffer_file.write('<pre>' + self._text_buffer[0] + '\n'.join(self._text_buffer[1:]) + '</body></pre>')
 			case LogEnvironments.PLAIN.environment_name:
@@ -142,7 +143,7 @@ class TextBuffer(Singleton, TextBufferType):
 			raise ReCreationException("TextBuffer class object already created")
 
 	def append(self, message: str) -> None:
-		excess_console_string = len(re.sub(r"\033\[.*?m", "", message)) // self.width
+		excess_console_string = len(sub(r"\033\[.*?m", "", message)) // self.width
 		self._buffer_size += 1 + excess_console_string
 		self._text_buffer.append(f"{message}")
 
@@ -153,7 +154,7 @@ class TextBuffer(Singleton, TextBufferType):
 			self._buffer_size += count_empty_strings
 			self.append(message)
 		else:
-			excess_console_string = len(re.sub(r"\033\[.*?m", "", message)) // self.width
+			excess_console_string = len(sub(r"\033\[.*?m", "", message)) // self.width
 			self._buffer_size += 1 + excess_console_string
 			self._text_buffer.insert(number_string, f"{message}")
 
@@ -164,29 +165,29 @@ class TextBuffer(Singleton, TextBufferType):
 			self._buffer_size += count_empty_strings
 			self.append(message)
 		else:
-			old_excess_console_strings = len(re.sub(r"\033\[.*?m", "", self._text_buffer[number_string])) // self.width
-			new_excess_console_strings = len(re.sub(r"\033\[.*?m", "", message)) // self.width
+			old_excess_console_strings = len(sub(r"\033\[.*?m", "", self._text_buffer[number_string])) // self.width
+			new_excess_console_strings = len(sub(r"\033\[.*?m", "", message)) // self.width
 			self._buffer_size += new_excess_console_strings - old_excess_console_strings
 			self._text_buffer[number_string] = f"{message}"
 
 	def pop(self, number_string: int = -1) -> str:
-		excess_console_string = len(re.sub(r"\033\[.*?m", "", self._text_buffer[-1])) // self.width
+		excess_console_string = len(sub(r"\033\[.*?m", "", self._text_buffer[-1])) // self.width
 		self._buffer_size -= 1 + excess_console_string
 		last = self._text_buffer.pop(number_string)
 		return last
 
 	def remove(self, number_string: int = -1) -> None:
-		excess_console_string = len(re.sub(r"\033\[.*?m", "", self._text_buffer[-1])) // self.width
+		excess_console_string = len(sub(r"\033\[.*?m", "", self._text_buffer[-1])) // self.width
 		self._buffer_size -= 1 + excess_console_string
 		self._text_buffer.pop(number_string)
 
 	def clear(self) -> None:
 		if self._cursor_string == 0:
-			sys.stdout.write(f'\r\033[K')
+			stdout.write(f'\r\033[K')
 		else:
-			sys.stdout.write(f'\033[{self._cursor_string}A\r\033[J')
+			stdout.write(f'\033[{self._cursor_string}A\r\033[J')
 		self._text_buffer.clear()
-		sys.stdout.flush()  # Clearing the output buffer so that the changes are displayed immediately
+		stdout.flush()
 		self._buffer_size = 0
 		self._cursor_string = 0
 
@@ -195,7 +196,7 @@ class TextBuffer(Singleton, TextBufferType):
 			case LogEnvironments.CONSOLE.environment_name:
 				with open(f"{name_file}.contxt", "w", encoding="utf-8") as text_buffer_file:
 					if clean:
-						text_buffer_file.write('\n'.join([entry for entry in self._text_buffer if re.sub(r"\033\[.*?m", "", entry).startswith("-")]))
+						text_buffer_file.write('\n'.join([entry for entry in self._text_buffer if sub(r"\033\[.*?m", "", entry).startswith("-")]))
 					else:
 						text_buffer_file.write('\n'.join(self._text_buffer))
 			case LogEnvironments.PLAIN_CONSOLE.environment_name:
@@ -234,19 +235,20 @@ class TextBuffer(Singleton, TextBufferType):
 
 	def input(self, input_text: str) -> str:
 		data = input(f"\r{input_text}")
-		sys.stdout.write(f'\033[1A')
+		stdout.write(f'\033[1A')
+		stdout.flush()
 		return data
 
 	def update_console(self) -> None:
 		if self._cursor_string == 0:
-			sys.stdout.write(f'\r\033[K')
+			stdout.write(f'\r\033[K')
 		else:
-			sys.stdout.write(f'\033[{self._cursor_string}A\r\033[J')
-		sys.stdout.write('\n'.join(self._text_buffer))
-		sys.stdout.flush()  # Clearing the output buffer so that the changes are displayed immediately
+			stdout.write(f'\033[{self._cursor_string}A\r\033[J')
+		stdout.write('\n'.join(self._text_buffer))
+		stdout.flush()
 		self._cursor_string = self._buffer_size - 1
 
 	def update_entry(self) -> None:
-		sys.stdout.write(f'\r')
-		sys.stdout.write(self._text_buffer[-1])
-		sys.stdout.flush()  # Clearing the output buffer so that the changes are displayed immediately
+		stdout.write(f'\r')
+		stdout.write(self._text_buffer[-1])
+		stdout.flush()
