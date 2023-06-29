@@ -80,7 +80,7 @@ class MightyLogger(BasicLogger):
 			self._progress_time: str = "        "
 			self._progress_interrupt = False
 			self._start_timer_value: datetime | None = None
-			self.global_background = global_background
+			self._global_background = global_background
 			self._buffer: TextBufferType = TextBufferType(log_environment)
 			self._init_buffer(console_width)
 			self._initial_log()
@@ -118,8 +118,8 @@ class MightyLogger(BasicLogger):
 			self._buffer << "<body style='background-color: #000000; color: #ffffff;'>"
 		self._buffer << self._initialized_data(
 			[
-				ServiceLogger.initial[0][self._environment.environment_code][self.global_background],
-				ServiceLogger.initial[1][self._environment.environment_code][self.global_background]
+				ServiceLogger.initial[0][self._environment.environment_code][self._global_background],
+				ServiceLogger.initial[1][self._environment.environment_code][self._global_background]
 			]
 		)
 		if self._environment.updatable:
@@ -132,15 +132,6 @@ class MightyLogger(BasicLogger):
 		:param icon_set: Icon set to use
 		"""
 		self._icon_set = icon_set if 0 < icon_set < 5 else 1
-
-	def buffer(self) -> TextBufferType:
-		"""
-		The Text Buffer object is created in the class constructor and this
-		method is used to access it. It returns a buffer.
-
-		:return: a text buffer object
-		"""
-		return self._buffer
 
 	# ######################################################################################## #
 	#                                                                                          #
@@ -333,7 +324,7 @@ class MightyLogger(BasicLogger):
 		"""
 		if local_settings is None:
 			local_settings = {}
-		background = local_background if local_background is not None else self.global_background
+		background = local_background if local_background is not None else self._global_background
 		self.empty(
 			self._assemble_entry(
 				entry_type,
@@ -416,7 +407,7 @@ class MightyLogger(BasicLogger):
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			animation_item = self._animation.animation[animation_index]
-			background = local_background if local_background is not None else self.global_background
+			background = local_background if local_background is not None else self._global_background
 			self._buffer.get_data()[-1] = self._assemble_entry(
 				ServiceProcessEntryTypes.process,
 				self._icon_set,
@@ -501,7 +492,7 @@ class MightyLogger(BasicLogger):
 			else:
 				old_progress_rise = self._progress_rise
 				animation_item = f"{self._animation.animation[(self._progress_rise // 15) + (2 if self._progress_rise == 100 else 1)]} - {self._progress_rise} %"
-				background = local_background if local_background is not None else self.global_background
+				background = local_background if local_background is not None else self._global_background
 				self._buffer.get_data()[-1] = self._assemble_entry(
 					ServiceProcessEntryTypes.process,
 					self._icon_set,
