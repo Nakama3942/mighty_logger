@@ -17,4 +17,3 @@ limitations under the License.
 """
 
 from .exceptions import ColorException, ReCreationException, EnvironmentException, InitException
-from .patterns import Singleton

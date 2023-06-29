@@ -31,6 +31,7 @@ from mighty_logger.basic.basic_logger import BasicLogger
 from mighty_logger.basic.exceptions import ReCreationException, InitException
 from mighty_logger.basic.exporter import Exporter
 from mighty_logger.basic.modifier import Modifier
+from mighty_logger.basic.text_buffer import BasicTextBuffer, TextBuffer
 from mighty_logger.src.lib_types_collection.entry_types import ServiceLogger,\
 	LoggerEntryTypes,\
 	ServiceProcessEntryTypes,\
@@ -38,7 +39,6 @@ from mighty_logger.src.lib_types_collection.entry_types import ServiceLogger,\
 from mighty_logger.src.lib_types_collection.environments import LogEnvironments
 from mighty_logger.src.lib_types_collection.sorting_keys import SortingKeys
 from mighty_logger.src.animations import IndefiniteAnimations, DefiniteAnimations
-from mighty_logger.src.text_buffer import BasicTextBuffer, TextBuffer
 
 class MightyLogger(BasicLogger):
 	"""

@@ -27,4 +27,3 @@ from .color_picker import DecColor,\
 	Hex2Ansi,\
 	Ansi2Dec,\
 	Ansi2Hex
-from .text_buffer import BasicTextBuffer, TextBuffer

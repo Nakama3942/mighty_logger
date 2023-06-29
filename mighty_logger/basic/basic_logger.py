@@ -20,7 +20,7 @@ import datetime, platform, os, random
 
 from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
-from mighty_logger.basic.patterns import Singleton
+from mighty_logger.basic.singleton import Singleton
 from mighty_logger.src.lib_types_collection.environments import LogEnvironments
 from mighty_logger.src.ansi_format import GetAnsiFormat
 
@@ -164,17 +164,17 @@ class BasicLogger(Singleton):
 				)
 			case LogEnvironments.MARKDOWN.environment_name:
 				return (
-						(f"<b>" if bold else "") +
-						(f"<i>" if italic else "") +
-						f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][entry_background]};'>" +
-						f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>-?entry> {animation} </span>" +
-						f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.datetime.now()} </span>" +
-						f"{entry_type.icon[icon_set]} " +
-						f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" +
-						f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" +
-						f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" +
-						(f"</i>" if italic else "") +
-						(f"</b>" if bold else "")
+					(f"<b>" if bold else "") +
+					(f"<i>" if italic else "") +
+					f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][entry_background]};'>" +
+					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>-?entry> {animation} </span>" +
+					f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.datetime.now()} </span>" +
+					f"{entry_type.icon[icon_set]} " +
+					f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" +
+					f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" +
+					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" +
+					(f"</i>" if italic else "") +
+					(f"</b>" if bold else "")
 				)
 			case LogEnvironments.PLAIN.environment_name:
 				return (

@@ -40,8 +40,6 @@ class Logger:
 				program_name=program_name,
 				log_environment=environment,
 				console_width=console_width,
-				status_global_entry=False,
-				status_message_global_entry=False
 			)
 
 	def might(self) -> MightyLogger:
