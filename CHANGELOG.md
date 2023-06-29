@@ -544,3 +544,11 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - The system of importing standard library packages has been optimized, which will ease the load on RAM when the Logger is running.
 
 ---
+
+## Extension update v0.9.0 (29.06.2023)
+
+#### Enhancements:
+- Moved from `setup.py` to `pyproject.toml`;
+- Began to collect `wheel`;
+
+---
