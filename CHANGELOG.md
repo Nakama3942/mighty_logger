@@ -522,3 +522,25 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - The `powerful_logger` module has been renamed to `mighty_logger`.
 
 ---
+
+## Export update v0.8.0 (29.06.2023)
+
+#### Enhancements:
+- Any references and functionality about status messages are completely cut out from the entire library:
+	- Removed module `status_message_type` with nested type (class) `StatusMessageType`;
+	- Removed module `status_variables` with nested list of `StatusMessagePatterns`;
+	- Arguments that accept a status message have been removed from all methods;
+	- In the entry builder (`BasicLogger._assemble_entry()`), the addition of a status message to the entry has been removed;
+- Added new `Exporter` class with two methods:
+	- `export_to_csv()`, which creates a list of dictionaries from a list of strings;
+	- `save()`, which saves the list of dictionaries as a csv table;
+- Added `export_to_csv()` method to Logger, which automates work with Exporter;
+- Since both Exporter and Modifier divide the string according to certain patterns, I had to prohibit disabling any parts of the entry, otherwise the functionality of these classes becomes inoperative - it was originally designed for the full string (except the status message, which the author never used and decided to delete, as a rudimentary organ, because on the very first prototype, when the Logger was part of another project, it was the entry type that acted for the status message and no one knows why a separate status message was added...);
+- Added a new argument to `sort_with_save()`, `search_with_save()`, `select_with_save()` and `export_to_csv()`, through which you can set the name of the file where you want to save the modified/exported logs;
+- Moved the `text_buffer` module from the src package to the basic package and hid it from `__init__`, since now there is no need to keep the Buffer object separately due to the presence of new methods in the Logger itself, which provide access to all Buffer methods and, partially, simplify and automate the work with the Buffer;
+- Renamed the `patterns` module to `singleton` and hidden from `__init__`, since its use is supposed only inside the library by some classes;
+- Added a new MessageException thrown by the entry builder (`BasicLogger._assemble_entry()`) if the message length is less than 10 characters;
+- Now it is necessary to enter a message (longer than 10 characters), but it is not necessary to enter the name of the arguments;
+- The system of importing standard library packages has been optimized, which will ease the load on RAM when the Logger is running.
+
+---
