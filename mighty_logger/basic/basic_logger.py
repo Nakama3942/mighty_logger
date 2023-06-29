@@ -20,6 +20,7 @@ import datetime, platform, os, random
 
 from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
+from mighty_logger.basic.exceptions import MessageException
 from mighty_logger.basic.singleton import Singleton
 from mighty_logger.src.lib_types_collection.environments import LogEnvironments
 from mighty_logger.src.ansi_format import GetAnsiFormat
@@ -120,6 +121,9 @@ class BasicLogger(Singleton):
 		:param local_settings: Settings for the string of the current entry
 		:return: the formed entry string
 		"""
+		if len(message_text) < 10:
+			raise MessageException("Message is too short (less than 10 characters)")
+
 		bold = local_settings['bold'] if 'bold' in local_settings else self._settings['global_bold_font']
 		italic = local_settings['italic'] if 'italic' in local_settings else self._settings['global_italic_font']
 		invert = local_settings['invert'] if 'invert' in local_settings else self._settings['global_invert_font']

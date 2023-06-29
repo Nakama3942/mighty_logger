@@ -55,3 +55,13 @@ class InitException(BaseException):
 
 	def __str__(self):
 		return self.message
+
+class MessageException(BaseException):
+	"""
+	The exception that is thrown when a write message is too short.
+	"""
+	def __init__(self, message):
+		self.message = message
+
+	def __str__(self):
+		return self.message

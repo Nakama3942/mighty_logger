@@ -295,7 +295,7 @@ class MightyLogger(BasicLogger):
 		self._buffer.get_data().clear()
 		self._buffer.get_data().extend(original)
 
-	def export_to_csv(self, export_file_name: str):
+	def export_to_csv(self, export_file_name: str) -> None:
 		exporter = Exporter(self._buffer.get_data(), self._environment)
 		exporter.export_to_csv()
 		exporter.save(export_file_name)
@@ -308,9 +308,8 @@ class MightyLogger(BasicLogger):
 
 	def entry(
 		self,
-		*,
 		entry_type: EntryType,
-		message_text: str = "...",
+		message_text: str,
 		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
@@ -344,9 +343,8 @@ class MightyLogger(BasicLogger):
 
 	def start_indefinite_process(
 		self,
-		*,
+		message_text: str,
 		animation: IndefiniteAnimationType = IndefiniteAnimations.Line,
-		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
@@ -369,22 +367,19 @@ class MightyLogger(BasicLogger):
 		self._progress_start = datetime.now()
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
-		args = {}
-		if message_text != "...":
-			args['message_text'] = message_text
+		args = {'message_text': message_text}
 		if local_background is not None:
 			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
-		self.entry(entry_type=ServiceProcessEntryTypes.initiation, **args)
+		self.entry(ServiceProcessEntryTypes.initiation, **args)
 
 		thread = Thread(target=self._indefinite_progress, kwargs=args)
 		thread.start()
 
 	def _indefinite_progress(
 		self,
-		*,
-		message_text: str = "...",
+		message_text: str,
 		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
@@ -425,9 +420,8 @@ class MightyLogger(BasicLogger):
 
 	def start_definite_process(
 		self,
-		*,
+		message_text: str,
 		progress_bar: DefiniteAnimationType = DefiniteAnimations.Line,
-		message_text: str = "...",
 		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
@@ -450,14 +444,12 @@ class MightyLogger(BasicLogger):
 		self._progress_start = datetime.now()
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
-		args = {}
-		if message_text != "...":
-			args['message_text'] = message_text
+		args = {'message_text': message_text}
 		if local_background is not None:
 			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
-		self.entry(entry_type=ServiceProcessEntryTypes.initiation, **args)
+		self.entry(ServiceProcessEntryTypes.initiation, **args)
 
 		thread = Thread(target=self._definite_progress, kwargs=args)
 		thread.start()
@@ -465,7 +457,7 @@ class MightyLogger(BasicLogger):
 	def _definite_progress(
 		self,
 		*,
-		message_text: str = "...",
+		message_text: str,
 		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
@@ -522,9 +514,8 @@ class MightyLogger(BasicLogger):
 
 	def note_process(
 		self,
-		*,
 		entry_type: EntryType,
-		message_text: str = "...",
+		message_text: str,
 		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
@@ -550,21 +541,18 @@ class MightyLogger(BasicLogger):
 
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
-		args = {}
-		if message_text != "...":
-			args['message_text'] = message_text
+		args = {'message_text': message_text}
 		if local_background is not None:
 			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
-		self.entry(entry_type=entry_type, **args)
+		self.entry(entry_type, **args)
 
 		self.empty(last)
 
 	def stop_process(
 		self,
-		*,
-		message_text: str = "...",
+		message_text: str,
 		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
@@ -586,15 +574,13 @@ class MightyLogger(BasicLogger):
 
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
-		args = {}
-		if message_text != "...":
-			args['message_text'] = message_text
+		args = {'message_text': message_text}
 		if local_background is not None:
 			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
 		self.entry(
-			entry_type=ServiceProcessEntryTypes.success if self._progress_rise == 100 else ServiceProcessEntryTypes.fail,
+			ServiceProcessEntryTypes.success if self._progress_rise == 100 else ServiceProcessEntryTypes.fail,
 			**args
 		)
 
@@ -611,8 +597,7 @@ class MightyLogger(BasicLogger):
 
 	def start_timer(
 		self,
-		*,
-		message_text: str = "...",
+		message_text: str,
 		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
@@ -627,21 +612,18 @@ class MightyLogger(BasicLogger):
 		stop_timer_value = datetime.now()
 		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
 
-		args = {}
-		if message_text != "...":
-			args['message_text'] = message_text
+		args = {'message_text': message_text}
 		if local_background is not None:
 			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
-		self.entry(entry_type=ServiceTimerEntryTypes.start_timer, **args)
+		self.entry(ServiceTimerEntryTypes.start_timer, **args)
 
 		self._progress_time = "        "
 
 	def timer_mark(
 		self,
-		*,
-		message_text: str = "...",
+		message_text: str,
 		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
@@ -655,21 +637,18 @@ class MightyLogger(BasicLogger):
 		stop_timer_value = datetime.now()
 		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
 
-		args = {}
-		if message_text != "...":
-			args['message_text'] = message_text
+		args = {'message_text': message_text}
 		if local_background is not None:
 			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
-		self.entry(entry_type=ServiceTimerEntryTypes.timer_mark, **args)
+		self.entry(ServiceTimerEntryTypes.timer_mark, **args)
 
 		self._progress_time = "        "
 
 	def stop_timer(
 		self,
-		*,
-		message_text: str = "...",
+		message_text: str,
 		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
@@ -683,14 +662,12 @@ class MightyLogger(BasicLogger):
 		stop_timer_value = datetime.now()
 		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
 
-		args = {}
-		if message_text != "...":
-			args['message_text'] = message_text
+		args = {'message_text': message_text}
 		if local_background is not None:
 			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
-		self.entry(entry_type=ServiceTimerEntryTypes.stop_timer, **args)
+		self.entry(ServiceTimerEntryTypes.stop_timer, **args)
 
 		self._start_timer_value = None
 		self._progress_time = "        "

@@ -45,19 +45,16 @@ class Logger:
 	def might(self) -> MightyLogger:
 		return self.__logger
 
-	def debug(self, message_text: str = "...") -> None:
+	def debug(self, message_text: str) -> None:
 		"""
 		Debugging information logging:
 		Can be used to log entry any information while debugging an application.
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.debug,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.debug, message_text)
 
-	def debug_performance(self, message_text: str = "...") -> None:
+	def debug_performance(self, message_text: str) -> None:
 		"""
 		Performance debugging information logging:
 		Can be used to log entry the execution time of operations or other
@@ -65,12 +62,9 @@ class Logger:
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.debug_performance,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.debug_performance, message_text)
 
-	def performance(self, message_text: str = "...") -> None:
+	def performance(self, message_text: str) -> None:
 		"""
 		Performance information logging:
 		Can be used to log entry the execution time of operations or
@@ -78,12 +72,9 @@ class Logger:
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.performance,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.performance, message_text)
 
-	def event(self, message_text: str = "...") -> None:
+	def event(self, message_text: str) -> None:
 		"""
 		Event information logging:
 		Can be used to log entry specific events in the application,
@@ -91,12 +82,9 @@ class Logger:
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.event,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.event, message_text)
 
-	def audit(self, message_text: str = "...") -> None:
+	def audit(self, message_text: str) -> None:
 		"""
 		Audit information logging:
 		Can be used to log entry changes in the system, such as creating or
@@ -104,24 +92,18 @@ class Logger:
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.audit,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.audit, message_text)
 
-	def metrics(self, message_text: str = "...") -> None:
+	def metrics(self, message_text: str) -> None:
 		"""
 		Metrics information logging:
 		Can be used to log entry metrics to track application performance and identify issues.
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.metrics,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.metrics, message_text)
 
-	def user(self, message_text: str = "...") -> None:
+	def user(self, message_text: str) -> None:
 		"""
 		User information logging:
 		Can be used to log entry custom logs to store additional information
@@ -129,103 +111,76 @@ class Logger:
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.user,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.user, message_text)
 
-	def message(self, message_text: str = "...") -> None:
+	def message(self, message_text: str) -> None:
 		"""
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.message,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.message, message_text)
 
-	def info(self, message_text: str = "...") -> None:
+	def info(self, message_text: str) -> None:
 		"""
 		Default information logging:
 		Can be used to log entry messages with specific content about the operation of the program.
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.info,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.info, message_text)
 
-	def notice(self, message_text: str = "...") -> None:
+	def notice(self, message_text: str) -> None:
 		"""
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.notice,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.notice, message_text)
 
-	def warning(self, message_text: str = "...") -> None:
+	def warning(self, message_text: str) -> None:
 		"""
 		Warning information logging:
 		Can be used to log entry warnings that the program may work with unpredictable results.
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.warning,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.warning, message_text)
 
-	def error(self, message_text: str = "...") -> None:
+	def error(self, message_text: str) -> None:
 		"""
 		Error information logging:
 		Used to log entry errors and crashes in the program.
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.error,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.error, message_text)
 
-	def critical(self, message_text: str = "...") -> None:
+	def critical(self, message_text: str) -> None:
 		"""
 		Critical error information logging:
 		Used to log entry for critical and unpredictable program failures.
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=LoggerEntryTypes.critical,
-			message_text=message_text
-		)
+		self.__logger.entry(LoggerEntryTypes.critical, message_text)
 
-	def success(self, message_text: str = "...") -> None:
+	def success(self, message_text: str) -> None:
 		"""
 		Success information logging:
 		Used to log entry a message about the success of the process.
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=ServiceProcessEntryTypes.success,
-			message_text=message_text
-		)
+		self.__logger.entry(ServiceProcessEntryTypes.success, message_text)
 
-	def fail(self, message_text: str = "...") -> None:
+	def fail(self, message_text: str) -> None:
 		"""
 		Fail information logging:
 		Used to log entry a message about the failed execution of the process.
 
 		:param message_text: Log entry message
 		"""
-		self.__logger.entry(
-			entry_type=ServiceProcessEntryTypes.fail,
-			message_text=message_text
-		)
+		self.__logger.entry(ServiceProcessEntryTypes.fail, message_text)
