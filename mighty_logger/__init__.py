@@ -1,5 +1,7 @@
 """
 A root package that provides access to a implementation of the powerful logger.
+
+.. versionadded:: 0.0.0
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
@@ -20,5 +22,5 @@ from .mighty_logger import MightyLogger
 from .simple_logger import Logger
 
 __authot__ = "Kalynovsky 'Nakamura Akira' Valentin"
-__version__ = "0.9.0"
+__version__ = "0.9.1"
 __email__ = "nakama3942@gmail.com"
