@@ -1,6 +1,4 @@
 """
-A module with implementation of colors and their formatter functions.
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -179,8 +177,13 @@ def DecColor(color_name: str) -> list[int, int, int]:
 	"""
 	Returns a decimal color value.
 
+	.. versionadded:: 0.0.0
+
 	:param color_name: Color name
+	:type color_name: str
 	:return: Decimal color value
+	:rtype: list[int, int, int]
+	:raises ColorException: This color is not in the dictionary
 	"""
 	if color_name in ColorPicker:
 		return ColorPicker[color_name]
@@ -191,10 +194,18 @@ def HexColor(color_name: str) -> str:
 	"""
 	Returns a hexadecimal color value.
 
+	.. versionadded:: 0.0.0
+
 	:param color_name: Color name
+	:type color_name: str
 	:return: Hexadecimal color value
+	:rtype: str
+	:raises ColorException: This color is not in the dictionary
 	"""
-	return '{:02x}{:02x}{:02x}'.format(*DecColor(color_name))
+	if color_name in ColorPicker:
+		return '{:02x}{:02x}{:02x}'.format(*ColorPicker[color_name])
+	else:
+		raise ColorException("This color is not in the dictionary")
 
 def AnsiColor(color_name: str, color_ground: str) -> str:
 	"""
@@ -206,18 +217,31 @@ def AnsiColor(color_name: str, color_ground: str) -> str:
 	- bright background
 	- underline
 
+	.. versionadded:: 0.0.0
+
 	:param color_name: Color name
+	:type color_name: str
 	:param color_ground: Color level
+	:type color_ground: str
 	:return: ANSI color value
+	:rtype: str
+	:raises ColorException: This color is not in the dictionary
 	"""
-	return GetAnsiFormat("color/set/{}/{};{};{}".format(color_ground, *DecColor(color_name)))
+	if color_name in ColorPicker:
+		return GetAnsiFormat("color/set/{}/{};{};{}".format(color_ground, *ColorPicker[color_name]))
+	else:
+		raise ColorException("This color is not in the dictionary")
 
 def Dec2Hex(dec_colors: list[int, int, int]) -> str:
 	"""
 	Converts a decimal color value to a hexadecimal.
 
+	.. versionadded:: 0.0.0
+
 	:param dec_colors: Decimal color value
+	:type dec_colors: list[int, int, int]
 	:return: Hexadecimal color value
+	:rtype: str
 	"""
 	return '{:02x}{:02x}{:02x}'.format(*dec_colors)
 
@@ -225,9 +249,14 @@ def Dec2Ansi(dec_colors: list[int, int, int], color_ground: str) -> str:
 	"""
 	Converts a decimal color value to an ANSI escape code.
 
+	.. versionadded:: 0.0.0
+
 	:param dec_colors: Decimal color value
+	:type dec_colors: list[int, int, int]
 	:param color_ground: Color level (read AnsiColor() function documentation)
+	:type color_ground: str
 	:return: ANSI escape code color value
+	:rtype: str
 	"""
 	return GetAnsiFormat("color/set/{}/{};{};{}".format(color_ground, *dec_colors))
 
@@ -235,8 +264,12 @@ def Hex2Dec(hex_color: str) -> list[int, int, int]:
 	"""
 	Converts a hexadecimal color value to a decimal.
 
+	.. versionadded:: 0.0.0
+
 	:param hex_color: Hexadecimal color value
+	:type hex_color: str
 	:return: Decimal color value
+	:rtype: list[int, int, int]
 	"""
 	return [
 		int(hex_color[:2], base=16),
@@ -248,9 +281,14 @@ def Hex2Ansi(hex_color: str, color_ground: str) -> str:
 	"""
 	Converts a hexadecimal color value to an ANSI escape code.
 
+	.. versionadded:: 0.0.0
+
 	:param hex_color: Hexadecimal color value
+	:type hex_color: str
 	:param color_ground: Color level (read AnsiColor() function documentation)
+	:type color_ground: str
 	:return: ANSI escape code color value
+	:rtype: str
 	"""
 	return GetAnsiFormat("color/set/{}/{};{};{}".format(
 		color_ground,
@@ -266,8 +304,12 @@ def Ansi2Dec(ansi_color: str) -> list[int, int, int]:
 	to, and when from ANSI escape code, you don’t need to, because in other formats the levels
 	are defined differently and are not included in the command along with the color.
 
+	.. versionadded:: 0.0.0
+
 	:param ansi_color: ANSI escape code color value
+	:type ansi_color: str
 	:return: Decimal color value
+	:rtype: list[int, int, int]
 	"""
 	return [
 		int(ansi_color.split(';')[2]),
@@ -282,8 +324,12 @@ def Ansi2Hex(ansi_color: str) -> str:
 	to, and when from ANSI escape code, you don’t need to, because in other formats the levels
 	are defined differently and are not included in the command along with the color.
 
+	.. versionadded:: 0.0.0
+
 	:param ansi_color: ANSI escape code color value
+	:type ansi_color: str
 	:return: Hexadecimal color value
+	:rtype: str
 	"""
 	return '{:02x}{:02x}{:02x}'.format(
 		int(ansi_color.split(';')[2]),

@@ -1,6 +1,4 @@
 """
-A module with realisation of animations.
-\n
 The source of IndefiniteAnimation:
 https://github.com/kopensource/colored_logs/blob/develop/colored_logs/models/animation_type.py
 \n
@@ -24,6 +22,8 @@ from mighty_logger.basic.lib_types.animation_type import IndefiniteAnimationType
 class IndefiniteAnimations:
 	"""
 	The class with sets indefinite animations.
+
+	.. versionadded:: 0.0.0
 	"""
 	Dots = IndefiniteAnimationType([
 		'.       ',
@@ -438,6 +438,8 @@ class IndefiniteAnimations:
 class DefiniteAnimations:
 	"""
 	The class with sets definite animations.
+
+	.. versionadded:: 0.0.0
 	"""
 	Dots = DefiniteAnimationType([
 		'        ',

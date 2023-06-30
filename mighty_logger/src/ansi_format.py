@@ -1,6 +1,4 @@
 """
-A module with implementation of ANSI escape codes.
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -155,9 +153,14 @@ def _RecursiveGetAnsiFormat(ansi_address: str, ansi: dict) -> str:
 	"""
 	Recursively extracts a string with an ANSI escape code from a heavily nested dictionary.
 
+	.. versionadded:: 0.0.0
+
 	:param ansi_address: Path to ANSI escape code value
+	:type ansi_address: str
 	:param ansi: External/nested dictionary
+	:type ansi: dict
 	:return: value - ANSI escape code
+	:rtype: str
 	"""
 	split_address = ansi_address.split("/")
 	# print(split_address)
@@ -182,7 +185,11 @@ def GetAnsiFormat(ansi_address: str) -> str:
 	print(f"{GetAnsiFormat('color/set/background/255;255;255')}Test string")\n
 	print(f"{GetAnsiFormat('reset/on')}Test string")\n
 
+	.. versionadded:: 0.0.0
+
 	:param ansi_address: Path to ANSI escape code value
+	:type ansi_address: str
 	:return: ANSI escape code
+	:rtype: str
 	"""
 	return _RecursiveGetAnsiFormat(ansi_address, AnsiFormat)

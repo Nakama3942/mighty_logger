@@ -1,5 +1,7 @@
 """
 A package with the implementation of various data (ANSI, colors, etc.).
+
+.. versionadded:: 0.0.0
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
