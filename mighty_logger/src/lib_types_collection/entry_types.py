@@ -1,6 +1,4 @@
 """
-...
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +18,12 @@ from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.src.color_picker import AnsiColor, HexColor
 
 class ServiceLogger:
+	"""
+	Class for Logger service strings.
+
+	.. versionadded:: 0.0.0
+	"""
+
 	initial = (
 		(
 			(AnsiColor('GOLD', "foreground"), AnsiColor('INDIGO', "foreground")),
@@ -35,8 +39,19 @@ class ServiceLogger:
 			("", "")
 		)
 	)
+	"""
+	Colors for the starting initialization string.
+	
+	.. versionadded:: 0.0.0
+	"""
 
 class LoggerEntryTypes:
+	"""
+	A class with standard entry types. Is available.
+
+	.. versionadded:: 0.0.0
+	"""
+
 	debug = EntryType(
 		type_category="%",
 		type_name="DEBUG",
@@ -87,6 +102,8 @@ class LoggerEntryTypes:
 	"""
 	Debugging information logging:
 	Can be used to log entry any information while debugging an application.
+	
+	.. versionadded:: 0.0.0
 	"""
 	debug_performance = EntryType(
 		type_category="%",
@@ -139,6 +156,8 @@ class LoggerEntryTypes:
 	Performance debugging information logging:
 	Can be used to log entry the execution time of operations or other
 	performance information while the application is being debugged.
+	
+	.. versionadded:: 0.0.0
 	"""
 	performance = EntryType(
 		type_category="%",
@@ -191,6 +210,8 @@ class LoggerEntryTypes:
 	Performance information logging:
 	Can be used to log entry the execution time of operations or
 	other application performance information.
+	
+	.. versionadded:: 0.0.0
 	"""
 	event = EntryType(
 		type_category="~",
@@ -243,6 +264,8 @@ class LoggerEntryTypes:
 	Event information logging:
 	Can be used to log entry specific events in the application,
 	such as button presses or mouse cursor movements.
+	
+	.. versionadded:: 0.0.0
 	"""
 	audit = EntryType(
 		type_category="~",
@@ -295,6 +318,8 @@ class LoggerEntryTypes:
 	Audit information logging:
 	Can be used to log entry changes in the system, such as creating or
 	deleting users, as well as changes in security settings.
+	
+	.. versionadded:: 0.0.0
 	"""
 	metrics = EntryType(
 		type_category="~",
@@ -346,6 +371,8 @@ class LoggerEntryTypes:
 	"""
 	Metrics information logging:
 	Can be used to log entry metrics to track application performance and identify issues.
+	
+	.. versionadded:: 0.0.0
 	"""
 	user = EntryType(
 		type_category="~",
@@ -398,6 +425,8 @@ class LoggerEntryTypes:
 	User information logging:
 	Can be used to log entry custom logs to store additional information
 	that may be useful for diagnosing problems.
+	
+	.. versionadded:: 0.0.0
 	"""
 	message = EntryType(
 		type_category="@",
@@ -449,6 +478,8 @@ class LoggerEntryTypes:
 	"""
 	Message information logging:
 	Can be used for the usual output of ordinary messages about the program's operation.
+	
+	.. versionadded:: 0.0.0
 	"""
 	info = EntryType(
 		type_category="@",
@@ -500,6 +531,8 @@ class LoggerEntryTypes:
 	"""
 	Default information logging:
 	Can be used to log entry messages with specific content about the operation of the program.
+	
+	.. versionadded:: 0.0.0
 	"""
 	notice = EntryType(
 		type_category="@",
@@ -551,6 +584,8 @@ class LoggerEntryTypes:
 	"""
 	Notice information logging:
 	Can be used to flag important events that might be missed with a normal logging level.
+	
+	.. versionadded:: 0.0.0
 	"""
 	warning = EntryType(
 		type_category="!",
@@ -602,6 +637,8 @@ class LoggerEntryTypes:
 	"""
 	Warning information logging:
 	Can be used to log entry warnings that the program may work with unpredictable results.
+	
+	.. versionadded:: 0.0.0
 	"""
 	error = EntryType(
 		type_category="!",
@@ -653,6 +690,8 @@ class LoggerEntryTypes:
 	"""
 	Error information logging:
 	Used to log entry errors and crashes in the program.
+	
+	.. versionadded:: 0.0.0
 	"""
 	critical = EntryType(
 		type_category="!",
@@ -704,6 +743,8 @@ class LoggerEntryTypes:
 	"""
 	Critical error information logging:
 	Used to log entry for critical and unpredictable program failures.
+	
+	.. versionadded:: 0.0.0
 	"""
 	resolved = EntryType(
 		type_category="!",
@@ -755,8 +796,8 @@ class LoggerEntryTypes:
 	"""
 	Resolved information logging:
 	Used to log entry resolved solutions to problems and errors.
-	\n
-	Since v0.6.0
+	
+	.. versionadded:: 0.6.0
 	"""
 	unresolved = EntryType(
 		type_category="!",
@@ -808,11 +849,17 @@ class LoggerEntryTypes:
 	"""
 	Unresolved information logging:
 	Used to log entry unresolved solutions to problems and errors.
-	\n
-	Since v0.6.0
+	
+	.. versionadded:: 0.6.0
 	"""
 
 class ProcessEntryTypes:
+	"""
+	Class with additional entry types when logging Processes. Is available.
+
+	.. versionadded:: 0.0.0
+	"""
+
 	achievement = EntryType(
 		type_category="&",
 		type_name="ACHIEVEMENT",
@@ -863,6 +910,8 @@ class ProcessEntryTypes:
 	"""
 	Achievement information logging:
 	Used to log entry the achievements gained while executing a process.
+	
+	.. versionadded:: 0.0.0
 	"""
 	milestone = EntryType(
 		type_category="&",
@@ -914,9 +963,17 @@ class ProcessEntryTypes:
 	"""
 	Milestone information logging:
 	Used to log entry the milestones gained while executing a process.
+	
+	.. versionadded:: 0.0.0
 	"""
 
 class ServiceProcessEntryTypes:
+	"""
+	A class with utility types used for Process logging. Is not available.
+
+	.. versionadded:: 0.0.0
+	"""
+
 	initiation = EntryType(
 		type_category="&",
 		type_name="INITIATION",
@@ -967,6 +1024,8 @@ class ServiceProcessEntryTypes:
 	"""
 	Initiation information logging:
 	Used to explain the running process.
+	
+	.. versionadded:: 0.0.0
 	"""
 	process = EntryType(
 		type_category="&",
@@ -1016,7 +1075,10 @@ class ServiceProcessEntryTypes:
 		icon=('⏳', '🔄', '⚙️', '🕰️')
 	)
 	"""
-	...
+	Process information logging:
+	Used to refine the progress of a Process.
+	
+	.. versionadded:: 0.0.0
 	"""
 	success = EntryType(
 		type_category="&",
@@ -1068,6 +1130,8 @@ class ServiceProcessEntryTypes:
 	"""
 	Success information logging:
 	Used to log entry a message about the success of the process.
+	
+	.. versionadded:: 0.0.0
 	"""
 	fail = EntryType(
 		type_category="&",
@@ -1119,9 +1183,17 @@ class ServiceProcessEntryTypes:
 	"""
 	Fail information logging:
 	Used to log entry a message about the failed execution of the process.
+	
+	.. versionadded:: 0.0.0
 	"""
 
 class ServiceTimerEntryTypes:
+	"""
+	A class with utility types used for Timer logging. Is not available.
+
+	.. versionadded:: 0.0.0
+	"""
+
 	start_timer = EntryType(
 		type_category="^",
 		type_name="START-TIMER",
@@ -1172,6 +1244,8 @@ class ServiceTimerEntryTypes:
 	"""
 	Information logging of starting Timer:
 	Used to notify the start of the Timer.
+	
+	.. versionadded:: 0.0.0
 	"""
 	timer_mark = EntryType(
 		type_category="^",
@@ -1223,6 +1297,8 @@ class ServiceTimerEntryTypes:
 	"""
 	Information logging of mark Timer:
 	Used to notify the mark of the Timer.
+	
+	.. versionadded:: 0.0.0
 	"""
 	stop_timer = EntryType(
 		type_category="^",
@@ -1274,38 +1350,353 @@ class ServiceTimerEntryTypes:
 	"""
 	Information logging of stopping Timer:
 	Used to notify the stop of the Timer.
+	
+	.. versionadded:: 0.0.0
 	"""
 
 class SelectionTypes:
-	debug = EntryType(type_category="", type_name="DEBUG")
-	debug_performance = EntryType(type_category="", type_name="DEBUG-PERFORMANCE")
-	performance = EntryType(type_category="", type_name="PERFORMANCE")
-	event = EntryType(type_category="", type_name="EVENT")
-	audit = EntryType(type_category="", type_name="AUDIT")
-	metrics = EntryType(type_category="", type_name="METRICS")
-	user = EntryType(type_category="", type_name="USER")
-	message = EntryType(type_category="", type_name="MESSAGE")
-	info = EntryType(type_category="", type_name="INFO")
-	notice = EntryType(type_category="", type_name="NOTICE")
-	warning = EntryType(type_category="", type_name="WARNING")
-	error = EntryType(type_category="", type_name="!ERROR")
-	critical = EntryType(type_category="", type_name="!!@CRITICAL")
-	resolved = EntryType(type_category="", type_name="RESOLVED")
-	unresolved = EntryType(type_category="", type_name="UNRESOLVED")
-	achievement = EntryType(type_category="", type_name="ACHIEVEMENT")
-	milestone = EntryType(type_category="", type_name="MILESTONE")
-	initiation = EntryType(type_category="", type_name="INITIATION")
-	process = EntryType(type_category="", type_name="PROGRESS")
-	success = EntryType(type_category="", type_name="SUCCESS")
-	fail = EntryType(type_category="", type_name="FAIL")
-	start_timer = EntryType(type_category="", type_name="START-TIMER")
-	timer_mark = EntryType(type_category="", type_name="TIMER-MARK")
-	stop_timer = EntryType(type_category="", type_name="STOP-TIMER")
+	"""
+	A class with a list of all entry types.
+	Needed only for the select() method of the Modifier class.
+
+	.. versionadded:: 0.0.0
+	"""
+
+	debug = EntryType(
+		type_category="",
+		type_name="DEBUG",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	debug_performance = EntryType(
+		type_category="",
+		type_name="DEBUG-PERFORMANCE",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	performance = EntryType(
+		type_category="",
+		type_name="PERFORMANCE",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	event = EntryType(
+		type_category="",
+		type_name="EVENT",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	audit = EntryType(
+		type_category="",
+		type_name="AUDIT",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	metrics = EntryType(
+		type_category="",
+		type_name="METRICS",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	user = EntryType(
+		type_category="",
+		type_name="USER",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	message = EntryType(
+		type_category="",
+		type_name="MESSAGE",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	info = EntryType(
+		type_category="",
+		type_name="INFO",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	notice = EntryType(
+		type_category="",
+		type_name="NOTICE",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	warning = EntryType(
+		type_category="",
+		type_name="WARNING",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	error = EntryType(
+		type_category="",
+		type_name="!ERROR",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	critical = EntryType(
+		type_category="",
+		type_name="!!@CRITICAL",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	resolved = EntryType(
+		type_category="",
+		type_name="RESOLVED",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	unresolved = EntryType(
+		type_category="",
+		type_name="UNRESOLVED",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	achievement = EntryType(
+		type_category="",
+		type_name="ACHIEVEMENT",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	milestone = EntryType(
+		type_category="",
+		type_name="MILESTONE",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	initiation = EntryType(
+		type_category="",
+		type_name="INITIATION",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	process = EntryType(
+		type_category="",
+		type_name="PROGRESS",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	success = EntryType(
+		type_category="",
+		type_name="SUCCESS",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	fail = EntryType(
+		type_category="",
+		type_name="FAIL",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	start_timer = EntryType(
+		type_category="",
+		type_name="START-TIMER",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	timer_mark = EntryType(
+		type_category="",
+		type_name="TIMER-MARK",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	stop_timer = EntryType(
+		type_category="",
+		type_name="STOP-TIMER",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
 
 class SelectionCategories:
-	debug = EntryType(type_category="%", type_name="")
-	event = EntryType(type_category="~", type_name="")
-	message = EntryType(type_category="@", type_name="")
-	error = EntryType(type_category="!", type_name="")
-	process = EntryType(type_category="&", type_name="")
-	timer = EntryType(type_category="^", type_name="")
+	"""
+	A class with a list of all entry categories.
+	Needed only for the select() method of the Modifier class.
+
+	.. versionadded:: 0.0.0
+	"""
+	debug = EntryType(
+		type_category="%",
+		type_name="",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	event = EntryType(
+		type_category="~",
+		type_name="",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	message = EntryType(
+		type_category="@",
+		type_name="",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	error = EntryType(
+		type_category="!",
+		type_name="",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	process = EntryType(
+		type_category="&",
+		type_name="",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)
+	timer = EntryType(
+		type_category="^",
+		type_name="",
+		time_color = (),
+		status_color = (),
+		status_message_color = (),
+		type_color = (),
+		message_color = (),
+		background_color = (),
+		icon = ()
+	)

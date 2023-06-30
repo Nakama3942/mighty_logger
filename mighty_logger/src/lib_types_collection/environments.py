@@ -1,7 +1,4 @@
 """
-A module with a list of environment options in which the modules work
-and entry types that can be passed to an entry in Progress bar.
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +19,10 @@ from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 class LogEnvironments:
 	"""
 	Environments of Logger.
+
+	.. versionadded:: 0.0.0
 	"""
+
 	CONSOLE = EnvironmentType("CONSOLE", 0, True, False)
 	PLAIN_CONSOLE = EnvironmentType("PLAIN_CONSOLE", 1, True, False)
 	HTML = EnvironmentType("HTML", 2, False, True)

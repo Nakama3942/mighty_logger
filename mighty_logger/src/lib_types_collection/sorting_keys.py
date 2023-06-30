@@ -1,6 +1,4 @@
 """
-...
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +16,15 @@ limitations under the License.
 
 from mighty_logger.basic.lib_types.sorting_key_type import SortingKeyType
 
+# todo заменить числа на строки
+
 class SortingKeys:
+	"""
+	Sort keys.
+
+	.. versionadded:: 0.0.0
+	"""
+
 	SORT_ON_TIME = SortingKeyType(0)
 	SORT_ON_TIME_WITH_REVERSE = SortingKeyType(1)
 	SORT_ON_CATEGORY = SortingKeyType(2)
