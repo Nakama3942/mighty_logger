@@ -547,8 +547,17 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 ## Extension update v0.9.0 (29.06.2023)
 
+*On PyPi, it was tested and removed.*
+
 #### Enhancements:
 - Moved from `setup.py` to `pyproject.toml`;
 - Began to collect `wheel`;
+
+---
+
+## Documenting update v0.9.1 (30.06.2023)
+
+#### Documenting:
+- Updated documentation;
 
 ---

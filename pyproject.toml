@@ -19,7 +19,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mighty_logger"
-version = "0.9.0"
+version = "0.9.1"
 authors = [
 	{name = "Kalynovsky 'Nakamura Akira' Valentin", email = "nakama3942@gmail.com"},
 ]
