@@ -551,13 +551,27 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 #### Enhancements:
 - Moved from `setup.py` to `pyproject.toml`;
-- Began to collect `wheel`;
+- Began to collect `wheel`.
 
 ---
 
 ## Documenting update v0.9.1 (30.06.2023)
 
 #### Documenting:
-- Updated documentation;
+- Updated documentation.
+
+---
+
+## Feature update v0.9.2 (30.06.2023)
+
+#### Documenting:
+- Updated documentation.
+
+#### Enhancements:
+- Made the `background` field a global setting;
+- Added the ability to change global settings and read them while the Logger is running;
+- Added settings arguments to the "simple" Logger constructor;
+- Hid the "mighty" Logger, but it can be used via the `might()` method;
+- Prohibited the creation of more than one "simple" Logger object, but "simple" and "mighty" Loggers can coexist, since "simple" uses "mighty" and is not inherited.
 
 ---

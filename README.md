@@ -94,7 +94,7 @@ Any information to the output can be turned off (according to the default, every
 - [x] v0.8.0 - Export update (added conversion to csv)
 - [x] v0.9.0 - Extension update (made wheel format and instruction of toml)
 - [x] v0.9.1 - Documenting update (documented library)
-- [ ] v0.9.2 - Feature update (made optimizations)
+- [x] v0.9.2 - Feature update (made optimizations)
 - [ ] v0.9.3 - Web docs update (added generation of web docs)
 - [ ] v1.0.0 - Completion of logger development (logger development completed)
 - [ ] v1.1.0 - Font update (added a class that formats text outside the logger)
