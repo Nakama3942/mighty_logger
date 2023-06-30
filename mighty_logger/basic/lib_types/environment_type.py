@@ -1,6 +1,4 @@
 """
-...
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +15,10 @@ limitations under the License.
 """
 
 class EnvironmentType:
+	"""
+	A data type that characterizes the environments in which the Logger can operate.
+	"""
+
 	def __init__(
 		self,
 		environment_name: str,
@@ -38,9 +40,9 @@ class EnvironmentType:
 		return self.__environment_code
 
 	@property
-	def updatable(self) -> int:
+	def updatable(self) -> bool:
 		return self.__updatable
 
 	@property
-	def weak_environment(self) -> int:
+	def weak_environment(self) -> bool:
 		return self.__weak_environment

@@ -1,6 +1,4 @@
 """
-...
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +18,7 @@ class BasicAnimationType:
 	"""
 	Basic wrapper class for animations type.
 	"""
+
 	def __init__(self, animation: list):
 		self.__animation: list = animation
 

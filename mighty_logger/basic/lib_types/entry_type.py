@@ -1,6 +1,4 @@
 """
-...
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,18 +15,22 @@ limitations under the License.
 """
 
 class EntryType:
+	"""
+	The data type that characterizes the entry type.
+	"""
+
 	def __init__(
 		self,
 		*,
 		type_category: str,
 		type_name: str,
-		time_color: tuple = (),
-		status_color: tuple = (),
-		status_message_color: tuple = (),
-		type_color: tuple = (),
-		message_color: tuple = (),
-		background_color: tuple = (),
-		icon: tuple = ()
+		time_color: tuple,
+		status_color: tuple,
+		status_message_color: tuple,
+		type_color: tuple,
+		message_color: tuple,
+		background_color: tuple,
+		icon: tuple
 	) -> None:
 		self.__type_category: str = type_category
 		self.__type_name: str = type_name
