@@ -18,9 +18,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .mighty_logger import MightyLogger
 from .simple_logger import Logger
 
 __authot__ = "Kalynovsky 'Nakamura Akira' Valentin"
-__version__ = "0.9.1"
+__version__ = "0.9.2"
 __email__ = "nakama3942@gmail.com"

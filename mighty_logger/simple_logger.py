@@ -15,11 +15,12 @@ limitations under the License.
 """
 
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
+from mighty_logger.basic.singleton import Singleton
 from mighty_logger.src.lib_types_collection.entry_types import LoggerEntryTypes, ServiceProcessEntryTypes
 from mighty_logger.src.lib_types_collection.environments import LogEnvironments
 from mighty_logger.mighty_logger import MightyLogger
 
-class Logger:
+class Logger(Singleton):
 	"""
 	Lightweight Logger automates work with entry types.
 
@@ -29,8 +30,13 @@ class Logger:
 	def __init__(
 		self,
 		program_name: str = "Unknown",
-		environment: EnvironmentType = LogEnvironments.PLAIN,
-		console_width: int = 60
+		log_environment: EnvironmentType = LogEnvironments.PLAIN,
+		console_width: int = 60,
+		icon_set: int = 1,
+		global_bold_font: bool = False,
+		global_italic_font: bool = False,
+		global_invert_font: bool = False,
+		global_background: bool = False
 	) -> None:
 		if MightyLogger._instance is not None:
 			self.__logger = MightyLogger._instance
@@ -38,11 +44,24 @@ class Logger:
 		else:
 			self.__logger = MightyLogger(
 				program_name=program_name,
-				log_environment=environment,
+				log_environment=log_environment,
 				console_width=console_width,
+				icon_set=icon_set,
+				global_bold_font=global_bold_font,
+				global_italic_font=global_italic_font,
+				global_invert_font=global_invert_font,
+				global_background=global_background
 			)
 
 	def might(self) -> MightyLogger:
+		"""
+		Provides access to "mighty" Logger methods.
+
+		.. versionadded:: 0.0.0
+
+		:return: A "mighty" Logger
+		:rtype: MightyLogger
+		"""
 		return self.__logger
 
 	def debug(self, message_text: str) -> None:

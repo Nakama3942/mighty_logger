@@ -16,8 +16,6 @@ limitations under the License.
 
 from mighty_logger.basic.lib_types.sorting_key_type import SortingKeyType
 
-# todo заменить числа на строки
-
 class SortingKeys:
 	"""
 	Sort keys.
@@ -25,7 +23,7 @@ class SortingKeys:
 	.. versionadded:: 0.0.0
 	"""
 
-	SORT_ON_TIME = SortingKeyType(0)
-	SORT_ON_TIME_WITH_REVERSE = SortingKeyType(1)
-	SORT_ON_CATEGORY = SortingKeyType(2)
-	SORT_ON_TYPE = SortingKeyType(3)
+	SORT_ON_TIME = SortingKeyType("time")
+	SORT_ON_TIME_WITH_REVERSE = SortingKeyType("time_with_reverse")
+	SORT_ON_CATEGORY = SortingKeyType("category")
+	SORT_ON_TYPE = SortingKeyType("type")

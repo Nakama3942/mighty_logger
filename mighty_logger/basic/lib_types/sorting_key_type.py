@@ -21,9 +21,9 @@ class SortingKeyType:
 	.. versionadded:: 0.0.0
 	"""
 
-	def __init__(self, sorting_key: int):
-		self.__sorting_key: int = sorting_key
+	def __init__(self, sorting_key: str):
+		self.__sorting_key: str = sorting_key
 
 	@property
-	def sorting_key(self) -> int:
+	def sorting_key(self) -> str:
 		return self.__sorting_key

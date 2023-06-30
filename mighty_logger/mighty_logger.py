@@ -66,7 +66,7 @@ class MightyLogger(BasicLogger):
 		global_bold_font: bool = False,
 		global_italic_font: bool = False,
 		global_invert_font: bool = False,
-		global_background: bool = False,
+		global_background: bool = False
 	) -> None:
 		if not hasattr(self, "_environment"):
 			super().__init__(program_name, log_environment)
@@ -75,12 +75,12 @@ class MightyLogger(BasicLogger):
 			self._settings["global_bold_font"] = global_bold_font
 			self._settings["global_italic_font"] = global_italic_font
 			self._settings["global_invert_font"] = global_invert_font
+			self._settings["global_background"] = global_background
 			self._progress_rise = 0
 			self._progress_start: datetime | None = None
 			self._progress_time: str = "        "
 			self._progress_interrupt = False
 			self._start_timer_value: datetime | None = None
-			self._global_background = global_background
 			self._buffer: TextBufferType = TextBufferType(log_environment)
 			self._init_buffer(console_width)
 			self._initial_log()
@@ -128,8 +128,8 @@ class MightyLogger(BasicLogger):
 			self._buffer << "<body style='background-color: #000000; color: #ffffff;'>"
 		self._buffer << self._initialized_data(
 			[
-				ServiceLogger.initial[0][self._environment.environment_code][self._global_background],
-				ServiceLogger.initial[1][self._environment.environment_code][self._global_background]
+				ServiceLogger.initial[0][self._environment.environment_code][self._settings["global_background"]],
+				ServiceLogger.initial[1][self._environment.environment_code][self._settings["global_background"]]
 			]
 		)
 		if self._environment.updatable:
@@ -146,7 +146,47 @@ class MightyLogger(BasicLogger):
 		"""
 		self._icon_set = icon_set if 0 < icon_set < 5 else 1
 
-	# todo добавить методы-настройки и скрыть из __init__
+	def set_settings(
+		self,
+		*,
+		global_bold_font: bool = None,
+		global_italic_font: bool = None,
+		global_invert_font: bool = None,
+		global_background: bool = None
+	) -> None:
+		"""
+		Method that sets new Logger settings.
+
+		.. versionadded:: 0.9.2
+
+		:param global_bold_font: Sets the global setting "bold font"
+		:type global_bold_font: bool
+		:param global_italic_font: Sets the global setting "italic font"
+		:type global_italic_font: bool
+		:param global_invert_font: Sets the global setting "invert font"
+		:type global_invert_font: bool
+		:param global_background: Sets the global setting "background"
+		:type global_background: bool
+		"""
+		if global_bold_font is not None:
+			self._settings['global_bold_font'] = global_bold_font
+		if global_italic_font is not None:
+			self._settings['global_italic_font'] = global_italic_font
+		if global_invert_font is not None:
+			self._settings['global_invert_font'] = global_invert_font
+		if global_background is not None:
+			self._settings['global_background'] = global_background
+
+	def get_settings(self) -> dict:
+		"""
+		Returns a dictionary of settings.
+
+		.. versionadded:: 0.9.2
+
+		:return: A dictionary of settings
+		:rtype: dict
+		"""
+		return self._settings
 
 	# ######################################################################################## #
 	#                                                                                          #
@@ -188,6 +228,7 @@ class MightyLogger(BasicLogger):
 		self.empty(f"    Bold font is set to {str(self._settings['global_bold_font'])};")
 		self.empty(f"    Italic font is set to {str(self._settings['global_italic_font'])};")
 		self.empty(f"    Invert font is set to {str(self._settings['global_invert_font'])};")
+		self.empty(f"    Background is set to {str(self._settings['global_background'])};")
 
 	def publish_author(self) -> None:
 		"""
@@ -508,7 +549,6 @@ class MightyLogger(BasicLogger):
 		self,
 		entry_type: EntryType,
 		message_text: str,
-		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -520,21 +560,17 @@ class MightyLogger(BasicLogger):
 		:type entry_type: EntryType
 		:param message_text: Log entry message
 		:type message_text: str
-		:param local_background: Display entry with background?
-		:type local_background: bool
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
 		"""
 		if local_settings is None:
 			local_settings = {}
-		background = local_background if local_background is not None else self._global_background
 		self.empty(
 			self._assemble_entry(
 				entry_type,
 				self._icon_set,
 				self._progress_time,
 				message_text,
-				background,
 				local_settings
 			)
 		)
@@ -549,7 +585,6 @@ class MightyLogger(BasicLogger):
 		self,
 		message_text: str,
 		animation: IndefiniteAnimationType = IndefiniteAnimations.Line,
-		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -565,8 +600,6 @@ class MightyLogger(BasicLogger):
 		:type message_text: str
 		:param animation: The name of the animation that will play in the Progress entry
 		:type animation: IndefiniteAnimationType
-		:param local_background: Display entry with background?
-		:type local_background: bool
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
 		"""
@@ -576,8 +609,6 @@ class MightyLogger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		args = {'message_text': message_text}
-		if local_background is not None:
-			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
 		self.entry(ServiceProcessEntryTypes.initiation, **args)
@@ -588,7 +619,6 @@ class MightyLogger(BasicLogger):
 	def _indefinite_progress(
 		self,
 		message_text: str,
-		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -613,13 +643,11 @@ class MightyLogger(BasicLogger):
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			animation_item = self._animation.animation[animation_index]
-			background = local_background if local_background is not None else self._global_background
 			self._buffer.get_data()[-1] = self._assemble_entry(
 				ServiceProcessEntryTypes.process,
 				self._icon_set,
 				animation_item,
 				message_text,
-				background,
 				local_settings
 			)
 			animation_index = (animation_index + 1) % len(self._animation.animation)
@@ -633,7 +661,6 @@ class MightyLogger(BasicLogger):
 		self,
 		message_text: str,
 		progress_bar: DefiniteAnimationType = DefiniteAnimations.Line,
-		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -649,8 +676,6 @@ class MightyLogger(BasicLogger):
 		:type message_text: str
 		:param progress_bar: The name of the progress bar that will play in the Progress entry
 		:type progress_bar: DefiniteAnimationType
-		:param local_background: Display entry with background?
-		:type local_background: bool
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
 		"""
@@ -660,8 +685,6 @@ class MightyLogger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		args = {'message_text': message_text}
-		if local_background is not None:
-			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
 		self.entry(ServiceProcessEntryTypes.initiation, **args)
@@ -672,7 +695,6 @@ class MightyLogger(BasicLogger):
 	def _definite_progress(
 		self,
 		message_text: str,
-		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -701,13 +723,11 @@ class MightyLogger(BasicLogger):
 			else:
 				old_progress_rise = self._progress_rise
 				animation_item = f"{self._animation.animation[(self._progress_rise // 15) + (2 if self._progress_rise == 100 else 1)]} - {self._progress_rise} %"
-				background = local_background if local_background is not None else self._global_background
 				self._buffer.get_data()[-1] = self._assemble_entry(
 					ServiceProcessEntryTypes.process,
 					self._icon_set,
 					animation_item,
 					message_text,
-					background,
 					local_settings
 				)
 				if self._environment.updatable:
@@ -734,7 +754,6 @@ class MightyLogger(BasicLogger):
 		self,
 		entry_type: EntryType,
 		message_text: str,
-		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -754,8 +773,6 @@ class MightyLogger(BasicLogger):
 		:type entry_type: EntryType
 		:param message_text: Log entry message
 		:type message_text: str
-		:param local_background: Display entry with background?
-		:type local_background: bool
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
 		"""
@@ -765,8 +782,6 @@ class MightyLogger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		args = {'message_text': message_text}
-		if local_background is not None:
-			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
 		self.entry(entry_type, **args)
@@ -776,7 +791,6 @@ class MightyLogger(BasicLogger):
 	def stop_process(
 		self,
 		message_text: str,
-		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -789,8 +803,6 @@ class MightyLogger(BasicLogger):
 
 		:param message_text: Log entry message
 		:type message_text: str
-		:param local_background: Display entry with background?
-		:type local_background: bool
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
 		"""
@@ -801,8 +813,6 @@ class MightyLogger(BasicLogger):
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
 		args = {'message_text': message_text}
-		if local_background is not None:
-			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
 		self.entry(
@@ -824,7 +834,6 @@ class MightyLogger(BasicLogger):
 	def start_timer(
 		self,
 		message_text: str,
-		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -835,8 +844,6 @@ class MightyLogger(BasicLogger):
 
 		:param message_text: Log entry message
 		:type message_text: str
-		:param local_background: Display entry with background?
-		:type local_background: bool
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
 		"""
@@ -845,8 +852,6 @@ class MightyLogger(BasicLogger):
 		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
 
 		args = {'message_text': message_text}
-		if local_background is not None:
-			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
 		self.entry(ServiceTimerEntryTypes.start_timer, **args)
@@ -856,7 +861,6 @@ class MightyLogger(BasicLogger):
 	def timer_mark(
 		self,
 		message_text: str,
-		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -868,8 +872,6 @@ class MightyLogger(BasicLogger):
 
 		:param message_text: Log entry message
 		:type message_text: str
-		:param local_background: Display entry with background?
-		:type local_background: bool
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
 		"""
@@ -877,8 +879,6 @@ class MightyLogger(BasicLogger):
 		self._progress_time = "^" + str(mark_timer_value - self._start_timer_value).split(".")[0]
 
 		args = {'message_text': message_text}
-		if local_background is not None:
-			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
 		self.entry(ServiceTimerEntryTypes.timer_mark, **args)
@@ -888,7 +888,6 @@ class MightyLogger(BasicLogger):
 	def stop_timer(
 		self,
 		message_text: str,
-		local_background: bool = None,
 		local_settings: dict = None
 	) -> None:
 		"""
@@ -900,8 +899,6 @@ class MightyLogger(BasicLogger):
 
 		:param message_text: Log entry message
 		:type message_text: str
-		:param local_background: Display entry with background?
-		:type local_background: bool
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
 		"""
@@ -909,8 +906,6 @@ class MightyLogger(BasicLogger):
 		self._progress_time = "^" + str(stop_timer_value - self._start_timer_value).split(".")[0]
 
 		args = {'message_text': message_text}
-		if local_background is not None:
-			args['local_background'] = local_background
 		if local_settings is not None:
 			args['local_settings'] = local_settings
 		self.entry(ServiceTimerEntryTypes.stop_timer, **args)

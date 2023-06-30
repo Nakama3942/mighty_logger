@@ -14,8 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# todo разбить в пакет
-
 class ColorException(BaseException):
 	"""
 	The exception that is thrown when there is no color in any palette.

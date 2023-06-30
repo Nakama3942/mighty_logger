@@ -59,7 +59,6 @@ class BasicLogger(Singleton):
 		:rtype: str
 		"""
 		match self._environment.environment_name:
-			# todo оптимизировать
 			case LogEnvironments.CONSOLE.environment_name:
 				return (
 					f"{colors[1]}" +
@@ -119,7 +118,6 @@ class BasicLogger(Singleton):
 		icon_set: int,
 		animation: str,
 		message_text: str,
-		entry_background: bool,
 		local_settings: dict
 	) -> str:
 		"""
@@ -135,8 +133,6 @@ class BasicLogger(Singleton):
 		:type animation: str
 		:param message_text: Message of entry
 		:type message_text: str
-		:param entry_background: Flag indicating setting the background of the entry string
-		:type entry_background: bool
 		:param local_settings: Settings for the string of the current entry
 		:type local_settings: dict
 		:return: The formed entry string
@@ -149,21 +145,21 @@ class BasicLogger(Singleton):
 		bold = local_settings['bold'] if 'bold' in local_settings else self._settings['global_bold_font']
 		italic = local_settings['italic'] if 'italic' in local_settings else self._settings['global_italic_font']
 		invert = local_settings['invert'] if 'invert' in local_settings else self._settings['global_invert_font']
+		background = local_settings['background'] if 'background' in local_settings else self._settings['global_background']
 
 		match self._environment.environment_name:
-			# todo оптимизировать
 			case LogEnvironments.CONSOLE.environment_name:
 				return (
 					(f"{GetAnsiFormat('bold/on')}" if bold else "") +
 					(f"{GetAnsiFormat('italic/on')}" if italic else "") +
 					(f"{GetAnsiFormat('invert/on')}" if invert else "") +
-					f"{entry_type.background_color[self._environment.environment_code][entry_background]}" +
-					f"{entry_type.message_color[self._environment.environment_code][entry_background]}-?entry> {animation} " +
-					f"{entry_type.time_color[self._environment.environment_code][entry_background]}*{datetime.now()} " +
+					f"{entry_type.background_color[self._environment.environment_code][background]}" +
+					f"{entry_type.message_color[self._environment.environment_code][background]}-?entry> {animation} " +
+					f"{entry_type.time_color[self._environment.environment_code][background]}*{datetime.now()} " +
 					f"{entry_type.icon[icon_set]} " +
-					f"{entry_type.status_color[self._environment.environment_code][entry_background]}#STATUS: " +
-					f"{entry_type.type_color[self._environment.environment_code][entry_background]}{entry_type.type_category}{entry_type.type_name} - " +
-					f"{entry_type.message_color[self._environment.environment_code][entry_background]}{message_text}" +
+					f"{entry_type.status_color[self._environment.environment_code][background]}#STATUS: " +
+					f"{entry_type.type_color[self._environment.environment_code][background]}{entry_type.type_category}{entry_type.type_name} - " +
+					f"{entry_type.message_color[self._environment.environment_code][background]}{message_text}" +
 					f"{GetAnsiFormat('reset/on')}"
 				)
 			case LogEnvironments.PLAIN_CONSOLE.environment_name:
@@ -179,13 +175,13 @@ class BasicLogger(Singleton):
 				return (
 					(f"<b>" if bold else "") +
 					(f"<i>" if italic else "") +
-					f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][entry_background]};'>" +
-					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>-?entry> {animation} </span>" +
-					f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.now()} </span>" +
+					f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][background]};'>" +
+					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][background]};'>-?entry> {animation} </span>" +
+					f"<span style='color: #{entry_type.time_color[self._environment.environment_code][background]};'>*{datetime.now()} </span>" +
 					f"{entry_type.icon[icon_set]} " +
-					f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" +
-					f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" +
-					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" +
+					f"<span style='color: #{entry_type.status_color[self._environment.environment_code][background]};'>#STATUS: </span>" +
+					f"<span style='color: #{entry_type.type_color[self._environment.environment_code][background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" +
+					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][background]};'>{message_text}</span></span>" +
 					(f"</i>" if italic else "") +
 					(f"</b>" if bold else "")
 				)
@@ -193,13 +189,13 @@ class BasicLogger(Singleton):
 				return (
 					(f"<b>" if bold else "") +
 					(f"<i>" if italic else "") +
-					f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][entry_background]};'>" +
-					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>-?entry> {animation} </span>" +
-					f"<span style='color: #{entry_type.time_color[self._environment.environment_code][entry_background]};'>*{datetime.now()} </span>" +
+					f"<span style='background-color: #{entry_type.background_color[self._environment.environment_code][background]};'>" +
+					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][background]};'>-?entry> {animation} </span>" +
+					f"<span style='color: #{entry_type.time_color[self._environment.environment_code][background]};'>*{datetime.now()} </span>" +
 					f"{entry_type.icon[icon_set]} " +
-					f"<span style='color: #{entry_type.status_color[self._environment.environment_code][entry_background]};'>#STATUS: </span>" +
-					f"<span style='color: #{entry_type.type_color[self._environment.environment_code][entry_background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" +
-					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][entry_background]};'>{message_text}</span></span>" +
+					f"<span style='color: #{entry_type.status_color[self._environment.environment_code][background]};'>#STATUS: </span>" +
+					f"<span style='color: #{entry_type.type_color[self._environment.environment_code][background]};'>{entry_type.type_category}{entry_type.type_name} - </span>" +
+					f"<span style='color: #{entry_type.message_color[self._environment.environment_code][background]};'>{message_text}</span></span>" +
 					(f"</i>" if italic else "") +
 					(f"</b>" if bold else "")
 				)
