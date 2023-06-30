@@ -17,6 +17,8 @@ limitations under the License.
 class EnvironmentType:
 	"""
 	A data type that characterizes the environments in which the Logger can operate.
+
+	.. versionadded:: 0.0.0
 	"""
 
 	def __init__(

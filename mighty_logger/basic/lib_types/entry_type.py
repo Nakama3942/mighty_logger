@@ -17,6 +17,8 @@ limitations under the License.
 class EntryType:
 	"""
 	The data type that characterizes the entry type.
+
+	.. versionadded:: 0.0.0
 	"""
 
 	def __init__(

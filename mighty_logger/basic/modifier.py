@@ -1,6 +1,4 @@
 """
-...
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,11 +23,20 @@ from mighty_logger.src.lib_types_collection.environments import LogEnvironments
 from mighty_logger.src.lib_types_collection.sorting_keys import SortingKeys
 
 class Modifier:
+	"""
+	A class that implements Looger's modification. Modification means any change
+	in the Logger Text Buffer, namely, changing entries, moving, deleting and adding.
+	Sorting, searching, and selecting algorithms make just such an impact
+	on the Logger's Text Buffer.
+
+	.. versionadded:: 0.0.0
+	"""
+
 	def __init__(
 		self,
 		entries: list[str],
 		environment: EnvironmentType
-	):
+	) -> None:
 		self.__category_order = {
 			"%": 0,
 			"~": 1,
@@ -72,6 +79,15 @@ class Modifier:
 		return self.__entries
 
 	def sort(self, key: SortingKeyType) -> None:
+		"""
+		Method for sorting entries by key. The sort key is "sort by time",
+		"sort by time in reverse order", "sort by category" and "sort by type".
+
+		.. versionadded:: 0.0.0
+
+		:param key: The key to sort by
+		:type key: SortingKeyType
+		"""
 		cleared_entry = ""
 		sorting_entries = []
 		count_separators = 0
@@ -120,6 +136,17 @@ class Modifier:
 		self.__entries.append("--------------------------------------------------------------------------------")
 
 	def search(self, keyword: str, empty: bool) -> None:
+		"""
+		A method that implements the search for entries in messages by a keyword/letter/phrase.
+		It is possible to enable search not only in entries, but also in empty (custom) entries.
+
+		.. versionadded:: 0.0.0
+
+		:param keyword: Keyword/letter/phrase
+		:type keyword: str
+		:param empty: Flag indicating whether to search in custom strings
+		:type empty: bool
+		"""
 		cleared_entry = ""
 		searching_entries = []
 		count_separators = 0
@@ -162,6 +189,14 @@ class Modifier:
 		self.__entries.append("--------------------------------------------------------------------------------")
 
 	def select(self, entry_type: EntryType) -> None:
+		"""
+		A method that selects entries either by a specific type or by an entire category.
+
+		.. versionadded:: 0.0.0
+
+		:param entry_type: Entries Type/Category
+		:type entry_type: EntryType
+		"""
 		cleared_entry = ""
 		selected_entries = []
 		count_excess = 0

@@ -1,6 +1,4 @@
 """
-This module is a collection of Patterns. Available: Singleton.
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +15,12 @@ limitations under the License.
 """
 
 class Singleton:
+	"""
+	A class that implements the Singleton pattern.
+
+	.. versionadded:: 0.0.0
+	"""
+
 	_instance = None
 
 	def __new__(cls, *args, **kwargs):

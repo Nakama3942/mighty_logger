@@ -1,6 +1,4 @@
 """
-...
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +20,18 @@ from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.src.lib_types_collection.environments import LogEnvironments
 
 class Exporter:
+	"""
+	A class that implements the functionality of exporting a string
+	in the format of Logger entries to other formats.
+
+	.. versionadded:: 0.0.0
+	"""
+
 	def __init__(
 			self,
 			entries: list[str],
 			environment: EnvironmentType
-	):
+	) -> None:
 		self.__entries: list[str] = entries
 		self.__env: EnvironmentType = environment
 		self.__csv: list[dict] = []
@@ -35,7 +40,15 @@ class Exporter:
 	def entries(self) -> list[str]:
 		return self.__entries
 
-	def export_to_csv(self):
+	def export_to_csv(self) -> None:
+		"""
+		The method that implements the export of Logger entries rows to the csv table format.
+		The strings are converted into dictionaries, from which it will then be possible
+		to assemble a csv table at the time the file is saved in the new format.
+		This method does not implement saving the exported data.
+
+		.. versionadded:: 0.0.0
+		"""
 		cleared_entry = ""
 		csv_entry = {}
 
@@ -69,7 +82,15 @@ class Exporter:
 				csv_entry.clear()
 				continue
 
-	def save(self, file_name: str):
+	def save_to_csv(self, file_name: str) -> None:
+		"""
+		Implements the saving of the generated dictionary strings to the csv file of the table.
+
+		.. versionadded:: 0.0.0
+
+		:param file_name: The name of the file where you want to save the csv table
+		:type file_name: str
+		"""
 		with open(f"{file_name}.csv", "w", encoding="utf-8") as csv:
 			# Write headers (first line) to file
 			headers = self.__csv[0].keys()

@@ -1,6 +1,4 @@
 """
-A module with an implementation of the base (parent) logger class.
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,6 +27,13 @@ from mighty_logger.src.lib_types_collection.environments import LogEnvironments
 from mighty_logger.src.ansi_format import GetAnsiFormat
 
 class BasicLogger(Singleton):
+	"""
+	The base class of the Logger, which stores the main attributes and implements
+	the most important functionality - the formation of the Logger entry string.
+
+	.. versionadded:: 0.0.0
+	"""
+
 	def __init__(
 		self,
 		program_name: str,
@@ -46,10 +51,15 @@ class BasicLogger(Singleton):
 		"""
 		A method that assemble an entry of system initialized data.
 
+		.. versionadded:: 0.0.0
+
 		:param colors: Color string list of initialized data
-		:return: a string with initialized data
+		:type colors: list[str, str]
+		:return: A string with initialized data
+		:rtype: str
 		"""
 		match self._environment.environment_name:
+			# todo оптимизировать
 			case LogEnvironments.CONSOLE.environment_name:
 				return (
 					f"{colors[1]}" +
@@ -115,14 +125,23 @@ class BasicLogger(Singleton):
 		"""
 		A method that assemble an entry into a string and returns it.
 
-		:param colors: 6 colors that the method uses to assemble the string
-		:param animation: Animation of entry
-		:param icon: Type icon
-		:param status_message_text: Status message
-		:param message_type: Entry type
-		:param message_text: Entry message
+		.. versionadded:: 0.0.0
+
+		:param entry_type: Type of entry to be generated
+		:type entry_type: EntryType
+		:param icon_set: Icon set number
+		:type icon_set: int
+		:param animation: Animation frame of entry
+		:type animation: str
+		:param message_text: Message of entry
+		:type message_text: str
+		:param entry_background: Flag indicating setting the background of the entry string
+		:type entry_background: bool
 		:param local_settings: Settings for the string of the current entry
-		:return: the formed entry string
+		:type local_settings: dict
+		:return: The formed entry string
+		:rtype: str
+		:raises MessageException: Message is too short (less than 10 characters)
 		"""
 		if len(message_text) < 10:
 			raise MessageException("Message is too short (less than 10 characters)")
@@ -132,6 +151,7 @@ class BasicLogger(Singleton):
 		invert = local_settings['invert'] if 'invert' in local_settings else self._settings['global_invert_font']
 
 		match self._environment.environment_name:
+			# todo оптимизировать
 			case LogEnvironments.CONSOLE.environment_name:
 				return (
 					(f"{GetAnsiFormat('bold/on')}" if bold else "") +

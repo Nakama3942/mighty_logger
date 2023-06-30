@@ -1,5 +1,7 @@
 """
 A package with base classes intended for use within a library.
+
+.. versionadded:: 0.0.0
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 

@@ -70,7 +70,7 @@ class TextBufferType:
 		:type message: str
 		:raises NotImplementedError: Method append() is not implemented in the base class
 		"""
-		raise NotImplementedError("Method append() is not implemented in the base class.")
+		raise NotImplementedError("Method append() is not implemented in the base class")
 
 	def insert(self, number_string: int, message: str) -> None:
 		"""
@@ -84,7 +84,7 @@ class TextBufferType:
 		:type message: str
 		:raises NotImplementedError: Method insert() is not implemented in the base class
 		"""
-		raise NotImplementedError("Method insert() is not implemented in the base class.")
+		raise NotImplementedError("Method insert() is not implemented in the base class")
 
 	def replace(self, number_string: int, message: str) -> None:
 		"""
@@ -99,7 +99,7 @@ class TextBufferType:
 		:type message: str
 		:raises NotImplementedError: Method replace() is not implemented in the base class
 		"""
-		raise NotImplementedError("Method replace() is not implemented in the base class.")
+		raise NotImplementedError("Method replace() is not implemented in the base class")
 
 	def pop(self, number_string: int = -1) -> str:
 		"""
@@ -113,7 +113,7 @@ class TextBufferType:
 		:rtype: str
 		:raises NotImplementedError: Method pop() is not implemented in the base class
 		"""
-		raise NotImplementedError("Method pop() is not implemented in the base class.")
+		raise NotImplementedError("Method pop() is not implemented in the base class")
 
 	def remove(self, number_string: int = -1) -> None:
 		"""
@@ -125,7 +125,7 @@ class TextBufferType:
 		:type number_string: int
 		:raises NotImplementedError: Method remove() is not implemented in the base class
 		"""
-		raise NotImplementedError("Method remove() is not implemented in the base class.")
+		raise NotImplementedError("Method remove() is not implemented in the base class")
 
 	def clear(self) -> None:
 		"""
@@ -135,7 +135,7 @@ class TextBufferType:
 
 		:raises NotImplementedError: Method clear() is not implemented in the base class
 		"""
-		raise NotImplementedError("Method clear() is not implemented in the base class.")
+		raise NotImplementedError("Method clear() is not implemented in the base class")
 
 	def save(self, name_file: str, clean: bool) -> None:
 		"""
@@ -149,7 +149,7 @@ class TextBufferType:
 		:type clean: bool
 		:raises NotImplementedError: Method save() is not implemented in the base class
 		"""
-		raise NotImplementedError("Method save() is not implemented in the base class.")
+		raise NotImplementedError("Method save() is not implemented in the base class")
 
 	def load(self, name_file: str) -> None:
 		"""
@@ -161,7 +161,7 @@ class TextBufferType:
 		:type name_file: str
 		:raises NotImplementedError: Method load() is not implemented in the base class
 		"""
-		raise NotImplementedError("Method load() is not implemented in the base class.")
+		raise NotImplementedError("Method load() is not implemented in the base class")
 
 	def input(self, input_text: str) -> str:
 		"""
@@ -177,7 +177,7 @@ class TextBufferType:
 		:rtype: str
 		:raises NotImplementedError: Method input() is not implemented in the base class
 		"""
-		raise NotImplementedError("Method input() is not implemented in the base class.")
+		raise NotImplementedError("Method input() is not implemented in the base class")
 
 	def update_console(self) -> None:
 		"""
@@ -187,7 +187,7 @@ class TextBufferType:
 
 		:raises NotImplementedError: Method append() is not implemented in the base class
 		"""
-		raise NotImplementedError("Method update_console() is not implemented in the base class.")
+		raise NotImplementedError("Method update_console() is not implemented in the base class")
 
 	def update_entry(self) -> None:
 		"""
@@ -198,6 +198,6 @@ class TextBufferType:
 
 		:raises NotImplementedError: Method append() is not implemented in the base class
 		"""
-		raise NotImplementedError("Method update_entry() is not implemented in the base class.")
+		raise NotImplementedError("Method update_entry() is not implemented in the base class")
 
 # todo написать функцию, которая только дописывает последнюю строку

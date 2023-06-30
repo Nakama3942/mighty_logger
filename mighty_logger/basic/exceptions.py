@@ -1,6 +1,4 @@
 """
-A module with a collection of exceptions.
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,10 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+# todo разбить в пакет
+
 class ColorException(BaseException):
 	"""
 	The exception that is thrown when there is no color in any palette.
+
+	.. versionadded:: 0.0.0
 	"""
+
 	def __init__(self, message):
 		self.message = message
 
@@ -28,8 +31,11 @@ class ColorException(BaseException):
 
 class ReCreationException(BaseException):
 	"""
-	The exception that is thrown when an object of the Singleton class is re-created.
+	The exception that is thrown when an object of the Singleton category is re-created.
+
+	.. versionadded:: 0.0.0
 	"""
+
 	def __init__(self, message):
 		self.message = message
 
@@ -39,7 +45,10 @@ class ReCreationException(BaseException):
 class EnvironmentException(BaseException):
 	"""
 	The exception that is thrown when on environmental errors.
+
+	.. versionadded:: 0.0.0
 	"""
+
 	def __init__(self, message):
 		self.message = message
 
@@ -49,7 +58,10 @@ class EnvironmentException(BaseException):
 class InitException(BaseException):
 	"""
 	The exception thrown on errors during initialization.
+
+	.. versionadded:: 0.0.0
 	"""
+
 	def __init__(self, message):
 		self.message = message
 
@@ -59,7 +71,10 @@ class InitException(BaseException):
 class MessageException(BaseException):
 	"""
 	The exception that is thrown when a write message is too short.
+
+	.. versionadded:: 0.0.0
 	"""
+
 	def __init__(self, message):
 		self.message = message
 

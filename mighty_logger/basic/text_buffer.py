@@ -1,6 +1,4 @@
 """
-A module with implementation of text buffers.
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,8 +25,10 @@ from mighty_logger.src.lib_types_collection.environments import LogEnvironments
 
 class BasicTextBuffer(Singleton, TextBufferType):
 	"""
-	A class with a basic implementation of a simple text buffer. It is intended
+	A class with a basic implementation of a simple Text Buffer. It is intended
 	to be used in conjunction with HTML, but this is optional.
+
+	.. versionadded:: 0.0.0
 	"""
 
 	def __init__(self, env: EnvironmentType) -> None:
@@ -127,10 +127,12 @@ class BasicTextBuffer(Singleton, TextBufferType):
 
 class TextBuffer(Singleton, TextBufferType):
 	"""
-	A class with an advanced implementation of the console text buffer. It is not necessary to use it
+	A class with an advanced implementation of the console Text Buffer. It is not necessary to use it
 	only in the console, but almost all methods are reimplemented for more complex algorithms, taking
 	into account the width of the console (number of characters per line) and use ANSI escape codes
 	that are only found in the console.
+
+	.. versionadded:: 0.0.0
 	"""
 
 	def __init__(self, env: EnvironmentType, console_width: int = 60) -> None:
