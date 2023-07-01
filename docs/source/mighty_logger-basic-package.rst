@@ -1,5 +1,12 @@
-"BASIC" package
+"basic" package
 ===============
+
+.. toctree::
+	:maxdepth: 2
+	:caption: Contents:
+	:hidden:
+
+	mighty_logger-basic-lib_types-package
 
 .. autoclass:: mighty_logger.basic.basic_logger.BasicLogger
 	:members:

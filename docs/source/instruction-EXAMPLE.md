@@ -1,3 +1,5 @@
+## Example
+
 ```python
 from time import sleep
 

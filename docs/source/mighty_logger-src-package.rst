@@ -1,5 +1,12 @@
-"SRC" package
+"src" package
 =============
+
+.. toctree::
+	:maxdepth: 2
+	:caption: Contents:
+	:hidden:
+
+	mighty_logger-src-lib_types_collection-package
 
 .. autoclass:: mighty_logger.src.animations.IndefiniteAnimations
 	:members:

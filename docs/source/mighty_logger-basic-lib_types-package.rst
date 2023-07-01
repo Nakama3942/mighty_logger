@@ -1,7 +1,12 @@
-"LIB TYPES" package
+"lib types" package
 ===================
 
-.. hint:: To use, you need to enter `mighty_logger.basic.lib_types`.
+.. hint:: To use, you need to enter
+
+	.. code-block:: python
+		:linenos:
+
+		from mighty_logger.basic.lib_types import ...
 
 .. currentmodule:: mighty_logger.basic.lib_types.animation_type
 
@@ -96,8 +101,8 @@
 		Used to save a Text Buffer to the file.
 
 		:since: v0.4.0
-		:param message: The name of the file where you want to save the Text Buffer
-		:type message: str
+		:param name: The name of the file where you want to save the Text Buffer
+		:type name: str
 
 	.. py:method:: append(message: str) -> None
 
