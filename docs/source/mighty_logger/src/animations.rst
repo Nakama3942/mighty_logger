@@ -1,5 +1,3 @@
-.. automodule:: mighty_logger.src.animations
-
 .. autoclass:: mighty_logger.src.animations.IndefiniteAnimations
 	:members:
 

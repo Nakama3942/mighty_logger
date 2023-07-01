@@ -6,25 +6,11 @@ Welcome to Mighty Logger's documentation!
 	:caption: Contents:
 	:hidden:
 
-	animation_type
-	entry_type
-	environment_type
-	sorting_key_type
-	text_buffer_type
-	basic_logger
-	exceptions
-	exporter
-	modifier
-	singleton
-	text_buffer
-	entry_types
-	environments
-	sorting_keys
-	animations
-	ansi_format
-	color_picker
-	mighty_logger
-	simple_logger
+	mighty_logger/package
+	mighty_logger/basic/lib_types/package
+	mighty_logger/basic/package
+	mighty_logger/src/lib_types_collection/package
+	mighty_logger/src/package
 
 Indices and tables
 ==================

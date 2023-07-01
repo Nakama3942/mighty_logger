@@ -1,5 +1,3 @@
-.. automodule:: mighty_logger.basic.exceptions
-
 .. autoclass:: mighty_logger.basic.exceptions.ColorException
 	:members:
 

@@ -1,5 +1,3 @@
-.. automodule:: mighty_logger.src.color_picker
-
 .. autofunction:: mighty_logger.src.color_picker.DecColor
 
 .. autofunction:: mighty_logger.src.color_picker.HexColor

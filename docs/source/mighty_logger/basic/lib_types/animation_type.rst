@@ -1,5 +1,3 @@
-.. automodule:: mighty_logger.basic.lib_types.animation_type
-
 .. autoclass:: mighty_logger.basic.lib_types.animation_type.IndefiniteAnimationType
 	:members:
 

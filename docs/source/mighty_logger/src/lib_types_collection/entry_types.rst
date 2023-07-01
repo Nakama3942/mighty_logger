@@ -1,5 +1,3 @@
-.. automodule:: mighty_logger.src.lib_types_collection.entry_types
-
 .. autoclass:: mighty_logger.src.lib_types_collection.entry_types.ServiceLogger
 	:members:
 
