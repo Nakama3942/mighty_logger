@@ -1,9 +1,8 @@
-Mighty Logger
-==========
+"MIGHTY LOGGER" package
+=======================
 
-.. toctree::
-	:maxdepth: 2
-	:caption: Contents:
+.. autoclass:: mighty_logger.mighty_logger.MightyLogger
+	:members:
 
-	mighty_logger
-	simple_logger
+.. autoclass:: mighty_logger.simple_logger.Logger
+	:members:

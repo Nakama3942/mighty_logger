@@ -1,1 +1,0 @@
-.. autofunction:: mighty_logger.src.ansi_format.GetAnsiFormat
