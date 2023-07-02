@@ -1,6 +1,10 @@
 "lib types collection" package
 ==============================
 
+A package containing lists of prebuilt objects of library types.
+
+.. versionadded:: 0.7.1
+
 .. hint:: To use, you need to enter
 
 	.. code-block:: python

@@ -8,6 +8,10 @@
 
 	mighty_logger-basic-lib_types-package
 
+A package with base classes intended for use within a library.
+
+.. versionadded:: 0.2.0
+
 .. hint:: To use, you need to enter
 
 	.. code-block:: python

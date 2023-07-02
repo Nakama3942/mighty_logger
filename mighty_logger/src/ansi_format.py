@@ -14,8 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-AnsiFormat = {
-	# Source: https://en.wikipedia.org/wiki/ANSI_escape_code
+AnsiFormat: dict = {
 	'reset': {
 		'on': '\033[0m',
 	},
@@ -150,18 +149,6 @@ AnsiFormat = {
 }
 
 def _RecursiveGetAnsiFormat(ansi_address: str, ansi: dict) -> str:
-	"""
-	Recursively extracts a string with an ANSI escape code from a heavily nested dictionary.
-
-	.. versionadded:: 0.0.0
-
-	:param ansi_address: Path to ANSI escape code value
-	:type ansi_address: str
-	:param ansi: External/nested dictionary
-	:type ansi: dict
-	:return: value - ANSI escape code
-	:rtype: str
-	"""
 	split_address = ansi_address.split("/")
 	# print(split_address)
 	if type(ansi[split_address[0]]) == dict:
@@ -173,23 +160,4 @@ def _RecursiveGetAnsiFormat(ansi_address: str, ansi: dict) -> str:
 			return ansi[split_address[0]]
 
 def GetAnsiFormat(ansi_address: str) -> str:
-	"""
-	Returns the ANSI escape code value.\n
-	The following values are possible: see the list inREADME.md/Data/"Tree of ANSI escape code"\n
-	An example of getting an ANSI escape code:\n
-	print(f"{GetAnsiFormat('italic/fraktur')}Test string")\n
-	print(f"{GetAnsiFormat('blink/slow')}Test string")\n
-	print(f"{GetAnsiFormat('invert/off')}Test string")\n
-	print(f"{GetAnsiFormat('font/3th alternative')}Test string")\n
-	print(f"{GetAnsiFormat('color/foreground/green')}Test string")\n
-	print(f"{GetAnsiFormat('color/set/background/255;255;255')}Test string")\n
-	print(f"{GetAnsiFormat('reset/on')}Test string")\n
-
-	.. versionadded:: 0.0.0
-
-	:param ansi_address: Path to ANSI escape code value
-	:type ansi_address: str
-	:return: ANSI escape code
-	:rtype: str
-	"""
 	return _RecursiveGetAnsiFormat(ansi_address, AnsiFormat)

@@ -18,12 +18,6 @@ from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.src.color_picker import AnsiColor, HexColor
 
 class ServiceLogger:
-	"""
-	Class for Logger service strings.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	initial = (
 		(
 			(AnsiColor('GOLD', "foreground"), AnsiColor('INDIGO', "foreground")),
@@ -39,19 +33,8 @@ class ServiceLogger:
 			("", "")
 		)
 	)
-	"""
-	Colors for the starting initialization string.
-	
-	.. versionadded:: 0.0.0
-	"""
 
 class LoggerEntryTypes:
-	"""
-	A class with standard entry types. Is available.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	debug = EntryType(
 		type_category="%",
 		type_name="DEBUG",
@@ -67,13 +50,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -99,12 +75,6 @@ class LoggerEntryTypes:
 		),
 		icon=('🐛', '🐞', '🚧', '🔬')
 	)
-	"""
-	Debugging information logging:
-	Can be used to log entry any information while debugging an application.
-	
-	.. versionadded:: 0.0.0
-	"""
 	debug_performance = EntryType(
 		type_category="%",
 		type_name="DEBUG-PERFORMANCE",
@@ -120,13 +90,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -152,13 +115,6 @@ class LoggerEntryTypes:
 		),
 		icon=('⏱️', '⌛️', '🔍', '📈')
 	)
-	"""
-	Performance debugging information logging:
-	Can be used to log entry the execution time of operations or other
-	performance information while the application is being debugged.
-	
-	.. versionadded:: 0.0.0
-	"""
 	performance = EntryType(
 		type_category="%",
 		type_name="PERFORMANCE",
@@ -174,13 +130,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -206,13 +155,6 @@ class LoggerEntryTypes:
 		),
 		icon=('⏱️', '🚀', '📊', '⚡️')
 	)
-	"""
-	Performance information logging:
-	Can be used to log entry the execution time of operations or
-	other application performance information.
-	
-	.. versionadded:: 0.0.0
-	"""
 	event = EntryType(
 		type_category="~",
 		type_name="EVENT",
@@ -228,13 +170,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -260,13 +195,6 @@ class LoggerEntryTypes:
 		),
 		icon=('🔔', '🎉', '📣', '🚨')
 	)
-	"""
-	Event information logging:
-	Can be used to log entry specific events in the application,
-	such as button presses or mouse cursor movements.
-	
-	.. versionadded:: 0.0.0
-	"""
 	audit = EntryType(
 		type_category="~",
 		type_name="AUDIT",
@@ -282,13 +210,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -314,13 +235,6 @@ class LoggerEntryTypes:
 		),
 		icon=('🔍', '🔒', '📋', '🔐')
 	)
-	"""
-	Audit information logging:
-	Can be used to log entry changes in the system, such as creating or
-	deleting users, as well as changes in security settings.
-	
-	.. versionadded:: 0.0.0
-	"""
 	metrics = EntryType(
 		type_category="~",
 		type_name="METRICS",
@@ -336,13 +250,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -368,12 +275,6 @@ class LoggerEntryTypes:
 		),
 		icon=('📊', '📈', '📉', '📄')
 	)
-	"""
-	Metrics information logging:
-	Can be used to log entry metrics to track application performance and identify issues.
-	
-	.. versionadded:: 0.0.0
-	"""
 	user = EntryType(
 		type_category="~",
 		type_name="USER",
@@ -389,13 +290,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -421,13 +315,6 @@ class LoggerEntryTypes:
 		),
 		icon=('👤', '👥', '🙋‍♂️', '🙋‍♀️')
 	)
-	"""
-	User information logging:
-	Can be used to log entry custom logs to store additional information
-	that may be useful for diagnosing problems.
-	
-	.. versionadded:: 0.0.0
-	"""
 	message = EntryType(
 		type_category="@",
 		type_name="MESSAGE",
@@ -443,13 +330,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -475,12 +355,6 @@ class LoggerEntryTypes:
 		),
 		icon=('💬', '📝', '🗒️', '📨')
 	)
-	"""
-	Message information logging:
-	Can be used for the usual output of ordinary messages about the program's operation.
-	
-	.. versionadded:: 0.0.0
-	"""
 	info = EntryType(
 		type_category="@",
 		type_name="INFO",
@@ -496,13 +370,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -528,12 +395,6 @@ class LoggerEntryTypes:
 		),
 		icon=('ℹ️', '🔍', '📌', '🔔')
 	)
-	"""
-	Default information logging:
-	Can be used to log entry messages with specific content about the operation of the program.
-	
-	.. versionadded:: 0.0.0
-	"""
 	notice = EntryType(
 		type_category="@",
 		type_name="NOTICE",
@@ -549,13 +410,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -581,12 +435,6 @@ class LoggerEntryTypes:
 		),
 		icon=('📌', '📎', '🔖', '🚩')
 	)
-	"""
-	Notice information logging:
-	Can be used to flag important events that might be missed with a normal logging level.
-	
-	.. versionadded:: 0.0.0
-	"""
 	warning = EntryType(
 		type_category="!",
 		type_name="WARNING",
@@ -602,13 +450,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -634,12 +475,6 @@ class LoggerEntryTypes:
 		),
 		icon=('⚠️', '⚡️', '⛔️', '⚠️')
 	)
-	"""
-	Warning information logging:
-	Can be used to log entry warnings that the program may work with unpredictable results.
-	
-	.. versionadded:: 0.0.0
-	"""
 	error = EntryType(
 		type_category="!",
 		type_name="!ERROR",
@@ -655,13 +490,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
-			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			("", "")
 		),
 		type_color=(
@@ -687,12 +515,6 @@ class LoggerEntryTypes:
 		),
 		icon=('❌', '🚫', '💔', '🔺')
 	)
-	"""
-	Error information logging:
-	Used to log entry errors and crashes in the program.
-	
-	.. versionadded:: 0.0.0
-	"""
 	critical = EntryType(
 		type_category="!",
 		type_name="!!@CRITICAL",
@@ -708,13 +530,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
-			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			("", "")
 		),
 		type_color=(
@@ -740,12 +555,6 @@ class LoggerEntryTypes:
 		),
 		icon=('🔥', '🚨', '⛔️', '🚒')
 	)
-	"""
-	Critical error information logging:
-	Used to log entry for critical and unpredictable program failures.
-	
-	.. versionadded:: 0.0.0
-	"""
 	resolved = EntryType(
 		type_category="!",
 		type_name="RESOLVED",
@@ -761,13 +570,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
-			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			("", "")
 		),
 		type_color=(
@@ -793,12 +595,6 @@ class LoggerEntryTypes:
 		),
 		icon=('✅', '❗', '🟦', '🟢')
 	)
-	"""
-	Resolved information logging:
-	Used to log entry resolved solutions to problems and errors.
-	
-	.. versionadded:: 0.6.0
-	"""
 	unresolved = EntryType(
 		type_category="!",
 		type_name="UNRESOLVED",
@@ -814,13 +610,6 @@ class LoggerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
-			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			("", "")
 		),
 		type_color=(
@@ -846,20 +635,8 @@ class LoggerEntryTypes:
 		),
 		icon=('❎', '❓', '🟥', '🔴')
 	)
-	"""
-	Unresolved information logging:
-	Used to log entry unresolved solutions to problems and errors.
-	
-	.. versionadded:: 0.6.0
-	"""
 
 class ProcessEntryTypes:
-	"""
-	Class with additional entry types when logging Processes. Is available.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	achievement = EntryType(
 		type_category="&",
 		type_name="ACHIEVEMENT",
@@ -875,13 +652,6 @@ class ProcessEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -907,12 +677,6 @@ class ProcessEntryTypes:
 		),
 		icon=('🏆', '🏆', '🌟', '🎖️')
 	)
-	"""
-	Achievement information logging:
-	Used to log entry the achievements gained while executing a process.
-	
-	.. versionadded:: 0.0.0
-	"""
 	milestone = EntryType(
 		type_category="&",
 		type_name="MILESTONE",
@@ -928,13 +692,6 @@ class ProcessEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
-			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			("", "")
 		),
 		type_color=(
@@ -960,20 +717,8 @@ class ProcessEntryTypes:
 		),
 		icon=('🔖', '🔖', '🎯', '🗺️')
 	)
-	"""
-	Milestone information logging:
-	Used to log entry the milestones gained while executing a process.
-	
-	.. versionadded:: 0.0.0
-	"""
 
 class ServiceProcessEntryTypes:
-	"""
-	A class with utility types used for Process logging. Is not available.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	initiation = EntryType(
 		type_category="&",
 		type_name="INITIATION",
@@ -989,13 +734,6 @@ class ServiceProcessEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
-			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			("", "")
 		),
 		type_color=(
@@ -1021,12 +759,6 @@ class ServiceProcessEntryTypes:
 		),
 		icon=('🚀', '🚀', '🔥', '🔧')
 	)
-	"""
-	Initiation information logging:
-	Used to explain the running process.
-	
-	.. versionadded:: 0.0.0
-	"""
 	process = EntryType(
 		type_category="&",
 		type_name="PROGRESS",
@@ -1042,13 +774,6 @@ class ServiceProcessEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -1074,12 +799,6 @@ class ServiceProcessEntryTypes:
 		),
 		icon=('⏳', '🔄', '⚙️', '🕰️')
 	)
-	"""
-	Process information logging:
-	Used to refine the progress of a Process.
-	
-	.. versionadded:: 0.0.0
-	"""
 	success = EntryType(
 		type_category="&",
 		type_name="SUCCESS",
@@ -1095,13 +814,6 @@ class ServiceProcessEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
-			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			("", "")
 		),
 		type_color=(
@@ -1127,12 +839,6 @@ class ServiceProcessEntryTypes:
 		),
 		icon=('✔️', '🎉', '👍', '✅')
 	)
-	"""
-	Success information logging:
-	Used to log entry a message about the success of the process.
-	
-	.. versionadded:: 0.0.0
-	"""
 	fail = EntryType(
 		type_category="&",
 		type_name="FAIL",
@@ -1148,13 +854,6 @@ class ServiceProcessEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
 			(HexColor('ORANGE'), HexColor('ORANGE')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('DARKORANGE', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
-			(HexColor('DARKORANGE'), HexColor('DARKORANGE')),
 			("", "")
 		),
 		type_color=(
@@ -1180,20 +879,8 @@ class ServiceProcessEntryTypes:
 		),
 		icon=('❌', '🚫', '👎', '❎')
 	)
-	"""
-	Fail information logging:
-	Used to log entry a message about the failed execution of the process.
-	
-	.. versionadded:: 0.0.0
-	"""
 
 class ServiceTimerEntryTypes:
-	"""
-	A class with utility types used for Timer logging. Is not available.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	start_timer = EntryType(
 		type_category="^",
 		type_name="START-TIMER",
@@ -1209,13 +896,6 @@ class ServiceTimerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
 			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('LAWNGREEN', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
-			(HexColor('DARKORANGE'), HexColor('LAWNGREEN')),
 			("", "")
 		),
 		type_color=(
@@ -1241,12 +921,6 @@ class ServiceTimerEntryTypes:
 		),
 		icon=('⏰', '🕑', '🟩', '⏳')
 	)
-	"""
-	Information logging of starting Timer:
-	Used to notify the start of the Timer.
-	
-	.. versionadded:: 0.0.0
-	"""
 	timer_mark = EntryType(
 		type_category="^",
 		type_name="TIMER-MARK",
@@ -1262,13 +936,6 @@ class ServiceTimerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -1294,12 +961,6 @@ class ServiceTimerEntryTypes:
 		),
 		icon=('⌚', '🕕', '🟨', '⏱️')
 	)
-	"""
-	Information logging of mark Timer:
-	Used to notify the mark of the Timer.
-	
-	.. versionadded:: 0.0.0
-	"""
 	stop_timer = EntryType(
 		type_category="^",
 		type_name="STOP-TIMER",
@@ -1315,13 +976,6 @@ class ServiceTimerEntryTypes:
 			("", ""),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
 			(HexColor('ORANGE'), HexColor('DARKRED')),
-			("", "")
-		),
-		status_message_color=(
-			(AnsiColor('DARKORANGE', "foreground"), AnsiColor('MAROON', "foreground")),
-			("", ""),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
-			(HexColor('DARKORANGE'), HexColor('MAROON')),
 			("", "")
 		),
 		type_color=(
@@ -1347,27 +1001,13 @@ class ServiceTimerEntryTypes:
 		),
 		icon=('⏲️', '🕙', '🟪', '⌛')
 	)
-	"""
-	Information logging of stopping Timer:
-	Used to notify the stop of the Timer.
-	
-	.. versionadded:: 0.0.0
-	"""
 
 class SelectionTypes:
-	"""
-	A class with a list of all entry types.
-	Needed only for the select() method of the Modifier class.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	debug = EntryType(
 		type_category="",
 		type_name="DEBUG",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1378,7 +1018,6 @@ class SelectionTypes:
 		type_name="DEBUG-PERFORMANCE",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1389,7 +1028,6 @@ class SelectionTypes:
 		type_name="PERFORMANCE",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1400,7 +1038,6 @@ class SelectionTypes:
 		type_name="EVENT",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1411,7 +1048,6 @@ class SelectionTypes:
 		type_name="AUDIT",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1422,7 +1058,6 @@ class SelectionTypes:
 		type_name="METRICS",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1433,7 +1068,6 @@ class SelectionTypes:
 		type_name="USER",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1444,7 +1078,6 @@ class SelectionTypes:
 		type_name="MESSAGE",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1455,7 +1088,6 @@ class SelectionTypes:
 		type_name="INFO",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1466,7 +1098,6 @@ class SelectionTypes:
 		type_name="NOTICE",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1477,7 +1108,6 @@ class SelectionTypes:
 		type_name="WARNING",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1488,7 +1118,6 @@ class SelectionTypes:
 		type_name="!ERROR",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1499,7 +1128,6 @@ class SelectionTypes:
 		type_name="!!@CRITICAL",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1510,7 +1138,6 @@ class SelectionTypes:
 		type_name="RESOLVED",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1521,7 +1148,6 @@ class SelectionTypes:
 		type_name="UNRESOLVED",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1532,7 +1158,6 @@ class SelectionTypes:
 		type_name="ACHIEVEMENT",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1543,7 +1168,6 @@ class SelectionTypes:
 		type_name="MILESTONE",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1554,7 +1178,6 @@ class SelectionTypes:
 		type_name="INITIATION",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1565,7 +1188,6 @@ class SelectionTypes:
 		type_name="PROGRESS",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1576,7 +1198,6 @@ class SelectionTypes:
 		type_name="SUCCESS",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1587,7 +1208,6 @@ class SelectionTypes:
 		type_name="FAIL",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1598,7 +1218,6 @@ class SelectionTypes:
 		type_name="START-TIMER",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1609,7 +1228,6 @@ class SelectionTypes:
 		type_name="TIMER-MARK",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1620,7 +1238,6 @@ class SelectionTypes:
 		type_name="STOP-TIMER",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1628,18 +1245,11 @@ class SelectionTypes:
 	)
 
 class SelectionCategories:
-	"""
-	A class with a list of all entry categories.
-	Needed only for the select() method of the Modifier class.
-
-	.. versionadded:: 0.0.0
-	"""
 	debug = EntryType(
 		type_category="%",
 		type_name="",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1650,7 +1260,6 @@ class SelectionCategories:
 		type_name="",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1661,7 +1270,6 @@ class SelectionCategories:
 		type_name="",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1672,7 +1280,6 @@ class SelectionCategories:
 		type_name="",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1683,7 +1290,6 @@ class SelectionCategories:
 		type_name="",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),
@@ -1694,7 +1300,6 @@ class SelectionCategories:
 		type_name="",
 		time_color = (),
 		status_color = (),
-		status_message_color = (),
 		type_color = (),
 		message_color = (),
 		background_color = (),

@@ -15,66 +15,36 @@ limitations under the License.
 """
 
 class ColorException(BaseException):
-	"""
-	The exception that is thrown when there is no color in any palette.
+	def __init__(self, message: str):
+		self.message: str = message
 
-	.. versionadded:: 0.0.0
-	"""
-
-	def __init__(self, message):
-		self.message = message
-
-	def __str__(self):
+	def __str__(self) -> str:
 		return self.message
 
 class ReCreationException(BaseException):
-	"""
-	The exception that is thrown when an object of the Singleton category is re-created.
+	def __init__(self, message: str):
+		self.message: str = message
 
-	.. versionadded:: 0.0.0
-	"""
-
-	def __init__(self, message):
-		self.message = message
-
-	def __str__(self):
+	def __str__(self) -> str:
 		return self.message
 
 class EnvironmentException(BaseException):
-	"""
-	The exception that is thrown when on environmental errors.
+	def __init__(self, message: str):
+		self.message: str = message
 
-	.. versionadded:: 0.0.0
-	"""
-
-	def __init__(self, message):
-		self.message = message
-
-	def __str__(self):
+	def __str__(self) -> str:
 		return self.message
 
 class InitException(BaseException):
-	"""
-	The exception thrown on errors during initialization.
+	def __init__(self, message: str):
+		self.message: str = message
 
-	.. versionadded:: 0.0.0
-	"""
-
-	def __init__(self, message):
-		self.message = message
-
-	def __str__(self):
+	def __str__(self) -> str:
 		return self.message
 
 class MessageException(BaseException):
-	"""
-	The exception that is thrown when a write message is too short.
+	def __init__(self, message: str):
+		self.message: str = message
 
-	.. versionadded:: 0.0.0
-	"""
-
-	def __init__(self, message):
-		self.message = message
-
-	def __str__(self):
+	def __str__(self) -> str:
 		return self.message

@@ -1,7 +1,5 @@
 """
 A root package that provides access to a implementation of the powerful logger.
-
-.. versionadded:: 0.0.0
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 

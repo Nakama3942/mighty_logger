@@ -15,13 +15,7 @@ limitations under the License.
 """
 
 class SortingKeyType:
-	"""
-	A data type that characterizes the sort keys for entries.
-
-	.. versionadded:: 0.0.0
-	"""
-
-	def __init__(self, sorting_key: str):
+	def __init__(self, sorting_key: str) -> None:
 		self.__sorting_key: str = sorting_key
 
 	@property

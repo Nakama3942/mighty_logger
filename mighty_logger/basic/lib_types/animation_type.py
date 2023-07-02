@@ -15,13 +15,7 @@ limitations under the License.
 """
 
 class BasicAnimationType:
-	"""
-	Basic wrapper class for animations type.
-
-	.. versionadded:: 0.0.0
-	"""
-
-	def __init__(self, animation: list):
+	def __init__(self, animation: list) -> None:
 		self.__animation: list = animation
 
 	@property
@@ -29,17 +23,7 @@ class BasicAnimationType:
 		return self.__animation
 
 class IndefiniteAnimationType(BasicAnimationType):
-	"""
-	Wrapper class for indefinite animations type.
-
-	.. versionadded:: 0.0.0
-	"""
 	...
 
 class DefiniteAnimationType(BasicAnimationType):
-	"""
-	Wrapper class for definite animations type.
-
-	.. versionadded:: 0.0.0
-	"""
 	...

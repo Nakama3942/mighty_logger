@@ -8,6 +8,10 @@
 
 	mighty_logger-src-lib_types_collection-package
 
+A package with the implementation of various data (ANSI, colors, etc.).
+
+.. versionadded:: 0.2.0
+
 .. hint:: To use, you need to enter
 
 	.. code-block:: python

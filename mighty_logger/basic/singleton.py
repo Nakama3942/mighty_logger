@@ -15,12 +15,6 @@ limitations under the License.
 """
 
 class Singleton:
-	"""
-	A class that implements the Singleton pattern.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	_instance = None
 
 	def __new__(cls, *args, **kwargs):

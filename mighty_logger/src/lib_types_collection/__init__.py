@@ -1,7 +1,5 @@
 """
 A package containing lists of prebuilt objects of library types.
-
-.. versionadded:: 0.0.0
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 

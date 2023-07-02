@@ -1,7 +1,5 @@
 """
 A package that contains the data types that are used in the library.
-
-.. versionadded:: 0.0.0
 \n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 

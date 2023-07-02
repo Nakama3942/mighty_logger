@@ -1,6 +1,10 @@
 "lib types" package
 ===================
 
+A package that contains the data types that are used in the library.
+
+.. versionadded:: 0.7.0
+
 .. hint:: To use, you need to enter
 
 	.. code-block:: python

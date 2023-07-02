@@ -27,13 +27,6 @@ from mighty_logger.src.lib_types_collection.environments import LogEnvironments
 from mighty_logger.src.ansi_format import GetAnsiFormat
 
 class BasicLogger(Singleton):
-	"""
-	The base class of the Logger, which stores the main attributes and implements
-	the most important functionality - the formation of the Logger entry string.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	def __init__(
 		self,
 		program_name: str,
@@ -46,18 +39,8 @@ class BasicLogger(Singleton):
 
 	def _initialized_data(
 		self,
-		colors: list[str, str],
+		colors: list[str, str]
 	) -> str:
-		"""
-		A method that assemble an entry of system initialized data.
-
-		.. versionadded:: 0.0.0
-
-		:param colors: Color string list of initialized data
-		:type colors: list[str, str]
-		:return: A string with initialized data
-		:rtype: str
-		"""
 		match self._environment.environment_name:
 			case LogEnvironments.CONSOLE.environment_name:
 				return (
@@ -120,25 +103,6 @@ class BasicLogger(Singleton):
 		message_text: str,
 		local_settings: dict
 	) -> str:
-		"""
-		A method that assemble an entry into a string and returns it.
-
-		.. versionadded:: 0.0.0
-
-		:param entry_type: Type of entry to be generated
-		:type entry_type: EntryType
-		:param icon_set: Icon set number
-		:type icon_set: int
-		:param animation: Animation frame of entry
-		:type animation: str
-		:param message_text: Message of entry
-		:type message_text: str
-		:param local_settings: Settings for the string of the current entry
-		:type local_settings: dict
-		:return: The formed entry string
-		:rtype: str
-		:raises MessageException: Message is too short (less than 10 characters)
-		"""
 		if len(message_text) < 10:
 			raise MessageException("Message is too short (less than 10 characters)")
 

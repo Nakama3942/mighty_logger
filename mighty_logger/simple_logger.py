@@ -23,12 +23,11 @@ from mighty_logger.mighty_logger import MightyLogger
 class Logger(Singleton):
 	"""
 	Lightweight Logger automates work with entry types.
-
-	.. versionadded:: 0.0.0
 	"""
 
 	def __init__(
 		self,
+		*,
 		program_name: str = "Unknown",
 		log_environment: EnvironmentType = LogEnvironments.PLAIN,
 		console_width: int = 60,
@@ -57,10 +56,7 @@ class Logger(Singleton):
 		"""
 		Provides access to "mighty" Logger methods.
 
-		.. versionadded:: 0.0.0
-
 		:return: A "mighty" Logger
-		:rtype: MightyLogger
 		"""
 		return self.__logger
 
@@ -69,10 +65,7 @@ class Logger(Singleton):
 		Debugging information logging:
 		Can be used to log entry any information while debugging an application.
 
-		.. versionadded:: 0.0.0
-
 		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.debug, message_text)
 
@@ -81,11 +74,6 @@ class Logger(Singleton):
 		Performance debugging information logging:
 		Can be used to log entry the execution time of operations or other
 		performance information while the application is being debugged.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.debug_performance, message_text)
 
@@ -94,11 +82,6 @@ class Logger(Singleton):
 		Performance information logging:
 		Can be used to log entry the execution time of operations or
 		other application performance information.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.performance, message_text)
 
@@ -107,11 +90,6 @@ class Logger(Singleton):
 		Event information logging:
 		Can be used to log entry specific events in the application,
 		such as button presses or mouse cursor movements.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.event, message_text)
 
@@ -120,11 +98,6 @@ class Logger(Singleton):
 		Audit information logging:
 		Can be used to log entry changes in the system, such as creating or
 		deleting users, as well as changes in security settings.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.audit, message_text)
 
@@ -132,11 +105,6 @@ class Logger(Singleton):
 		"""
 		Metrics information logging:
 		Can be used to log entry metrics to track application performance and identify issues.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.metrics, message_text)
 
@@ -145,11 +113,6 @@ class Logger(Singleton):
 		User information logging:
 		Can be used to log entry custom logs to store additional information
 		that may be useful for diagnosing problems.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.user, message_text)
 
@@ -157,11 +120,6 @@ class Logger(Singleton):
 		"""
 		Message information logging:
 		Can be used for the usual output of ordinary messages about the program's operation.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.message, message_text)
 
@@ -169,11 +127,6 @@ class Logger(Singleton):
 		"""
 		Default information logging:
 		Can be used to log entry messages with specific content about the operation of the program.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.info, message_text)
 
@@ -181,11 +134,6 @@ class Logger(Singleton):
 		"""
 		Notice information logging:
 		Can be used to flag important events that might be missed with a normal logging level.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.notice, message_text)
 
@@ -193,11 +141,6 @@ class Logger(Singleton):
 		"""
 		Warning information logging:
 		Can be used to log entry warnings that the program may work with unpredictable results.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.warning, message_text)
 
@@ -205,11 +148,6 @@ class Logger(Singleton):
 		"""
 		Error information logging:
 		Used to log entry errors and crashes in the program.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.error, message_text)
 
@@ -217,11 +155,6 @@ class Logger(Singleton):
 		"""
 		Critical error information logging:
 		Used to log entry for critical and unpredictable program failures.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(LoggerEntryTypes.critical, message_text)
 
@@ -229,11 +162,6 @@ class Logger(Singleton):
 		"""
 		Success information logging:
 		Used to log entry a message about the success of the process.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(ServiceProcessEntryTypes.success, message_text)
 
@@ -241,10 +169,5 @@ class Logger(Singleton):
 		"""
 		Fail information logging:
 		Used to log entry a message about the failed execution of the process.
-
-		.. versionadded:: 0.0.0
-
-		:param message_text: Log entry message
-		:type message_text: str
 		"""
 		self.__logger.entry(ServiceProcessEntryTypes.fail, message_text)

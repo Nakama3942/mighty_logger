@@ -17,12 +17,6 @@ limitations under the License.
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 
 class LogEnvironments:
-	"""
-	Environments of Logger.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	CONSOLE = EnvironmentType("CONSOLE", 0, True, False)
 	PLAIN_CONSOLE = EnvironmentType("PLAIN_CONSOLE", 1, True, False)
 	HTML = EnvironmentType("HTML", 2, False, True)

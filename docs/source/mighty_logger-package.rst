@@ -9,6 +9,10 @@
 	mighty_logger-basic-package
 	mighty_logger-src-package
 
+A root package that provides access to a implementation of the powerful logger.
+
+.. versionadded:: 0.0.1
+
 .. hint:: To use, you need to enter
 
 	.. code-block:: python
@@ -37,8 +41,6 @@
 	see the /docs/DATA.md/"Entry types"
 
 	:since: v0.0.1
-
-	.. rubric:: Logger settings
 
 	.. py:method:: _init_buffer(console_width: int) -> None
 
@@ -83,8 +85,6 @@
 		:since: v0.9.2
 		:return: A dictionary of settings
 		:rtype: dict
-
-	.. rubric:: Inputter of Logger
 
 	.. py:method:: empty(entry: str) -> None
 
@@ -184,8 +184,6 @@
 		:return: The string entered by the user
 		:rtype: str
 
-	.. rubric:: Modifier of Logger
-
 	.. py:method:: sort(key: SortingKeyType) -> None
 
 		A method that sorts the Logger Buffer following the specified sort key.
@@ -252,8 +250,6 @@
 		:param export_file_name: The name of the file where you want to save the csv table
 		:type export_file_name: str
 
-	.. rubric:: Publishers
-
 	.. py:method:: publish_id() -> None
 
 		A method that publishes information about the Logger ID in the Logger's Buffer.
@@ -296,8 +292,6 @@
 
 		:since: v0.7.0
 
-	.. rubric:: Entering to Logger
-
 	.. py:method:: entry(entry_type: EntryType, message_text: str[, local_settings: dict = None]) -> None
 
 		A method that generates and adds an entry to the Logger.
@@ -309,8 +303,6 @@
 		:type message_text: str
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
-
-	.. rubric:: Entering to Processes
 
 	.. py:method:: start_indefinite_process(message_text: str[, animation: IndefiniteAnimationType = IndefiniteAnimations.Line, local_settings: dict = None]) -> None
 
@@ -391,8 +383,6 @@
 		:type message_text: str
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
-
-	.. rubric:: Entering to Timer
 
 	.. py:method:: start_timer(message_text: str[, local_settings: dict = None]) -> None
 

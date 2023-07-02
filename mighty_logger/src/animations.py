@@ -20,11 +20,6 @@ limitations under the License.
 from mighty_logger.basic.lib_types.animation_type import IndefiniteAnimationType, DefiniteAnimationType
 
 class IndefiniteAnimations:
-	"""
-	The class with sets indefinite animations.
-
-	.. versionadded:: 0.0.0
-	"""
 	Dots = IndefiniteAnimationType([
 		'.       ',
 		'..      ',
@@ -436,11 +431,6 @@ class IndefiniteAnimations:
 	])
 
 class DefiniteAnimations:
-	"""
-	The class with sets definite animations.
-
-	.. versionadded:: 0.0.0
-	"""
 	Dots = DefiniteAnimationType([
 		'        ',
 		'.       ',

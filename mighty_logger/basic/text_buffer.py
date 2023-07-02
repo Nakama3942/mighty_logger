@@ -24,13 +24,6 @@ from mighty_logger.basic.singleton import Singleton
 from mighty_logger.src.lib_types_collection.environments import LogEnvironments
 
 class BasicTextBuffer(Singleton, TextBufferType):
-	"""
-	A class with a basic implementation of a simple Text Buffer. It is intended
-	to be used in conjunction with HTML, but this is optional.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	def __init__(self, env: EnvironmentType) -> None:
 		if not hasattr(self, "_text_buffer"):
 			super().__init__(env)
@@ -126,15 +119,6 @@ class BasicTextBuffer(Singleton, TextBufferType):
 		super().update_console()
 
 class TextBuffer(Singleton, TextBufferType):
-	"""
-	A class with an advanced implementation of the console Text Buffer. It is not necessary to use it
-	only in the console, but almost all methods are reimplemented for more complex algorithms, taking
-	into account the width of the console (number of characters per line) and use ANSI escape codes
-	that are only found in the console.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	def __init__(self, env: EnvironmentType, console_width: int = 60) -> None:
 		if not hasattr(self, "_text_buffer"):
 			super().__init__(env)

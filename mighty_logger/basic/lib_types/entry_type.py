@@ -15,12 +15,6 @@ limitations under the License.
 """
 
 class EntryType:
-	"""
-	The data type that characterizes the entry type.
-
-	.. versionadded:: 0.0.0
-	"""
-
 	def __init__(
 		self,
 		*,
@@ -28,7 +22,6 @@ class EntryType:
 		type_name: str,
 		time_color: tuple,
 		status_color: tuple,
-		status_message_color: tuple,
 		type_color: tuple,
 		message_color: tuple,
 		background_color: tuple,
@@ -38,7 +31,6 @@ class EntryType:
 		self.__type_name: str = type_name
 		self.__time_color: tuple = time_color
 		self.__status_color: tuple = status_color
-		self.__status_message_color: tuple = status_message_color
 		self.__type_color: tuple = type_color
 		self.__message_color: tuple = message_color
 		self.__background_color: tuple = background_color
@@ -59,10 +51,6 @@ class EntryType:
 	@property
 	def status_color(self) -> tuple:
 		return self.__status_color
-
-	@property
-	def status_message_color(self) -> tuple:
-		return self.__status_message_color
 
 	@property
 	def type_color(self) -> tuple:
