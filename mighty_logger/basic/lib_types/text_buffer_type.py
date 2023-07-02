@@ -22,7 +22,7 @@ class TextBufferType:
 		self._environment: EnvironmentType = env
 
 	@property
-	def data(self) -> list:
+	def text_buffer(self) -> list:
 		return self._text_buffer
 
 	def __lshift__(self, message: str) -> None:
@@ -63,5 +63,3 @@ class TextBufferType:
 
 	def update_entry(self) -> None:
 		raise NotImplementedError("Method update_entry() is not implemented in the base class")
-
-# todo написать функцию, которая только дописывает последнюю строку

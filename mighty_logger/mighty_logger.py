@@ -131,7 +131,8 @@ class MightyLogger(BasicLogger):
 		if global_background is not None:
 			self._settings['global_background'] = global_background
 
-	def get_settings(self) -> dict:
+	@property
+	def settings(self) -> dict:
 		return self._settings
 
 	# ######################################################################################## #
@@ -196,7 +197,7 @@ class MightyLogger(BasicLogger):
 	# ######################################################################################## #
 
 	def sort(self, key: SortingKeyType) -> None:
-		sorter = Modifier(self._buffer.get_data().copy(), self._environment)
+		sorter = Modifier(self._buffer.text_buffer.copy(), self._environment)
 		sorter.sort(key)
 		sorted_buffer = sorter.entries
 		self.clearly()
@@ -204,7 +205,7 @@ class MightyLogger(BasicLogger):
 			self.empty(entry)
 
 	def sort_with_save(self, key: SortingKeyType, sort_file_name: str) -> None:
-		original = self._buffer.get_data().copy()
+		original = self._buffer.text_buffer.copy()
 		sorter = Modifier(self._buffer.get_data(), self._environment)
 		sorter.sort(key)
 		self._buffer.save(sort_file_name, False)
@@ -212,7 +213,7 @@ class MightyLogger(BasicLogger):
 		self._buffer.get_data().extend(original)
 
 	def search(self, keyword: str, empty: bool) -> None:
-		searcher = Modifier(self._buffer.get_data().copy(), self._environment)
+		searcher = Modifier(self._buffer.text_buffer.copy(), self._environment)
 		searcher.search(keyword, empty)
 		searched_buffer = searcher.entries
 		self.clearly()
@@ -220,7 +221,7 @@ class MightyLogger(BasicLogger):
 			self.empty(entry)
 
 	def search_with_save(self, keyword: str, empty: bool, search_file_name: str) -> None:
-		original = self._buffer.get_data().copy()
+		original = self._buffer.text_buffer.copy()
 		searcher = Modifier(self._buffer.get_data(), self._environment)
 		searcher.search(keyword, empty)
 		self._buffer.save(search_file_name, False)
@@ -228,7 +229,7 @@ class MightyLogger(BasicLogger):
 		self._buffer.get_data().extend(original)
 
 	def select(self, entry_type: EntryType) -> None:
-		selector = Modifier(self._buffer.get_data().copy(), self._environment)
+		selector = Modifier(self._buffer.text_buffer.copy(), self._environment)
 		selector.select(entry_type)
 		selected_buffer = selector.entries
 		self.clearly()
@@ -236,7 +237,7 @@ class MightyLogger(BasicLogger):
 			self.empty(entry)
 
 	def select_with_save(self, entry_type: EntryType, select_file_name: str) -> None:
-		original = self._buffer.get_data().copy()
+		original = self._buffer.text_buffer.copy()
 		selector = Modifier(self._buffer.get_data(), self._environment)
 		selector.select(entry_type)
 		self._buffer.save(select_file_name, False)
@@ -244,7 +245,7 @@ class MightyLogger(BasicLogger):
 		self._buffer.get_data().extend(original)
 
 	def export_to_csv(self, export_file_name: str) -> None:
-		exporter = Exporter(self._buffer.get_data(), self._environment)
+		exporter = Exporter(self._buffer.text_buffer, self._environment)
 		exporter.export_to_csv()
 		exporter.save_to_csv(export_file_name)
 
@@ -301,7 +302,6 @@ class MightyLogger(BasicLogger):
 		message_text: str,
 		local_settings: dict = None
 	) -> None:
-		# todo сделать защиту, что бы в entry_type принимался только LoggerEntryTypes
 		if local_settings is None:
 			local_settings = {}
 		self.empty(
@@ -352,7 +352,7 @@ class MightyLogger(BasicLogger):
 			self._buffer.update_console()
 		while not self._progress_interrupt:
 			animation_item = self._animation.animation[animation_index]
-			self._buffer.get_data()[-1] = self._assemble_entry(
+			self._buffer.text_buffer[-1] = self._assemble_entry(
 				ServiceProcessEntryTypes.process,
 				self._icon_set,
 				animation_item,
@@ -402,7 +402,7 @@ class MightyLogger(BasicLogger):
 			else:
 				old_progress_rise = self._progress_rise
 				animation_item = f"{self._animation.animation[(self._progress_rise // 15) + (2 if self._progress_rise == 100 else 1)]} - {self._progress_rise} %"
-				self._buffer.get_data()[-1] = self._assemble_entry(
+				self._buffer.text_buffer[-1] = self._assemble_entry(
 					ServiceProcessEntryTypes.process,
 					self._icon_set,
 					animation_item,

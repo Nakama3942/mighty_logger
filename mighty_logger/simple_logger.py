@@ -52,12 +52,8 @@ class Logger(Singleton):
 				global_background=global_background
 			)
 
+	@property
 	def might(self) -> MightyLogger:
-		"""
-		Provides access to "mighty" Logger methods.
-
-		:return: A "mighty" Logger
-		"""
 		return self.__logger
 
 	def debug(self, message_text: str) -> None:
