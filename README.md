@@ -7,17 +7,14 @@
 
 ![PyPI](https://img.shields.io/pypi/v/mighty-logger?color=yellow&logo=pypi&logoColor=white&style=for-the-badge)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Nakama3942/mighty_logger?label=latest%20release&logo=github&style=for-the-badge)
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Nakama3942/mighty_logger?color=orange&include_prereleases&label=latest%20pre-release&logo=github&style=for-the-badge)
 ![GitHub commits since latest release (by date including pre-releases)](https://img.shields.io/github/commits-since/Nakama3942/mighty_logger/v0.5.0?include_prereleases&style=for-the-badge)
 
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mighty-logger?style=for-the-badge)
-![PyPI - Wheel](https://img.shields.io/pypi/wheel/mighty-logger?style=for-the-badge)
 ![PyPI - Format](https://img.shields.io/pypi/format/mighty-logger?label=PyPI%20format&style=for-the-badge)
 ![PyPI - Status](https://img.shields.io/pypi/status/mighty-logger?label=PyPI%20status&style=for-the-badge)
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/Nakama3942/mighty_logger?style=for-the-badge)
 ![GitHub Release Date](https://img.shields.io/github/release-date/Nakama3942/mighty_logger?style=for-the-badge)
-![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/Nakama3942/mighty_logger?label=%28pre-%29release%20date&style=for-the-badge)
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Nakama3942/mighty_logger?color=darkgreen&style=for-the-badge)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Nakama3942/mighty_logger?color=darkgreen&style=for-the-badge)
@@ -80,22 +77,25 @@ Any information to the output can be turned off (according to the default, every
 - [x] v0.0.2 - Little update (added multiple entry types and colors)
 - [x] v0.0.3 - Types update (added even more multiple entry types and colors)
 - [x] v0.0.4 - Color update (added the entire X11 color table and reworked the color system)
-- [x] v0.1.0 - First official release (complete basic HTML logger)
+- [x] v0.1.0 - "First release" update (complete basic HTML logger)
 - [x] v0.2.0 - Structural update (added basic console logger with HTML base)
+- [x] v0.2.1 - Protections update (hidden part of the functionality)
 - [x] v0.3.0 - Background update (added background for log entries)
 - [x] v0.4.0 - Buffer update (added text buffer)
-- [x] v0.5.0 - Unifying update (console and HTML are combined into one class)
-- [x] v0.5.1 - Hints update (added status message templates and hint symbols (icons) near log entries status)
+- [x] v0.5.0-dev - Dev-Unifying update (merger of Loggers started)
+- [x] v0.5.0-pre - Pre-Unifying update (console and HTML are combined into one class)
+- [x] v0.5.0 - Unifying update (merging bugs fixed)
+- [x] v0.5.1 - Hints update (added hint symbols (icons) near log entries status)
 - [x] v0.6.0 - Progress update (added start of some log entries in threads (process))
-- [x] v0.6.1 - Animation update (added animations in processes)
-- [x] v0.7.0 - "Buffer improvement" update (buffer development completed and entry type system reworked)
+- [x] v0.6.1 - Animation update (extended animations in processes)
+- [x] v0.7.0 - "Buffer improvement" update (buffer development completed)
 - [x] v0.7.1 - Modding update (buffer modification added - sorting, searching and selecting)
 - [x] v0.7.2 - Categories update (separated the entry category from the type)
 - [x] v0.8.0 - Export update (added conversion to csv)
 - [x] v0.9.0 - Extension update (made wheel format and instruction of toml)
 - [x] v0.9.1 - Documenting update (documented library)
 - [x] v0.9.2 - Feature update (made optimizations)
-- [ ] v0.9.3 - Web docs update (added generation of web docs)
+- [x] v0.9.3 - Web docs update (added generation of web docs)
 - [ ] v1.0.0 - Completion of logger development (logger development completed)
 - [ ] v1.1.0 - Font update (added a class that formats text outside the logger)
 
@@ -121,6 +121,18 @@ The full text of the license can be found at the following [link](https://github
 > See the License for the specific language governing permissions and
 
 - [Content](#content)
+
+## Features
+
+- **Print different types of logs** (info, success, fail, warning, error, critical, subtle)
+- **Add custom color for each type of log** (both foreground and background. Defaults to these colors)
+- **Can Provide colors in RGB, HEX**
+- **Mark logs with custom ids** (optional, defaults to no id)
+- **Show type for every log** (optional, defaults to True)
+- **Show time of logging for every log** (optional, defaults to True)
+- **Change logging env to html** (defaults to Console. In html it appears like this)
+- **Log thread task**
+
 
 ## Installation
 
