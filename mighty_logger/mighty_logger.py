@@ -101,13 +101,11 @@ class MightyLogger(BasicLogger):
 
 	def _initial_log(self) -> None:
 		if self._environment.weak_environment:
-			self._buffer << "<body style='background-color: #000000; color: #ffffff;'>"
-		self._buffer << self._initialized_data(
-			[
-				ServiceLogger.initial[0][self._environment.environment_code][self._settings["global_background"]],
-				ServiceLogger.initial[1][self._environment.environment_code][self._settings["global_background"]]
-			]
-		)
+			self.empty("<body style='background-color: #000000; color: #ffffff;'>")
+		self.empty(self._initialized_data([
+			ServiceLogger.initial[0][self._environment.environment_code][self._settings["global_background"]],
+			ServiceLogger.initial[1][self._environment.environment_code][self._settings["global_background"]]
+		]))
 		if self._environment.updatable:
 			self._buffer.update_console()
 
