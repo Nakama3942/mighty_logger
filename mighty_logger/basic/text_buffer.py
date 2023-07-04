@@ -26,7 +26,13 @@ from mighty_logger.src.environments import LogEnvironments
 class BasicTextBuffer(Singleton, TextBufferType):
 	def __init__(self, env: EnvironmentType) -> None:
 		if not hasattr(self, "_text_buffer"):
-			super().__init__(env)
+			if env.environment_name in [
+				LogEnvironments.CONSOLE.environment_name,
+				LogEnvironments.PLAIN_CONSOLE.environment_name
+			]:
+				raise EnvironmentException("This environment is not supported")
+			else:
+				super().__init__(env)
 		else:
 			raise ReCreationException("BasicTextBuffer class object already created")
 
@@ -59,10 +65,6 @@ class BasicTextBuffer(Singleton, TextBufferType):
 
 	def save(self, name_file: str, clean: bool) -> None:
 		match self._environment.environment_name:
-			case LogEnvironments.CONSOLE.environment_name:
-				raise EnvironmentException("This environment is not supported")
-			case LogEnvironments.PLAIN_CONSOLE.environment_name:
-				raise EnvironmentException("This environment is not supported")
 			case LogEnvironments.HTML.environment_name:
 				with open(f"{name_file}.html", "w", encoding="utf-8") as text_buffer_file:
 					if clean:
@@ -84,10 +86,6 @@ class BasicTextBuffer(Singleton, TextBufferType):
 
 	def load(self, name_file: str) -> None:
 		match self._environment.environment_name:
-			case LogEnvironments.CONSOLE.environment_name:
-				raise EnvironmentException("This environment is not supported")
-			case LogEnvironments.PLAIN_CONSOLE.environment_name:
-				raise EnvironmentException("This environment is not supported")
 			case LogEnvironments.HTML.environment_name:
 				with open(f"{name_file}.html", "r", encoding="utf-8") as text_buffer_file:
 					self.clear()
@@ -121,10 +119,17 @@ class BasicTextBuffer(Singleton, TextBufferType):
 class TextBuffer(Singleton, TextBufferType):
 	def __init__(self, env: EnvironmentType, console_width: int = 60) -> None:
 		if not hasattr(self, "_text_buffer"):
-			super().__init__(env)
-			self._cursor_string: int = 0
-			self._buffer_size: int = 0
-			self.width = console_width
+			if env.environment_name in [
+				LogEnvironments.HTML.environment_name,
+				LogEnvironments.MARKDOWN.environment_name,
+				LogEnvironments.PLAIN.environment_name
+			]:
+				raise EnvironmentException("This environment is not supported")
+			else:
+				super().__init__(env)
+				self._cursor_string: int = 0
+				self._buffer_size: int = 0
+				self.width = console_width
 		else:
 			raise ReCreationException("TextBuffer class object already created")
 
@@ -191,12 +196,6 @@ class TextBuffer(Singleton, TextBufferType):
 						text_buffer_file.write('\n'.join([entry for entry in self._text_buffer if entry.startswith("-")]))
 					else:
 						text_buffer_file.write('\n'.join(self._text_buffer))
-			case LogEnvironments.HTML.environment_name:
-				raise EnvironmentException("This environment is not supported")
-			case LogEnvironments.MARKDOWN.environment_name:
-				raise EnvironmentException("This environment is not supported")
-			case LogEnvironments.PLAIN.environment_name:
-				raise EnvironmentException("This environment is not supported")
 
 	def load(self, name_file: str) -> None:
 		match self._environment.environment_name:
@@ -212,12 +211,6 @@ class TextBuffer(Singleton, TextBufferType):
 					data = text_buffer_file.read().split("\n")
 					for entry in data:
 						self.append(entry)
-			case LogEnvironments.HTML.environment_name:
-				raise EnvironmentException("This environment is not supported")
-			case LogEnvironments.MARKDOWN.environment_name:
-				raise EnvironmentException("This environment is not supported")
-			case LogEnvironments.PLAIN.environment_name:
-				raise EnvironmentException("This environment is not supported")
 
 	def input(self, input_text: str) -> str:
 		data = input(f"\r{input_text}")

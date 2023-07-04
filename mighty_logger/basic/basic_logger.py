@@ -168,7 +168,7 @@ class BasicLogger(Singleton):
 					f"-?entry> {animation} " +
 					f"*{datetime.now()} " +
 					f"{entry_type.icon[icon_set]} " +
-					f"#STATUS: " if status_entry else "" +
+					f"#STATUS: " +
 					f"{entry_type.type_category}{entry_type.type_name} - " +
 					f"{message_text}"
 				)

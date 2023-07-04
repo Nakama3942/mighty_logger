@@ -25,11 +25,17 @@ class TextBufferType:
 	def text_buffer(self) -> list:
 		return self._text_buffer
 
-	def __lshift__(self, message: str) -> None:
+	def __lt__(self, message: str) -> None:
 		self.append(message)
 
-	def __rshift__(self, name: str) -> None:
-		self.save(name, True)
+	def __gt__(self, number_string: int) -> None:
+		self.remove(number_string)
+
+	def __lshift__(self, name_file: str) -> None:
+		self.load(name_file)
+
+	def __rshift__(self, name_file: str) -> None:
+		self.save(name_file, True)
 
 	def append(self, message: str) -> None:
 		raise NotImplementedError("Method append() is not implemented in the base class")
