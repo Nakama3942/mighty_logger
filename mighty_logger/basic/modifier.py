@@ -19,8 +19,8 @@ from re import sub
 from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.basic.lib_types.sorting_key_type import SortingKeyType
-from mighty_logger.src.lib_types_collection.environments import LogEnvironments
-from mighty_logger.src.lib_types_collection.sorting_keys import SortingKeys
+from mighty_logger.src.environments import LogEnvironments
+from mighty_logger.src.sorting_keys import SortingKeys
 
 class Modifier:
 	def __init__(

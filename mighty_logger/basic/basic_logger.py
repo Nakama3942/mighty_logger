@@ -23,7 +23,7 @@ from mighty_logger.basic.lib_types.entry_type import EntryType
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
 from mighty_logger.basic.exceptions import MessageException
 from mighty_logger.basic.singleton import Singleton
-from mighty_logger.src.lib_types_collection.environments import LogEnvironments
+from mighty_logger.src.environments import LogEnvironments
 from mighty_logger.src.ansi_format import GetAnsiFormat
 
 class BasicLogger(Singleton):

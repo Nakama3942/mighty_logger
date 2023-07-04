@@ -17,7 +17,7 @@ limitations under the License.
 from re import sub
 
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
-from mighty_logger.src.lib_types_collection.environments import LogEnvironments
+from mighty_logger.src.environments import LogEnvironments
 
 class Exporter:
 	def __init__(
