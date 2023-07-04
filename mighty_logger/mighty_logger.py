@@ -30,20 +30,20 @@ from mighty_logger.basic.exceptions import ReCreationException, InitException
 from mighty_logger.basic.exporter import Exporter
 from mighty_logger.basic.modifier import Modifier
 from mighty_logger.basic.text_buffer import BasicTextBuffer, TextBuffer
-from mighty_logger.src.lib_types_collection.entry_types import ServiceLogger,\
+from mighty_logger.src.animations import IndefiniteAnimations, DefiniteAnimations
+from mighty_logger.src.entry_types import ServiceLogger,\
 	LoggerEntryTypes,\
 	ServiceProcessEntryTypes,\
 	ServiceTimerEntryTypes
-from mighty_logger.src.lib_types_collection.environments import LogEnvironments
-from mighty_logger.src.lib_types_collection.sorting_keys import SortingKeys
-from mighty_logger.src.animations import IndefiniteAnimations, DefiniteAnimations
+from mighty_logger.src.environments import LogEnvironments
+from mighty_logger.src.sorting_keys import SortingKeys
 
 class MightyLogger(BasicLogger):
 	def __init__(
 		self,
 		*,
-		program_name: str = "Unknown",
-		log_environment: EnvironmentType = LogEnvironments.PLAIN,
+		program_name: str,
+		log_environment: EnvironmentType,
 		console_width: int = 60,
 		icon_set: int = 1,
 		global_bold_font: bool = False,
@@ -134,6 +134,10 @@ class MightyLogger(BasicLogger):
 	@property
 	def settings(self) -> dict:
 		return self._settings
+
+	@property
+	def buffer(self) -> list:
+		return self._buffer.text_buffer
 
 	# ######################################################################################## #
 	#                                                                                          #
