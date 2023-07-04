@@ -21,3 +21,4 @@ from .exceptions import ColorException,\
 	EnvironmentException,\
 	InitException,\
 	MessageException
+from .text_buffer import BasicTextBuffer, TextBuffer
