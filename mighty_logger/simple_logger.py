@@ -15,6 +15,7 @@ limitations under the License.
 """
 
 from mighty_logger.basic.lib_types.environment_type import EnvironmentType
+from mighty_logger.basic.exceptions import ReCreationException
 from mighty_logger.basic.singleton import Singleton
 from mighty_logger.src.entry_types import LoggerEntryTypes, ServiceProcessEntryTypes
 from mighty_logger.src.environments import LogEnvironments
@@ -37,20 +38,24 @@ class Logger(Singleton):
 		global_invert_font: bool = False,
 		global_background: bool = False
 	) -> None:
-		if MightyLogger._instance is not None:
-			self.__logger = MightyLogger._instance
-			self.notice("An existing logger was taken into use")
+
+		if not hasattr(self, "_Logger__logger"):
+			if MightyLogger._instance is not None:
+				self.__logger = MightyLogger._instance
+				self.notice("An existing logger was taken into use")
+			else:
+				self.__logger = MightyLogger(
+					program_name=program_name,
+					log_environment=log_environment,
+					console_width=console_width,
+					icon_set=icon_set,
+					global_bold_font=global_bold_font,
+					global_italic_font=global_italic_font,
+					global_invert_font=global_invert_font,
+					global_background=global_background
+				)
 		else:
-			self.__logger = MightyLogger(
-				program_name=program_name,
-				log_environment=log_environment,
-				console_width=console_width,
-				icon_set=icon_set,
-				global_bold_font=global_bold_font,
-				global_italic_font=global_italic_font,
-				global_invert_font=global_invert_font,
-				global_background=global_background
-			)
+			raise ReCreationException("Logger class object already created")
 
 	@property
 	def might(self) -> MightyLogger:

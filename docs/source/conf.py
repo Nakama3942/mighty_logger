@@ -18,7 +18,7 @@ release = 'v0.9.0'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc', 'recommonmark']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.todo', 'recommonmark']
 
 templates_path = ['_templates']
 exclude_patterns = []

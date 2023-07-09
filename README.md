@@ -26,24 +26,19 @@
 
 ### Content
 
-- [Qt_Сolored-logger](#mighty-logger)
-  - [Content](#content)
-  - [Preamble](#preamble)
-  - [Overview](#overview)
-  - [Important releases](#important-releases)
-  - [LICENSE](#license)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Additional functionality](#additional-functionality)
-  - [Data](#data)
-  - [Troubleshooting](#troubleshooting)
-  - [Authors](#authors)
+- [Mighty Logger](#mighty-logger)
+	- [Content](#content)
+	- [Preamble](#preamble)
+	- [Overview](#overview)
+    - [LICENSE](#license)
+	- [Important releases](#important-releases)
+	- [Features](#features)
+	- [Installation](#installation)
+	- [Usage](#usage)
+	- [Troubleshooting](#troubleshooting)
+	- [Authors](#authors)
 
 ## Preamble
-
-<!--
-This library it was renamed to "Mighty logger" but before this library named is "Qt Colored logger". Old commits may search in this repository, but download old build may on next link: https://pypi.org/project/qt-colored-logger/ .
--->
 
 > I often came across the opinion that it is better to use not standard output to the console, but full-fledged logging... However, the standard libraries do not provide exactly what I need... Therefore, I decided to make my own library! Which will implement the functionality I need.
 
@@ -65,13 +60,32 @@ The library implements the formation of a beautifully formatted colored text, si
 - Log entry type
 - Entry message
 
-Any information to the output can be turned off (according to the default, everything is included). It is also possible to change the output settings during the logging process. It is possible to change the colors of the foreground text and the background, icons ~~and animations~~.
+Any information to the output can be turned off (according to the default, everything is included). It is also possible to change the output settings during the logging process. It is possible to change the colors of the foreground text and the background, icons and animations.
+
+- [Content](#content)
+
+## LICENSE
+
+The full text of the license can be found at the following [link](https://github.com/Nakama3942/mighty_logger/blob/master/LICENSE).
+
+> Copyright © 2023 Kalynovsky Valentin. All rights reserved.
+>
+> Licensed under the Apache License, Version 2.0 (the "License");
+> you may not use this file except in compliance with the License.
+> You may obtain a copy of the License at
+>
+>     http://www.apache.org/licenses/LICENSE-2.0
+>
+> Unless required by applicable law or agreed to in writing, software
+> distributed under the License is distributed on an "AS IS" BASIS,
+> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+> See the License for the specific language governing permissions and
 
 - [Content](#content)
 
 ## Important releases
 
-<details><summary>See the important releases (possible spoilers)</summary>
+<details><summary>See the important releases</summary>
 
 - [x] v0.0.1 - Alpha-release (the very first version of the simplest Logger has been published)
 - [x] v0.0.2 - Little update (added multiple entry types and colors)
@@ -82,9 +96,7 @@ Any information to the output can be turned off (according to the default, every
 - [x] v0.2.1 - Protections update (hidden part of the functionality)
 - [x] v0.3.0 - Background update (added background for log entries)
 - [x] v0.4.0 - Buffer update (added text buffer)
-- [x] v0.5.0-dev - Dev-Unifying update (merger of Loggers started)
-- [x] v0.5.0-pre - Pre-Unifying update (console and HTML are combined into one class)
-- [x] v0.5.0 - Unifying update (merging bugs fixed)
+- [x] v0.5.0 - Unifying update (console and HTML are combined into one class)
 - [x] v0.5.1 - Hints update (added hint symbols (icons) near log entries status)
 - [x] v0.6.0 - Progress update (added start of some log entries in threads (process))
 - [x] v0.6.1 - Animation update (extended animations in processes)
@@ -103,40 +115,31 @@ Any information to the output can be turned off (according to the default, every
 
 - [Content](#content)
 
-## LICENSE
-
-The full text of the license can be found at the following [link](https://github.com/Nakama3942/mighty_logger/blob/master/LICENSE).
-
-> Copyright © 2023 Kalynovsky Valentin. All rights reserved.
-> 
-> Licensed under the Apache License, Version 2.0 (the "License");
-> you may not use this file except in compliance with the License.
-> You may obtain a copy of the License at
-> 
->     http://www.apache.org/licenses/LICENSE-2.0
-> 
-> Unless required by applicable law or agreed to in writing, software
-> distributed under the License is distributed on an "AS IS" BASIS,
-> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-> See the License for the specific language governing permissions and
-
-- [Content](#content)
-
 ## Features
 
-- **Print different types of logs** (info, success, fail, warning, error, critical, subtle)
-- **Add custom color for each type of log** (both foreground and background. Defaults to these colors)
-- **Can Provide colors in RGB, HEX**
-- **Mark logs with custom ids** (optional, defaults to no id)
-- **Show type for every log** (optional, defaults to True)
-- **Show time of logging for every log** (optional, defaults to True)
-- **Change logging env to html** (defaults to Console. In html it appears like this)
-- **Log thread task**
-
+- **Support for a large number of logger entry types** (empty, entry: debug, debug_performance, performance, event, audit, metrics, user, message, info, notice, warning, error, critical, resolved, unresolved)
+- **Support for five working environments** (CONSOLE, PLAIN_CONSOLE, HTML, MARKDOWN, PLAIN)
+- **Provides publisher methods**
+- **Provides to sort the logs**
+- **Provides to search the logs**
+- **Provides to select the desired logs**
+- **Provides to export logs to csv**
+- **Implemented own Text Buffer**
+- **Provided the ability to control the Buffer**
+- **Logs can be saved and loaded**
+- **Implemented wrapper method for Python input()**
+- **You can run logging Processes**
+- **You can run logging Timers**
+- **Implemented a simplified Logger class**
+- **When creating a Logger, an entry is created about the characteristics of the system**
+- **Show time of logging for every entry log**
+- **Provided are more than 20 animations for indefinite processes and 6 for definite processes**
+- **Provided are ANSI escape code table**
+- **Provides colors in RGB, HEX, ANSI**
+- **Provided are 4 sorting options** (by time, by reverse time, by category, by type)
+- **Provided are 5 exceptions**
 
 ## Installation
-
-Despite the fact that the library was originally developed for use in PyQt, it does not require PyQt to be installed, since this framework for outputting to Text fields, which support not only Plain Text, uses HTML and this library simply simplifies the logging process, since the creation process already formatted strings is registered in this library.
 
 To install the library, enter the command:
 
@@ -146,39 +149,23 @@ pip install mighty_logger
 
 ## Usage
 
-ATTENTION!!! OUTDATED MATERIAL! RELEVANCE - v0.6.1! WILL BE OVERWRITTEN IN v0.9.1!
-
 This is the simplest example of using the library:
 
 ```python
 from mighty_logger import Logger
-from mighty_logger.src import StatusMessagePatterns
 
 if __name__ == "__main__":
-	logger = Logger(program_name="Test", console_width=115)
-	logger.message(status_message=StatusMessagePatterns.custom("Hooray"), message_text="Hello world!")
+	logger = Logger()
+	logger.message("Hello world!")
+	print("\n".join(logger.might.buffer))
 ```
 
-The outputs in console will contain the following text (GitHub, PyPi and possibly some other sites do not support displaying colors in Markdown - use resources that support them, such as PyCharm):
+The outputs in console will contain the following text:
 
 <pre>
-<span style='background-color: #;'><span style='color: #ffd700;'>-Test?entry> $███████████████^████@███████:██████████:█████:█████████:█████</span></span>
-<span style='background-color: #;'><span style='color: #b0e0e6;'>-?entry>         </span><span style='color: #da70d6;'>*2023-06-08 14:01:39.423493 </span>💬 <span style='color: #ffa500;'>#STATUS: </span><span style='color: #ff8c00;'>Hooray </span><span style='color: #afeeee;'>@MESSAGE - </span><span style='color: #b0e0e6;'>Hello world!</span></span>
+-Unknown?entry> $DESKTOP-8KG0R64:User:Windows:10.0.19045:64bit:WindowsPE:AMD64
+-?entry>          *2023-07-04 21:12:05.919593 📝 #STATUS: @MESSAGE - Hello world!
 </pre>
-
-See the APPLYING.md file for more details.
-
-- [Content](#content)
-
-## *Additional functionality*
-
-*Additional functionality is also planned. Let's keep it a secret for now. Let it be a surprise.*
-
-- [Content](#content)
-
-## Data
-
-See the DATA.md file.
 
 - [Content](#content)
 

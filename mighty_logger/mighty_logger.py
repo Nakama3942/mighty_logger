@@ -185,7 +185,7 @@ class MightyLogger(BasicLogger):
 			self._buffer.update_console()
 
 	def getty(self, input_text: str) -> str:
-		self._buffer << "."
+		self.empty(".")
 		if self._environment.updatable:
 			self._buffer.update_console()
 		data = self._buffer.input(input_text)
@@ -349,7 +349,7 @@ class MightyLogger(BasicLogger):
 		if local_settings is None:
 			local_settings = {}
 		animation_index = 0
-		self._buffer << "."
+		self.empty(".")
 		if self._environment.updatable:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
@@ -395,7 +395,7 @@ class MightyLogger(BasicLogger):
 		if local_settings is None:
 			local_settings = {}
 		old_progress_rise = 0
-		self._buffer << "."
+		self.empty(".")
 		if self._environment.updatable:
 			self._buffer.update_console()
 		while not self._progress_interrupt:
