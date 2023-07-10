@@ -3,7 +3,7 @@
 
 A package that contains the data types that are used in the library.
 
-.. versionadded:: 0.7.0
+.. versionadded:: v0.7.0
 
 .. hint:: To use, you need to enter
 
@@ -12,107 +12,295 @@ A package that contains the data types that are used in the library.
 
 		from mighty_logger.basic.lib_types import ...
 
+Animation type
+--------------
+
 .. currentmodule:: mighty_logger.basic.lib_types.animation_type
 
-.. rubric:: type BasicAnimationType
+Type BasicAnimationType
+_______________________
+
 .. py:class:: BasicAnimationType(animation: list)
 
 	.. danger:: This is a hidden class that is inaccessible outside the library.
 
 	Basic wrapper class for animations type.
 
-	:property: animation
-	:since: v0.6.0
+	.. versionadded:: v0.6.0
 
-.. rubric:: IndefiniteAnimationType
+	:param animation: List of animation strings
+	:type animation: list
+
+	.. property:: animation
+
+		List of animation strings.
+
+		.. versionadded:: v0.6.0
+
+		:rtype: list
+
+Type IndefiniteAnimationType
+____________________________
+
 .. py:class:: IndefiniteAnimationType(animation: list)
 
 	Wrapper class for indefinite animations type.
 
-	:property: animation
-	:since: v0.6.0
+	.. versionadded:: v0.6.0
 
-.. rubric:: DefiniteAnimationType
+	:param animation: List of animation strings
+	:type animation: list
+
+	.. seealso::
+		- `Type BasicAnimationType`_
+
+Type DefiniteAnimationType
+__________________________
+
 .. py:class:: DefiniteAnimationType(animation: list)
 
 	Wrapper class for definite animations type.
 
-	:property: animation
-	:since: v0.6.0
+	.. versionadded:: v0.6.0
+
+	:param animation: List of animation strings
+	:type animation: list
+
+	.. seealso::
+		- `Type BasicAnimationType`_
+
+Type EntryType
+--------------
 
 .. currentmodule:: mighty_logger.basic.lib_types.entry_type
 
-.. rubric:: EntryType
-.. py:class:: EntryType(*, type_category: str, type_name: str, time_color: tuple, status_color: tuple, status_message_color: tuple, type_color: tuple, message_color: tuple, background_color: tuple, icon: tuple)
+.. py:class:: EntryType(*, type_category: str, type_name: str, time_color: tuple, status_color: tuple, type_color: tuple, message_color: tuple, background_color: tuple, icon: tuple)
 
 	The data type that characterizes the entry type.
 
-	:properties:
-		- type_category
-		- type_name
-		- time_color
-		- status_color
-		- type_color
-		- message_color
-		- background_color
-		- icon
-	:since: v0.7.0
+	.. versionadded:: v0.7.0
+
+	:param type_category: Entry type category
+	:type type_category: str
+	:param type_name: The name of the entry type
+	:type type_name: str
+	:param time_color: The color of the time in the entry type
+	:type time_color: tuple
+	:param status_color: The color of the status in the entry type
+	:type status_color: tuple
+	:param type_color: The color of the type in the entry type
+	:type type_color: tuple
+	:param message_color: The color of the message in the entry type
+	:type message_color: tuple
+	:param background_color: The background color in the entry type
+	:type background_color: tuple
+	:param icon: Entry type icon
+	:type icon: tuple
+
+	.. property:: type_category
+
+		Entry type category.
+
+		.. versionadded:: v0.7.2
+
+		:rtype: str
+
+	.. property:: type_name
+
+		The name of the entry type.
+
+		.. versionadded:: v0.7.0
+
+		:rtype: str
+
+	.. property:: time_color
+
+		The color of the time in the entry type.
+
+		.. versionadded:: v0.7.0
+
+		:rtype: tuple
+
+	.. property:: status_color
+
+		The color of the status in the entry type.
+
+		.. versionadded:: v0.7.0
+
+		:rtype: tuple
+
+	.. property:: type_color
+
+		The color of the type in the entry type.
+
+		.. versionadded:: v0.7.0
+
+		:rtype: tuple
+
+	.. property:: message_color
+
+		The color of the message in the entry type.
+
+		.. versionadded:: v0.7.0
+
+		:rtype: tuple
+
+	.. property:: background_color
+
+		The background color in the entry type.
+
+		.. versionadded:: v0.7.0
+
+		:rtype: tuple
+
+	.. property:: icon
+
+		Entry type icon.
+
+		.. versionadded:: v0.7.0
+
+		:rtype: tuple
+
+Type EnvironmentType
+--------------------
 
 .. currentmodule:: mighty_logger.basic.lib_types.environment_type
 
-.. rubric:: EnvironmentType
 .. py:class:: EnvironmentType(environment_name: str, environment_code: int, updatable: bool, weak_environment: bool)
 
 	A data type that characterizes the environments in which the Logger can operate.
 
-	:properties:
-		- environment_name
-		- environment_code
-		- updatable
-		- weak_environment
-	:since: v0.7.0
+	.. versionadded:: v0.7.0
+
+	:param environment_name: The name of the environment
+	:type environment_name: str
+	:param environment_code: The code of the environment
+	:type environment_code: int
+	:param updatable: Is the environment updatable (uses a complex (console) Buffer)?
+	:type updatable: bool
+	:param weak_environment: Is the environment weak (requires preconfiguration)?
+	:type weak_environment: bool
+
+	.. property:: environment_name
+
+		The name of the environment.
+
+		.. versionadded:: v0.7.0
+
+		:rtype: str
+
+	.. property:: environment_code
+
+		The code of the environment.
+
+		.. versionadded:: v0.7.0
+
+		:rtype: int
+
+	.. property:: updatable
+
+		Is the environment updatable (uses a complex (console) Buffer)?
+
+		.. versionadded:: v0.7.0
+
+		:rtype: bool
+
+	.. property:: weak_environment
+
+		Is the environment weak (requires preconfiguration)?
+
+		.. versionadded:: v0.7.0
+
+		:rtype: bool
+
+Type SortingKeyType
+-------------------
 
 .. currentmodule:: mighty_logger.basic.lib_types.sorting_key_type
 
-.. rubric:: SortingKeyType
 .. py:class:: SortingKeyType(sorting_key: str)
 
 	A data type that characterizes the sort keys for entries.
 
-	:property: sorting_key
-	:since: v0.7.1
+	.. versionadded:: v0.7.1
+
+	:param sorting_key: A string describing the sort key
+	:type sorting_key: str
+
+	.. property:: sorting_key
+
+		The sort key number.
+
+		.. versionadded:: v0.7.1
+
+		:rtype: str
+
+Type TextBufferType
+-------------------
 
 .. currentmodule:: mighty_logger.basic.lib_types.text_buffer_type
 
-.. rubric:: TextBufferType
 .. py:class:: TextBufferType(env: EnvironmentType)
 
 	The data type that characterizes the Text Buffer.
 
-	:property: data
-	:since: v0.5.0-dev
+	.. versionadded:: v0.5.0-dev
 
-	.. py:method:: __lshift__(message: str) -> None
+	:param env: Text Buffer environment
+	:type env: EnvironmentType
+
+	.. property:: text_buffer
+
+		List of strings of the Text Buffer.
+
+		.. versionadded:: v0.9.3
+
+		:rtype: list
+
+	.. py:method:: __lt__(message: str) -> None:
 
 		Used to add a string to the end of the Text Buffer.
 
-		:since: v0.4.0
-		:param message: The string to be added
-		:type message: str
+		.. versionadded:: v0.9.3
 
-	.. py:method:: __rshift__(name: str) -> None
+		:param name_file: The message to be appended to the end of the Text Buffer
+		:type name_file: str
+
+	.. py:method:: __gt__(number_string: int) -> str:
+
+		Used to pop a string from the end of the Text Buffer.
+
+		.. versionadded:: v0.9.3
+
+		:param name_file: Line number to pop
+		:type name_file: int
+		:return: a string at the given number
+		:rtype: str
+
+	.. py:method:: __lshift__(name_file: str) -> None:
+
+		Used to load a Text Buffer from the file.
+
+		.. versionadded:: v0.4.0
+
+		:param name_file: The name of the file from which to load the Text Buffer
+		:type name_file: str
+
+	.. py:method:: __rshift__(name_file: str) -> None:
 
 		Used to save a Text Buffer to the file.
 
-		:since: v0.4.0
-		:param name: The name of the file where you want to save the Text Buffer
-		:type name: str
+		.. versionadded:: v0.4.0
+
+		:param name_file: The name of the file where you want to save the Text Buffer
+		:type name_file: str
 
 	.. py:method:: append(message: str) -> None
 
 		Adds a string to the end of the Text Buffer.
 
-		:since: v0.5.0-dev
+		.. versionadded:: v0.5.0-dev
+
 		:param message: The string to be added
 		:type message: str
 
@@ -120,7 +308,8 @@ A package that contains the data types that are used in the library.
 
 		Adds a string to the middle of the Text Buffer at the specified position.
 
-		:since: v0.5.0-dev
+		.. versionadded:: v0.5.0-dev
+
 		:param number_string: Position (number) of the line to which you need to add a string
 		:type number_string: int
 		:param message: The string to be placed on the position
@@ -131,7 +320,8 @@ A package that contains the data types that are used in the library.
 
 		Replaces a specific string in a Text Buffer. If there is no such string, the method fills the list with empty strings up to the required position and *adds* the string.
 
-		:since: v0.5.0-dev
+		.. versionadded:: v0.5.0-dev
+
 		:param number_string: Position (number) of the string to be replaced (added)
 		:type number_string: int
 		:param message: A string that will replace the previous one by position
@@ -142,7 +332,8 @@ A package that contains the data types that are used in the library.
 
 		Removes and returns the specified string from the Text Buffer.
 
-		:since: v0.6.0
+		.. versionadded:: v0.6.0
+
 		:param number_string: The string to be removed from the Text Buffer
 		:type number_string: int
 		:return: The specified string
@@ -153,7 +344,8 @@ A package that contains the data types that are used in the library.
 
 		Deletes without returning the specified string from the Text Buffer.
 
-		:since: v0.6.0
+		.. versionadded:: v0.6.0
+
 		:param number_string: The string to be removed from the Text Buffer
 		:type number_string: int
 		:raises NotImplementedError: Method remove() is not implemented in the base class
@@ -162,14 +354,16 @@ A package that contains the data types that are used in the library.
 
 		Clears the entire Text Buffer, making it empty.
 
-		:since: v0.7.0
+		.. versionadded:: v0.7.0
+
 		:raises NotImplementedError: Method clear() is not implemented in the base class
 
 	.. py:method:: save(name_file: str, clean: bool) -> None
 
 		Saves the text of the Text Buffer to a file.
 
-		:since: v0.5.0-dev
+		.. versionadded:: v0.5.0-dev
+
 		:param name_file: The name of the file where the Text Buffer will be saved
 		:type name_file: str
 		:param clean: Saving should be done in Plain text (ignored with plain text environment)?
@@ -180,7 +374,8 @@ A package that contains the data types that are used in the library.
 
 		Loads the text of the Text Buffer from a file.
 
-		:since: v0.7.0
+		.. versionadded:: v0.7.0
+
 		:param name_file: The name of the file from which to load the saved text of the Text Buffer
 		:type name_file: str
 		:raises NotImplementedError: Method load() is not implemented in the base class
@@ -189,7 +384,8 @@ A package that contains the data types that are used in the library.
 
 		A wrapper method for the standard Python input() that prepares the Text Buffer before using this function, and performs certain actions after, so that the Text Buffer can continue to function normally.
 
-		:since: v0.7.0
+		.. versionadded:: v0.7.0
+
 		:param input_text: Displayed text on the screen that tells the user what to enter
 		:type input_text: str
 		:return: The string entered by the user
@@ -200,12 +396,14 @@ A package that contains the data types that are used in the library.
 
 		Refreshes the console, erasing output text and outputting an updated buffer.
 
-		:since: v0.5.0-dev
+		.. versionadded:: v0.5.0-dev
+
 		:raises NotImplementedError: Method append() is not implemented in the base class
 
 	.. py:method:: update_entry() -> None
 
 		Rewrites the last line of output after updating the last line of the buffer. Used (mostly) by the Progress bar (that is Progress string).
 
-		:since: v0.6.0
+		.. versionadded:: v0.6.0
+
 		:raises NotImplementedError: Method append() is not implemented in the base class
