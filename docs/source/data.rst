@@ -132,6 +132,8 @@ Animations
 	- Line
 	- BlockVerticalFill
 
+.. _ansi:
+
 Tree of ANSI escape code
 ------------------------
 

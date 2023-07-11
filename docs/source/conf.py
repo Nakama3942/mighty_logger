@@ -31,6 +31,10 @@ source_suffix = {
     '.md': 'markdown',
 }
 
+latex_documents = [
+    (master_doc, 'project_name.tex', 'Project Name Documentation', 'Your Name', 'manual'),
+]
+
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 

@@ -588,8 +588,8 @@ Modification of a Logger means any change to its Buffer. And sorting, and search
 
 Sorting can be done by four keys:
 
-1. Sort by entering *time*
-2. Sort by entering *time in reverse order*
+1. Sort by entry *time*
+2. Sort by entry *time in reverse order*
 3. Sort by entry *category*
 4. Sort by entry *type*
 

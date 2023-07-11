@@ -42,6 +42,8 @@ _______________________
 Type IndefiniteAnimationType
 ____________________________
 
+.. _indefinite_animation_type:
+
 .. py:class:: IndefiniteAnimationType(animation: list)
 
 	Wrapper class for indefinite animations type.
@@ -51,11 +53,15 @@ ____________________________
 	:param animation: List of animation strings
 	:type animation: list
 
+	.. hint:: If this class is used as an argument type - just pass the value of one of the available attributes of the :ref:`List of animations <list_of_animations>`.
+
 	.. seealso::
 		- `Type BasicAnimationType`_
 
 Type DefiniteAnimationType
 __________________________
+
+.. _definite_animation_type:
 
 .. py:class:: DefiniteAnimationType(animation: list)
 
@@ -66,6 +72,8 @@ __________________________
 	:param animation: List of animation strings
 	:type animation: list
 
+	.. hint:: If this class is used as an argument type - just pass the value of one of the available attributes of the :ref:`List of progress bars <list_of_progress_bars>`.
+
 	.. seealso::
 		- `Type BasicAnimationType`_
 
@@ -73,6 +81,8 @@ Type EntryType
 --------------
 
 .. currentmodule:: mighty_logger.basic.lib_types.entry_type
+
+.. _entry_type:
 
 .. py:class:: EntryType(*, type_category: str, type_name: str, time_color: tuple, status_color: tuple, type_color: tuple, message_color: tuple, background_color: tuple, icon: tuple)
 
@@ -96,6 +106,8 @@ Type EntryType
 	:type background_color: tuple
 	:param icon: Entry type icon
 	:type icon: tuple
+
+	.. hint:: If this class is used as an argument type - just pass the value of one of the available attributes of the :ref:`Entry types collections <entry_types_collections>`.
 
 	.. property:: type_category
 
@@ -166,6 +178,8 @@ Type EnvironmentType
 
 .. currentmodule:: mighty_logger.basic.lib_types.environment_type
 
+.. _environment_type:
+
 .. py:class:: EnvironmentType(environment_name: str, environment_code: int, updatable: bool, weak_environment: bool)
 
 	A data type that characterizes the environments in which the Logger can operate.
@@ -180,6 +194,8 @@ Type EnvironmentType
 	:type updatable: bool
 	:param weak_environment: Is the environment weak (requires preconfiguration)?
 	:type weak_environment: bool
+
+	.. hint:: If this class is used as an argument type - just pass the value of one of the available attributes of the :ref:`Logger environments collections <logger_environments_collections>`.
 
 	.. property:: environment_name
 
@@ -218,6 +234,8 @@ Type SortingKeyType
 
 .. currentmodule:: mighty_logger.basic.lib_types.sorting_key_type
 
+.. _sorting_key_type:
+
 .. py:class:: SortingKeyType(sorting_key: str)
 
 	A data type that characterizes the sort keys for entries.
@@ -227,6 +245,8 @@ Type SortingKeyType
 	:param sorting_key: A string describing the sort key
 	:type sorting_key: str
 
+	.. hint:: If this class is used as an argument type - just pass the value of one of the available attributes of the :ref:`Sorting keys collections <sorting_keys_collections>`.
+
 	.. property:: sorting_key
 
 		The sort key number.
@@ -234,6 +254,8 @@ Type SortingKeyType
 		.. versionadded:: v0.7.1
 
 		:rtype: str
+
+.. _text_buffer_type:
 
 Type TextBufferType
 -------------------
@@ -248,6 +270,9 @@ Type TextBufferType
 
 	:param env: Text Buffer environment
 	:type env: EnvironmentType
+
+	.. seealso::
+		- Read about inherited classes in the section :ref:`Text Buffers <text_buffers>`.
 
 	.. property:: text_buffer
 
@@ -295,6 +320,8 @@ Type TextBufferType
 		:param name_file: The name of the file where you want to save the Text Buffer
 		:type name_file: str
 
+	.. _text_buffer_type_append:
+
 	.. py:method:: append(message: str) -> None
 
 		Adds a string to the end of the Text Buffer.
@@ -303,6 +330,15 @@ Type TextBufferType
 
 		:param message: The string to be added
 		:type message: str
+		:raises NotImplementedError: Method append() is not implemented in the base class
+
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_append>`;
+			- :ref:`TextBuffer <text_buffer_append>`.
+
+	.. _text_buffer_type_insert:
 
 	.. py:method:: insert(number_string: int, message: str) -> None
 
@@ -316,6 +352,14 @@ Type TextBufferType
 		:type message: str
 		:raises NotImplementedError: Method insert() is not implemented in the base class
 
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_insert>`;
+			- :ref:`TextBuffer <text_buffer_insert>`.
+
+	.. _text_buffer_type_replace:
+
 	.. py:method:: replace(number_string: int, message: str) -> None
 
 		Replaces a specific string in a Text Buffer. If there is no such string, the method fills the list with empty strings up to the required position and *adds* the string.
@@ -327,6 +371,14 @@ Type TextBufferType
 		:param message: A string that will replace the previous one by position
 		:type message: str
 		:raises NotImplementedError: Method replace() is not implemented in the base class
+
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_replace>`;
+			- :ref:`TextBuffer <text_buffer_replace>`.
+
+	.. _text_buffer_type_pop:
 
 	.. py:method:: pop([number_string: int = -1]) -> str
 
@@ -340,6 +392,14 @@ Type TextBufferType
 		:rtype: str
 		:raises NotImplementedError: Method pop() is not implemented in the base class
 
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_pop>`;
+			- :ref:`TextBuffer <text_buffer_pop>`.
+
+	.. _text_buffer_type_remove:
+
 	.. py:method:: remove([number_string: int = -1]) -> None
 
 		Deletes without returning the specified string from the Text Buffer.
@@ -350,6 +410,14 @@ Type TextBufferType
 		:type number_string: int
 		:raises NotImplementedError: Method remove() is not implemented in the base class
 
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_remove>`;
+			- :ref:`TextBuffer <text_buffer_remove>`.
+
+	.. _text_buffer_type_clear:
+
 	.. py:method:: clear() -> None
 
 		Clears the entire Text Buffer, making it empty.
@@ -357,6 +425,14 @@ Type TextBufferType
 		.. versionadded:: v0.7.0
 
 		:raises NotImplementedError: Method clear() is not implemented in the base class
+
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_clear>`;
+			- :ref:`TextBuffer <text_buffer_clear>`.
+
+	.. _text_buffer_type_save:
 
 	.. py:method:: save(name_file: str, clean: bool) -> None
 
@@ -370,6 +446,14 @@ Type TextBufferType
 		:type clean: bool
 		:raises NotImplementedError: Method save() is not implemented in the base class
 
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_save>`;
+			- :ref:`TextBuffer <text_buffer_save>`.
+
+	.. _text_buffer_type_load:
+
 	.. py:method:: load(name_file: str) -> None
 
 		Loads the text of the Text Buffer from a file.
@@ -379,6 +463,14 @@ Type TextBufferType
 		:param name_file: The name of the file from which to load the saved text of the Text Buffer
 		:type name_file: str
 		:raises NotImplementedError: Method load() is not implemented in the base class
+
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_load>`;
+			- :ref:`TextBuffer <text_buffer_load>`.
+
+	.. _text_buffer_type_input:
 
 	.. py:method:: input(input_text: str) -> None
 
@@ -392,13 +484,29 @@ Type TextBufferType
 		:rtype: str
 		:raises NotImplementedError: Method input() is not implemented in the base class
 
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_input>`;
+			- :ref:`TextBuffer <text_buffer_input>`.
+
+	.. _text_buffer_type_update_console:
+
 	.. py:method:: update_console() -> None
 
 		Refreshes the console, erasing output text and outputting an updated buffer.
 
 		.. versionadded:: v0.5.0-dev
 
-		:raises NotImplementedError: Method append() is not implemented in the base class
+		:raises NotImplementedError: Method update_console() is not implemented in the base class
+
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_update_console>`;
+			- :ref:`TextBuffer <text_buffer_update_console>`.
+
+	.. _text_buffer_type_update_entry:
 
 	.. py:method:: update_entry() -> None
 
@@ -406,4 +514,10 @@ Type TextBufferType
 
 		.. versionadded:: v0.6.0
 
-		:raises NotImplementedError: Method append() is not implemented in the base class
+		:raises NotImplementedError: Method update_entry() is not implemented in the base class
+
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_update_entry>`;
+			- :ref:`TextBuffer <text_buffer_update_entry>`.
