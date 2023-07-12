@@ -19,11 +19,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mighty_logger"
-version = "0.9.2"
+version = "0.9.3"
 authors = [
 	{name = "Kalynovsky 'Nakamura Akira' Valentin", email = "nakama3942@gmail.com"},
 ]
-description = "Powerful functional logger"
+description = "Mighty functional logger"
 readme = "README.md"
 license = {text = "Apache License Version 2.0"}
 classifiers = [
@@ -46,7 +46,6 @@ Releases = "https://github.com/Nakama3942/mighty_logger/releases"
 packages = [
 	'mighty_logger',
 	'mighty_logger.src',
-	'mighty_logger.src.lib_types_collection',
 	'mighty_logger.basic',
 	'mighty_logger.basic.lib_types'
 ]

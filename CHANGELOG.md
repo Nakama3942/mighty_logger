@@ -571,7 +571,8 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - Added a new argument to `sort_with_save()`, `search_with_save()`, `select_with_save()` and `export_to_csv()`, through which you can set the name of the file where you want to save the modified/exported logs;
 - Moved the `text_buffer` module from the src package to the basic package and hid it from `__init__`, since now there is no need to keep the Buffer object separately due to the presence of new methods in the Logger itself, which provide access to all Buffer methods and, partially, simplify and automate the work with the Buffer;
 - Added a new `MessageException` thrown by the entry builder (`BasicLogger._assemble_entry()`) if the message length is less than 10 characters;
-- Now it is necessary to enter a message (longer than 10 characters), but it is not necessary to enter the name of the arguments.
+- Now it is necessary to enter a message (longer than 10 characters), but it is not necessary to enter the name of the arguments;
+- Due to the new search, sorting and selection algorithms, the presence of all parts of the entry is required, and therefore all settings that disable the output of any parts of the string have been removed.
 
 #### Deprecated:
 - Any references and functionality about status messages are completely cut out from the entire library:
@@ -620,17 +621,38 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 
 ---
 
-## Web docs update v0.9.3 ()
+## Web docs update v0.9.3 (12.07.2023)
+
+#### Bug Fixes:
+- Fixed a bug in the line builder in the PLAIN environment when processing the addition of the `#STATUS: ` line - it was simply forgotten to remove the check for the removed condition.
 
 #### Documentation:
 - Moved the documentation from the code to the Web docs (now there is no documentation in the code, except for the `simple_logger` module);
-- README, APPLYING and DATA have been rewritten;
-- Added EXAMPLE;
+- README, APPLYING and DATA have been rewritten in INDEX, HOW TO USE and DATA;
+- Added EXAMPLE and LICENSE;
+- Rewrote the entire CHANGELOG to the new standard;
 - Completed Web docs.
 
 #### Enhancements:
 - Added `text_buffer` property to `TextBufferType`;
-- Added `get_settings` property to `MightyLogger`;
-- Replaced the `might()` method with the `might` property in `Logger`.
+- Added `settings` and `buffer` properties to `MightyLogger`;
+- Replaced the `might()` method with the `might` property in `Logger`;
+- Moved modules from `lib_types_collection` package to `src`;
+- Arguments `program_name` and `log_environment` in `MightyLogger` are now required;
+- Added redefinition of new operators in Text Buffers: `<` and `>`;
+- Changed the behavior of old operators:
+	- `<` adds a string to the end of the file;
+	- `>` extracts a string at the given number;
+	- `<<` loads the Buffer from a file;
+	- `>>` saves the Buffer to a file.
+
+#### Deprecated:
+- Removed package `lib_types_collection`.
+
+#### Security:
+- `MightyLogger`, `BasicTextBuffer` and `TextBuffer` are now available outside the library again.
+
+#### Performance:
+- Part of the checks in the Text Buffer moved from save/load methods to the constructor to immediately detect a mismatch between the type of environment and the type of Buffer, which leads to optimization of saving/loading and eliminating unexpected behavior when it is possible to use the Buffer with the wrong environment.
 
 ---

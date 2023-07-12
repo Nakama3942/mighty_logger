@@ -13,12 +13,12 @@ sys.path.insert(0, os.path.abspath('../..'))
 project = 'Mighty Logger'
 copyright = ' Copyright 2023 Kalynovsky Valentin. All rights reserved.'
 author = 'Kalynovsky Valentin'
-release = 'v0.9.0'
+release = 'v0.9.3'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.todo', 'recommonmark']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.todo']
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -26,14 +26,14 @@ exclude_patterns = []
 language = 'en'
 master_doc = 'index'
 
-source_suffix = {
-    '.rst': 'restructuredtext',
-    '.md': 'markdown',
-}
+# source_suffix = {
+#     '.rst': 'restructuredtext',
+#     '.md': 'markdown',
+# }
 
-latex_documents = [
-    (master_doc, 'project_name.tex', 'Project Name Documentation', 'Your Name', 'manual'),
-]
+# latex_documents = [
+#     (master_doc, 'project_name.tex', 'Project Name Documentation', 'Your Name', 'manual'),
+# ]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

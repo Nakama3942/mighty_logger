@@ -72,6 +72,20 @@ class MightyLogger(BasicLogger):
 
 	# ######################################################################################## #
 	#                                                                                          #
+	#                                         Property                                         #
+	#                                                                                          #
+	# ######################################################################################## #
+
+	@property
+	def settings(self) -> dict:
+		return self._settings
+
+	@property
+	def buffer(self) -> list:
+		return self._buffer.text_buffer
+
+	# ######################################################################################## #
+	#                                                                                          #
 	#                                         Settings                                         #
 	#                                                                                          #
 	# ######################################################################################## #
@@ -128,14 +142,6 @@ class MightyLogger(BasicLogger):
 			self._settings['global_invert_font'] = global_invert_font
 		if global_background is not None:
 			self._settings['global_background'] = global_background
-
-	@property
-	def settings(self) -> dict:
-		return self._settings
-
-	@property
-	def buffer(self) -> list:
-		return self._buffer.text_buffer
 
 	# ######################################################################################## #
 	#                                                                                          #

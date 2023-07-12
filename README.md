@@ -56,7 +56,7 @@ The library implements the formation of a beautifully formatted colored text, si
 
 - Device name and registered profile, system name, etc. (this data is displayed only once at the beginning of the logging)
 - Log entry time
-- Log entry status
+- Log entry category
 - Log entry type
 - Entry message
 
