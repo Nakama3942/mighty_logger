@@ -409,12 +409,12 @@ class MightyLogger(BasicLogger):
 				continue
 			else:
 				old_progress_rise = self._progress_rise
-				animation_item = f"{self._animation.animation[(self._progress_rise // 15) + (2 if self._progress_rise == 100 else 1)]} - {self._progress_rise} %"
+				animation_item = f"{self._animation.animation[(self._progress_rise // 15) + (2 if self._progress_rise == 100 else 1)]}"
 				self._buffer.text_buffer[-1] = self._assemble_entry(
 					ServiceProcessEntryTypes.process,
 					self._icon_set,
 					animation_item,
-					message_text,
+					f"{message_text} - {self._progress_rise} %",
 					local_settings
 				)
 				if self._environment.updatable:
