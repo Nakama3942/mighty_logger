@@ -69,3 +69,6 @@ class TextBufferType:
 
 	def update_entry(self) -> None:
 		raise NotImplementedError("Method update_entry() is not implemented in the base class")
+
+	def output_entry(self) -> None:
+		raise NotImplementedError("Method output_entry() is not implemented in the base class")

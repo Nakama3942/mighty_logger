@@ -152,7 +152,7 @@ class MightyLogger(BasicLogger):
 	def empty(self, entry: str) -> None:
 		self._buffer.append(entry)
 		if self._environment.updatable:
-			self._buffer.update_console()
+			self._buffer.output_entry()
 
 	def addy(self, number_string: int, message: str) -> None:
 		self._buffer.insert(number_string, message)
@@ -164,13 +164,13 @@ class MightyLogger(BasicLogger):
 		if self._environment.updatable:
 			self._buffer.update_console()
 
-	def catchy(self, number_string: int) -> str:
+	def catchy(self, number_string: int = -1) -> str:
 		data = self._buffer.pop(number_string)
 		if self._environment.updatable:
 			self._buffer.update_console()
 		return data
 
-	def extractly(self, number_string: int) -> None:
+	def extractly(self, number_string: int = -1) -> None:
 		self._buffer.remove(number_string)
 		if self._environment.updatable:
 			self._buffer.update_console()
@@ -433,7 +433,7 @@ class MightyLogger(BasicLogger):
 		local_settings: dict = None
 	) -> None:
 		sleep(0.001)
-		last = self._buffer.pop()
+		last = self.catchy()
 
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]
@@ -451,7 +451,7 @@ class MightyLogger(BasicLogger):
 	) -> None:
 		self._progress_interrupt = True
 		sleep(0.11)
-		self._buffer.remove()
+		self.extractly()
 
 		progress_stop = datetime.now()
 		self._progress_time = "&" + str(progress_stop - self._progress_start).split(".")[0]

@@ -116,6 +116,9 @@ class BasicTextBuffer(Singleton, TextBufferType):
 	def update_entry(self) -> None:
 		super().update_console()
 
+	def output_entry(self) -> None:
+		super().output_entry()
+
 class TextBuffer(Singleton, TextBufferType):
 	def __init__(self, env: EnvironmentType, console_width: int = 60) -> None:
 		if not hasattr(self, "_text_buffer"):
@@ -231,3 +234,10 @@ class TextBuffer(Singleton, TextBufferType):
 		stdout.write(f'\r')
 		stdout.write(self._text_buffer[-1])
 		stdout.flush()
+
+	def output_entry(self) -> None:
+		if len(self._text_buffer) > 1:
+			stdout.write(f'\n')
+		stdout.write(self._text_buffer[-1])
+		stdout.flush()
+		self._cursor_string = self._buffer_size - 1
