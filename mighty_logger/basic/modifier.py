@@ -69,23 +69,25 @@ class Modifier:
 	def entries(self) -> list[str]:
 		return self.__entries
 
+	def _clearing_entry(self, dirty_entry: str) -> str:
+		match self.__env.environment_name:
+			case LogEnvironments.CONSOLE.environment_name:
+				return sub(r"\033\[.*?m", "", dirty_entry)
+			case LogEnvironments.PLAIN_CONSOLE.environment_name:
+				return dirty_entry
+			case LogEnvironments.HTML.environment_name:
+				return sub(r"<.*?>", "", dirty_entry)
+			case LogEnvironments.MARKDOWN.environment_name:
+				return sub(r"<.*?>", "", dirty_entry)
+			case LogEnvironments.PLAIN.environment_name:
+				return dirty_entry
+
 	def sort(self, key: SortingKeyType) -> None:
-		cleared_entry = ""
 		sorting_entries = []
 		count_separators = 0
 
 		for index, entry in enumerate(self.__entries[1:]):
-			match self.__env.environment_name:
-				case LogEnvironments.CONSOLE.environment_name:
-					cleared_entry = sub(r"\033\[.*?m", "", entry)
-				case LogEnvironments.PLAIN_CONSOLE.environment_name:
-					cleared_entry = entry
-				case LogEnvironments.HTML.environment_name:
-					cleared_entry = sub(r"<.*?>", "", entry)
-				case LogEnvironments.MARKDOWN.environment_name:
-					cleared_entry = sub(r"<.*?>", "", entry)
-				case LogEnvironments.PLAIN.environment_name:
-					cleared_entry = entry
+			cleared_entry = self._clearing_entry(entry)
 			if cleared_entry.startswith("-?"):
 				parts = cleared_entry.split("*")[1].split()
 				sorting_entries.append([
@@ -118,22 +120,11 @@ class Modifier:
 		self.__entries.append("--------------------------------------------------------------------------------")
 
 	def search(self, keyword: str, empty: bool) -> None:
-		cleared_entry = ""
 		searching_entries = []
 		count_separators = 0
 
 		for index, entry in enumerate(self.__entries[1:]):
-			match self.__env.environment_name:
-				case LogEnvironments.CONSOLE.environment_name:
-					cleared_entry = sub(r"\033\[.*?m", "", entry)
-				case LogEnvironments.PLAIN_CONSOLE.environment_name:
-					cleared_entry = entry
-				case LogEnvironments.HTML.environment_name:
-					cleared_entry = sub(r"<.*?>", "", entry)
-				case LogEnvironments.MARKDOWN.environment_name:
-					cleared_entry = sub(r"<.*?>", "", entry)
-				case LogEnvironments.PLAIN.environment_name:
-					cleared_entry = entry
+			cleared_entry = self._clearing_entry(entry)
 			if cleared_entry.startswith("--"):
 				self.__entries.pop(index + 1 - len(searching_entries) - count_separators)
 				count_separators += 1
@@ -160,22 +151,11 @@ class Modifier:
 		self.__entries.append("--------------------------------------------------------------------------------")
 
 	def select(self, entry_type: EntryType) -> None:
-		cleared_entry = ""
 		selected_entries = []
 		count_excess = 0
 
 		for index, entry in enumerate(self.__entries[1:]):
-			match self.__env.environment_name:
-				case LogEnvironments.CONSOLE.environment_name:
-					cleared_entry = sub(r"\033\[.*?m", "", entry)
-				case LogEnvironments.PLAIN_CONSOLE.environment_name:
-					cleared_entry = entry
-				case LogEnvironments.HTML.environment_name:
-					cleared_entry = sub(r"<.*?>", "", entry)
-				case LogEnvironments.MARKDOWN.environment_name:
-					cleared_entry = sub(r"<.*?>", "", entry)
-				case LogEnvironments.PLAIN.environment_name:
-					cleared_entry = entry
+			cleared_entry = self._clearing_entry(entry)
 			if cleared_entry.startswith("-?"):
 				parts = cleared_entry.split("*")[1].split()
 				if entry_type.type_category == "":

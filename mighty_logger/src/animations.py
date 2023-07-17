@@ -1,7 +1,4 @@
 """
-The source of IndefiniteAnimation:
-https://github.com/kopensource/colored_logs/blob/develop/colored_logs/models/animation_type.py
-\n
 Copyright © 2023 Kalynovsky Valentin. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
