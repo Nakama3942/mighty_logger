@@ -33,22 +33,24 @@ class Exporter:
 	def entries(self) -> list[str]:
 		return self.__entries
 
+	def _clearing_entry(self, dirty_entry: str) -> str:
+		match self.__env.environment_name:
+			case LogEnvironments.CONSOLE.environment_name:
+				return sub(r"\033\[.*?m", "", dirty_entry)
+			case LogEnvironments.PLAIN_CONSOLE.environment_name:
+				return dirty_entry
+			case LogEnvironments.HTML.environment_name:
+				return sub(r"<.*?>", "", dirty_entry)
+			case LogEnvironments.MARKDOWN.environment_name:
+				return sub(r"<.*?>", "", dirty_entry)
+			case LogEnvironments.PLAIN.environment_name:
+				return dirty_entry
+
 	def export_to_csv(self) -> None:
-		cleared_entry = ""
 		csv_entry = {}
 
 		for entry in self.__entries[1:]:
-			match self.__env.environment_name:
-				case LogEnvironments.CONSOLE.environment_name:
-					cleared_entry = sub(r"\033\[.*?m", "", entry)
-				case LogEnvironments.PLAIN_CONSOLE.environment_name:
-					cleared_entry = entry
-				case LogEnvironments.HTML.environment_name:
-					cleared_entry = sub(r"<.*?>", "", entry)
-				case LogEnvironments.MARKDOWN.environment_name:
-					cleared_entry = sub(r"<.*?>", "", entry)
-				case LogEnvironments.PLAIN.environment_name:
-					cleared_entry = entry
+			cleared_entry = self._clearing_entry(entry)
 			if cleared_entry.startswith("-?"):
 				parts = cleared_entry.split("*")
 				entry_data = parts[1].split()
@@ -65,7 +67,6 @@ class Exporter:
 
 				self.__csv.append(csv_entry.copy())
 				csv_entry.clear()
-				continue
 
 	def save_to_csv(self, file_name: str) -> None:
 		with open(f"{file_name}.csv", "w", encoding="utf-8") as csv:
