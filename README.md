@@ -108,7 +108,7 @@ The full text of the license can be found at the following [link](https://github
 - [x] v0.9.1 - Documenting update (documented library)
 - [x] v0.9.2 - Feature update (made optimizations)
 - [x] v0.9.3 - Web docs update (added generation of web docs)
-- [ ] v1.0.0 - Completion of logger development (logger development completed)
+- [x] v1.0.0 - Completion of logger development (logger development completed)
 - [ ] v1.1.0 - Font update (added a class that formats text outside the logger)
 
 </details>

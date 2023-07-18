@@ -1,20 +1,5 @@
 # Changelog
 <!--
-Copyright © 2023 Kalynovsky Valentin. All rights reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
-<!--
 ## vX.X.X (DATE)
 
 #### Bug Fixes: (Исправления ошибок и неисправностей)
@@ -656,3 +641,30 @@ print(f"{GetAnsiFormat('reset/on')}Test string")
 - Part of the checks in the Text Buffer moved from save/load methods to the constructor to immediately detect a mismatch between the type of environment and the type of Buffer, which leads to optimization of saving/loading and eliminating unexpected behavior when it is possible to use the Buffer with the wrong environment.
 
 ---
+
+## Completion of logger development v1.0.0 (18.07.2023)
+
+#### Documenting:
+- Fixed all errors in the documentation;
+- Added animations to examples;
+- Documented new functionality and changes;
+- Added TODO list.
+
+#### Enhancements:
+- Added a new method for outputting the added string to the Buffer;
+- Transferred percentages - now they are displayed not after the animation, but after the message of the entry (at the end of the string);
+- Added a new entry type category:
+	- `AdditionalEntryTypes`:
+		- `hint`;
+		- `tip`;
+		- `important`;
+		- `attention`;
+		- `caution`;
+		- `danger`.
+
+#### Deprecated:
+- Removing the initialization string is marked as deprecated method, but available for use.
+
+#### Performance:
+- Adding an entry has been optimized - now after adding an entry to the Logger Buffer, instead of updating the entire output to the console, a new method is used that outputs a new string to the console, however, all other wrapper methods of the Logger over the Buffer continue to update the entire output;
+- Optimized Modifier and Exporter.

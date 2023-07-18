@@ -19,7 +19,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mighty_logger"
-version = "0.9.3"
+version = "1.0.0"
 authors = [
 	{name = "Kalynovsky 'Nakamura Akira' Valentin", email = "nakama3942@gmail.com"},
 ]
@@ -27,7 +27,7 @@ description = "Mighty functional logger"
 readme = "README.md"
 license = {text = "Apache License Version 2.0"}
 classifiers = [
-	"Development Status :: 4 - Beta",
+	"Development Status :: 5 - Production/Stable",
 	"Intended Audience :: Developers",
 	"License :: OSI Approved :: Apache Software License",
 	"Operating System :: OS Independent",
