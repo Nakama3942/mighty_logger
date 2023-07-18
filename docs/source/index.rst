@@ -43,6 +43,7 @@ Welcome to Mighty Logger's documentation!
 	data
 	example
 	mighty_logger-package
+	todo
 
 .. contents::
 	:class: this-will-duplicate-information-and-it-is-still-useful-here
@@ -117,7 +118,7 @@ Important releases
 			<li><input type="checkbox" checked disabled> v0.9.1 - Documenting update (documented library)</li>
 			<li><input type="checkbox" checked disabled> v0.9.2 - Feature update (made optimizations)</li>
 			<li><input type="checkbox" checked disabled> v0.9.3 - Web docs update (added generation of web docs)</li>
-			<li><input type="checkbox" disabled> v1.0.0 - Completion of logger development (logger development completed)</li>
+			<li><input type="checkbox" checked disabled> v1.0.0 - Completion of logger development (logger development completed)</li>
 			<li><input type="checkbox" disabled> v1.1.0 - Font update (added a class that formats text outside the logger)</li>
 		</ul>
 	</details>

@@ -655,6 +655,52 @@ Entry types collections
 
 		.. versionadded:: v0.6.1
 
+.. py:class:: AdditionalEntryTypes
+
+	.. tip:: Used in the ``entry()`` and ``note_process()`` methods.
+
+	A class with additional entry types. Is available.
+
+	.. versionadded:: v1.0.0
+
+	.. hint:: Attributes are used to pass ready-made objects to fields of type :ref:`EntryType <entry_type>`.
+
+	.. py:attribute:: hint
+
+		Logging hint: Used to write hints to logs.
+
+		.. versionadded:: v1.0.0
+
+	.. py:attribute:: tip
+
+		Logging tip: Used to write tips to logs.
+
+		.. versionadded:: v1.0.0
+
+	.. py:attribute:: important
+
+		Logging important: Used to write important notes to logs.
+
+		.. versionadded:: v1.0.0
+
+	.. py:attribute:: attention
+
+		Logging attention: Used to write attention to logs.
+
+		.. versionadded:: v1.0.0
+
+	.. py:attribute:: caution
+
+		Logging caution: Used to write caution to logs.
+
+		.. versionadded:: v1.0.0
+
+	.. py:attribute:: danger
+
+		Logging danger: Used to write danger to logs.
+
+		.. versionadded:: v1.0.0
+
 .. py:class:: SelectionTypes
 
 	.. tip:: Used in the ``select()`` and ``select_with_save()`` methods.
@@ -809,6 +855,42 @@ Entry types collections
 
 		.. versionadded:: v0.7.1
 
+	.. py:attribute:: hint
+
+		Logging hint: Used to write hints to logs.
+
+		.. versionadded:: v1.0.0
+
+	.. py:attribute:: tip
+
+		Logging tip: Used to write tips to logs.
+
+		.. versionadded:: v1.0.0
+
+	.. py:attribute:: important
+
+		Logging important: Used to write important notes to logs.
+
+		.. versionadded:: v1.0.0
+
+	.. py:attribute:: attention
+
+		Logging attention: Used to write attention to logs.
+
+		.. versionadded:: v1.0.0
+
+	.. py:attribute:: caution
+
+		Logging caution: Used to write caution to logs.
+
+		.. versionadded:: v1.0.0
+
+	.. py:attribute:: danger
+
+		Logging danger: Used to write danger to logs.
+
+		.. versionadded:: v1.0.0
+
 .. py:class:: SelectionCategories
 
 	.. tip:: Used in the ``select()`` and ``select_with_save()`` methods.
@@ -884,6 +966,19 @@ Entry types collections
 		- stop_timer
 
 		.. versionadded:: v0.7.2
+
+	.. py:attribute:: additional
+
+		Category "additional", which combines
+
+		- hint
+		- tip
+		- important
+		- attention
+		- caution
+		- danger
+
+		.. versionadded:: v1.0.0
 
 .. _logger_environments_collections:
 

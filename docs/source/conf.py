@@ -26,6 +26,8 @@ exclude_patterns = []
 language = 'en'
 master_doc = 'index'
 
+todo_include_todos = True
+
 # source_suffix = {
 #     '.rst': 'restructuredtext',
 #     '.md': 'markdown',

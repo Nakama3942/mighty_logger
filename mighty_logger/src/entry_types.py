@@ -1002,6 +1002,248 @@ class ServiceTimerEntryTypes:
 		icon=('⏲️', '🕙', '🟪', '⌛')
 	)
 
+class AdditionalEntryTypes:
+	hint = EntryType(
+		type_category="/",
+		type_name="HINT",
+		time_color=(
+			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
+			("", "")
+		),
+		status_color=(
+			(AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
+			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
+			("", "")
+		),
+		type_color=(
+			(AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")),
+			("", ""),
+			(HexColor('GREEN'), HexColor('PALEGREEN')),
+			(HexColor('GREEN'), HexColor('PALEGREEN')),
+			("", "")
+		),
+		message_color=(
+			(AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")),
+			("", ""),
+			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
+			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
+			("", "")
+		),
+		background_color=(
+			("", AnsiColor('DARKGREEN', "background")),
+			("", ""),
+			("", HexColor('DARKGREEN')),
+			("", HexColor('DARKGREEN')),
+			("", "")
+		),
+		icon=('🔍', '🔎', '🕵️', '🔬')
+	)
+	tip = EntryType(
+		type_category="/",
+		type_name="TIP",
+		time_color=(
+			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
+			("", "")
+		),
+		status_color=(
+			(AnsiColor('ORANGE', "foreground"), AnsiColor('CHARTREUSE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
+			(HexColor('ORANGE'), HexColor('CHARTREUSE')),
+			("", "")
+		),
+		type_color=(
+			(AnsiColor('GREEN', "foreground"), AnsiColor('PALEGREEN', "foreground")),
+			("", ""),
+			(HexColor('GREEN'), HexColor('PALEGREEN')),
+			(HexColor('GREEN'), HexColor('PALEGREEN')),
+			("", "")
+		),
+		message_color=(
+			(AnsiColor('DARKGREEN', "foreground"), AnsiColor('LIGHTGREEN', "foreground")),
+			("", ""),
+			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
+			(HexColor('DARKGREEN'), HexColor('LIGHTGREEN')),
+			("", "")
+		),
+		background_color=(
+			("", AnsiColor('DARKGREEN', "background")),
+			("", ""),
+			("", HexColor('DARKGREEN')),
+			("", HexColor('DARKGREEN')),
+			("", "")
+		),
+		icon=('💡', '🌟', '🎯', '🔔')
+	)
+	important = EntryType(
+		type_category="/",
+		type_name="IMPORTANT",
+		time_color=(
+			(AnsiColor('ORCHID', "foreground"), AnsiColor('PURPLE', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('PURPLE')),
+			(HexColor('ORCHID'), HexColor('PURPLE')),
+			("", "")
+		),
+		status_color=(
+			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
+			("", "")
+		),
+		type_color=(
+			(AnsiColor('LIGHTSKYBLUE', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('LIGHTSKYBLUE'), HexColor('NAVY')),
+			(HexColor('LIGHTSKYBLUE'), HexColor('NAVY')),
+			("", "")
+		),
+		message_color=(
+			(AnsiColor('SKYBLUE', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')),
+			(HexColor('SKYBLUE'), HexColor('MIDNIGHTBLUE')),
+			("", "")
+		),
+		background_color=(
+			("", AnsiColor('SKYBLUE', "background")),
+			("", ""),
+			("", HexColor('SKYBLUE')),
+			("", HexColor('SKYBLUE')),
+			("", "")
+		),
+		icon=('❗️', '‼️', '⚠️', '🚨')
+	)
+	attention = EntryType(
+		type_category="/",
+		type_name="ATTENTION",
+		time_color=(
+			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
+			("", "")
+		),
+		status_color=(
+			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
+			("", "")
+		),
+		type_color=(
+			(AnsiColor('YELLOW', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('YELLOW'), HexColor('NAVY')),
+			(HexColor('YELLOW'), HexColor('NAVY')),
+			("", "")
+		),
+		message_color=(
+			(AnsiColor('DARKYELLOW', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')),
+			(HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')),
+			("", "")
+		),
+		background_color=(
+			("", AnsiColor('DARKYELLOW', "background")),
+			("", ""),
+			("", HexColor('DARKYELLOW')),
+			("", HexColor('DARKYELLOW')),
+			("", "")
+		),
+		icon=('⚡️', '⛔️', '⏰', '🛑')
+	)
+	caution = EntryType(
+		type_category="/",
+		type_name="CAUTION",
+		time_color=(
+			(AnsiColor('ORCHID', "foreground"), AnsiColor('DARKMAGENTA', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
+			(HexColor('ORCHID'), HexColor('DARKMAGENTA')),
+			("", "")
+		),
+		status_color=(
+			(AnsiColor('ORANGE', "foreground"), AnsiColor('DARKRED', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
+			(HexColor('ORANGE'), HexColor('DARKRED')),
+			("", "")
+		),
+		type_color=(
+			(AnsiColor('YELLOW', "foreground"), AnsiColor('NAVY', "foreground")),
+			("", ""),
+			(HexColor('YELLOW'), HexColor('NAVY')),
+			(HexColor('YELLOW'), HexColor('NAVY')),
+			("", "")
+		),
+		message_color=(
+			(AnsiColor('DARKYELLOW', "foreground"), AnsiColor('MIDNIGHTBLUE', "foreground")),
+			("", ""),
+			(HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')),
+			(HexColor('DARKYELLOW'), HexColor('MIDNIGHTBLUE')),
+			("", "")
+		),
+		background_color=(
+			("", AnsiColor('DARKYELLOW', "background")),
+			("", ""),
+			("", HexColor('DARKYELLOW')),
+			("", HexColor('DARKYELLOW')),
+			("", "")
+		),
+		icon=('⚠️', '⚡️', '⚙️', '🚧')
+	)
+	danger = EntryType(
+		type_category="/",
+		type_name="DANGER",
+		time_color=(
+			(AnsiColor('ORCHID', "foreground"), AnsiColor('LAVENDERBLUSH', "foreground")),
+			("", ""),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
+			(HexColor('ORCHID'), HexColor('LAVENDERBLUSH')),
+			("", "")
+		),
+		status_color=(
+			(AnsiColor('ORANGE', "foreground"), AnsiColor('ORANGE', "foreground")),
+			("", ""),
+			(HexColor('ORANGE'), HexColor('ORANGE')),
+			(HexColor('ORANGE'), HexColor('ORANGE')),
+			("", "")
+		),
+		type_color=(
+			(AnsiColor('FIREBRICK', "foreground"), AnsiColor('YELLOW', "foreground")),
+			("", ""),
+			(HexColor('FIREBRICK'), HexColor('YELLOW')),
+			(HexColor('FIREBRICK'), HexColor('YELLOW')),
+			("", "")
+		),
+		message_color=(
+			(AnsiColor('DARKRED', "foreground"), AnsiColor('DARKYELLOW', "foreground")),
+			("", ""),
+			(HexColor('DARKRED'), HexColor('DARKYELLOW')),
+			(HexColor('DARKRED'), HexColor('DARKYELLOW')),
+			("", "")
+		),
+		background_color=(
+			("", AnsiColor('DARKRED', "background")),
+			("", ""),
+			("", HexColor('DARKRED')),
+			("", HexColor('DARKRED')),
+			("", "")
+		),
+		icon=('🔥', '💣', '☠️', '⚡️')
+	)
+
 class SelectionTypes:
 	debug = EntryType(
 		type_category="",
@@ -1243,6 +1485,66 @@ class SelectionTypes:
 		background_color = (),
 		icon = ()
 	)
+	hint = EntryType(
+		type_category="",
+		type_name="HINT",
+		time_color=(),
+		status_color=(),
+		type_color=(),
+		message_color=(),
+		background_color=(),
+		icon=()
+	)
+	tip = EntryType(
+		type_category="",
+		type_name="TIP",
+		time_color=(),
+		status_color=(),
+		type_color=(),
+		message_color=(),
+		background_color=(),
+		icon=()
+	)
+	important = EntryType(
+		type_category="",
+		type_name="IMPORTANT",
+		time_color=(),
+		status_color=(),
+		type_color=(),
+		message_color=(),
+		background_color=(),
+		icon=()
+	)
+	attention = EntryType(
+		type_category="",
+		type_name="ATTENTION",
+		time_color=(),
+		status_color=(),
+		type_color=(),
+		message_color=(),
+		background_color=(),
+		icon=()
+	)
+	caution = EntryType(
+		type_category="",
+		type_name="CAUTION",
+		time_color=(),
+		status_color=(),
+		type_color=(),
+		message_color=(),
+		background_color=(),
+		icon=()
+	)
+	danger = EntryType(
+		type_category="",
+		type_name="DANGER",
+		time_color=(),
+		status_color=(),
+		type_color=(),
+		message_color=(),
+		background_color=(),
+		icon=()
+	)
 
 class SelectionCategories:
 	debug = EntryType(
@@ -1304,4 +1606,14 @@ class SelectionCategories:
 		message_color = (),
 		background_color = (),
 		icon = ()
+	)
+	additional = EntryType(
+		type_category="/",
+		type_name="",
+		time_color=(),
+		status_color=(),
+		type_color=(),
+		message_color=(),
+		background_color=(),
+		icon=()
 	)

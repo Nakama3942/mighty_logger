@@ -34,7 +34,8 @@ class Modifier:
 			"@": 2,
 			"!": 3,
 			"&": 4,
-			"^": 5
+			"^": 5,
+			"/": 6
 		}
 		self.__type_order = {
 			'DEBUG': 0,
@@ -60,7 +61,13 @@ class Modifier:
 			'FAIL': 20,
 			'START-TIMER': 21,
 			'TIMER-MARK': 22,
-			'STOP-TIMER': 23
+			'STOP-TIMER': 23,
+			'HINT': 24,
+			'TIP': 25,
+			'IMPORTANT': 26,
+			'ATTENTION': 27,
+			'CAUTION': 28,
+			'DANGER': 29
 		}
 		self.__entries: list[str] = entries
 		self.__env: EnvironmentType = environment

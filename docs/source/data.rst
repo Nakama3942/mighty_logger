@@ -68,6 +68,13 @@ Entry categories and types
 	- start_timer (v0.6.1)
 	- timer_mark (v0.6.1)
 	- stop_timer (v0.6.1)
+- Additional (/):
+	- hint (v1.0.0)
+	- tip (v1.0.0)
+	- important (v1.0.0)
+	- attention (v1.0.0)
+	- caution (v1.0.0)
+	- danger (v1.0.0)
 
 Symbol meanings
 ---------------
@@ -82,6 +89,47 @@ Symbol meanings
 - ``!`` - category: Logger error
 - ``&`` - category: Process
 - ``^`` - category: Timer
+- ``/`` - category: Additional
+
+Icon sets
+---------
+
+.. table:: Icon sets
+
+	================= =========== =========== =========== ===========
+	Type                #1          #2          #3          #4
+	================= =========== =========== =========== ===========
+	debug               🐛          🐞          🚧          🔬
+	debug_performance   ⏱️          ⌛️           🔍          📈
+	performance         ⏱️          🚀          📊          ⚡️
+	event               🔔          🎉          📣          🚨
+	audit               🔍          🔒          📋          🔐
+	metrics             📊          📈          📉          📄
+	user                👤          👥          🙋‍♂️          🙋‍♀️
+	message             💬          📝          🗒️          📨
+	info                ℹ️          🔍          📌          🔔
+	notice              📌          📎           🔖          🚩
+	warning             ⚠️          ⚡️          ⛔️          ⚠️
+	error               ❌          🚫          💔          🔺
+	critical            🔥          🚨           ⛔️          🚒
+	resolved            ✅          ❗            🟦          🟢
+	unresolved          ❎          ❓           🟥          🔴
+	initiation          🚀          🚀          🔥          🔧
+	process             ⏳          🔄          ⚙️          🕰️
+	achievement         🏆          🏆          🌟          🎖️
+	milestone           🔖          🔖          🎯          🗺️
+	success             ✔️          🎉          👍          ✅
+	fail                ❌          🚫          👎          ❎
+	start_timer         ⏰          🕑          🟩          ⏳
+	timer_mark          ⌚          🕕          🟨          ⏱️
+	stop_timer          ⏲️          🕙          🟪          ⌛
+	hint                🔍          🔎          🕵️          🔬
+	tip                 💡           🌟          🎯          🔔
+	important           ❗️            ‼️          ⚠️          🚨
+	attention           ⚡️          ⛔️          ⏰          🛑
+	caution             ⚠️          ⚡️          ⚙️          🚧
+	danger              🔥          💣          ☠️          ⚡️
+	================= =========== =========== =========== ===========
 
 Sort keys
 ---------
