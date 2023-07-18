@@ -472,7 +472,7 @@ Type TextBufferType
 
 	.. _text_buffer_type_input:
 
-	.. py:method:: input(input_text: str) -> None
+	.. py:method:: input(input_text: str) -> str
 
 		A wrapper method for the standard Python input() that prepares the Text Buffer before using this function, and performs certain actions after, so that the Text Buffer can continue to function normally.
 
@@ -521,3 +521,19 @@ Type TextBufferType
 
 			- :ref:`BasicTextBuffer <basic_text_buffer_update_entry>`;
 			- :ref:`TextBuffer <text_buffer_update_entry>`.
+
+	.. _text_buffer_type_output_entry:
+
+	.. py:method:: output_entry() -> None
+
+		Appends to the console the string added by the ``append()`` method.
+
+		.. versionadded:: v1.0.0
+
+		:raises NotImplementedError: Method output_entry() is not implemented in the base class
+
+		.. seealso::
+			Read the method definitions in
+
+			- :ref:`BasicTextBuffer <basic_text_buffer_output_entry>`;
+			- :ref:`TextBuffer <text_buffer_output_entry>`.

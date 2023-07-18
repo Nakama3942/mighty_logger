@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 project = 'Mighty Logger'
 copyright = ' Copyright 2023 Kalynovsky Valentin. All rights reserved.'
 author = 'Kalynovsky Valentin'
-release = 'v0.9.3'
+release = 'v1.0.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

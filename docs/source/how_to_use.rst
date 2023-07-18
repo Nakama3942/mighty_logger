@@ -65,6 +65,8 @@ Basic example:
 		)
 		logger.message("Hello world!")
 
+.. image:: _static/nuts_and_bolts_example.webp
+
 Types of library
 ----------------
 
@@ -227,6 +229,8 @@ All this functionality is actively used by the Logger, but outside the library i
 		except ReCreationException as error:
 			logger.message(str(error))
 
+.. image:: _static/base_of_library_example.webp
+
 Resources of library
 --------------------
 
@@ -247,6 +251,8 @@ The ``ansi_format`` module stores the ``AnsiFormat`` dictionary, but it is not a
 
 	if __name__ == "__main__":
 		print(f"{GetAnsiFormat('underline/on')}Hello, {GetAnsiFormat('bold/on')}World{GetAnsiFormat('reset/on')}!")
+
+.. image:: _static/resources_of_library_example.webp
 
 Complexity
 ----------
@@ -299,7 +305,8 @@ Here is an example of setting up a logger and entering:
 		logger.might.entry(LoggerEntryTypes.debug, "logger debugging", {"bold": True})
 		logger.might.set_settings(global_italic_font=False)
 		logger.might.entry(LoggerEntryTypes.debug, "logger debugging")
-		logger.might.savy("log", False)
+
+.. image:: _static/settings_system_example.webp
 
 .. note:: The settings do not affect the opening string.
 
@@ -354,12 +361,14 @@ Loggers Properties
 		buf = mlogger.buffer
 		mlogger.empty(str(buf))
 
+.. image:: _static/loggers_properties_example.webp
+
 Initial opening entry
 ---------------------
 
 .. note:: Available since v0.3.0.
 
-Just like color detection, logging starts with an introductory entry that collects system data:
+Logging starts with an introductory entry that collects system data:
 
 - Computer name
 - Username
@@ -367,29 +376,39 @@ Just like color detection, logging starts with an introductory entry that collec
 - System version
 - Computer architecture
 
-However, the ``_initialized_data()`` method of the parent class, which is only called from the protected ``_initial_log()`` method of the logger, does all this. If you override this method by removing the ``_initialized_data()`` call from ``_initial_log()``, then the data will not be collected and the string will not be displayed:
+.. admonition:: Deprecated information
 
-.. code-block:: python
-	:linenos:
+	.. deprecated:: v0.7.1
 
-	from mighty_logger import MightyLogger
-	from mighty_logger.src import LogEnvironments, LoggerEntryTypes
+	However, the ``_initialized_data()`` method of the parent class, which is only called from the protected ``_initial_log()`` method of the logger, does all this. If you override this method by removing the ``_initialized_data()`` call from ``_initial_log()``, then the data will not be collected and the string will not be displayed:
 
-	# I remove the initialization string
+	.. code-block:: python
+		:linenos:
 
-	class MyLogger(MightyLogger):
-		def _initial_log(self):
-			pass
+		from mighty_logger import MightyLogger
+		from mighty_logger.src import LogEnvironments, LoggerEntryTypes
 
-	if __name__ == "__main__":
-		logger = MyLogger(
-			program_name="Test",
-			log_environment=LogEnvironments.CONSOLE,
-			console_width=115
-		)
-		logger.entry(LoggerEntryTypes.message, "Message data")  # Now there is no initialization string before this entry
+		# I remove the initialization string
 
-.. danger:: Please note that ``Logger`` is just a wrapper around the real Logger. And this class will not be inherited, but simply creates an object of the ``MightyLogger`` class, and therefore it will not be possible to use your own class and a simplified Logger. If you plan to use a simplified Logger, there is no way to remove the initialization line...
+		class MyLogger(MightyLogger):
+			def _initial_log(self):
+				pass
+
+		if __name__ == "__main__":
+			logger = MyLogger(
+				program_name="Test",
+				log_environment=LogEnvironments.CONSOLE,
+				console_width=115
+			)
+			logger.entry(LoggerEntryTypes.message, "Message data")  # Now there is no initialization string before this entry
+
+	.. danger:: Please note that ``Logger`` is just a wrapper around the real Logger. And this class will not be inherited, but simply creates an object of the ``MightyLogger`` class, and therefore it will not be possible to use your own class and a simplified Logger. If you plan to use a simplified Logger, there is no way to remove the initialization line...
+
+Before the release of the stable version, it was decided to add an argument that would turn off the writing of the initialization string when creating the Logger object. However, along with this, the Buffer was optimized, where adding a string would not require changing the output in the entire console. Due to complex algorithms, an error occurred when turning off the introductory string still added an empty line to the beginning of the Logger. As it turned out later, these cases are not connected in any way and all errors were removed, but during the sorting, an empty string was still added to the beginning of the Logger. It was then that I noticed (and remembered) that the Modifier and Exporter work with all logs, except for the first string, since it is assumed that the initialization string will always be present. It was decided to abandon the complexity of the algorithms by the possibility of searching "is there an introductory string?". I also didn't want to complicate the whole system with labels that could easily determine the introductory string, as this would increase the load on memory and make the algorithms even more difficult to understand. It was accepted that the introductory string will always be present and nothing will have to be changed. Therefore, nothing has changed, except for one thing - it was decided to remove the ability to turn off the introductory string and leave everything as it was. Despite this, even with the introductory string, the sorter still added an empty string to the beginning of the Logger. Then this bug was fixed.
+
+As a result, the ability to remove the initialization string with a new, simple, fast method was not added. But the outdated method remains - *you just need to understand that in this case you will have to abandon Modifier or Exporter*. Even if you remove the introductory string, it is even possible to use Modifier or Exporter - *they will still work, they will just ignore the first string, considering it an introductory one*.
+
+Don't worry about the Buffer - the optimization has been done, all the nuances have been taken into account, all the bugs have been fixed.
 
 Text Buffer
 -----------
@@ -498,26 +517,7 @@ An example of using one buffer:
 		buffer << "output"
 		print(buffer.text_buffer)
 
-Contents of the output.txt file:
-
-.. code-block:: text
-
-	2
-	3
-	1
-	4
-	5
-	6
-	8
-	9
-	50
-
-.. code-block:: console
-
-	2
-	Enter: 50
-	50
-	['2', '3', '1', '4', '5', '6', '8', '9', '50']
+.. image:: _static/text_buffer_example.webp
 
 Empty entry (or "a story about Buffer wrappers")
 ------------------------------------------------
@@ -577,6 +577,8 @@ For an introduction to these methods, please read `Text Buffer`_.
 
 		logger.might.addy(5, logger.might.catchy(8))
 
+.. image:: _static/empty_entry_example.webp
+
 Modifiers and Exporters
 -----------------------
 
@@ -633,6 +635,8 @@ This class is already Buffer safe, but it still remains hidden, since you need t
 		logger.might.export_to_csv("ex")
 		logger.might.search("5", False)
 
+.. image:: _static/mod_exp_example.webp
+
 Publishers
 ----------
 
@@ -664,6 +668,8 @@ The following publishers are available:
 		)
 		logger.might.publish_author()
 
+.. image:: _static/publishers_example.webp
+
 Logger entry
 ------------
 
@@ -688,6 +694,8 @@ Now all these tasks are divided between simple methods, but earlier all this was
 			console_width=115
 		)
 		logger.entry(LoggerEntryTypes.message, "Using entry()")
+
+.. image:: _static/logger_entry_example.webp
 
 Processes
 ---------
@@ -782,7 +790,7 @@ Here is written an installer simulator-program. Instead of sleep(), some action 
 	if __name__ == "__main__":
 		logger = Logger(
 			program_name="Installer",
-			log_environment=LogEnvironments.PLAIN_CONSOLE,
+			log_environment=LogEnvironments.CONSOLE,
 			console_width=115
 		)
 
@@ -818,21 +826,7 @@ Here is written an installer simulator-program. Instead of sleep(), some action 
 		sleep(1.3)
 		logger.might.stop_process("Program installed")
 
-Log:
-
-.. code-block:: console
-
-	-Installer?entry> $DESKTOP-8KG0R64:User:Windows:10.0.19045:64bit:WindowsPE:AMD64
-	-?entry>          *2023-07-06 13:00:58.385749 📝 #STATUS: @MESSAGE - Program installation started
-	-?entry> &0:00:00 *2023-07-06 13:00:59.386826 🚀 #STATUS: &INITIATION - File upload
-	-?entry> &0:00:02 *2023-07-06 13:01:01.391737 🏆 #STATUS: &ACHIEVEMENT - Files downloaded
-	-?entry> &0:00:05 *2023-07-06 13:01:04.503493 🎉 #STATUS: &SUCCESS - Files unzipped
-	-?entry>          *2023-07-06 13:01:04.504493 ⚡️ #STATUS: !WARNING - Newer version found
-	-?entry> &0:00:00 *2023-07-06 13:01:05.506823 🚀 #STATUS: &INITIATION - Installing files
-	-?entry> &0:00:01 *2023-07-06 13:01:07.247407 🔖 #STATUS: &MILESTONE - Files prepared
-	-?entry> &0:00:03 *2023-07-06 13:01:09.395409 🚫 #STATUS: !!ERROR - Incompatibility found
-	-?entry> &0:00:05 *2023-07-06 13:01:10.784921 ❗ #STATUS: !RESOLVED - Incompatibility eliminated
-	-?entry> &0:00:09 *2023-07-06 13:01:14.913956 🎉 #STATUS: &SUCCESS - Program installed
+.. image:: _static/processes_example.webp
 
 Timers
 ------
@@ -870,3 +864,5 @@ In addition, the Timer can calculate any time frame and any number of "actions".
 		logger.might.timer_mark("Timer mark")
 		sleep(1)
 		logger.might.stop_timer("Stop timer")
+
+.. image:: _static/timers_example.webp

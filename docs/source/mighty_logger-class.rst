@@ -16,7 +16,7 @@ Mighty Logger
 About class
 ___________
 
-.. py:class:: MightyLogger(*[, program_name: str = "Unknown", log_environment: EnvironmentType = LogEnvironments.PLAIN, console_width: int = 60, icon_set: int = 1, global_bold_font: bool = False, global_italic_font: bool = False, global_invert_font: bool = False, global_background: bool = False])
+.. py:class:: MightyLogger(*, program_name: str, log_environment: EnvironmentType[, console_width: int = 60, icon_set: int = 1, global_bold_font: bool = False, global_italic_font: bool = False, global_invert_font: bool = False, global_background: bool = False])
 
 	The Logger class is a class that implements the functionality of logging the work of software in different directions.
 
@@ -51,8 +51,6 @@ ___________
 	:param global_background: Sets the global setting "background"
 	:type global_background: bool
 
-	.. rubric:: Property
-
 	.. property:: settings
 
 		Dictionary of Logger's global settings.
@@ -68,8 +66,6 @@ ___________
 		.. versionadded:: v0.9.3
 
 		:rtype: list
-
-	.. rubric:: Settings
 
 	.. py:method:: _init_buffer(console_width: int) -> None
 
@@ -110,8 +106,6 @@ ___________
 		:param global_background: Sets the global setting "background"
 		:type global_background: bool
 
-	.. rubric:: Inputter of Logger
-
 	.. py:method:: empty(entry: str) -> None
 
 		Empty logging: A type denoting an "empty" entry - an entry that carries nothing but the purest text.
@@ -149,7 +143,7 @@ ___________
 		:param message: A string that will replace the previous one by position
 		:type message: str
 
-	.. py:method:: catchy(number_string: int) -> str
+	.. py:method:: catchy([number_string: int = -1]) -> str
 
 		A method that extracts the given string from the Logger Buffer and returns.
 
@@ -162,7 +156,7 @@ ___________
 		:return: The specified string
 		:rtype: str
 
-	.. py:method:: extractly(number_string: int) -> None
+	.. py:method:: extractly([number_string: int = -1]) -> None
 
 		A method that extracts the given string from the Logger Buffer without returning.
 
@@ -220,8 +214,6 @@ ___________
 		:type input_text: str
 		:return: The string entered by the user
 		:rtype: str
-
-	.. rubric:: Modifier of Logger
 
 	.. py:method:: sort(key: SortingKeyType) -> None
 
@@ -296,8 +288,6 @@ ___________
 		:param export_file_name: The name of the file where you want to save the csv table
 		:type export_file_name: str
 
-	.. rubric:: Publishers
-
 	.. py:method:: publish_id() -> None
 
 		A method that publishes information about the Logger ID in the Logger's Buffer.
@@ -340,8 +330,6 @@ ___________
 
 		.. versionadded:: 0.7.0
 
-	.. rubric:: Entering to Logger
-
 	.. py:method:: entry(entry_type: EntryType, message_text: str[, local_settings: dict = None]) -> None
 
 		A method that generates and adds an entry to the Logger.
@@ -354,8 +342,6 @@ ___________
 		:type message_text: str
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
-
-	.. rubric:: Entering to Processes
 
 	.. py:method:: start_indefinite_process(message_text: str[, animation: IndefiniteAnimationType = IndefiniteAnimations.Line, local_settings: dict = None]) -> None
 
@@ -443,8 +429,6 @@ ___________
 		:type message_text: str
 		:param local_settings: Dictionary of local entering settings
 		:type local_settings: dict
-
-	.. rubric:: Entering to Timer
 
 	.. py:method:: start_timer(message_text: str[, local_settings: dict = None]) -> None
 

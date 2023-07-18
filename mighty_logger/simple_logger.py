@@ -38,7 +38,6 @@ class Logger(Singleton):
 		global_invert_font: bool = False,
 		global_background: bool = False
 	) -> None:
-
 		if not hasattr(self, "_Logger__logger"):
 			if MightyLogger._instance is not None:
 				self.__logger = MightyLogger._instance

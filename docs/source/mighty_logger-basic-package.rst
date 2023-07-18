@@ -157,13 +157,26 @@ Class Exporter
 
 		.. versionadded:: v0.8.0
 
-	.. py:method:: export_to_csv()
+		:rtype: list[str]
+
+	.. py:method:: _clearing_entry(dirty_entry: str) -> str
+
+		A method that clears a string of formatting, since it is easier to use strings with pure text without formatting to parse entries.
+
+		.. versionadded:: v1.0.0
+
+		:param dirty_entry: The string to be cleared
+		:type dirty_entry: str
+		:return: Cleaned string
+		:rtype: str
+
+	.. py:method:: export_to_csv() -> None
 
 		The method that implements the export of Logger entries rows to the csv table format. The strings are converted into dictionaries, from which it will then be possible to assemble a csv table at the time the file is saved in the new format. This method does not implement saving the exported data.
 
 		.. versionadded:: v0.8.0
 
-	.. py:method:: save_to_csv(file_name: str)
+	.. py:method:: save_to_csv(file_name: str) -> None
 
 		Implements the saving of the generated dictionary strings to the csv file of the table.
 
@@ -196,7 +209,20 @@ Class Modifier
 
 		.. versionadded:: v0.7.1
 
-	.. py:method:: sort(key: SortingKeyType)
+		:rtype: list[str]
+
+	.. py:method:: _clearing_entry(dirty_entry: str) -> str
+
+		A method that clears a string of formatting, since it is easier to use strings with pure text without formatting to parse entries.
+
+		.. versionadded:: v1.0.0
+
+		:param dirty_entry: The string to be cleared
+		:type dirty_entry: str
+		:return: Cleaned string
+		:rtype: str
+
+	.. py:method:: sort(key: SortingKeyType) -> None
 
 		Method for sorting entries by key. The sort key is "sort by time", "sort by time in reverse order", "sort by category" and "sort by type".
 
@@ -205,7 +231,7 @@ Class Modifier
 		:param key: The key to sort by
 		:type key: SortingKeyType
 
-	.. py:method:: search(keyword: str, empty: bool)
+	.. py:method:: search(keyword: str, empty: bool) -> None
 
 		A method that implements the search for entries in messages by a words/letters/phrases. It is possible to enable search not only in entries, but also in empty (custom) entries.
 
@@ -216,7 +242,7 @@ Class Modifier
 		:param empty: Flag indicating whether to search in custom strings
 		:type empty: bool
 
-	.. py:method:: select(entry_type: EntryType)
+	.. py:method:: select(entry_type: EntryType) -> None
 
 		A method that selects entries either by a specific type or by an entire category.
 
@@ -262,7 +288,7 @@ _________________
 
 	.. _basic_text_buffer_append:
 
-	.. py:method:: append(message: str)
+	.. py:method:: append(message: str) -> None
 
 		Adds a string to the end of the Text Buffer.
 
@@ -276,7 +302,7 @@ _________________
 
 	.. _basic_text_buffer_insert:
 
-	.. py:method:: insert(number_string: int, message: str)
+	.. py:method:: insert(number_string: int, message: str) -> None
 
 		Adds a string to the middle of the Text Buffer at the specified position.
 
@@ -292,7 +318,7 @@ _________________
 
 	.. _basic_text_buffer_replace:
 
-	.. py:method:: replace(number_string: int, message: str)
+	.. py:method:: replace(number_string: int, message: str) -> None
 
 		Replaces a specific string in a Text Buffer. If there is no such string, the method fills the list with empty strings up to the required position and *adds* the string.
 
@@ -324,7 +350,7 @@ _________________
 
 	.. _basic_text_buffer_remove:
 
-	.. py:method:: remove(file_name: str)
+	.. py:method:: remove([number_string: int = -1]) -> None
 
 		Deletes without returning the specified string from the Text Buffer.
 
@@ -338,7 +364,7 @@ _________________
 
 	.. _basic_text_buffer_clear:
 
-	.. py:method:: clear()
+	.. py:method:: clear() -> None
 
 		Clears the entire Text Buffer, making it empty.
 
@@ -349,7 +375,7 @@ _________________
 
 	.. _basic_text_buffer_save:
 
-	.. py:method:: save(name_file: str, clean: bool)
+	.. py:method:: save(name_file: str, clean: bool) -> None
 
 		Saves the text of the Text Buffer to a file.
 
@@ -365,7 +391,7 @@ _________________
 
 	.. _basic_text_buffer_load:
 
-	.. py:method:: load(name_file: str)
+	.. py:method:: load(name_file: str) -> None
 
 		Loads the text of the Text Buffer from a file.
 
@@ -395,7 +421,7 @@ _________________
 
 	.. _basic_text_buffer_update_console:
 
-	.. py:method:: update_console(file_name: str)
+	.. py:method:: update_console() -> None
 
 		Refreshes the console, erasing output text and outputting an updated buffer.
 
@@ -408,7 +434,7 @@ _________________
 
 	.. _basic_text_buffer_update_entry:
 
-	.. py:method:: update_entry(file_name: str)
+	.. py:method:: update_entry() -> None
 
 		Rewrites the last line of output after updating the last line of the buffer. Used (mostly) by the Progress bar (that is Progress string).
 
@@ -418,6 +444,19 @@ _________________
 
 		.. seealso::
 			- Read the basic method definition :ref:`TextBufferType.update_entry() <text_buffer_type_update_entry>`.
+
+	.. _basic_text_buffer_output_entry:
+
+	.. py:method:: output_entry() -> None
+
+		Appends to the console the string added by the ``append()`` method.
+
+		.. versionadded:: v1.0.0
+
+		:raises NotImplementedError: Method output_entry() is not implemented in the base class
+
+		.. seealso::
+			- Read the basic method definition :ref:`TextBufferType.output_entry() <text_buffer_type_output_entry>`.
 
 .. py:class:: TextBuffer(env: EnvironmentType[, console_width: int = 60])
 
@@ -437,7 +476,7 @@ _________________
 
 	.. _text_buffer_append:
 
-	.. py:method:: append(message: str)
+	.. py:method:: append(message: str) -> None
 
 		Adds a string to the end of the Text Buffer.
 
@@ -453,7 +492,7 @@ _________________
 
 	.. _text_buffer_insert:
 
-	.. py:method:: insert(number_string: int, message: str)
+	.. py:method:: insert(number_string: int, message: str) -> None
 
 		Adds a string to the middle of the Text Buffer at the specified position.
 
@@ -469,7 +508,7 @@ _________________
 
 	.. _text_buffer_replace:
 
-	.. py:method:: replace(number_string: int, message: str)
+	.. py:method:: replace(number_string: int, message: str) -> None
 
 		Replaces a specific string in a Text Buffer. If there is no such string, the method fills the list with empty strings up to the required position and *adds* the string.
 
@@ -503,7 +542,7 @@ _________________
 
 	.. _text_buffer_remove:
 
-	.. py:method:: remove(file_name: str)
+	.. py:method:: remove([number_string: int = -1]) -> None
 
 		Deletes without returning the specified string from the Text Buffer.
 
@@ -517,7 +556,7 @@ _________________
 
 	.. _text_buffer_clear:
 
-	.. py:method:: clear()
+	.. py:method:: clear() -> None
 
 		Clears the entire Text Buffer, making it empty.
 
@@ -528,7 +567,7 @@ _________________
 
 	.. _text_buffer_save:
 
-	.. py:method:: save(name_file: str, clean: bool)
+	.. py:method:: save(name_file: str, clean: bool) -> None
 
 		Saves the text of the Text Buffer to a file.
 
@@ -544,7 +583,7 @@ _________________
 
 	.. _text_buffer_load:
 
-	.. py:method:: load(name_file: str)
+	.. py:method:: load(name_file: str) -> None
 
 		Loads the text of the Text Buffer from a file.
 
@@ -574,7 +613,7 @@ _________________
 
 	.. _text_buffer_update_console:
 
-	.. py:method:: update_console(file_name: str)
+	.. py:method:: update_console() -> None
 
 		Refreshes the console, erasing output text and outputting an updated buffer.
 
@@ -587,7 +626,7 @@ _________________
 
 	.. _text_buffer_update_entry:
 
-	.. py:method:: update_entry(file_name: str)
+	.. py:method:: update_entry() -> None
 
 		Rewrites the last line of output after updating the last line of the buffer. Used (mostly) by the Progress bar (that is Progress string).
 
@@ -595,3 +634,14 @@ _________________
 
 		.. seealso::
 			- Read the basic method definition :ref:`TextBufferType.update_entry() <text_buffer_type_update_entry>`.
+
+	.. _text_buffer_output_entry:
+
+	.. py:method:: output_entry() -> None
+
+		Appends to the console the string added by the ``append()`` method.
+
+		.. versionadded:: v1.0.0
+
+		.. seealso::
+			- Read the basic method definition :ref:`TextBufferType.output_entry() <text_buffer_type_output_entry>`.

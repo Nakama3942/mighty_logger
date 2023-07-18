@@ -290,7 +290,6 @@ ANSI Format
 
 	.. danger:: This is a hidden function that is inaccessible outside the library.
 
-.. rubric:: function GetAnsiFormat
 .. py:function:: GetAnsiFormat(ansi_address: str) -> str
 
 	Returns the ANSI escape code value.

@@ -99,3 +99,5 @@ Example
 		logger.export_to_csv("export_logs")
 
 		logger.savy("log", False)
+
+.. image:: _static/anim_example.webp
